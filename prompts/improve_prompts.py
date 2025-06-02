@@ -39,7 +39,7 @@ def improve_sys_prompt(src_lang, tgt_lang, software_type, source_type):
 
 def improve_prompt(
     src_lang, tgt_lang, json_str, refer_data_list, specific_names=None, 
-    is_xlsx=False, suggestions=None, pimproved_text=None
+    is_xlsx=False, suggestions=None, translated_text=None
 ):
     '''
     The task assigned to LLM for Re-Translation based on failure reason or error feedback.
@@ -75,7 +75,7 @@ def improve_prompt(
                 "Review the translation to ensure it does not include any words from 'suggestions'.",
                 "If the words in 'specific_term_translations', use the translation in 'specific_term_translations'.",
             ],
-            "last_translation": pimproved_text if pimproved_text else None,
+            "last_translation": translated_text if translated_text else None,
             "suggestions": suggestions,
         }
     }

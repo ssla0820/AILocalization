@@ -18,52 +18,99 @@ from prompts.improve_prompts import *
 from config import translate_config as conf
 from pages.general_functions import *
 from database.search_similar_pair import main as search_similar_pair_main
+import json
 
 
-def make_model_object(model_list, software_type, source_type, source_lang, target_lang, image_path, type):
+def parse_json_column(value):
+    """
+    Parse a JSON string from Excel back to a Python dictionary/list.
+    """
+    if isinstance(value, str) and value.strip().startswith('{') and value.strip().endswith('}'):
+        try:
+            return json.loads(value)
+        except json.JSONDecodeError:
+            return value
+    return value
+
+
+def make_model_object(model_list, software_type, source_type, source_lang, target_lang, image_path):
     chat_obj_list = []
     # Create LLM chat instance
     for model_name in model_list:
-        if type == 'review':
-            if 'gemini' in model_name:
-                # Create Gemini API chat instance
-                
-                chat_obj_list.append(
+        if 'gemini' in model_name:
+            # Create Gemini API chat instance
+            
+            chat_obj_list.append(
+                [
                     GeminiAPIChat(
                         model_name=model_name,
-                        system_prompt=review_sys_prompt(source_lang, target_lang, software_type, source_type),
+                        system_prompt=review_sys_prompt_accuracy(source_lang, target_lang, software_type, source_type),
                         image_path=image_path
-                    )
-                )
-            else:
-                # Create LLM chat instance
-                chat_obj_list.append(
-                    OpenaiAPIChat(
+                    ),
+                    GeminiAPIChat(
                         model_name=model_name,
-                        system_prompt= review_sys_prompt(source_lang, target_lang, software_type, source_type),
+                        system_prompt=review_sys_prompt_native(source_lang, target_lang, software_type, source_type),
                         image_path=image_path
-                    )
+                    ),
+                    GeminiAPIChat(
+                        model_name=model_name,
+                        system_prompt=review_sys_prompt_word(source_lang, target_lang, software_type, source_type),
+                        image_path=image_path
+                    ),
+                    GeminiAPIChat(
+                        model_name=model_name,
+                        system_prompt=review_sys_prompt_grammar(source_lang, target_lang, software_type, source_type),
+                        image_path=image_path
+                    ),
+                    GeminiAPIChat(
+                        model_name=model_name,
+                        system_prompt=review_sys_prompt_consistency(source_lang, target_lang, software_type, source_type),
+                        image_path=image_path
+                    ),
+                    GeminiAPIChat(
+                        model_name=model_name,
+                        system_prompt=review_sys_prompt_gender(source_lang, target_lang, software_type, source_type),
+                        image_path=image_path
+                    ),
+                ]
             )
-        elif type == 'improve':
-            # if 'gemini' in model_name:
-            #     # Create Gemini API chat instance
-            #     chat_obj_list.append(
-            #         GeminiAPIChat(
-            #             model_name=model_name,
-            #             system_prompt=improve_sys_prompt(source_lang, target_lang, software_type, source_type),
-            #             image_path=image_path
-            #         )
-            #     )
-            # else:
+        else:
             # Create LLM chat instance
             chat_obj_list.append(
-                OpenaiAPIChat(
-                    model_name='gpt-4o',
-                    system_prompt=improve_sys_prompt(source_lang, target_lang, software_type, source_type),
-                    image_path=image_path
-                )
-            )
-    
+                [
+                    OpenaiAPIChat(
+                        model_name=model_name,
+                        system_prompt= review_sys_prompt_accuracy(source_lang, target_lang, software_type, source_type),
+                        image_path=image_path
+                    ),
+                    OpenaiAPIChat(
+                        model_name=model_name,
+                        system_prompt= review_sys_prompt_native(source_lang, target_lang, software_type, source_type),
+                        image_path=image_path
+                    ),
+                    OpenaiAPIChat(
+                        model_name=model_name,
+                        system_prompt= review_sys_prompt_word(source_lang, target_lang, software_type, source_type),
+                        image_path=image_path
+                    ),
+                    OpenaiAPIChat(
+                        model_name=model_name,
+                        system_prompt= review_sys_prompt_grammar(source_lang, target_lang, software_type, source_type),
+                        image_path=image_path
+                    ),
+                    OpenaiAPIChat(
+                        model_name=model_name,
+                        system_prompt= review_sys_prompt_consistency(source_lang, target_lang, software_type, source_type),
+                        image_path=image_path
+                    ),
+                    OpenaiAPIChat(
+                        model_name=model_name,
+                        system_prompt= review_sys_prompt_gender(source_lang, target_lang, software_type, source_type),
+                        image_path=image_path
+                    ),
+                ]
+        )
+
     # print(f'======================Used System Prompt======================')
     # print(chat_obj_list[0].sys_prompt)
     # print(f'======================Used System Prompt======================')
@@ -188,6 +235,7 @@ def compress_prompt_for_token_limit(prompt, level=1):
     
     return prompt  # Default case
 
+
 async def review_n_improve_process(source_lang,
                                     target_lang,
                                     software_type,
@@ -199,282 +247,250 @@ async def review_n_improve_process(source_lang,
                                     image_path,
                                     model_list=None, 
                                     review_chat_obj_list=None, 
-                                    improve_chat_obj_list=None,
+                                    improve_chat=None,
                                     temperature=0.3, 
                                     seed=None,
-                                    review_path=None):
+                                    review_path=None,
+                                    max_retry_times=3):
     
     # 如果沒有提供聊天對象，則創建新的
     if not review_chat_obj_list:
-        review_chat_obj_list = make_model_object(model_list, software_type, source_type, source_lang, target_lang, image_path, type='review')
+        review_chat_obj_list = make_model_object(model_list, software_type, source_type, source_lang, target_lang, image_path)
     
-    if not improve_chat_obj_list:
-        improve_chat_obj_list = make_model_object(model_list, software_type, source_type, source_lang, target_lang, image_path, type='improve')
-    
+    if not improve_chat:
+        improve_chat = OpenaiAPIChat(
+                    model_name='gpt-4o',
+                    system_prompt=improve_sys_prompt(source_lang, target_lang, software_type, source_type),
+                    image_path=image_path
+                )
     print(f'review_chat_obj_list: {review_chat_obj_list}')
-    print(f'improve_chat_obj_list: {improve_chat_obj_list}')
+    print(f'improve_chat_obj_list: {improve_chat}')
+    print(f'Get translated text: {translated_text}')
 
-    try:
-        review_result_dict = {"source_text": source_text}
+    # try:
+    review_result_dict = {"source_text": source_text}
+    reviewed_dict = {}
+    improved_dict = {0: translated_text}
+    process_pass_flag = False
+
+    for retry_time in range(max_retry_times):
+        print(f'Current Doing {retry_time+1} times translation...')
+        
         for _ in range(len(model_list)):
             model_name = model_list[_]
-            review_chat = review_chat_obj_list[_]
-            improve_chat = improve_chat_obj_list[_]
             print(f'========================Used Model: {model_name}========================')
+            check_item_index_dict = {
+                    0: 'accuracy',
+                    1: 'native usage',
+                    2: 'word correctness',
+                    3: 'sentence structure',
+                    4: 'consistency',
+                    5: 'gender neutrality'
+                }
+            raw_review_response_dict ={}
+            for check_item_index in range(len(review_chat_obj_list[_])):
+                print(f'===========Checking Point: {check_item_index_dict[check_item_index]}===========')
 
-            kwargs = {"temperature": temperature}
-            if seed is not None:
-                kwargs["seed"] = seed
+                review_chat = review_chat_obj_list[_][check_item_index]
+                kwargs = {"temperature": temperature}
+                if seed is not None:
+                    kwargs["seed"] = seed
 
-            suggestions_list = []
-            pimproved_text_list = []
-            review_pass_flag = True
-            
-            for retry_times in range(3):
-                print(f'Current Doing {retry_times+1} times translation...')
-                
                 # First - do the review
+                review_response = ''
+                review_stop_reason = ''
+                if check_item_index == 0:
+                    prompt_text = review_prompt_accuracy(source_lang, target_lang, source_text, translated_text, relevant_specific_names, relevant_pair_database)
+                elif check_item_index == 1:
+                    prompt_text = review_prompt_native(source_lang, target_lang, source_text, translated_text, relevant_specific_names, relevant_pair_database)
+                elif check_item_index == 2:
+                    prompt_text = review_prompt_word(source_lang, target_lang, source_text, translated_text, relevant_specific_names, relevant_pair_database)
+                elif check_item_index == 3:
+                    prompt_text = review_prompt_grammar(source_lang, target_lang, source_text, translated_text, relevant_specific_names, relevant_pair_database)
+                elif check_item_index == 4:
+                    prompt_text = review_prompt_consistency(source_lang, target_lang, source_text, translated_text, relevant_specific_names, relevant_pair_database)
+                elif check_item_index == 5:
+                    prompt_text = review_prompt_gender(source_lang, target_lang, source_text, translated_text, relevant_specific_names, relevant_pair_database)
+
+                # print('='*40)
+                # print(f'Current review prompt:\n{prompt_text}')
+                # print('='*40)
+
+                # Handle possible token limitation
                 try:
-                    review_response = ''
-                    review_stop_reason = ''
-                    review_prompt = review_prompt(source_lang, target_lang, source_text, translated_text, relevant_specific_names, relevant_pair_database)
-                    
-                    # Check if source or translated text is very long and may cause token issues
-                    if len(source_text) > 1000 or len(translated_text) > 1000:
-                        print("Long text detected, applying truncation to reduce token usage")
-                        truncated_source = truncate_text_for_token_limit(source_text)
-                        truncated_translated = truncate_text_for_token_limit(translated_text)
-                        review_prompt = review_prompt(source_lang, target_lang, truncated_source, truncated_translated, relevant_specific_names, relevant_pair_database)
-                    
-                    # Handle possible token limitation
-                    try:
-                        async for chunk, review_stop_reason in review_chat.get_stream_aresponse(review_prompt, **kwargs):
-                            review_response += chunk
-                            
-                        if review_stop_reason == 'length':
-                            # Token limit reached but we got partial response
-                            print("Review response exceeded length limit but received partial content.")
-                            # Continue with what we have if the response is substantial
-                            if len(review_response) > 200:  # Arbitrary threshold
-                                print("Using partial response as it contains substantial content.")
-                            else:
-                                raise RuntimeError("Review response too short after hitting length limit.")
-                    except RuntimeError as e:
-                        print(f"Review process failed: {str(e)}")
-                        review_response = "Translation review failed due to length limit or other issues."
+                    async for chunk, review_stop_reason in review_chat.get_stream_aresponse(prompt_text, **kwargs):
+                        review_response += chunk
                         
-                        # Progressive retry with more compressed prompts
-                        for compression_level in range(1, 4):  # Try levels 1-3
-                            try:
-                                print(f"Attempting retry with compression level {compression_level}...")
-                                compressed_prompt = compress_prompt_for_token_limit(review_prompt, compression_level)
-                                
-                                simple_response = ''
-                                async for chunk, retry_stop_reason in review_chat.get_stream_aresponse(compressed_prompt, **kwargs):
-                                    simple_response += chunk
-                                    
-                                if retry_stop_reason != 'length' and len(simple_response) > 100:
-                                    review_response = simple_response
-                                    print(f"Successfully retrieved response with compression level {compression_level}")
-                                    break
-                            except Exception as e2:
-                                print(f"Compression level {compression_level} retry failed: {str(e2)}")
-                                # Continue to next compression level
-                                
-                except Exception as e:
-                    print(f"Outer review process failed: {str(e)}")
-                    review_response = "Translation review failed due to unexpected error."
-                
+                    if review_stop_reason == 'length':
+                        print("Review response exceeded length limit but received partial content.")
+                        raise RuntimeError("Review response too short after hitting length limit.")
+                    
+                except RuntimeError as e:
+                    print(f"Review process failed: {str(e)}")
+                    raise RuntimeError("Translation review failed due to length limit or other issues.")
+                        
                 print(f"Review response:\n {review_response}")
                 
                 # Parse the review response
                 review_response_json = as_json_obj(review_response)
-                if not review_response_json:
-                    print("Review response is empty or invalid JSON, attempting to extract useful information.")
-                    # Try to salvage some information from non-JSON response
-                    review_pass_flag = 'Error in review response'
-                    suggestions_list.append(review_response)
-                    
-                    # If the response contains text that looks like a review, extract it
-                    if len(review_response) > 100 and any(keyword in review_response.lower() for keyword in ["error", "improvement", "suggestion", "issue"]):
-                        # Continue with translation despite parsing error
-                        print("Found useful review content, continuing with translation improvement...")
-                    else:
-                        # No useful information, break the loop
-                        break
-                        
-                elif list(review_response_json["Improvement Suggestions"].values()) == [None]*6:
-                    print("No improvement suggestions found, proceeding with translation.")
-                    # No need to break, we can still proceed with the current translation
-                    # Add the current suggestions and proceed
-                    # suggestions_list.append(review_response_json["Improvement Suggestions"])
-                    # pimproved_text_list.append(translated_text)
-                    break
-                else:
-                    suggestions_list.append(review_response_json["Improvement Suggestions"])
-                    pimproved_text_list.append(translated_text)
-                
-                # Second - do the re-translation
-                improve_response = ''
-                improve_stop_reason = ''
-                
-                try:
-                    improve_prompt = improve_prompt(source_lang, target_lang, source_text, translated_text, relevant_specific_names, relevant_pair_database)
-                    
-                    # Apply same text truncation for long text
-                    if len(source_text) > 1000 or len(translated_text) > 1000:
-                        print("Long text detected, applying truncation for re-translation prompt")
-                        truncated_source = truncate_text_for_token_limit(source_text)
-                        truncated_translated = truncate_text_for_token_limit(translated_text)
-                        improve_prompt = improve_prompt(source_lang, target_lang, truncated_source, truncated_translated, relevant_specific_names, relevant_pair_database)
-                    
-                    try:
-                        async for chunk, improve_stop_reason in improve_chat.get_stream_aresponse(improve_prompt, temperature=0.01):
-                            improve_response += chunk
-                        
-                        if improve_stop_reason == 'length':
-                            # Token limit reached but we got partial response
-                            print("Re-translation response exceeded length limit but received partial content.")
-                            # Continue with what we have if the response is substantial
-                            if len(improve_response) > 200:  # Arbitrary threshold
-                                print("Using partial re-translation as it contains substantial content.")
-                            else:
-                                raise RuntimeError("Re-translation response too short after hitting length limit.")
-                    except RuntimeError as e:
-                        print(f"Re-translation process failed: {str(e)}")
-                        
-                        # Progressive retry with more compressed prompts
-                        for compression_level in range(1, 4):  # Try levels 1-3
-                            try:
-                                print(f"Attempting re-translation with compression level {compression_level}...")
-                                compressed_prompt = compress_prompt_for_token_limit(improve_prompt, compression_level)
-                                
-                                simple_response = ''
-                                async for chunk, retry_stop_reason in improve_chat.get_stream_aresponse(compressed_prompt, temperature=0.01):
-                                    simple_response += chunk
-                                    
-                                if retry_stop_reason != 'length' and len(simple_response) > 100:
-                                    improve_response = simple_response
-                                    print(f"Successfully retrieved re-translation with compression level {compression_level}")
-                                    break
-                            except Exception as e2:
-                                print(f"Re-translation compression level {compression_level} retry failed: {str(e2)}")
-                                # Continue to next compression level
-                        
-                        # If all progressive compression attempts fail, try a simple direct translation prompt
-                        if not improve_response or len(improve_response) < 100:
-                            try:
-                                print("Attempting basic translation prompt as last resort...")
-                                # Most basic translation prompt
-                                basic_prompt = f"Translate this from {source_lang} to {target_lang}: {source_text}"
-                                
-                                simple_response = ''
-                                async for chunk, _ in improve_chat.get_stream_aresponse(basic_prompt, temperature=0.01):
-                                    simple_response += chunk
-                                    
-                                improve_response = simple_response
-                            except Exception as e3:
-                                print(f"Basic translation prompt also failed: {str(e3)}")
-                                # Last fallback - keep original translation
-                                print("Using original translation as final fallback")
-                                improve_response = translated_text
-                        
-                except Exception as e:
-                    print(f"Outer re-translation process failed: {str(e)}")
-                    print("Using original translation as fallback")
-                    improve_response = translated_text
-                
-                print(f"Re-Translation response:\n {improve_response}")
-                
-                # Parse the re-translation response                
-                improve_json = as_json_obj(improve_response)
-                if not improve_json:
-                    print("Re-Translation response is not in expected JSON format, trying to extract translation.")
-                    # Try to use the response directly if it looks like a translation
-                    if len(improve_response) > len(source_text) * 0.5:  # Heuristic check
-                        # This looks like it could be a valid translation
-                        pimproved_text_list.append(translated_text)
-                        translated_text = improve_response
-                        print("Using non-JSON response as translation.")
-                    else:
-                        # Response too short or invalid, keep original
-                        print("Non-JSON response too short or invalid, keeping original translation.")
-                        review_pass_flag = 'Error in improve response'
-                        pimproved_text_list.append(improve_response)
-                        translated_text = translated_text  # Keep original
-                else:
-                    # Successfully parsed JSON
-                    pimproved_text_list.append(translated_text)
-                    translated_text = list(improve_json.values())[-1]
+                raw_review_response_dict[check_item_index_dict[check_item_index]] = review_response_json
 
-                if retry_times == 2:
-                    review_pass_flag = False
+            print(f"Raw review response dictionary for {retry_time+1} times: {raw_review_response_dict}")
 
-            if 'gemini' in model_name:
-                # Record results for this model
-                review_result_dict["translated_text_gemini"] = (
-                    translated_text + "\n" 
-                    if isinstance(translated_text, (dict, list)) 
-                    else translated_text
-                )
-                review_result_dict["suggestions_gemini"] = (
-                    "\n".join([str(s) for s in suggestions_list]) + "\n" 
-                    if isinstance(suggestions_list, (dict, list)) 
-                    else suggestions_list
-                )
-                review_result_dict["pimproved_text_gemini"] = (
-                    "\n".join([str(s) for s in pimproved_text_list]) + "\n" 
-                    if isinstance(pimproved_text_list, (dict, list))
-                    else pimproved_text_list
-                )
-                review_result_dict["review_pass_flag_gemini"] = review_pass_flag
+            if retry_time+1 not in reviewed_dict.keys():
+                reviewed_dict[retry_time+1] = {model_name: None}
+
+            if all (value is None for value in raw_review_response_dict.values()):
+                print("Review response is empty or invalid JSON, attempting to extract useful information.")
+                # Try to salvage some information from non-JSON response
+                process_pass_flag = f'Error in review response with {model_name}'
+                reviewed_dict[retry_time+1][model_name] = review_response
+                continue
+                    
             else:
-                review_result_dict["translated_text_gpt"] = (
-                    translated_text + "\n" 
-                    if isinstance(translated_text, (dict, list)) 
-                    else translated_text
-                )
-                review_result_dict["suggestions_gpt"] = (
-                    "\n".join([str(s) for s in suggestions_list]) + "\n" 
-                    if isinstance(suggestions_list, (dict, list)) 
-                    else suggestions_list
-                )
-                review_result_dict["pimproved_text_gpt"] = (
-                    "\n".join([str(s) for s in pimproved_text_list]) + "\n" 
-                    if isinstance(pimproved_text_list, (dict, list)) 
-                    else pimproved_text_list
-                )
-                review_result_dict["review_pass_flag_gpt"] = review_pass_flag
+                # # Check if the key exists in the dictionary
+                # if key not in reviewed_dict[retry_time+1][model_name]:
+                #     reviewed_dict[retry_time+1][model_name] = {}
+                review_response_dict = {}
+                for key, value in raw_review_response_dict.items():
+                    if value is None or not isinstance(value, dict):
+                        review_response_dict[key] = None
+                    else:
+                        review_response_dict[key] = value['Suggestions']
+                        
+                # Store the improvement suggestions
+                reviewed_dict[retry_time+1][model_name] = review_response_dict
+                print(f'reviewed_dict for {retry_time+1} times: {reviewed_dict}')
 
-        print('='*40)
-        print(review_result_dict)
-        print('='*40)
-        # Append review_result_dict to the "review_results.xlsx" file
-        if review_path:
-            # Load existing results if the file exists, otherwise create a new DataFrame
-            if os.path.exists(review_path):
-                try:
-                    existing_df = pd.read_excel(review_path)
-                except Exception as e:
-                    print(f"Error reading {review_path}: {e}")
-                    existing_df = pd.DataFrame()
+        print(f'Current reviewed_dict: {reviewed_dict}')
+
+        if type(process_pass_flag) == str and 'Error in review response' in process_pass_flag:
+            print("Error in review response, skipping re-translation.")
+            break
+        
+        if (retry_time+1) in reviewed_dict and all(value is None for val in reviewed_dict[retry_time+1].values() for value in val.values()):
+            print(f"All models returned None for review in attempt {retry_time+1}, skipping re-translation.")
+            process_pass_flag = True
+            break
+
+        # Second - do the re-translation
+        improve_response = ''
+        improve_stop_reason = ''
+        
+
+        # Combine the review suggestions into a single string
+        suggestions = []
+        for model_name, suggestions_list in reviewed_dict[retry_time+1].items():
+            if isinstance(suggestions_list, str):
+                suggestions.append(suggestions_list)
+            elif isinstance(suggestions_list, list):
+                suggestions.extend(suggestions_list)
+            elif isinstance(suggestions_list, dict):
+                suggestions.extend(list(suggestions_list.values()))
+        # suggestions = [s.strip() for s in suggestions if s.strip()]
+        print(f"Suggestions for re-translation: {suggestions}")
+
+        # Combine translated text (improved_dict) to a list
+        translated_text_list_str = str(list(improved_dict.values()))
+        print(f"Translated text list for re-translation: {translated_text_list_str}")
+
+        improve_text = improve_prompt(source_lang, target_lang, source_text, translated_text, relevant_specific_names, relevant_pair_database, suggestions=suggestions, translated_text=translated_text_list_str)
+        
+        # print(f'='*40)
+        # print(f'Current improve_text:\n{improve_text}')
+        # print(f'='*40)
+        try:
+            async for chunk, improve_stop_reason in improve_chat.get_stream_aresponse(improve_text, temperature=0.01):
+                improve_response += chunk
+            
+            if improve_stop_reason == 'length':
+                raise RuntimeError("Improve response too short after hitting length limit.")
+            
+        except RuntimeError as e:
+            print(f"Improve process failed: {str(e)}")
+        
+        print(f"Improve raw response:\n {improve_response}")
+        
+        # Parse the re-translation response                
+        improve_json = as_json_obj(improve_response)
+        if not improve_json:
+            print("Improve response is not in expected JSON format, trying to extract translation.")
+            translated_text = improve_response
+            improved_dict[retry_time+1] = translated_text
+            process_pass_flag = 'Error in improve response'
+            break
+
+        else:
+            translated_text = list(improve_json.values())[-1]
+            improved_dict[retry_time+1] = translated_text
+
+        if retry_time == 2:
+            process_pass_flag = False
+
+    if 2 not in reviewed_dict.keys(): reviewed_dict[2] = {}
+    if 3 not in reviewed_dict.keys(): reviewed_dict[3] = {}
+
+    for model_name in model_list:
+        if model_name not in reviewed_dict[2].keys():
+            reviewed_dict[2][model_name] = 'N/A'
+        if model_name not in reviewed_dict[3].keys():
+            reviewed_dict[3][model_name] = 'N/A'
+
+    if 1 not in improved_dict.keys(): improved_dict[1] = 'N/A'
+    if 2 not in improved_dict.keys(): improved_dict[2] = 'N/A'
+    if 3 not in improved_dict.keys(): improved_dict[3] = 'N/A'
+
+    print(f'Current review result: {reviewed_dict}')
+    print(f'Current improved result: {improved_dict}')
+
+    for key, value in reviewed_dict.items():
+        for model_name, suggestions in value.items():
+            # Format suggestions dictionary with proper indentation if it's a dictionary
+            if isinstance(suggestions, dict):
+                import json
+                # Store as a formatted JSON string with indentation
+                review_result_dict[f"{model_name}_review_{key}"] = json.dumps(suggestions, indent=4)
             else:
+                review_result_dict[f"{model_name}_review_{key}"] = suggestions
+        
+        review_result_dict[f"improved_{key}"] = improved_dict[key]
+
+    review_result_dict["review_pass_flag"] = process_pass_flag
+    review_result_dict["final_translated_text"] = translated_text
+
+    print('='*40)
+    print(review_result_dict)
+    print('='*40)
+    # Append review_result_dict to the "review_results.xlsx" file
+    if review_path:
+        # Load existing results if the file exists, otherwise create a new DataFrame
+        if os.path.exists(review_path):
+            try:
+                existing_df = pd.read_excel(review_path)
+                # Parse any JSON strings in the DataFrame
+                for col in existing_df.columns:
+                    if "_review_" in col:
+                        existing_df[col] = existing_df[col].apply(parse_json_column)
+            except Exception as e:
+                print(f"Error reading {review_path}: {e}")
                 existing_df = pd.DataFrame()
+        else:
+            existing_df = pd.DataFrame()
 
-            # Convert the review result into a DataFrame row
-            new_df = pd.DataFrame([review_result_dict])
+        # Convert the review result into a DataFrame row
+        new_df = pd.DataFrame([review_result_dict])
 
-            # Append the new data
-            final_df = pd.concat([existing_df, new_df], ignore_index=True)
+        # Append the new data
+        final_df = pd.concat([existing_df, new_df], ignore_index=True)
 
-            # Save the updated results back to the Excel file
-            final_df.to_excel(review_path, index=False)
+        # Save the updated results back to the Excel file
+        final_df.to_excel(review_path, index=False)
+    return translated_text, process_pass_flag
 
-
-    except Exception as e:
-        error_message = str(e)
-        print(f"{error_message}")
-        return []
+    # except Exception as e:
+    #     error_message = str(e)
+    #     print(f"{error_message}")
+    #     return 'exception', error_message
 
 # 修改後的 compare_result 函數，修復了事件循環問題
 async def process_segments(
@@ -496,10 +512,9 @@ async def process_segments(
 ):
     review_results = []
     
-    # 建立模型物件，在循環外部只建立一次
-    review_chat_obj_list = make_model_object(model_list, software_type, source_type, source_lang, target_lang, image_path=None, type='review')
-    improve_chat_obj_list = make_model_object(model_list, software_type, source_type, source_lang, target_lang, image_path=None, type='improve')
-    
+    # # 建立模型物件，在循環外部只建立一次
+    # review_chat_obj_list = make_model_object(model_list, software_type, source_type, source_lang, target_lang, image_path=None)
+
     for i, key in enumerate(sorted(common_keys, key=lambda x: int(x))):
         print(f"Comparing segment {i+1}/{len(common_keys)}")
         
@@ -535,8 +550,8 @@ async def process_segments(
             relevant_pair_database=relevant_pair_database,
             image_path=None,
             model_list=model_list,
-            review_chat_obj_list=review_chat_obj_list,
-            improve_chat_obj_list=improve_chat_obj_list,
+            # review_chat_obj_list=review_chat_obj_list,
+            # improve_chat=improve_chat,
             temperature=temperature,
             seed=seed,
             review_path=review_report_path
@@ -597,40 +612,40 @@ def compare_result(
     
     # 正確設置和管理事件循環
     print("Comparing segments...")
-    try:
-        # 使用一個新的事件循環
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-        
-        # 運行非同步處理函數
-        results = loop.run_until_complete(
-            process_segments(
-                source_groups,
-                target_groups,
-                common_keys,
-                is_xlsx_file,
-                model_list,
-                software_type,
-                source_type,
-                source_lang,
-                target_lang,
-                specific_names,
-                translate_refer,
-                database_path,
-                temperature,
-                seed,
-                review_report_path
-            )
+    # try:
+    # 使用一個新的事件循環
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    
+    # 運行非同步處理函數
+    results = loop.run_until_complete(
+        process_segments(
+            source_groups,
+            target_groups,
+            common_keys,
+            is_xlsx_file,
+            model_list,
+            software_type,
+            source_type,
+            source_lang,
+            target_lang,
+            specific_names,
+            translate_refer,
+            database_path,
+            temperature,
+            seed,
+            review_report_path
         )
+    )
+    
+    # 最後關閉事件循環
+    loop.close()
+    
+    # 處理結果
+    review_results.extend(results)
         
-        # 最後關閉事件循環
-        loop.close()
-        
-        # 處理結果
-        review_results.extend(results)
-        
-    except Exception as e:
-        print(f"Error during review: {e}")
+    # except Exception as e:
+    #     print(f"Error during review: {e}")
     
     # 可以在這裡處理和保存比較結果
     print("review processing completed")
@@ -670,7 +685,7 @@ def main(
     if database_path=="default":
         database_path = conf.DATABASE_PATH
     if model_list=="default":
-        model_list = conf.review_MODEL
+        model_list = conf.COMPARISON_MODEL
     print("Running in review mode...")
     print(f"Comparing Source file: {input_file_path}")
     print(f"Comparing Translated file: {output_file_path}")

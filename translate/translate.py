@@ -159,8 +159,6 @@ async def translate_groups(
         if database_path:
             relevant_pair_database = search_similar_pair_main(translate_dict={source_text_index: source_text}, database_path=database_path, grammar_top_n=5, term_top_n=5)
         print(f"Relevant specific names for translation: {relevant_pair_database}")
-        suggestions_list = []
-        pre_translated_text_list = []
         
         # Initialize the chat with image_path if provided
         chat = OpenaiAPIChat(
@@ -195,27 +193,28 @@ async def translate_groups(
         print(f"Translation response:\n {response}")
         if not as_json_obj(response):
             print("Translation response is empty, breaking the loop.")
-            continue
+            continue        
         translated_text = list(as_json_obj(response).values())[-1]
-        review_n_improve_process(source_lang,
-                                target_lang,
-                                software_type,
-                                source_type,
-                                source_text, 
-                                translated_text, 
-                                relevant_specific_names,
-                                relevant_pair_database,
-                                image_path,
-                                model_list=conf.COMPARISON_MODEL, 
-                                temperature=conf.TEMPERATURE, 
-                                seed=conf.SEED,
-                                review_path=review_report_path)
+        # Add await to properly call the async function
+        translated_text, review_pass_flag = await review_n_improve_process(source_lang,
+                                            target_lang,
+                                            software_type,
+                                            source_type,
+                                            source_text, 
+                                            translated_text, 
+                                            relevant_specific_names,
+                                            relevant_pair_database,
+                                            image_path,
+                                            model_list=conf.COMPARISON_MODEL, 
+                                            temperature=conf.TEMPERATURE, 
+                                            seed=conf.SEED,
+                                            review_path=review_report_path)
 
         groups_out[source_text_index] = translated_text
 
         debug_process(source_text_index, source_text, relevant_specific_names, relevant_pair_database, p, response, list(as_json_obj(response).values())[-1])
 
-    print(f"Translation response: {groups_out}")
+    print(f"Translation response--2: {groups_out}")
     # Ensure groups_out has the exact same keys as groups_in to preserve structure
     if groups_out and set(groups_out.keys()) != set(groups_in.keys()):
         print("Warning: Translated structure doesn't match original structure. Attempting to fix...")
@@ -233,12 +232,12 @@ async def translate_groups(
         if extra_keys:
             print(f"Warning: Found extra keys in translation response: {extra_keys}")
         
-        groups_out = fixed_groups_out
-    
+        groups_out = fixed_groups_out    
     # Check if the groups_map contains actual HTML elements or is from Excel (with None elements)
     is_excel_translation = all(group.elements[0] is None for group in groups_map.values())
     
-    restruct_process(is_excel_translation, groups_in, groups_out, groups_map)
+    # Add await to properly call the async function
+    await restruct_process(is_excel_translation, groups_in, groups_out, groups_map)
 
 async def translation_pipeline(
         soup: BeautifulSoup,
