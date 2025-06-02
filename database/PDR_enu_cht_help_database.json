@@ -1,0 +1,814 @@
+{
+  "1": [
+    "The PhotoDirector Launcher",
+    "相片大師啟動面板"
+  ],
+  "2": [
+    "Select the face in the photo you want to edit, and then use all of the below tools to beautify it.",
+    "請選取相片中您要編輯的臉部，然後使用下方的所有工具來進行美化。"
+  ],
+  "3": [
+    "Wrinkle removerWrinkle Remover",
+    "除紋工具除紋工具"
+  ],
+  "4": [
+    "Masksskin toneSkintoneSkin Tone",
+    "遮色片皮膚色調皮膚色調皮膚色調"
+  ],
+  "5": [
+    "To use Skin Tone, do this:",
+    "若要使用「皮膚色調」功能，請按以下步驟進行："
+  ],
+  "6": [
+    "Pen Tool",
+    "畫筆工具"
+  ],
+  "7": [
+    "This chapter outlines the CyberLink PhotoDirector workspace, and all of its features.",
+    "本章概述訊連科技相片大師工作區及其所有功能。"
+  ],
+  "8": [
+    "PhotoDirector Modules",
+    "相片大師模組"
+  ],
+  "9": [
+    "if required, click the Customize launcher shortcuts option to change which feature shortcuts appear in launcher window.",
+    "如有需要，按一下自訂啟動面板的快速鍵選項可變更要在啟動面板視窗中顯示的功能快速鍵。"
+  ],
+  "10": [
+    "Height:",
+    "高度："
+  ],
+  "11": [
+    "use this slider to adjust the height of the eyes.",
+    "此滑桿用來調整眼睛的高度。"
+  ],
+  "12": [
+    "Width:",
+    "寬度："
+  ],
+  "13": [
+    "The Wrinkle Remover option can eliminate wrinkles on the faces in your photos.",
+    "「除紋工具」選項可消除相片中臉部的細紋。"
+  ],
+  "14": [
+    "To remove objects in a photo using AI Object Removal, do this:",
+    "若要使用「AI 物件移除工具」來移除相片中的物件，請按以下步驟進行："
+  ],
+  "15": [
+    "Click L to adjust just the left side of the jaw, or R to adjust just the right side.",
+    "按一下 L 僅會調整下顎的左側；按一下 R 則僅會調整右側。"
+  ],
+  "16": [
+    "Click on the tab to change the shape of the eyebrows as follows:",
+    "按一下 頁標變更眉毛的形狀，選項如下："
+  ],
+  "17": [
+    "use the slider to set the amount of transparency for the imported image.",
+    "此滑桿用來設定匯入影像的透明度總量。"
+  ],
+  "18": [
+    "use this slider to adjust the size of the mouth.",
+    "此滑桿用來調整嘴巴的大小。"
+  ],
+  "19": [
+    "use this slider to adjust the vertical location of the mouth on the face.",
+    "此滑桿用來調整嘴巴在臉部的垂直位置。"
+  ],
+  "20": [
+    "Select the Show feature points option to display points that should align to the outline of the persons face.",
+    "選取顯示特徵點選項可顯示調整點，以對齊人物臉部的輪廓。"
+  ],
+  "21": [
+    "Shape Tool",
+    "形狀工具"
+  ],
+  "22": [
+    "Fill Tool",
+    "填充工具"
+  ],
+  "23": [
+    "Gradient Tool",
+    "漸層工具"
+  ],
+  "24": [
+    "indicates the depth of the indents between the points of the star.",
+    "表示星形上各星芒點之間的內縮深度。"
+  ],
+  "25": [
+    "Click the Library button to open the photo library of CyberLink PhotoDirector.",
+    "按一下圖庫按鈕，可開啟訊連科技相片大師的相片庫。"
+  ],
+  "26": [
+    "When you import photos into CyberLink PhotoDirector, they are stored in the photo library.",
+    "將相片匯入訊連科技相片大師時，相片會儲存在相片庫中。"
+  ],
+  "27": [
+    "Once in the library you can organize them in a smart collection, folder, album, and by keyword tags.",
+    "匯入圖庫後，您即可依照智慧型集合、資料夾、相簿以及關鍵字標記來整理相片。"
+  ],
+  "28": [
+    "You can also adjust white balance, sharpness, color, and much, much more.",
+    "也可調整白平衡、銳利度、色彩等多項調整項目。"
+  ],
+  "29": [
+    "Expert",
+    "專業編輯"
+  ],
+  "30": [
+    "At any time during the editing process, you can:",
+    "在編輯程序期間，您隨時可以執行下列操作："
+  ],
+  "31": [
+    "Clicking the Undo button removes any changes you make on the current tab, returning to the point when you entered the current Face Tools tab.",
+    "按一下復原按鈕會移除您在目前頁標上所做的任何變更，返回使用目前「臉部工具」頁標的狀態。"
+  ],
+  "32": [
+    "If more than one face is detected in a selected photo, CyberLink PhotoDirector asks you which persons face you want to edit when you first enter.",
+    "如果所選相片中偵測到多個臉部，訊連科技相片大師會在您初次使用時詢問要編輯的人物臉部。"
+  ],
+  "33": [
+    "To use the Face Shaper, do this:",
+    "若要使用「塑臉」工具，請按以下步驟進行："
+  ],
+  "34": [
+    "Use Shine Remover to remove any shiny parts on the persons face.",
+    "使用「去油光」工具可移除人物臉部的油光部分。"
+  ],
+  "35": [
+    "To use the Shine Remover, do this:",
+    "若要使用「去油光」工具，請按以下步驟進行："
+  ],
+  "36": [
+    "Use the Strength slider to set the amount of shine removal applied.",
+    "使用強度滑桿設定去油光的套用總量。"
+  ],
+  "37": [
+    "To use the Wrinkle Remover tool, do this:",
+    "若要使用「除紋工具」，請按以下步驟進行："
+  ],
+  "38": [
+    "Click on the tab to use the manual selection tool to select the object you want to remove.",
+    "按一下 頁標使用手動選取工具來選取要移除的物件。"
+  ],
+  "39": [
+    "Click on an area on the object, and then click on another to create a line that selects the pixels that you want to remove.",
+    "在物件的區域上按一下，然後在另一個區域上再按一下，即可建立線條來選取要移除的像素。"
+  ],
+  "40": [
+    "Continue this process until the entire object is selected.",
+    "重複此程序，直到選取整個物件。"
+  ],
+  "41": [
+    "Click on Apply.",
+    "按一下套用，"
+  ],
+  "42": [
+    "If you want to edit another persons face, just click Change face and then select it.",
+    "如果您要編輯其他人物的臉部，只要在按一下變更臉部後選取即可。"
+  ],
+  "43": [
+    "use the slider to set the size of the text.",
+    "此滑桿用來設定文字的大小。"
+  ],
+  "44": [
+    "The Adjust Layer window displays.",
+    "「調整圖層」視窗會隨即顯示。"
+  ],
+  "45": [
+    "If required, select the Preview with all layers option to view all the layers with your recent adjustments applied.",
+    "如有需要，請選取預覽所有圖層選項來檢視所有圖層和您最近套用的調整。"
+  ],
+  "46": [
+    "If you want to remove the adjustments, youll need to press Ctrl+Z on your keyboard to undo the changes.",
+    "如果您想要移除調整，需要按下鍵盤快速鍵 Ctrl + Z 來復原所做的變更。"
+  ],
+  "47": [
+    "To use the pen tool, do this:",
+    "若要使用畫筆工具，請按以下步驟進行："
+  ],
+  "48": [
+    "To use the shape tool, do this:",
+    "若要使用形狀工具，請按以下步驟進行："
+  ],
+  "49": [
+    "Click and drag on the editing canvas to create a custom sized shape as required.",
+    "按一下並在編輯工作區上拖曳，視需要建立自訂大小的形狀。"
+  ],
+  "50": [
+    "indicates the size in pixels of created rectangles.",
+    "表示所建立矩形的像素大小。"
+  ],
+  "51": [
+    "when enabled, the created rectangles have round corners.",
+    "啟用此選項後，建立的矩形會採用圓角。"
+  ],
+  "52": [
+    "indicates the size in pixels of created ellipses.",
+    "表示所建立橢圓形的像素大小。"
+  ],
+  "53": [
+    "enter in how many sides you want the created polygons to have.",
+    "輸入要建立的多邊形邊數，"
+  ],
+  "54": [
+    "It must be a number between 3 and 100.",
+    "必須是介於 3 與 100 之間的數字。"
+  ],
+  "55": [
+    "For example, an indent of 50% will be half the size of the created star.",
+    "例如，內縮 50% 會是所建立星形的一半大小。"
+  ],
+  "56": [
+    "- when selected, you can draw two shapes, and the area that intersects is transparent in the shape layer.",
+    "- 選取此選項後，您可以繪製兩個形狀，相交的區域會在形狀圖層上呈現透明。"
+  ],
+  "57": [
+    "To use the fill tool, do this:",
+    "若要使用填充工具，請按以下步驟進行："
+  ],
+  "58": [
+    "To use the gradient tool, do this:",
+    "若要使用漸層工具，請按以下步驟進行："
+  ],
+  "59": [
+    "The Workspace",
+    "工作區"
+  ],
+  "60": [
+    "Doing this can completely change the color scheme of the photo, and ensure all your photos have the same look.",
+    "此操作可以完整變更相片的色彩配置，並確保所有相片的風格相同。"
+  ],
+  "61": [
+    "Enter a name for the folder, and then click Create.",
+    "輸入資料夾的名稱，然後按一下建立。"
+  ],
+  "62": [
+    "If required, click the Organize and Adjust option in the PhotoDirector launcher.",
+    "如有需要，按一下相片大師啟動面板的管理與調色選項。"
+  ],
+  "63": [
+    "You can create stunning images with the use of multiple images, text, masks, and more.",
+    "您可以多重使用影像/文字/遮色片等素材，以創作令人驚豔的影像作品。"
+  ],
+  "64": [
+    "To adjust photo layers, do this:",
+    "若要調整相片圖層，請按以下步驟進行："
+  ],
+  "65": [
+    "the adjustments on the photo layer cannot be edited once you exit the Adjust Photo window.",
+    "退出「調整相片」視窗後，便無法再編輯相片圖層的調整內容。"
+  ],
+  "66": [
+    "all the other layers are invisible when you enter the Adjust Layer window, so you can focus on adjusting the photo.",
+    "使用「調整圖層」視窗時，所有其他圖層不會顯示，因此您可以專注於調整該相片。"
+  ],
+  "67": [
+    "once you close the window, the adjustments are applied and cannot be edited by reentering the Adjust Layer window.",
+    "關閉視窗後，會隨即套用調整，且無法再次使用「調整圖層」視窗來編輯調整的內容。"
+  ],
+  "68": [
+    "Distance:",
+    "距離："
+  ],
+  "69": [
+    "The pen tool lets you draw colored pixels on a photo layer using the pencil, brush, or air brush.",
+    "畫筆工具可讓您使用鉛筆、筆刷或噴槍在相片圖層上繪製各種顏色的像素。"
+  ],
+  "70": [
+    "Draw on the editing canvas as required.",
+    "視需要在編輯工作區上繪製。"
+  ],
+  "71": [
+    "Depending on the type of shape you select, the shape tools vary.",
+    "視您選取的形狀類型而定，可用的形狀工具會有所不同。"
+  ],
+  "72": [
+    "When creating rectangles, the following shape tool options are available:",
+    "建立矩形時，您可以使用下列形狀工具選項："
+  ],
+  "73": [
+    "select how many points you want the created star to have.",
+    "選取要讓建立的星形有幾個星芒點，"
+  ],
+  "74": [
+    "The fill tool lets you fill in with color an area on your photo that has pixels of a similar color.",
+    "填充工具可讓您在具有相似色彩像素的相片區域上填入顏色。"
+  ],
+  "75": [
+    "Click on the similar colored pixels to fill them in as required.",
+    "視需要按一下相似色彩的像素來填色。"
+  ],
+  "76": [
+    "you can also use the fill tool in an area selected with the select area tool.",
+    "您也可以在透過區域選取工具所選的區域中使用填充工具。"
+  ],
+  "77": [
+    "You can rotate the entire canvas, or just a selected layer.",
+    "您可以旋轉整個工作區，或只旋轉選取的圖層。"
+  ],
+  "78": [
+    "if you try to adjust a non photo layer, CyberLink PhotoDirector will ask you to convert the layer to an image to continue.",
+    "如果您嘗試調整非相片圖層，訊連科技相片大師會要求您將該圖層轉換成影像，才可繼續作業。"
+  ],
+  "79": [
+    "Hold down the Ctrl key on your keyboard and then select all the shape layers in the Layer Manager you want to merge.",
+    "按住鍵盤上的 Ctrl 鍵，然後在「圖層管理員」中選取所有要合併的形狀圖層。"
+  ],
+  "80": [
+    "Click on the Shine Remover tab.",
+    "按一下去油光頁標。"
+  ],
+  "81": [
+    "The manual selection tool lets you select the pixels you want to remove using a brush.",
+    "手動選取工具可讓您使用筆刷來選取要移除的像素。"
+  ],
+  "82": [
+    "Click on the tab to use the line drawer tool to select the object you want to remove.",
+    "按一下 頁標使用線條繪製工具來選取要移除的物件。"
+  ],
+  "83": [
+    "The Face Shaper* lets you change the shape of a persons facial features in your photos.",
+    "「塑臉」*工具可讓您針對相片中的人物變更臉部特徵的形狀。"
+  ],
+  "84": [
+    "You can search for and download LUTs in a variety of formats (3DL, CMS, CSP, CUBE, M3D, MGA, RV3DLUT, VF), and then import and use them in CyberLink PhotoDirector.",
+    "您可以搜尋並下載各種格式 (3DL、CMS、CSP、CUBE、M3D、MGA、RV3DLUT、VF) 的 LUT，然後匯入訊連科技相片大師，在專案中使用。"
+  ],
+  "85": [
+    "On the My LUTs tab, click on each available LUT to preview the current photo with the adjustment applied.",
+    "在我的 LUT 頁標上，按一下每個可用的 LUT，預覽所選相片在套用調整後的結果。"
+  ],
+  "86": [
+    "As required, drag LUTs into the folder you created.",
+    "如有需要，將 LUT 拖曳到已建立的資料夾。"
+  ],
+  "87": [
+    "Select the Show feature points option to display points that should align with the facial feature you want to edit.",
+    "選取顯示特徵點選項可顯示調整點，以對齊要編輯的臉部特徵。"
+  ],
+  "88": [
+    "Click on the tab to change the shape of the face as follows:",
+    "按一下 頁標變更臉部的形狀，選項如下："
+  ],
+  "89": [
+    "use this slider to adjust the width of the face.",
+    "此滑桿用來調整臉部的寬度。"
+  ],
+  "90": [
+    "use this slider to adjust the height of the forehead.",
+    "此滑桿用來調整前額的高度。"
+  ],
+  "91": [
+    "use this slider to adjust the length of the chin.",
+    "此滑桿用來調整下巴的長度。"
+  ],
+  "92": [
+    "Click on the tab to change the shape of the mouth as follows:",
+    "按一下 頁標變更嘴巴的形狀，選項如下："
+  ],
+  "93": [
+    "Click on the Skin Tone tab.",
+    "按一下皮膚色調頁標。"
+  ],
+  "94": [
+    "If required, you can use the first slider to make the skin look cooler or warmer.",
+    "如有需要，您可以使用第一個滑桿使皮膚看起來偏冷色調或暖色調。"
+  ],
+  "95": [
+    "Modules",
+    "模組"
+  ],
+  "96": [
+    "if a face in your photo was not detected, click Add face to manually select it.",
+    "如果您的相片偵測不到臉部，請按一下新增臉部來手動選取。"
+  ],
+  "97": [
+    "Drag and resize the box so that it fits on the persons face, and then click Done.",
+    "拖曳並調整方塊的大小以符合該人物的臉部，然後按一下完成。"
+  ],
+  "98": [
+    "Click on the Face Shaper tab.",
+    "按一下塑臉頁標。"
+  ],
+  "99": [
+    "Forehead:",
+    "前額："
+  ],
+  "100": [
+    "Chin:",
+    "下巴："
+  ],
+  "101": [
+    "Jaw:",
+    "下顎："
+  ],
+  "102": [
+    "use this slider to adjust the width of the jaw.",
+    "此滑桿用來調整下顎的寬度。"
+  ],
+  "103": [
+    "Lift:",
+    "提高："
+  ],
+  "104": [
+    "use this slider to adjust the vertical location of the eyebrows on the face.",
+    "此滑桿用來調整眉毛在臉部的垂直位置。"
+  ],
+  "105": [
+    "Click on the tab to change the shape of the nose as follows:",
+    "按一下 頁標變更鼻子的形狀，選項如下："
+  ],
+  "106": [
+    "use this slider to adjust the size of the nose.",
+    "此滑桿用來調整鼻子的大小。"
+  ],
+  "107": [
+    "use this slider to adjust the length of the nose.",
+    "此滑桿用來調整鼻子的長度。"
+  ],
+  "108": [
+    "use this slider to adjust the width of the bridge of the nose.",
+    "此滑桿用來調整鼻樑的寬度。"
+  ],
+  "109": [
+    "use this slider to adjust the distance between the eyebrows.",
+    "此滑桿用來調整兩邊眉毛之間的距離。"
+  ],
+  "110": [
+    "Thickness:",
+    "厚度："
+  ],
+  "111": [
+    "use this slider to adjust the thickness of the eyebrows.",
+    "此滑桿用來調整眉毛的厚度。"
+  ],
+  "112": [
+    "Angle:",
+    "角度："
+  ],
+  "113": [
+    "Click on the Eye Brightener tab.",
+    "按一下提亮眼神頁標。"
+  ],
+  "114": [
+    "Use the Strength slider to set the amount of brightness applied.",
+    "使用強度滑桿設定明亮度的套用總量。"
+  ],
+  "115": [
+    "use this slider to adjust the angle of the eyebrows.",
+    "此滑桿用來調整眉毛的角度。"
+  ],
+  "116": [
+    "Enlarge:",
+    "放大："
+  ],
+  "117": [
+    "To use the Eye Brightener tool, do this:",
+    "若要使用「提亮眼神」工具，請按以下步驟進行："
+  ],
+  "118": [
+    "use this slider to adjust the size of the eyes.",
+    "此滑桿用來調整眼睛的大小。"
+  ],
+  "119": [
+    "use this slider to adjust the width of the eyes.",
+    "此滑桿用來調整眼睛的寬度。"
+  ],
+  "120": [
+    "use this slider to adjust the vertical location of the eyes on the face.",
+    "此滑桿用來調整眼睛在臉部的垂直位置。"
+  ],
+  "121": [
+    "use this slider to adjust the distance between the eyes.",
+    "此滑桿用來調整左右兩眼之間的距離。"
+  ],
+  "122": [
+    "ConcealerConcealer",
+    "遮瑕遮瑕"
+  ],
+  "123": [
+    "use this slider to adjust the angle of the eyes.",
+    "此滑桿用來調整眼睛的角度。"
+  ],
+  "124": [
+    "Pupil:",
+    "瞳孔："
+  ],
+  "125": [
+    "Enable the Auto apply plumpness control to have PhotoDirector auto apply plumpness on the persons face.",
+    "啟用自動加強澎潤度控制項，讓相片大師自動加強人物臉部的澎潤度。"
+  ],
+  "126": [
+    "Use any of the available controls to adjust the amount of plumpness applied on the different areas of the face.",
+    "使用任一可用的控制項，針對臉部的不同區塊來調整澎潤度的套用總量。"
+  ],
+  "127": [
+    "use this slider to adjust the size of the pupils.",
+    "此滑桿用來調整瞳孔的大小。"
+  ],
+  "128": [
+    "Eye bags:",
+    "眼袋："
+  ],
+  "129": [
+    "use this slider to adjust the size of the bags under the eyes.",
+    "此滑桿用來調整眼袋的大小。"
+  ],
+  "130": [
+    "Bridge:",
+    "鼻樑："
+  ],
+  "131": [
+    "Ala:",
+    "鼻翼："
+  ],
+  "132": [
+    "Use the Strength slider to set the amount of concealer applied.",
+    "使用強度滑桿設定遮瑕的套用總量。"
+  ],
+  "133": [
+    "Click on the Plumpness tab.",
+    "按一下澎潤度頁標。"
+  ],
+  "134": [
+    "use this slider to adjust the width of the base of the nose, i.e. ala positions.",
+    "此滑桿用來調整鼻翼的寬度，亦即鼻翼的位置。"
+  ],
+  "135": [
+    "use this slider to adjust the size of the tip of the nose.",
+    "此滑桿用來調整鼻尖的大小。"
+  ],
+  "136": [
+    "Tip:",
+    "鼻尖："
+  ],
+  "137": [
+    "Click on the Concealer tab.",
+    "按一下遮瑕頁標。"
+  ],
+  "138": [
+    "use this slider to adjust the thickness of the lips.",
+    "此滑桿用來調整嘴唇的厚度。"
+  ],
+  "139": [
+    "use this slider to adjust the amount of smile.",
+    "此滑桿用來調整微笑的幅度。"
+  ],
+  "140": [
+    "Smile:",
+    "微笑："
+  ],
+  "141": [
+    "Click on the tab to change the shape of the eyes as follows:",
+    "按一下 頁標變更眼睛的形狀，選項如下："
+  ],
+  "142": [
+    "deselect the Show launcher after closing program option if you dont want this launcher to display after closing the program.",
+    "取消選取關閉程式後顯示啟動面板選項可讓此啟動面板在關閉程式後不會顯示。"
+  ],
+  "143": [
+    "Click on each of the images to preview them.",
+    "在每張圖片上按一下可進行預覽。"
+  ],
+  "144": [
+    "When you click the Organize and Adjust option in the PhotoDirector launcher, the program displays as follows.",
+    "在您按一下相片大師啟動面板的管理與調色選項時，程式會顯示如下。"
+  ],
+  "145": [
+    "C - Adjustment Panel",
+    "C - 調整面板"
+  ],
+  "146": [
+    "D - Photo Browser Panel",
+    "D - 相片瀏覽器面板"
+  ],
+  "147": [
+    "E - Photo Viewer Window",
+    "E - 相片檢視器視窗"
+  ],
+  "148": [
+    "If you click the Edit option in the PhotoDirector launcher, the program displays as follows.",
+    "如果您按一下相片大師啟動面板的編輯選項，程式則會顯示如下。"
+  ],
+  "149": [
+    "C - Guided Panel",
+    "C - 引導編修面板"
+  ],
+  "150": [
+    "D - Photo Viewer Window",
+    "D - 相片檢視器視窗"
+  ],
+  "151": [
+    "Click and drag the corners and sides of the crop area as required to resize it.",
+    "視需要按一下滑鼠並拖曳裁切區域的角落和四周來調整大小。"
+  ],
+  "152": [
+    "See Exporting Photos in Adjust/Guided/Expert Modules for more information.",
+    "如需詳細資訊，請參閱在調整/引導編修/專業編輯模組中匯出相片。"
+  ],
+  "153": [
+    "If required, you can use the second slider to make the skin look lighter or have a more tanned look.",
+    "如有需要，您可以使用第二個滑桿使皮膚看起來較淺或偏小麥色。"
+  ],
+  "154": [
+    "Click on the Wrinkle Removal tab.",
+    "按一下除紋工具頁標。"
+  ],
+  "155": [
+    "Use the Strength slider to set the amount of wrinkle remover applied.",
+    "使用強度滑桿設定細紋移除的套用總量。"
+  ],
+  "156": [
+    "Use Teeth Whitener to make the persons teeth whiter.",
+    "使用「牙齒美白」工具可使人物的牙齒變白。"
+  ],
+  "157": [
+    "To use the Teeth Whitener, do this:",
+    "若要使用「牙齒美白」工具，請按以下步驟進行："
+  ],
+  "158": [
+    "Click on the Teeth Whitener tab.",
+    "按一下牙齒美白頁標。"
+  ],
+  "159": [
+    "Select the Show feature points option to display points that should align to the outline of the persons mouth.",
+    "選取顯示特徵點選項可顯示調整點，以對齊人物臉部的嘴巴。"
+  ],
+  "160": [
+    "Use the Strength slider to set the amount of teeth whitener applied.",
+    "使用強度滑桿設定牙齒美白的套用總量。"
+  ],
+  "161": [
+    "Use Face Smoother to smoothen the skin on the persons face.",
+    "使用「臉部柔膚」工具可使人物的臉部肌膚更加平滑。"
+  ],
+  "162": [
+    "To use Face Smoother, do this:",
+    "若要使用「臉部柔膚」工具，請按以下步驟進行："
+  ],
+  "163": [
+    "Click on the Face Smoother tab.",
+    "按一下臉部柔膚頁標。"
+  ],
+  "164": [
+    "Use the Strength slider to set the amount of face smoother applied.",
+    "使用強度滑桿設定臉部柔膚的套用總量。"
+  ],
+  "165": [
+    "Use the Blur degree slider to set the amount of blur applied.",
+    "使用模糊程度滑桿來設定要套用的模糊總量。"
+  ],
+  "166": [
+    "Deselect the shortcuts you want to remove, and then click Apply.",
+    "取消選取要移除的快速鍵，然後按一下套用。"
+  ],
+  "167": [
+    "If required, move the feature points to the proper locations on the mouth.",
+    "如有需要，將特徵點移至嘴巴的適當位置。"
+  ],
+  "168": [
+    "Select the photo in the Library window you want to use, and then click OK.",
+    "在「圖庫」視窗中選取您要使用的相片，然後按一下確定。"
+  ],
+  "169": [
+    "If required, move the feature points to the proper locations on the face.",
+    "如有需要，將特徵點移至臉部的適當位置。"
+  ],
+  "170": [
+    "If required, you can click the button to reset the feature points to their original position.",
+    "如有需要，您可以按一下 按鈕將特徵點重設為原始的位置。"
+  ],
+  "171": [
+    "for the best results, you may be asked to crop the source photo.",
+    "為取得最佳結果，可能會要求您裁切來源相片。"
+  ],
+  "172": [
+    "See Cropping Photos for the details.",
+    "如需詳細資訊，請參閱裁切相片。"
+  ],
+  "173": [
+    "If PhotoDirector asks you to crop the photo to ensure the best results, click the Yes button to crop it as follows:",
+    "如果相片大師要求您裁切相片以確保最佳結果，請按一下是按鈕來裁切，說明如下："
+  ],
+  "174": [
+    "The Target section will have the photo you want the face in the source photo to be applied.",
+    "「目標相片」區段則是來源相片中的人物臉部要套用的相片。"
+  ],
+  "175": [
+    "click Import Photo in the panel on the left to import a photo youd like to use.",
+    "在左側面板中按一下匯入相片，匯入您要使用的相片。"
+  ],
+  "176": [
+    "Getting familiar with the workspace is helpful, because it is where you spend all of your time when using CyberLink PhotoDirector.",
+    "工作區是您在使用訊連科技相片大師時最常使用的區域，因此熟悉工作區將很有助益。"
+  ],
+  "177": [
+    "A - Switch to Library/Adjust/Create",
+    "A - 切換到圖庫/調整/創作"
+  ],
+  "178": [
+    "B - Go to Guided/Expert",
+    "B - 前往引導編修/專業編輯"
+  ],
+  "179": [
+    "See Photo Library for more information.",
+    "如需詳細資訊，請參閱相片庫。"
+  ],
+  "180": [
+    "The Adjust module is where you touch up and make adjustments to the photos in your library.",
+    "「調整」模組可用來潤飾與調整圖庫中的相片。"
+  ],
+  "181": [
+    "Click the Adjust button to apply presets, crop and rotate photos, apply gradients, remove spots, red-eye, and make other corrections.",
+    "按一下調整按鈕，可套用風格檔、裁切/旋轉相片、套用漸層、移除斑點與紅眼，以及進行其他修正。"
+  ],
+  "182": [
+    "See Adjustments for more information.",
+    "如需詳細資訊，請參閱調整。"
+  ],
+  "183": [
+    "In this module you can use your photos to create slideshows with background music, animated GIFs, and Motion Stills™.",
+    "您可以在此模組中使用相片來製作含有背景音樂的幻燈片秀、GIF 動畫以及合成動畫™。"
+  ],
+  "184": [
+    "Click the Create button to access the Create module.",
+    "按一下創作按鈕可存取「創作」模組。"
+  ],
+  "185": [
+    "See Creating for more information on all the features in this window.",
+    "如需此視窗內所有功能的詳細資訊，請參閱創作。"
+  ],
+  "186": [
+    "In the GenAI Studio you can access all of PhotoDirectors generative AI features to create new photos, edit or enhance existing photos, generate headshots, and much more.",
+    "您可以在「GenAI 應用中心」存取所有相片大師的生成式 AI 功能，藉此建立新相片、編輯/提升現有的相片、生成形象照等多項操作。"
+  ],
+  "187": [
+    "Click the Guided button to touch up the faces in your photos, apply effects, remove objects and backgrounds, create panoramas and multi exposure photos, apply watermarks, stickers, and frames on your photos, and much more.",
+    "按一下引導編修按鈕，可潤飾相片中的臉孔、套用特效、移除物件與背景、製作全景相片與多重曝光相片、對相片套用浮水印、貼紙以及邊框等多項操作。"
+  ],
+  "188": [
+    "Click the Expert button to perform advanced photo composing using layers.",
+    "按一下專業編輯按鈕，可使用圖層執行進階的相片合成創作。"
+  ],
+  "189": [
+    "See Expert for detailed information.",
+    "如需詳細資訊，請參閱專業編輯。"
+  ],
+  "190": [
+    "Click the GenAI Studio option in the PhotoDirector launcher.",
+    "按一下相片大師啟動面板的 GenAI 應用中心選項。"
+  ],
+  "191": [
+    "If in the Library or Adjust module, click Edit and then select GenAI Studio.",
+    "如果是在「圖庫」或「調整」模組，請按一下編輯，然後選取 GenAI 應用中心。"
+  ],
+  "192": [
+    "CLUT Colorlook-up table Color LUT LUT",
+    "CLUT 色彩查找表 CLUT LUT"
+  ],
+  "193": [
+    "Your favorite LUTs will then be easier to find later on the My Favorites tab.",
+    "您之後可以在我的最愛頁標上輕鬆找到收藏的 LUT。"
+  ],
+  "194": [
+    "Use the Strength slider to set the strength of the applied LUT on the photo.",
+    "使用強度滑桿來設定相片套用 LUT 的強度。"
+  ],
+  "195": [
+    "Select the LUT file on your computer that you want to import, and then click Open.",
+    "選取電腦上您要匯入的 LUT 檔案，然後按一下開啟。"
+  ],
+  "196": [
+    "You can use Face Swap* to switch the faces in a pair of photos.",
+    "您可以使用換臉*來切換兩張相片的人物臉部。"
+  ],
+  "197": [
+    "With One Click Face Retouch* you can remove imperfections and enhance the smoothness in portrait photos.",
+    "您可以運用「一鍵美顏」*移除人像照中的瑕疵，並加強柔膚效果。"
+  ],
+  "198": [
+    "To use One Click Face Retouch, do this:",
+    "若要使用「一鍵美顏」，請按以下步驟進行："
+  ],
+  "199": [
+    "Click on the One Click Face Retouch tab.",
+    "按一下一鍵美���頁標。"
+  ],
+  "200": [
+    "Click Apply to enhance the photo.",
+    "按一下套用為相片套用美顏特效。"
+  ],
+  "201": [
+    "Ensure L+R is selected to adjust the entire jaw.",
+    "請確定已選取 L+R 以調整整個下顎。"
+  ],
+  "202": [
+    "Ensure L+R is selected to adjust the ala locations together.",
+    "請確定已選取 L+R 以同時調整左右兩側的鼻翼。"
+  ],
+  "203": [
+    "Ensure T+B is selected to adjust the thickness of both the top and bottom lips.",
+    "請確定已選取 T+B 以同時調整上唇與下唇的厚度。"
+  ]
+}

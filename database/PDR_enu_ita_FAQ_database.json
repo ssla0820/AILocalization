@@ -1,0 +1,1202 @@
+{
+  "1": [
+    "CPU",
+    "CPU"
+  ],
+  "2": [
+    "Hard Disk Space",
+    "Spazio su disco rigido"
+  ],
+  "3": [
+    "System requirements",
+    "Requisiti di sistema"
+  ],
+  "4": [
+    "To do this:",
+    "Procedere come segue:"
+  ],
+  "5": [
+    "Question:",
+    "Question:"
+  ],
+  "6": [
+    "Answer:",
+    "Answer:"
+  ],
+  "7": [
+    "Always restart the computer to refresh its memory after a system error occurs.",
+    "Riavviare sempre il computer per aggiornare la memoria dopo un errore di sistema."
+  ],
+  "8": [
+    "Related Articles:",
+    "Articoli correlati:"
+  ],
+  "9": [
+    "Is CyberLink compatible with Windows 8?",
+    "CyberLink è compatibile con Windows 8?"
+  ],
+  "10": [
+    "Yes, CyberLink is compatible with Windows 8.",
+    "Sì, CyberLink è compatibile con Windows 8."
+  ],
+  "11": [
+    "Where can I find more information or tutorial videos on how to use CyberLink ?",
+    "Dove è possibile trovare informazioni o video tutorial su come utilizzare CyberLink ?"
+  ],
+  "12": [
+    "Here are some useful resources to get you started with CyberLink :",
+    "Per iniziare a utilizzare CyberLink , sono disponibili alcune utili risorse:"
+  ],
+  "13": [
+    "Product introduction",
+    "Presentazione del prodotto"
+  ],
+  "14": [
+    "Software updates",
+    "Aggiornamenti software"
+  ],
+  "15": [
+    "User manual",
+    "Manuale utente"
+  ],
+  "16": [
+    "Video tutorials",
+    "Video tutorial"
+  ],
+  "17": [
+    "CyberLink YouTube channel",
+    "Canale YouTube di CyberLink"
+  ],
+  "18": [
+    "Knowledge base",
+    "Knowledge base"
+  ],
+  "19": [
+    "Members forum",
+    "Forum dei membri"
+  ],
+  "20": [
+    "If you have any compatibility questions about CyberLink , please feel free to download the free trial and try it out first.",
+    "In caso di dubbi sulla compatibilità di CyberLink , scaricare la prova gratuita per verificare prima dell’acquisto."
+  ],
+  "21": [
+    "Can I enter a serial number to activate the trial version of CyberLink as a full version?",
+    "È possibile inserire un numero di serie per attivare la versione di prova di CyberLink come versione completa?"
+  ],
+  "22": [
+    "OS",
+    "OS"
+  ],
+  "23": [
+    "Export",
+    "Esportazione"
+  ],
+  "24": [
+    "Note:",
+    "Nota:"
+  ],
+  "25": [
+    "edit audio files or the audio track of an imported video file.",
+    "modificare file audio o della traccia audio di un file video importato."
+  ],
+  "26": [
+    "record custom audio using a microphone or other input device, directly into the audio timeline.",
+    "registrare audio personalizzato utilizzando un microfono o altri dispositivi in ingresso, direttamente nella timeline audio."
+  ],
+  "27": [
+    "apply a number of effects to audio files, including delays, reverb, dynamic range compression, vocal removal, and more.",
+    "applicare un certo numero di effetti ai file audio, incluso ritardi, riverbero, compressione dell'intervallo dinamico, rimozione vocale e altro."
+  ],
+  "28": [
+    "import and apply custom VST plugin effects to your audio files.",
+    "importare e applicare effetti di plugin VST personalizzati ai propri file audio."
+  ],
+  "29": [
+    "mix up to 100 audio tracks into one customized audio file.",
+    "mixare fino a 100 tracce audio nel file audio personalizzato."
+  ],
+  "30": [
+    "The system requirements listed below are recommended as minimums for running CyberLink AudioDirector.",
+    "I requisiti di sistema elencati sotto sono consigliati quale capacità minima per il funzionamento di CyberLink AudioDirector."
+  ],
+  "31": [
+    "Microphone for recording audio.",
+    "Microfono per la registrazione audio."
+  ],
+  "32": [
+    "CyberLink AudioDirector supports the import and edit of audio and video files with 5.1 channel audio.",
+    "CyberLink AudioDirector supporta l'importazione e la modifica di file audio e video con audio canale 5.1."
+  ],
+  "33": [
+    "It also supports the import of audio and video files with 7.1 channels, but only for .WAV audio files are all 8 channels displayed in the program and available for editing.",
+    "Inoltre, supporta l'importazione di file audio e video con canali 7.1, ma solo per file audio .WAV, tutti gli 8 canali sono visualizzati nel programma e disponibili per la modifica."
+  ],
+  "34": [
+    "Currently, the trial version of CyberLink cannot be activated as a full featured version directly.",
+    "Attualmente la versione di prova di CyberLink non può essere attivata direttamente come versione completa."
+  ],
+  "35": [
+    "If you have purchased CyberLink and you currently have trial version installed, you have to uninstall the trial version from the Control Panel first, and then install the full build of the purchased CyberLink .",
+    "Se è stato acquistato CyberLink e attualmente si dispone di una versione di prova di installata nel computer, sarà necessario disinstallare prima la versione di prova dal Pannello di controllo e, successivamente, sarà possibile installare la versione completa acquistata di CyberLink ."
+  ],
+  "36": [
+    "General troubleshooting for installing or uninstalling CyberLink .",
+    "Risoluzione dei problemi generale per l'installazione o la disinstallazione di CyberLink ."
+  ],
+  "37": [
+    "Symptom",
+    "Sintomo"
+  ],
+  "38": [
+    "CyberLink has a cleaner tool that can resolve most of the installation issues you may face.",
+    "CyberLink dispone di uno strumento di pulizia che consente di risolvere la maggior parte dei problemi di installazione riscontrabili."
+  ],
+  "39": [
+    "The error messages listed below may occur during installation and can be resolved with the CyberLink Tool:",
+    "Durante l’installazione, potrebbero essere visualizzati i messaggi di errore elencati di seguito, che è possibile risolvere con CyberLink Tool:"
+  ],
+  "40": [
+    "Error:",
+    "Errore:"
+  ],
+  "41": [
+    "The product definition file lost.",
+    "File di definizione prodotto perso."
+  ],
+  "42": [
+    "Error .",
+    "Errore ."
+  ],
+  "43": [
+    "Could not open key.",
+    "Impossibile aprire chiave."
+  ],
+  "44": [
+    "A fatal error occurred during installation.",
+    "Errore irreversibile durante l’installazione."
+  ],
+  "45": [
+    "The installation source for this product is not available.",
+    "Origine di installazione del prodotto non disponibile."
+  ],
+  "46": [
+    "Verify that the source exists and you can access it.",
+    "Verificare che l’origine esista e di avere l’accesso."
+  ],
+  "47": [
+    "Setup cannot find the required files.",
+    "Impossibile trovare i file richiesti."
+  ],
+  "48": [
+    "Can't load .",
+    "Impossibile caricare ."
+  ],
+  "49": [
+    "Error applying transforms.",
+    "Errore durante l'applicazione delle trasformazioni."
+  ],
+  "50": [
+    "Verify that the specified transform paths are valid.",
+    "Verificare che i percorsi delle trasformazioni specificati siano validi."
+  ],
+  "51": [
+    "Solution",
+    "Soluzione"
+  ],
+  "52": [
+    "You were unsuccessfully able to install the full or patch version of CyberLink .",
+    "Non è stato possibile installare la versione completa o patch di CyberLink ."
+  ],
+  "53": [
+    "To fix this, use .",
+    "Per risolvere questo problema, utilizzare ."
+  ],
+  "54": [
+    "OK, now you are ready to download tool for CyberLink .",
+    "OK, a questo punto è possibile scaricare lo strumento per CyberLink ."
+  ],
+  "55": [
+    "Download tool for .",
+    "Scaricare lo strumento per ."
+  ],
+  "56": [
+    "How do I use CyberLink Tool?",
+    "Come è possibile utilizzare CyberLink Tool?"
+  ],
+  "57": [
+    "The following steps will guide you through the use of the CyberLink Tool, which can help resolve CyberLink program installation issues.",
+    "Seguendo i passaggi riportati di seguito, sarà possibile utilizzare CyberLink Tool, che consentirà di risolvere i problemi di installazione del programma di CyberLink."
+  ],
+  "58": [
+    "Remove CyberLink from Control Panel before using the cleaner tool:",
+    "Prima di utilizzare lo strumento di pulizia, occorre rimuovere CyberLink dal Pannello di controllo:"
+  ],
+  "59": [
+    "1) Quit the program, if it is running.",
+    "1) Se è in esecuzione, uscire dal programma ."
+  ],
+  "60": [
+    "2) In Control Panel, open Add or Remove Programs.",
+    "2) Nel Pannello di controllo, aprire Installazione applicazioni."
+  ],
+  "61": [
+    "3) Select CyberLink from the list of currently installed programs, then click Remove.",
+    "3) Selezionare CyberLink dall’elenco di programmi attualmente installazioni, quindi fare clic su Rimuovi."
+  ],
+  "62": [
+    "4) After the program is uninstalled, restart your computer.",
+    "4) Al termine della disinstallazione del programma, riavviare il computer."
+  ],
+  "63": [
+    "Skip this step if you encountered an error during the un-installation.",
+    "se durante la disinstallazione viene riscontrato un errore, ignorare questo passaggio."
+  ],
+  "64": [
+    "Unzip the downloaded CyberLink Tool, which has a file name that is similar to \"\".",
+    "Decomprimere il CyberLink Tool scaricato, che ha un nome file simile a \"\"."
+  ],
+  "65": [
+    "Double click on \"\" to run the tool.",
+    "Per eseguire lo strumento, fare doppio clic su \"\"."
+  ],
+  "66": [
+    "Restart your computer again.",
+    "Riavviare di nuovo il computer."
+  ],
+  "67": [
+    "Reinstall the CyberLink program.",
+    "Reinstallare il programma di CyberLink."
+  ],
+  "68": [
+    "The CyberLink Tool does not entirely remove a CyberLink program, but helps resolve the installation issues.",
+    "CyberLink Tool non rimuove completamente un programma di CyberLink, ma contribuisce a risolvere i problemi di installazione."
+  ],
+  "69": [
+    "If above steps still cannot solve your issue, continue with the following troubleshooting steps:",
+    "Se i passaggi sopra riportati non consentono di risolvere il problema, continuare con i seguenti passaggi sulla risoluzione dei problemi:"
+  ],
+  "70": [
+    "Try manually removing the CyberLink folder from Programe Files:",
+    "Provare a rimuovere manualmente la cartella di CyberLink da Programmi:"
+  ],
+  "71": [
+    "Go to",
+    "Andare su"
+  ],
+  "72": [
+    "Delete the CyberLink folder.",
+    "Eliminare la cartella di CyberLink ."
+  ],
+  "73": [
+    "If you cannot delete the folder, try the following steps:",
+    "Se non è possibile eliminare la cartella, provare i passaggi riportati di seguito:"
+  ],
+  "74": [
+    "1) Press Ctrl + Shift + Esc at the same time to access the Task Manager",
+    "1) Premere Ctrl + Maiusc + Esc contemporaneamente per accedere a Gestione attività"
+  ],
+  "75": [
+    "2) Switch to the Processes tab",
+    "2) Passare alla scheda Processi"
+  ],
+  "76": [
+    "3) Delete related processes that are running in the background.",
+    "3) Eliminare i processi correlati che sono in esecuzione in background."
+  ],
+  "77": [
+    "For example:",
+    "Ad esempio:"
+  ],
+  "78": [
+    "process for and previous version may be called .",
+    "il processo per e la versione precedente potrebbe essere denominato ."
+  ],
+  "79": [
+    "4) Go back to",
+    "4) Tornare a"
+  ],
+  "80": [
+    "5) Try deleting the folder again.",
+    "5) Provare a eliminare di nuovo la cartella di ."
+  ],
+  "81": [
+    "Restart your computer.",
+    "Riavviare il computer."
+  ],
+  "82": [
+    "Reinstall CyberLink .",
+    "Reinstallare CyberLink ."
+  ],
+  "83": [
+    "What is the CyberLink Tool?",
+    "Cos’è CyberLink Tool?"
+  ],
+  "84": [
+    "How do I use CyberLink Tool?",
+    "Come è possibile utilizzare CyberLink Tool?"
+  ],
+  "85": [
+    "What can I do if CyberLink freezes, crashes, hangs, or closes unexpectedly?",
+    "Cosa è necessario fare se CyberLink si blocca, si arresta, si interrompe o si chiude in modo imprevisto?"
+  ],
+  "86": [
+    "CyberLink isn't performing as expected.",
+    "CyberLink non funziona come previsto."
+  ],
+  "87": [
+    "CyberLink crashes, stops working, quits unexpectedly, not responding (hangs), or freezes.",
+    "CyberLink si arresta, smette di funzionare, si chiude in modo imprevisto, non risponde (si interrompe) o si blocca."
+  ],
+  "88": [
+    "There are many reasons that could cause a crash issue.",
+    "Un problema di arresto può essere causato da vari motivi."
+  ],
+  "89": [
+    "Please try one or more of the following:",
+    "Provare una o più delle seguenti opzioni:"
+  ],
+  "90": [
+    "Ensure your CyberLink is up-to-date.",
+    "Verificare che CyberLink sia aggiornato."
+  ],
+  "91": [
+    "You can check for software updates here.",
+    "È possibile controllare gli aggiornamenti software qui."
+  ],
+  "92": [
+    "Check the minimum system requirements.",
+    "Controllare i requisiti minimi di sistema."
+  ],
+  "93": [
+    "Make sure your system meets the minimum requirements for the software.",
+    "Verificare che il sistema soddisfi i requisiti minimi previsti per il software."
+  ],
+  "94": [
+    "Update graphics card driver to the latest.",
+    "Aggiornare il driver della versione grafica alla scheda più recente."
+  ],
+  "95": [
+    "You can download the latest driver from the AMD / NVIDIA / Intel's web site.",
+    "È possibile scaricare il driver più recente dal sito Web AMD / NVIDIA / Intel."
+  ],
+  "96": [
+    "If you have any problem installing graphics card drivers, please contact your computer manufacturer or the manufacturer of the display and sound cards for the latest drivers.",
+    "In caso di problemi di installazione dei driver della scheda grafica, contattare il produttore del computer o il produttore del display e delle schede audio per ottenere i driver più recenti."
+  ],
+  "97": [
+    "Check whether the installed drive has enough space on it.",
+    "Controllare che l’unità installata disponga dello spazio sufficiente."
+  ],
+  "98": [
+    "This is because a large amount of memory space is required for buffering..",
+    "Infatti, il buffering richiede un'elevata quantità di spazio su disco.."
+  ],
+  "99": [
+    "Make sure you are logged in as an Administrator.",
+    "Assicurarsi di avere effettuato l’accesso come Amministratore."
+  ],
+  "100": [
+    "If you lack administrator access privileges, the CyberLink application might be unable to access the necessary files it needs.",
+    "Se non si dispone dei privilegi di accesso come amministratore, CyberLink potrebbe non essere in grado di accedere ai file necessari richiesti."
+  ],
+  "101": [
+    "Run the application while no other applications are running.",
+    "Eseguire l’applicazione quando nessun’altra applicazione è in esecuzione."
+  ],
+  "102": [
+    "To maximize the available RAM and reduce the chance that another application conflicts with the application, close all open applications (including virus-protection utilities).",
+    "Per massimizzare la RAM disponibile e ridurre la possibilità che un’altra applicazione entri in conflitto con l’applicazione, chiudere tutte le applicazioni aperte (incluse le utility per la protezione da virus)."
+  ],
+  "103": [
+    "Then restart your CyberLink program.",
+    "Quindi, reinstallare il programma di CyberLink."
+  ],
+  "104": [
+    "Removing and reinstalling CyberLink software.",
+    "Rimozione e reinstallazione del software di CyberLink."
+  ],
+  "105": [
+    "Sometimes there may be some problems during the installation.",
+    "In alcuni casi, potrebbero verificarsi dei problemi durante l’installazione."
+  ],
+  "106": [
+    "You can try to remove CyberLink from the Control Panel, restart your system, and then re-install the program again.",
+    "È possibile provare a rimuovere CyberLink dal Pannello di controllo, riavviare il sistema e, quindi, reinstallare di nuovo il programma."
+  ],
+  "107": [
+    "Please ensure you close all other applications while installing CyberLink .",
+    "Assicurarsi di chiudere tutte le alter applicazioni quando si effettua l’installazione di CyberLink ."
+  ],
+  "108": [
+    "It is strongly suggested that you frequently save all your projects, files and photos first to prevent any data from going missing.",
+    "Si consiglia vivamente di salvare costantemente i progetti, i file e le foto prima per evitare l’eventuale perdita di dati."
+  ],
+  "109": [
+    "Continuing to work may make the problem worse.",
+    "Continuando a lavorare, il problema potrebbe peggiorare."
+  ],
+  "110": [
+    "Note:",
+    "Nota:"
+  ],
+  "111": [
+    "If you still can't resolve the problem, you can contact CyberLink Technical Support.",
+    "se il problema persiste, è possibile contattare il Supporto tecnico di CyberLink."
+  ],
+  "112": [
+    "Before contacting Technical Support, please prepare and include the information listed here.",
+    "Prima di contattare il Supporto tecnico, preparare e includere le informazioni elencatequi."
+  ],
+  "113": [
+    "The more info you provide, the more we can understand your issue and better service will be provided.",
+    "Maggiori sono le informazioni fornite, maggiore sarà la conoscenza del problema e migliore sarà l'assistenza fornita."
+  ],
+  "114": [
+    "has stopped working.",
+    "ha smesso di funzionare."
+  ],
+  "115": [
+    "What do I do if I encounter this message?",
+    "Cosa fare se viene visualizzato questo messaggio?"
+  ],
+  "116": [
+    "Contents Symptom Solution Additional Information Submit the crash report Locate the CyberLink Issue Reporter crash log files",
+    "Indice Sintomo Soluzione Informazioni aggiuntive Inviare la segnalazione di arresto Individuare i file del registro arresti di CyberLink Issue Reporter"
+  ],
+  "117": [
+    "Symptom",
+    "Sintomo"
+  ],
+  "118": [
+    "When CyberLink software encounters an unexpected situation and crashes, you may see the CyberLink Issue Reporter window, displaying the error message \" has stopped working.\"",
+    "Quando il software CyberLink riscontra una situazione imprevista e si arresta, potrebbe venire visualizzata la finestra CyberLink Issue Reporter, che riporta il messaggio di errore \" ha smesso di funzionare.\""
+  ],
+  "119": [
+    "has stopped working",
+    "ha smesso di funzionare"
+  ],
+  "120": [
+    "Solution",
+    "Soluzione"
+  ],
+  "121": [
+    "There are many reasons which may cause a crash issue.",
+    "Un problema di arresto può essere causato da vari motivi."
+  ],
+  "122": [
+    "Continuing to work may make the problem worse.",
+    "Continuando a lavorare, il problema potrebbe peggiorare."
+  ],
+  "123": [
+    "Additional Information",
+    "Informazioni aggiuntive"
+  ],
+  "124": [
+    "Submit the crash report",
+    "Inviare la segnalazione di arresto"
+  ],
+  "125": [
+    "We appreciate you clicking Send Report button to submit the crash reports via CyberLink Issue Reporter including the following information.",
+    "Fare clic sul pulsante Invia segnalazione per inviare le segnalazioni di arresto tramite CyberLink Issue Reporter incluse le seguenti informazioni."
+  ],
+  "126": [
+    "This will help us improve our future product development.",
+    "In tal modo sarà possibile contribuire a migliorare il futuro sviluppo del prodotto."
+  ],
+  "127": [
+    "Problem Description:",
+    "Descrizione del problema:"
+  ],
+  "128": [
+    "fill in the detailed, specific steps that describe what operations you were performing before the problem occurred.",
+    "compilare i passaggi specifici in dettaglio che descrivono le operazioni in esecuzione prima che il problema si verificasse."
+  ],
+  "129": [
+    "This will help us duplicate the problem.",
+    "In tal modo sarà possibile riprodurre il problema."
+  ],
+  "130": [
+    "Your e-mail address:",
+    "Indirizzo e-mail:"
+  ],
+  "131": [
+    "It is recommend that you use the same e-mail address as you used to register with CyberLink.",
+    "Si consiglia di utilizzare lo stesso indirizzo e-mail utilizzato per registrarsi su CyberLink."
+  ],
+  "132": [
+    "We may contact you to acquire more information, or notify you once there is a solution or fix.",
+    "Potrebbe essere necessario acquisire maggiori informazioni oppure comunicare una soluzione o una correzione."
+  ],
+  "133": [
+    "Please note that the crash log files only collect product or hardware related information and does not contain your personal information.",
+    "i file di registro arresti raccolgono soltanto informazioni correlate al prodotto o all’hardware e non includono informazioni personali dell'utente."
+  ],
+  "134": [
+    "The CyberLink development team will normally not reply to you after receiving your issue report.",
+    "Generalmente, il team di sviluppo CyberLink non risponde dopo avere ricevuto la segnalazione del problema."
+  ],
+  "135": [
+    "Instead, the CyberLink development team will analyze the report and try to fix the issue in future updates.",
+    "Invece, il team di sviluppo CyberLink analizzerà la segnalazione e cercherà di correggere il problema nei future aggiornamenti."
+  ],
+  "136": [
+    "Locate the CyberLink Issue Reporter crash log files",
+    "Individuare i file di registro arresti CyberLink Issue Reporter"
+  ],
+  "137": [
+    "CyberLink Issue Reporter log files usually include and files.",
+    "I file di registro di CyberLink Issue Reporter in genere includono i file e ."
+  ],
+  "138": [
+    "You can find these log files in the below location:",
+    "È possibile trovare i file di registro nella seguente posizione:"
+  ],
+  "139": [
+    "Windows 7 or Windows Vista:",
+    "Windows 7 o Windows Vista:"
+  ],
+  "140": [
+    "Windows XP:",
+    "Windows XP:"
+  ],
+  "141": [
+    "If you want to view the log files, do the following:",
+    "Per visualizzare i file di registro, procedure come segue:"
+  ],
+  "142": [
+    "Click on \"What does this report contain\" link.",
+    "Fare clic sul collegamento \"What does this report contain\" (Contenuto della segnalazione)."
+  ],
+  "143": [
+    "Double click on and open in IE.",
+    "Fare doppio clic su e aprire in IE."
+  ],
+  "144": [
+    "The report may contain your current product version, graphics card model, graphics card driver version, and error module information.",
+    "La segnalazione potrebbe contenere la versione del prodotto corrente, il modello di scheda grafica, la versione del driver della scheda grafica e le informazioni sul modulo di errore."
+  ],
+  "145": [
+    "If you still can't resolve the problem, you can contact CyberLink Technical Support.",
+    "Se il problema persiste, è possibile contattare il Supporto tecnico di CyberLink."
+  ],
+  "146": [
+    "Before contacting Technical Support, please also prepare and include the information listed here.",
+    "Prima di contattare il Supporto tecnico, preparare e includere anche le informazioni elencatequi."
+  ],
+  "147": [
+    "The more info you give us, the more we can understand your issue and the better the service we will provide.",
+    "Maggiori sono le informazioni fornite, maggiore sarà la conoscenza del problema e migliore sarà l'assistenza fornita."
+  ],
+  "148": [
+    "Not seeing CyberLink Issue Reporter when program crashes?",
+    "Quando il programma si arresta, CyberLink Issue Reporter non viene visualizzato."
+  ],
+  "149": [
+    "If your program crashes or closes but you did not see the CyberLink Issue Reporter window, please provide the event log files to us.",
+    "Se il programma si arresta o si chiude ma la finestra CyberLink Issue Reporter non è stata visualizzata, inviare al supporto i file di registro eventi."
+  ],
+  "150": [
+    "Click here to see how to generate an event log.",
+    "Fare clic qui per visualizzare come generare un registro eventi."
+  ],
+  "151": [
+    "What are the main features of CyberLink ?",
+    "Quali sono le funzioni principali di CyberLink ?"
+  ],
+  "152": [
+    "CyberLink includes many features that make your audio editing easier than before.",
+    "CyberLink include molte funzioni che semplificano maggiormente l’editing audio."
+  ],
+  "153": [
+    "This section describes the main features in the CyberLink program.",
+    "Questa sezione descrive le funzioni principali all'interno del programma CyberLink AudioDirector."
+  ],
+  "154": [
+    "In CyberLink , you can perform the following functions:",
+    "In CyberLink , è possibile eseguire le seguenti funzioni:"
+  ],
+  "155": [
+    "download sound clips from .",
+    "scaricare clip audio da ."
+  ],
+  "156": [
+    "restore audio by applying the Click Removal, Noise Reduction, or Clip Restoration functions, or use Visual Repair for more precise fixing.",
+    "ripristinare l'audio applicando le funzioni Rimozione clic, Riduzione rumore o Ripristino clip oppure usare Riparazione visuale per una correzione più precisa."
+  ],
+  "157": [
+    "share created audio files on .",
+    "condividere file audio creati su ."
+  ],
+  "158": [
+    "What are the minimum system requirements for CyberLink ?",
+    "Quali sono i requisiti di sistema minimi per CyberLink ?"
+  ],
+  "159": [
+    "What are the supported file formats in CyberLink ?",
+    "Quali sono i formati di file supportati in CyberLink ?"
+  ],
+  "160": [
+    "CyberLink supports the following file formats:",
+    "CyberLink supporta i seguenti formati di file:"
+  ],
+  "161": [
+    "Supported audio file formats",
+    "Formati di file audio supportati"
+  ],
+  "162": [
+    "Import:",
+    "Importa:"
+  ],
+  "163": [
+    "MP3, WAV, WMA, M4A.",
+    "MP3, WAV, WMA, M4A."
+  ],
+  "164": [
+    "Export:",
+    "Esporta:"
+  ],
+  "165": [
+    "Supported video file formats",
+    "Formati di file video supportati"
+  ],
+  "166": [
+    "3GPP2, AVI, DAT, DivX (on Windows 7), DV-AVI, DVR-MS, FLV (H.264), HD MPEG-2, M2T, MKV (H.264), MOD, MOV, MOV (H.264), MP4, MPEG-1, MPEG-2, MPEG-4 AVC (H.264), TOD, VOB, VRO, WMV, WMV-HD, WTV.",
+    "3GPP2, AVI, DAT, DivX (on Windows 7), DV-AVI, DVR-MS, FLV (H.264), HD MPEG-2, M2T, MKV (H.264), MOD, MOV, MOV (H.264), MP4, MPEG-1, MPEG-2, MPEG-4 AVC (H.264), TOD, VOB, VRO, WMV, WMV-HD, WTV."
+  ],
+  "167": [
+    "H.264, MPEG-2, MPEG-4, WMV.",
+    "H.264, MPEG-2, MPEG-4, WMV."
+  ],
+  "168": [
+    "Please consult the CyberLink product page for the most recent information.",
+    "Per le informazioni più recenti, consultare la pagina del prodotto CyberLink ."
+  ],
+  "169": [
+    "What is the difference between the trial and full versions of CyberLink ?",
+    "Qual è la differenza tra le versioni di prova e completa di CyberLink ?"
+  ],
+  "170": [
+    "CyberLink 's trial version has the following limitations:",
+    "La versione di prova di CyberLink presenta le seguenti restrizioni:"
+  ],
+  "171": [
+    "Excludes the H.264 encoder/decoder for video importing and outputting.",
+    "Esclude l’encoder/decoder H.264 per l’importazione e la produzione di video."
+  ],
+  "172": [
+    "Editing the audio track of a video or outputting a video file in the format is only available in the full version of .",
+    "L’editing della traccia audio di un video o la produzione di un file video in formato è disponibile solo nella versione completa di ."
+  ],
+  "173": [
+    "30-day working trial.",
+    "Prova valida per 30 giorni."
+  ],
+  "174": [
+    "For more detail, please refer to trial download page.",
+    "Per ulteriori informazioni, consultare la pagina download prova ."
+  ],
+  "175": [
+    "What are the supported file formats in CyberLink ?",
+    "Quali sono i formati di file supportati in CyberLink ?"
+  ],
+  "176": [
+    "Can I edit the audio track of a video file in CyberLink ?",
+    "È possibile modificare la traccia audio di un file video in CyberLink ?"
+  ],
+  "177": [
+    "Yes, you can edit the audio track of video files you imported into CyberLink .",
+    "Sì, è possibile modificare la traccia audio di file video importati in CyberLink ."
+  ],
+  "178": [
+    "In CyberLink , you can preview imported video, to ensure that your edited audio is synchronized with the video file.",
+    "In CyberLink , è possibile visualizzare in anteprima il video importato, per verificare che l'audio modificato sia sincronizzato con il file video."
+  ],
+  "179": [
+    "Please note the following items when editing the audio track of an imported video:",
+    "Quando si effettua l'editing della traccia audio di un video importato, occorre tenere conto dei seguenti elementi:"
+  ],
+  "180": [
+    "does not support editing your imported video file, such as trimming or adding effects to the video.",
+    "non supporta l’editing del file video importato, come il ritaglio o l’aggiunta di effetti al video."
+  ],
+  "181": [
+    "The video length will not change, even if you change its audio track length.",
+    "La lunghezza del video non sarà modificata, anche se si modifica la lunghezza della relativa traccia audio."
+  ],
+  "182": [
+    "If the audio length is longer than the original video, the audio will be cut to fit with the video length.",
+    "Se la lunghezza audio è superiore al video originale, l’audio verrà tagliato per corrispondere alla lunghezza del video."
+  ],
+  "183": [
+    "If the audio length is shorter than the original video, the rest of the audio track will be empty.",
+    "Se la lunghezza audio è inferiore al video originale, la parte restante della traccia audio resterà vuota."
+  ],
+  "184": [
+    "CyberLink does not support 3D video previewing.",
+    "CyberLink non supporta la visualizzazione in anteprima di video 3D."
+  ],
+  "185": [
+    "Can I edit the video track of a file in CyberLink ?",
+    "È possibile modificare la traccia video di un file in CyberLink ?"
+  ],
+  "186": [
+    "No. CyberLink does not support video editing.",
+    "No. CyberLink non supporta l’editing video."
+  ],
+  "187": [
+    "However, you can import and preview video files, and then edit the audio track in CyberLink .",
+    "Tuttavia, è possibile importare e visualizzare in anteprima i file video, quindi modificare la traccia audio in CyberLink ."
+  ],
+  "188": [
+    "Why can't I import files in CyberLink ?",
+    "Perché non è possibile importare file in CyberLink ?"
+  ],
+  "189": [
+    "When you attempt to import a file into CyberLink , you may receive this error message:",
+    "Quando si tenta di importare un file in CyberLink , si potrebbe ricevere il seguente messaggio di errore:"
+  ],
+  "190": [
+    "\"An error occurred while opening this file in the media library.",
+    "\"Si è verificato un errore durante l'apertura di questo file nel catalogo multimediale."
+  ],
+  "191": [
+    "It may be because the file is broken or is an unsupported format.",
+    "Il file potrebbe essere rotto o in un formato non supportato."
+  ],
+  "192": [
+    "Try contacting your video provider for a different video format.\"",
+    "Contattare il provider video per un differente formato di video.\""
+  ],
+  "193": [
+    "The media file you imported may not fully comply with the industry's mainstream standard format.",
+    "Il file multimediale importato potrebbe non essere completamente conforme con il formato standard aggiornato di settore."
+  ],
+  "194": [
+    "Sometimes it may also be due to a codec conflict if you have installed 3rd party codec pack.",
+    "In alcuni casi, potrebbe essere dovuto anche a un conflitto di codec se è stato installato un pacchetto codec di terzi."
+  ],
+  "195": [
+    "Try the following:",
+    "Provare come segue:"
+  ],
+  "196": [
+    "Update Windows Media Player to latest version.",
+    "Aggiornare Windows Media Player all’ultima versione."
+  ],
+  "197": [
+    "Update software to latest version.",
+    "Aggiornare il software all’ultima versione."
+  ],
+  "198": [
+    "Remove or diable all third party codecs if any are installed.",
+    "Rimuovere o disabilitare tutti i codec di terze parti installati, se presenti."
+  ],
+  "199": [
+    "Try to convert it to another media format before importing into CyberLink .",
+    "Provare a convertirlo in un altro formato multimediale prima dell’importazione in CyberLink ."
+  ],
+  "200": [
+    "Mix Room",
+    "Area Mix"
+  ],
+  "201": [
+    "What are the new features in CyberLink AudioDirector 4?",
+    "Quali sono le funzioni principali di CyberLink AudioDirector 4?"
+  ],
+  "202": [
+    "The latest version of CyberLink AudioDirector includes many new features that make editing audio even easier.",
+    "L'ultima versione di CyberLink AudioDirector include molte nuove funzioni che rendono la modifica audio ancora più semplice."
+  ],
+  "203": [
+    "This section lists the latest features in the CyberLink AudioDirector program.",
+    "Questa sezione elenca le ultime funzioni all'interno del programma CyberLink AudioDirector."
+  ],
+  "204": [
+    "Audio Effect Room",
+    "Area Effetti audio"
+  ],
+  "205": [
+    "6 more audio effects for enhancing soundtracks.",
+    "6 effetti audio in più per migliorare le colonne sonore."
+  ],
+  "206": [
+    "Dynamic profile change to instantly convert sample rate, bit depth and channel number.",
+    "Modifica del profilo dinamica per convertire subito la frequenza campione, la profondità bit e il numero di canali."
+  ],
+  "207": [
+    "Restoration Room",
+    "Area Ripristino"
+  ],
+  "208": [
+    "Hum Removal and Noise Reduction for cleaner, crisper audio.",
+    "Rimozione fischi e Riduzione rumore per un audio più limpido e definito."
+  ],
+  "209": [
+    "Smart Transition to smoothly move between pieces of background music",
+    "Transizione smart per spostarsi uniformemente tra parti della musica di sottofondo"
+  ],
+  "210": [
+    "Surround Sound Panner to dynamically control speaker output",
+    "Dispositivo panoramica audio surround per controllare in modo dinamico la produzione dell'altoparlante"
+  ],
+  "211": [
+    "Virtual Surround Sound generator with TrueTheater™ Surround",
+    "Generatore di audio surround virtuale con TrueTheater™ Surround"
+  ],
+  "212": [
+    "Master Track control for global control over all tracks",
+    "Controllo traccia master per il controllo generale di tutte le tracce"
+  ],
+  "213": [
+    "CD Burning",
+    "Masterizzazione CD"
+  ],
+  "214": [
+    "Easier storage and sharing with new burning capability",
+    "Archiviazione e condivisione più facile con la nuova funzione di masterizzazione"
+  ],
+  "215": [
+    "Format Support",
+    "Supporto formato"
+  ],
+  "216": [
+    "Video support:",
+    "Supporto video:"
+  ],
+  "217": [
+    "2K/4K video import/export support",
+    "2K/4K supporto importazione/esportazione video"
+  ],
+  "218": [
+    "Audio support:",
+    "Supporto audio:"
+  ],
+  "219": [
+    ".flac NEW, .ogg, .aiff, .aif",
+    ".flac NUOVO, .ogg, .aiff, .aif"
+  ],
+  "220": [
+    "What are the minimum system requirements for CyberLink AudioDirector 4?",
+    "Quali sono i requisiti di sistema minimi per CyberLink AudioDirector 4?"
+  ],
+  "221": [
+    "Microsoft Windows 8, Windows 7, Vista and XP 32-bit SP3 (Windows XP Service Pack 3 is required)",
+    "Microsoft Windows 8, Windows 7, Vista e XP 32-bit SP3 (Windows XP Service Pack 3 richiesto)"
+  ],
+  "222": [
+    "1 GB (2 GB recommended).",
+    "1 GB (2 GB consigliato)."
+  ],
+  "223": [
+    "Intel Core 2 Duo 2.0 GHz.",
+    "Intel Core 2 Duo 2.0 GHz."
+  ],
+  "224": [
+    "1 GB free space required.",
+    "1 GB di spazio libero richiesto."
+  ],
+  "225": [
+    "Windows-compatible sound card.",
+    "Scheda audio compatibile con Windows."
+  ],
+  "226": [
+    "1024 x 768, 16-bit color or higher.",
+    "colori da 1024 x 768 a 16 bit o superiore."
+  ],
+  "227": [
+    "What are the supported file formats in CyberLink AudioDirector 4?",
+    "Quali sono i formati di file supportati in CyberLink AudioDirector 4?"
+  ],
+  "228": [
+    "CyberLink AudioDirector supports in the following formats:",
+    "CyberLink AudioDirector supporta i seguenti formati:"
+  ],
+  "229": [
+    "AIF, AIFF, FLAC NEW, M4A, MP3, OGG, WAV, WMA* Note:",
+    "AIF, AIFF, FLAC NUOVO, M4A, MP3, OGG, WAV, WMA* Nota:"
+  ],
+  "230": [
+    "* CyberLink AudioDirector does not support the editing of WMA audio files with DRM file protection.",
+    "* CyberLink AudioDirector non supporta la modifica di file audio WMA con protezione file DRM."
+  ],
+  "231": [
+    "3GPP2, AVI, DivX (on Windows 7), DV-AVI, DVR-MS, HD MPEG-2, M2T, MKV (H.264), MOD, MOV, MOV (H.264), MP4, MPEG-1, MPEG-2, MPEG-4 AVC (H.264), TOD, VOB, VRO, WMV, WMV-HD.",
+    "3GPP2, AVI, DivX (on Windows 7), DV-AVI, DVR-MS, HD MPEG-2, M2T, MKV (H.264), MOD, MOV, MOV (H.264), MP4, MPEG-1, MPEG-2, MPEG-4 AVC (H.264), TOD, VOB, VRO, WMV, WMV-HD."
+  ],
+  "232": [
+    "For video files with 7.1 channel audio, two of the audio channels (BL/BR) are hidden and unavailable for editing.",
+    "Per i file video con audio canale 7.1, due dei canali audio (BL/BR) sono nascosti e non disponibili per la modifica."
+  ],
+  "233": [
+    "H.264, MPEG-2, MPEG-4, WMV",
+    "H.264, MPEG-2, MPEG-4, WMV"
+  ],
+  "234": [
+    "Please consult the CyberLink AudioDirector product page for the most recent information.",
+    "Per le informazioni più recenti, consultare la pagina del prodotto CyberLink AudioDirector."
+  ],
+  "235": [
+    "Why cant I hear the surround sound effect when using Surround Sound Panner in CyberLink AudioDirector 4?",
+    "Perché non è possibile sentire l'effetto audio surround quando si utilizza il dispositivo panoramica audio surround in CyberLink AudioDirector 4?"
+  ],
+  "236": [
+    "Cause",
+    "Causa"
+  ],
+  "237": [
+    "This may due to the following reason:",
+    "Può essere dovuto al seguente motivo:"
+  ],
+  "238": [
+    "Surround Sound Panner doesnt support the mono audio profile, since its purpose is to manipulate audio that across multiple channels to achieve a surround sound effect.",
+    "Il Dispositivo panoramica audio surround non supporta il profilo audio mono in quanto ha come scopo la manipolazione dell'audio attraverso più canali per ottenere un effetto audio surround."
+  ],
+  "240": [
+    "If you want to apply 5.1ch / 7.1ch for the Surround Sound Panner effect in CyberLink AudioDirector, ensure you set up the following:",
+    "Per applicare 5.1ch / 7.1ch per ottenere l'effetto Dispositivo panoramica audio surround in CyberLink AudioDirector, verificare di avere configurato i seguenti elementi:"
+  ],
+  "241": [
+    "I. Configure audio profile settings in AudioDirector:",
+    "I. Configurare le impostazioni del profilo audio in AudioDirector:"
+  ],
+  "242": [
+    "Go to the Mix room",
+    "Passare all'area Mix"
+  ],
+  "243": [
+    "Click on the Configure audio profile settings in Mix room button",
+    "Fare clic sul pulsante Configura le impostazioni del profilo audio nell'area Mix"
+  ],
+  "244": [
+    "Select one of the audio channels settings below from the drop-down list.",
+    "Selezionare una delle impostazioni dei canali audio di seguito dall'elenco a discesa"
+  ],
+  "245": [
+    "The Surround Sound Panner effect is only available if the mix’s audio profile channel setting is set to Stereo, 5.1 Channels or 7.1 Channels.",
+    "L'effetto Dispositivo panoramica audio surround è disponibile soltanto se l'impostazione dei canali del profilo audio del mix è impostata su Stereo, Canali 5.1 o Canali 7.1."
+  ],
+  "246": [
+    "5.1 Channels",
+    "Canali 5.1"
+  ],
+  "247": [
+    "7.1 Channels",
+    "Canali 7.1"
+  ],
+  "248": [
+    "Click OK.",
+    "Fare clic su OK."
+  ],
+  "249": [
+    "II.",
+    "II."
+  ],
+  "250": [
+    "Set up surround sound in Windows:",
+    "Configurazione dell'audio surround in Windows:"
+  ],
+  "251": [
+    "If you want to hear the audio effect correctly, you must set up your corresponding speaker surround sound in Windows.",
+    "Per ascoltare correttamente l'effetto audio, configurare l'audio surround del microfono corrispondente in Windows."
+  ],
+  "252": [
+    "Click onStart Control Panel Hardware and Sound Sound.",
+    "Fare clic su Start Pannello di controllo Hardware e Suoni Suoni."
+  ],
+  "253": [
+    "In the Sound window, select your the sound device that you are about to configure and then click on Set Default.",
+    "Nella finestra Suoni, selezionare il dispositivo audio da configurare e fare clic su Predefinito."
+  ],
+  "254": [
+    "Then click the Configure button.",
+    "Quindi fare clic sul pulsante Configura."
+  ],
+  "255": [
+    "In Speaker Setup window, select the configuration you want in theAudio Channelsbox.",
+    "Nella finestra Configurazione altoparlanti, selezionare la configurazione desiderata nella casella Canali audio."
+  ],
+  "256": [
+    "If there are Stereo, 5.1 and 7.1 options in Audio channels, it means your computer supportsStereo, 5.1 Surround and 7.1 Surround.",
+    "Se le opzioni Stereo, 5.1 e 7.1 sono disponibili nel canale audio, il computer supportaStereo, 5.1 Surround e 7.1 Surround."
+  ],
+  "257": [
+    "Your computer may support more or fewer depending on your hardware.",
+    "Il computer può supportare più o meno elementi a seconda dell'hardware."
+  ],
+  "258": [
+    "Select the configuration you want in theAudio Channelsbox.",
+    "Nella casella Canali audio, selezionare la configurazione desiderata."
+  ],
+  "259": [
+    "Make sure your speakers are turned on and the volume is turned up enough so you can hear them.",
+    "Verificare che gli altoparlanti siano sintonizzati e che il volume sia sufficientemente alto da consentire l'ascolto."
+  ],
+  "260": [
+    "Click theTestbutton and listen as Windows tests each of the speakers in your setup.",
+    "Fare clic sul pulsante Prova e ascoltare i test di Windows per ciascun altoparlante della configurazione."
+  ],
+  "261": [
+    "Ensure the testing result is fine then you can click theNextbutton.",
+    "Verificare che il risultato del test sia corretto, quindi fare clic sul pulsante Avanti."
+  ],
+  "262": [
+    "Finally, click on theFinishbutton to complete the surround sound setting in Windows built-in sound utility.",
+    "Infine, fare clic sul pulsante Fineper completare l'impostazione dell'audio surround nell'utility audio integrata di Windows."
+  ],
+  "263": [
+    "The set up process or the options might be slightly different according to Windows OS or sound card hardware environment setting.",
+    "Il processo di configurazione o le opzioni possono risultare leggermente differenti in base al SO Windows o all'impostazione dell'ambiente hardware della scheda audio."
+  ],
+  "264": [
+    "If you are not able to follow the steps above, please consult with your computer manufacturer or sound card vendor for how to set up speaker surround sound in Windows.",
+    "Se non si è in grado di seguire le procedure indicate, consultare il produttore del computer o il fornitore della scheda audio per informazioni sulla configurazione dell'audio surround su altoparlante in Windows."
+  ],
+  "265": [
+    "Why is the option Smart Transition grayed out or not available in CyberLink AudioDirector 4?",
+    "Perché l'opzione Transizione smart è in grigio o non disponibile in CyberLink AudioDirector 4?"
+  ],
+  "266": [
+    "When using the Smart Transition in CyberLink AudioDirector 4, you may find that it is not working.",
+    "Quando si utilizza la Transizione smart in CyberLink AudioDirector 4, quest'opzione potrebbe non funzionare."
+  ],
+  "267": [
+    "If this occurs, please check the following:",
+    "In questo caso, controllare i seguenti elementi:"
+  ],
+  "268": [
+    "Smart Transition can only be applied on audio that has a Stereo profile setting.",
+    "La Transizione smart può essere applicata solo sull'audio con impostazione di profilo Stereo."
+  ],
+  "269": [
+    "Go to Mix room",
+    "Passare all'area Mix"
+  ],
+  "270": [
+    "Select the Stereo for audio channels in drop-down list.",
+    "Selezionare Stereo per i canali audio nell'elenco a discesa."
+  ],
+  "271": [
+    "Smart Transition can only be applied on transitions that are less than or equal to 30 seconds.",
+    "La Transizione smart può essere applicata su transizioni che sono inferiori o uguali a 30 secondi."
+  ],
+  "272": [
+    "If the overlap between the two audio clips exceeds 30 seconds, the Smart Transition option will be gray out.",
+    "In caso di sovrapposizione tra due clip audio per oltre 30 secondi, l'opzione Transizione smart diventerà grigia."
+  ],
+  "273": [
+    "If you change the audio profile setting in the Mix room from Stereo to mono, 5.1 or 7.1 channels, you will find that the smart transition you applied changes to an warning [!] icon.",
+    "Se si modifica l'impostazione del profilo audio nell'area Mix da Stereo a mono, canali 5.1 o 7.1, la transizione smart applicata viene modificata in un'icona di avvertenza con simbolo [!]."
+  ],
+  "274": [
+    "Q17-00192",
+    "Q17-00192"
+  ],
+  "275": [
+    "What is the Plosive Removal feature in CyberLink AudioDirector 8?",
+    "Cos'è la funzione Rimozione aspirazione in CyberLink AudioDirector 8?"
+  ],
+  "276": [
+    "Plosive Removal helps you remove plosives, which are blasts of air or thumps/pops in the audio that can occur when speaking/singing the letters b, k, p, t.",
+    "Rimozione aspirazione aiuta a rimuovere le plosioni, cioè i getti di aria o scoppiettii nell'audio che si verificano quando si pronunciano le lettere b, k, p, t."
+  ],
+  "277": [
+    "To use the feature, click the Restore button and then Plosive Removal to open the Plosive Removal window.",
+    "Per usare la funzione, fare clic su Ripristina e su Rimozione aspirazione per aprire la finestra Rimozione aspirazione."
+  ],
+  "278": [
+    "Q17-00193",
+    "Q17-00193"
+  ],
+  "279": [
+    "What is the Ambience Match feature in CyberLink AudioDirector 8?",
+    "Cos'è la funzione Abbinamento ambiente in CyberLink AudioDirector 8?"
+  ],
+  "280": [
+    "Use the Ambience Match feature to add ambience, or background noise, into your audio and video clips.",
+    "Usare la funzione Abbinamento ambiente per aggiungere rumori ambientali o di sottofondo alle clip audio e video."
+  ],
+  "281": [
+    "You can also use this feature to analyze and extract the ambience from a clip and then save it as an ambience preset.",
+    "È anche possibile usare questa funzione per analizzare e estrarre l'ambiente da una clip e salvarlo come predefinito ambiente."
+  ],
+  "282": [
+    "To use the feature, click the Edit button and then Ambience Match to open the Ambience Match window.",
+    "Per usare la funzione, fare clic su Modifica e su Abbinamento ambiente per aprire la finestra Abbinamento ambiente."
+  ],
+  "283": [
+    "Q17-00194",
+    "Q17-00194"
+  ],
+  "284": [
+    "What is the Auto Remix feature in CyberLink AudioDirector 8?",
+    "Cos'è la funzione Remix automatico in CyberLink AudioDirector 8?"
+  ],
+  "285": [
+    "Use the Auto Remix feature to change the length of audio by remixing the selected audio clip without changing the beat of the source audio.",
+    "Usare la funzione Remix automatico per cambiare la durata dell'audio remixando la clip audio selezionata senza cambiare il ritmo dell'audio sorgente."
+  ],
+  "286": [
+    "To use the feature, select the media file in the Mix room and then click the Adjust Length (auto remix) under the Adjust Audio section to open the auto remix window.",
+    "Per usare la funzione, selezionare il file multimediale nell'area Mix e fare clic su Regola durata (remix automatico) nella sezione Regola audio per aprire la finestra di remix dell'audio."
+  ],
+  "287": [
+    "Q17-00195",
+    "Q17-00195"
+  ],
+  "288": [
+    "What is the Codec Preview feature in CyberLink AudioDirector 8?",
+    "Cos'è la funzione Anteprima codec in CyberLink AudioDirector 8?"
+  ],
+  "289": [
+    "Codec Preview allows you to preview the edited audio in real-time with different codecs, bitrates and sample rates before you actually output the media.",
+    "Anteprima codec consente di visualizzare l'anteprima del video modificato in tempo reale con diversi codec, bitrate e velocità di campionamento prima di produrre il media."
+  ],
+  "290": [
+    "To use the feature, click the Codec button below the timeline to enable codec preview.",
+    "Per usare la funzione, fare clic sul pulsante Codec sotto alla timeline per attivare l'anteprima codec."
+  ],
+  "291": [
+    "Q17-00196",
+    "Q17-00196"
+  ],
+  "292": [
+    "Intel Core i3-530, AMD Phenom II X6",
+    "Intel Core i3-530, AMD Phenom II X6"
+  ],
+  "293": [
+    "Windows compatible graphic card is required",
+    "Scheda grafica Windows compatibile necessaria"
+  ],
+  "294": [
+    "1024 x 768, 16-bit color",
+    "1024 x 768, colori 16 bit"
+  ],
+  "295": [
+    "Q17-00197",
+    "Q17-00197"
+  ],
+  "296": [
+    "What are the supported file formats in CyberLink AudioDirector 8?",
+    "Quali sono i formati di file supportati in CyberLink AudioDirector 8?"
+  ],
+  "297": [
+    "CyberLink AudioDirector 8 supports the following formats:",
+    "CyberLink AudioDirector 8 supporta i seguenti formati:"
+  ],
+  "298": [
+    "▪ 3GPP2 ▪ AVI ▪ DivX (on Windows 7) ▪ DV-AVI ▪ DVR-MS ▪ HD MPEG-2 ▪ M2T (H.264 AVC, H.265 HEVC) ▪ MKV (H.264 AVC, H.265 HEVC) ▪ MOD ▪ MOV ▪ MOV (H.264 AVC) ▪ MP4 (H.264 AVC, H.265 HEVC) ▪ MPEG-1 ▪ MPEG-2 ▪ TOD ▪ VOB ▪ VRO ▪ WMV ▪ WMV-HD",
+    "▪ 3GPP2 ▪ AVI ▪ DivX (su Windows 7) ▪ DV-AVI ▪ DVR-MS ▪ HD MPEG-2 ▪ M2T (H.264 AVC, H.265 HEVC) ▪ MKV (H.264 AVC, H.265 HEVC) ▪ MOD ▪ MOV ▪ MOV (H.264 AVC) ▪ MP4 (H.264 AVC, H.265 HEVC) ▪ MPEG-1 ▪ MPEG-2 ▪ TOD ▪ VOB ▪ VRO ▪ WMV ▪ WMV-HD"
+  ],
+  "299": [
+    "▪ H.264 AVC (.M2TS, .MP4) ▪ H.265 HEVC (.MKV, .MP4) ▪ MPEG-2 (.MPG) ▪ Windows Media Video (.WMV).",
+    "▪ H.264 AVC (.M2TS, .MP4) ▪ H.265 HEVC (.MKV, .MP4) ▪ MPEG-2 (.MPG) ▪ Windows Media Video (.WMV)."
+  ],
+  "300": [
+    "▪ AIF ▪ AIFF ▪ APE ▪ CAF ▪ DSD Audio ▪ FLAC ▪ MP3 ▪ M4A (AAC, ALAC) ▪ OGG ▪ WAV ▪ WMA",
+    "▪ AIF ▪ AIFF ▪ APE ▪ CAF ▪ DSD Audio ▪ FLAC ▪ MP3 ▪ M4A (AAC, ALAC) ▪ OGG ▪ WAV ▪ WMA"
+  ],
+  "301": [
+    "▪ APE ▪ FLAC ▪ M4A ▪ WAV ▪ WMA",
+    "▪ APE ▪ FLAC ▪ M4A ▪ WAV ▪ WMA"
+  ]
+}

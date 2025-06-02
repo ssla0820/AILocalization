@@ -1,0 +1,1706 @@
+{
+  "1": [
+    "Windows Media Player 9 or above is required.",
+    "需要 Windows Media Player 9 以上版本。"
+  ],
+  "2": [
+    "Transition Room:",
+    "轉場特效工房："
+  ],
+  "3": [
+    "Media Room:",
+    "媒體工房："
+  ],
+  "4": [
+    "Video Overlay Room:",
+    "覆疊工房："
+  ],
+  "5": [
+    "S3D Transition Effect",
+    "S3D 轉場特效"
+  ],
+  "7": [
+    "What are the feature differences between the CyberLink PowerDirector 365 Mac and PowerDirector 365 Windows versions?",
+    "訊連科技威力導演 365 的 Mac 版本和 Windows 版本的功能差異為何？"
+  ],
+  "8": [
+    "CyberLink will keep developing and adding editing features to PowerDirector 365 Mac version.",
+    "訊連科技會持續為威力導演 365 的 Mac 版本開發並新增編輯功能。"
+  ],
+  "9": [
+    "However, because of the operating system differences and product development progress, the below features are currently only supported in the PowerDirector 365 Windows version:",
+    "然而，由於作業系統的差異和產品的開發進度，目前只有 Windows 版本的威力導演 365 可支援下列功能："
+  ],
+  "10": [
+    "Video in Reverse",
+    "視訊倒播"
+  ],
+  "11": [
+    "Learn More",
+    "了解更多"
+  ],
+  "12": [
+    "Audio",
+    "音訊"
+  ],
+  "13": [
+    "Video",
+    "影片"
+  ],
+  "14": [
+    "PowerDirector",
+    "威力導演"
+  ],
+  "15": [
+    "Export",
+    "匯出"
+  ],
+  "16": [
+    "Video effects",
+    "視訊特效"
+  ],
+  "17": [
+    "Memory",
+    "記憶體"
+  ],
+  "18": [
+    "32 kHz",
+    "32 kHz"
+  ],
+  "19": [
+    "Import",
+    "匯入"
+  ],
+  "20": [
+    "Ultra",
+    "極致版"
+  ],
+  "21": [
+    "Update",
+    "更新"
+  ],
+  "22": [
+    "Other",
+    "其他"
+  ],
+  "24": [
+    "Ultimate",
+    "旗艦版"
+  ],
+  "25": [
+    "Graphics Card",
+    "顯示卡"
+  ],
+  "26": [
+    "Tools:",
+    "工具："
+  ],
+  "27": [
+    "Keyframe",
+    "關鍵畫格"
+  ],
+  "28": [
+    "CPU Processor",
+    "CPU 處理器"
+  ],
+  "29": [
+    "The Intel and AMD CPU processor that support AVX2 Intel Haswell(4th generation) processor:",
+    "支援 AVX2 的 Intel 和 AMD CPU 處理器 Intel Haswell (第 4 代) 處理器："
+  ],
+  "30": [
+    "Operating System",
+    "作業系統"
+  ],
+  "31": [
+    "Plugins:",
+    "外掛模組："
+  ],
+  "32": [
+    "Internet Connection",
+    "網際網路連線"
+  ],
+  "35": [
+    "How do I download or re-download the iStock (Getty Images) premium media I purchased in CyberLink PowerDirector 365 and PhotoDirector 365?",
+    "如何下載/重新下載我在訊連科技威力導演 365 和相片大師 365 中購買的 iStock (Getty Images) 進階媒體素材？"
+  ],
+  "36": [
+    "CyberLink PowerDirector/PhotoDirector 365 (released after Dec 2021) supports purchasing premium media from the iStock (Getty Images) online media library within the app.",
+    "訊連科技威力導演/相片大師 365 (2021 年 12 月推出的版本) 支援在程式內的線上媒體庫購買 iStock (Getty Images) 的進階媒體素材。"
+  ],
+  "37": [
+    "Theme Designer",
+    "創意主題設計師"
+  ],
+  "38": [
+    "CyberLink Cloud",
+    "訊連雲"
+  ],
+  "39": [
+    "Transition Designer",
+    "轉場特效設計師"
+  ],
+  "40": [
+    "Transition templates",
+    "轉場特效範本"
+  ],
+  "41": [
+    "Sync by Audio",
+    "依音訊同步"
+  ],
+  "42": [
+    "Action Camera Center",
+    "運動攝影工房"
+  ],
+  "43": [
+    "What can I do?",
+    "該怎麼辦？"
+  ],
+  "44": [
+    "Key Features",
+    "主要功能"
+  ],
+  "45": [
+    "Director Suite 365",
+    "創意導演 365"
+  ],
+  "46": [
+    "Ultimate Suite",
+    "旗艦組合包"
+  ],
+  "47": [
+    "Screen Recorder 4 SEEnhanced",
+    "Screen Recorder 4 SE 升級"
+  ],
+  "48": [
+    "CyberLink Media Creativity Software",
+    "訊連科技媒體創意軟體"
+  ],
+  "49": [
+    "Capture Room",
+    "擷取模組"
+  ],
+  "50": [
+    "Movie Creation and Editing Tools",
+    "影片創意和編輯工具"
+  ],
+  "51": [
+    "H.265 support",
+    "支援 H.265"
+  ],
+  "52": [
+    "XVAC-S support",
+    "支援 XVAC-S"
+  ],
+  "53": [
+    "2K/4K video import/production support*",
+    "支援匯入/輸出 2K/4K 影片*"
+  ],
+  "54": [
+    "Native 3D file support",
+    "支援原生 3D 檔案"
+  ],
+  "55": [
+    "Capture AVCHD/BDMV disc",
+    "擷取 AVCHD/BDMV 光碟"
+  ],
+  "56": [
+    "AVCHD/BD disc burning",
+    "AVCHD/BD 光碟燒錄"
+  ],
+  "58": [
+    "Intel Core™ i-series or AMD Phenom® II and above.",
+    "Intel Core™ i 系列或 AMD Phenom® II 和更新版本。"
+  ],
+  "59": [
+    "Hard Disk Space (Installation)",
+    "硬碟空間 (用於安裝)"
+  ],
+  "60": [
+    "Content Pack Premium 1",
+    "內容套件豪華版 1"
+  ],
+  "61": [
+    "6. The dialog “Buy premium Getty Images stock media” will inform you buy to produce the video.***",
+    "6. 「購買 Getty Images 媒體素材」對話方塊將提示您購買進階素材以輸出影片。***"
+  ],
+  "62": [
+    "* Only subscribers of the PowerDirector Mobile are able to see and buy premium Getty Images stock media in the Media Library.",
+    "* 只有威力導演行動版的訂閱用戶才能在「媒體庫」中看到並購買進階的 Getty Images 媒體素材。"
+  ],
+  "63": [
+    "Note:",
+    "附註："
+  ],
+  "65": [
+    "A-Series, E2-Series, C-Series, E-Series, G-Series AMD Radeon™ Graphics:",
+    "A-系列、E2-系列、C-系列、E-系列、G-系列 AMD Radeon™ 圖形顯示卡："
+  ],
+  "66": [
+    "5900 Series, 5800 Series, 5700 Series, 5600 Series, 5500 Series, 5400 Series ATI FirePro™ Graphics ATI Mobility Radeon™ HD:",
+    "5900 系列、5800 系列、5700 系列、5600 系列、5500 系列、5400 系列 ATI FirePro™ 圖形顯示卡 ATI Mobility Radeon™ HD："
+  ],
+  "67": [
+    "5800 Series, 5700 Series, 5600 Series, 5400 Series ATI Mobility FirePro™:",
+    "5800 系列、5700 系列、5600 系列、5400 系列 ATI Mobility FirePro™："
+  ],
+  "68": [
+    "M7820, M5800",
+    "M7820、M5800"
+  ],
+  "69": [
+    "[Intel] HD Graphics and above",
+    "[Intel] HD 圖形顯示卡以上"
+  ],
+  "70": [
+    "3D Video: Dual-stream AVI, MVC*, Side-by-Side Video*, Over/Under Video*",
+    "3D 影片：雙串流 AVI、MVC*、左右並排視訊*、上下排列視訊*"
+  ],
+  "71": [
+    "Raw Image:CyberLink PowerDirector also supports the import of the following camera RAW image formats, which are then converted to JPEG once imported:",
+    "RAW 影像：訊連科技威力導演也支援匯入下列相機 RAW 圖片格式 (這些格式會在匯入之後，轉換成 JPEG)："
+  ],
+  "72": [
+    "ARW (SONY), CR2 (Canon), DNG (Ricoh), ERF (Epson), KDC (Kodak), MRW (Konica Minolta), NEF (Nikon), NRW (Nikon), ORF (OLYMPUS), PEF (Pentax), RAF (Fujifilm), RW2 (Panasonic), SR2 (SONY), SRF (SONY).",
+    "ARW (SONY)、CR2 (Canon)、DNG (Ricoh)、ERF (Epson)、KDC (Kodak)、MRW (Konica Minolta)、NEF (Nikon)、NRW (Nikon)、ORF (OLYMPUS)、PEF (Pentax)、RAF (Fujifilm)、RW2 (Panasonic)、SR2 (SONY)、SRF (SONY)。"
+  ],
+  "73": [
+    "Intel Corei7 or AMD FX series above recommended",
+    "建議使用 Intel Corei7 或 AMD FX 系列以上"
+  ],
+  "74": [
+    "[AMD / ATI] AMD APU Family with AMD Radeon™ HD Graphics:",
+    "[AMD / ATI] AMD APU 系列 (配備 AMD Radeon™ HD 圖形顯示卡)："
+  ],
+  "75": [
+    "A DVD burner (DVD+R/RW or DVD-R/RW) is required to burn DVD/AVCHD* titles.",
+    "需配備 DVD 燒錄機 (DVD+R/RW 或 DVD-R/RW) 才能燒錄 DVD/AVCHD* 影片。"
+  ],
+  "76": [
+    "Video speed easing in/out",
+    "視訊速度漸入/漸出"
+  ],
+  "77": [
+    "Video speed partial adjustment",
+    "視訊速度部分調整"
+  ],
+  "78": [
+    "120/240 fps mp4 video exporting",
+    "120/240 fps mp4 視訊匯出"
+  ],
+  "79": [
+    "H.265 hardware encode/decode**",
+    "H.265 硬體編碼/解碼**"
+  ],
+  "80": [
+    "WAV 7.1 ch",
+    "WAV 7.1 聲道"
+  ],
+  "81": [
+    "AAC 5.1 ch",
+    "AAC 5.1 聲道"
+  ],
+  "82": [
+    "Keep Audio Pitch in 0.1X~10XNew",
+    "保持音訊音高 (0.1X~10X) 新"
+  ],
+  "83": [
+    "Dual monitor support",
+    "雙監視器支援"
+  ],
+  "84": [
+    "Split Toning",
+    "分割色調"
+  ],
+  "85": [
+    "HDR Effect",
+    "HDR 特效"
+  ],
+  "86": [
+    "Look-up Table",
+    "色彩查找表"
+  ],
+  "87": [
+    "Processor (CPU)",
+    "處理器 (CPU)"
+  ],
+  "88": [
+    "Graphics Processor (GPU)",
+    "圖形處理器 (GPU)"
+  ],
+  "89": [
+    "360° Video:",
+    "360° 影片："
+  ],
+  "90": [
+    "360° equirectangular projection video format*.",
+    "360° 等距柱狀投影視訊格式*。"
+  ],
+  "91": [
+    "360° Photo:",
+    "360° 相片："
+  ],
+  "92": [
+    "360° video editing",
+    "360° 影片編輯"
+  ],
+  "93": [
+    "9:16 vertical video editing",
+    "9:16 垂直影片編輯"
+  ],
+  "94": [
+    "TrueTheater color enhancement",
+    "TrueTheater 色彩強化"
+  ],
+  "95": [
+    "Blending Effect",
+    "混合特效"
+  ],
+  "96": [
+    "To buy premium Getty Images stock media in PowerDirector Mobile, do this:",
+    "如果要在威力導演行動版中購買 Getty Images 的進階媒體素材，請執行下列操作："
+  ],
+  "97": [
+    "1. Go to the Media Library.",
+    "1. 前往媒體庫。"
+  ],
+  "98": [
+    "2D Video:",
+    "2D 影片："
+  ],
+  "100": [
+    "2D Image:",
+    "2D 圖片："
+  ],
+  "101": [
+    "RX Series, R9 Series, R7 Series, R5 Series,HD 7000 Series, HD 6000 Series ATI Radeon™ HD Graphics:",
+    "RX 系列、R9 系列、R7 系列、R5 系列、HD 7000 系列、HD 6000 系列 ATI Radeon™ HD 圖形顯示卡："
+  ],
+  "102": [
+    "BorisFX Film Style",
+    "BorisFX Film Style"
+  ],
+  "103": [
+    "BorisFX Stylize",
+    "BorisFX Stylize"
+  ],
+  "104": [
+    "Licensed Music and Audio Clips",
+    "授權音樂和音效片段"
+  ],
+  "105": [
+    "BorisFX Lights",
+    "BorisFX Lights"
+  ],
+  "106": [
+    "Holliday Pack 11",
+    "假期套件 11"
+  ],
+  "107": [
+    "BorisFX Image Restoration",
+    "BorisFX Image Restoration"
+  ],
+  "108": [
+    "Express Projects",
+    "快速專案範本"
+  ],
+  "109": [
+    "360° Start View Setting",
+    "360° 開始畫面設定"
+  ],
+  "110": [
+    "Convert Title to 360° object",
+    "將文字轉換成 360° 物件"
+  ],
+  "111": [
+    "Convert PiP to 360° object",
+    "將子母畫面轉換成 360° 物件"
+  ],
+  "112": [
+    "360° video object tracking",
+    "360° 影片物件追蹤"
+  ],
+  "113": [
+    "Little Planet projection mode of 360° video",
+    "360° 影片的小星球投影模式"
+  ],
+  "114": [
+    "10bit (4:2:0) H.265 import",
+    "10 位元 (4:2:0) H.265 匯入"
+  ],
+  "115": [
+    "Import .SRT, .TXT subtitle",
+    "匯入 .SRT、.TXT 字幕"
+  ],
+  "116": [
+    "Note:",
+    "附註："
+  ],
+  "117": [
+    "Particle Room:",
+    "炫粒工房："
+  ],
+  "118": [
+    "CyberLink PowerDirector 18/365 supports the following file formats:",
+    "訊連科技威力導演 18/365 支援下列檔案格式："
+  ],
+  "119": [
+    "*360° equirectangular projection photo format",
+    "*360° 等距柱狀投影相片格式"
+  ],
+  "120": [
+    "3D Image:",
+    "3D 圖片："
+  ],
+  "121": [
+    "*3D Video:",
+    "*3D 影片："
+  ],
+  "122": [
+    "Windows Media Video (WMV), MPEG-4, MPEG-2, H.264 AVC, Matroska (MKV)",
+    "Windows Media 視訊 (WMV)、MPEG-4、MPEG-2、H.264 AVC、Matroska (MKV)"
+  ],
+  "123": [
+    "** Does not support the editing of animation content encoded in HEIC photos.",
+    "** 不支援編輯 HEIC 相片中經過編碼的動畫內容。"
+  ],
+  "124": [
+    "**** Exporting video with Dolby Digital 2ch audio is only supported on Windows 8/10 with Windows inbox codec.",
+    "**** 匯入含 Dolby Digital 2ch 音訊的視訊僅在具備 Windows 內建轉碼器的 Windows 8/10 上有所支援。"
+  ],
+  "125": [
+    "The new versions of CyberLink Director Suite programs, including PowerDirector 18/365, AudioDirector 10/365, and ColorDirector 8/365 (or above) now uses OS technology to support Dolby audio.",
+    "新版本的創意導演組合包 (內含威力導演 18/365、AudioDirector 10/365 和 ColorDirector 8/365 或更新版本) 現在使用作業系統本身的技術來支援 Dolby 音訊。"
+  ],
+  "126": [
+    "PowerDirector",
+    "威力導演"
+  ],
+  "127": [
+    "Subscription Exclusive 365 Exclusive",
+    "訂閱版獨享 365 專屬"
+  ],
+  "128": [
+    "Shutterstock contents",
+    "Shutterstock 素材"
+  ],
+  "129": [
+    "Getty Images contentsNEW",
+    "Getty Images 素材 新"
+  ],
+  "130": [
+    "ColorDirector NEW",
+    "ColorDirector 新"
+  ],
+  "131": [
+    "AudioDirector NEW",
+    "AudioDirector 新"
+  ],
+  "132": [
+    "PhotoDirector NEW",
+    "相片大師 新"
+  ],
+  "133": [
+    "CyberLink Cloud Storage",
+    "訊連雲儲存空間"
+  ],
+  "134": [
+    "Content Pack Premium 4",
+    "內容套件豪華版 4"
+  ],
+  "135": [
+    "Move particle background position",
+    "移動炫粒背景位置"
+  ],
+  "136": [
+    "Video Pre-cut",
+    "視訊預剪"
+  ],
+  "137": [
+    "Multi-sample Chroma Key",
+    "多取樣色度去背"
+  ],
+  "138": [
+    ".WEBM (VP9) video editing support",
+    "支援 .WEBM (VP9) 影片編輯"
+  ],
+  "140": [
+    "Title backdrop",
+    "文字底圖"
+  ],
+  "141": [
+    "Brush Mask Designer",
+    "筆刷遮罩設計師"
+  ],
+  "142": [
+    "Support digitizer in Paint Designer",
+    "繪圖設計師中支援數位化工具"
+  ],
+  "143": [
+    "Audio Editor",
+    "音訊編輯器"
+  ],
+  "144": [
+    "Capture video in H.264 format",
+    "以 H.264 格式擷取視訊"
+  ],
+  "145": [
+    "H.265 360° video produce",
+    "H.265 360° 視訊輸出"
+  ],
+  "146": [
+    "Video Collage Designer",
+    "視訊拼貼設計師"
+  ],
+  "147": [
+    "Video Stabilizer with 360° video",
+    "360° 影片的視訊穩定器"
+  ],
+  "148": [
+    "Image Sequence output",
+    "圖片序列輸出"
+  ],
+  "149": [
+    "Mask Designer Enhanced",
+    "遮罩設計師 升級"
+  ],
+  "150": [
+    "Title Designer",
+    "文字設計師"
+  ],
+  "151": [
+    "PiP Designer",
+    "子母畫面設計師"
+  ],
+  "152": [
+    "Mask Designer Mask Composite",
+    "遮罩設計師遮罩合成"
+  ],
+  "153": [
+    "MultiCam Designer",
+    "多機剪輯設計師"
+  ],
+  "154": [
+    "Paint Designer",
+    "繪圖設計師"
+  ],
+  "155": [
+    "Export .SRT file",
+    "匯出 .SRT 檔案"
+  ],
+  "156": [
+    "Timeline tracks",
+    "時間軸軌道"
+  ],
+  "157": [
+    "Magic Style templates",
+    "Magic Style 範本"
+  ],
+  "158": [
+    "Slideshow templates",
+    "幻燈片秀範本"
+  ],
+  "160": [
+    "Reinstall",
+    "重新安裝"
+  ],
+  "161": [
+    "To upload a project pack to Google Drive:",
+    "若要將專案套件上傳到 Google 雲端硬碟，請執行以下操作："
+  ],
+  "162": [
+    "* If there is premium content in the project pack that was downloaded on the Android device with the free version, you still can export the project with the free version.",
+    "* 若專案套件中所包含的尊享版內容是在 Android 裝置上使用免費版程式下載的，您仍然可以匯出免費版本的專案。"
+  ],
+  "163": [
+    "However, if you edit the project, the app will ask you to subscribe to the app before exporting the project.",
+    "但是當您編輯該專案時，應用程式會在匯出專案前要求您訂閱應用程式。"
+  ],
+  "164": [
+    "Preview Window:",
+    "預覽視窗："
+  ],
+  "165": [
+    "Subtitle Room:",
+    "字幕工房："
+  ],
+  "167": [
+    "Effect Room:",
+    "特效工房："
+  ],
+  "168": [
+    "PiP Designer:",
+    "子母畫面設計師："
+  ],
+  "169": [
+    "How Do I Buy Premium Getty Images Stock Media in PowerDirector Mobile?",
+    "如何在威力導演行動版中購買 Getty Images 的進階媒體素材？"
+  ],
+  "170": [
+    "What can I do if CyberLink PowerDirector crashes when using the Carousel Transition Pack?",
+    "如果威力導演在使用「幻燈片輪播轉場特效包」時當機，該怎麼辦？"
+  ],
+  "171": [
+    "2. Choose “Video” then tap on “Stock video” or choose “Photo” then tap on “Stock Photo”.",
+    "2. 選擇「影片」>「影片素材」，或者選擇「圖片」>「圖片素材」。"
+  ],
+  "172": [
+    "Title Designer:",
+    "文字設計師："
+  ],
+  "173": [
+    "Express Projects (Video Templates), Extract Audio from Media Room's Videos, Scene Detection in Videos.",
+    "快速專案範本 (影片設計範本)/媒體工房的視訊中擷取音訊/視訊中的偵測場景功能"
+  ],
+  "174": [
+    "Gradient Color Boards, Creating Folders in Media Room",
+    "漸層色板/在媒體庫中建立媒體資料夾"
+  ],
+  "175": [
+    "Motion Graphic PiP Objects, Sketch Animations, Paint Designer",
+    "動態圖形子母畫面/向量筆畫動畫/繪圖設計師"
+  ],
+  "176": [
+    "Title Room and Title Designer:",
+    "文字工房和文字設計師："
+  ],
+  "178": [
+    "Color Presets, 3rd-party Effects.",
+    "色彩風格檔/第三方特效"
+  ],
+  "179": [
+    "Particle Designer Advanced Mode",
+    "炫粒設計師的進階模式"
+  ],
+  "181": [
+    "Video Denoise, Color Enhancement (TrueTheater Color), Edge Enhancement, Split Toning, HDR Effect, Red-eye Removal for Images, Re-focus Adjustment for Images, Speech Enhancement, Wind Removal",
+    "視訊降噪/色彩強化 (TrueTheater Color)/邊緣加強/分割色調/HDR 特效/圖片的紅眼移除/圖片的重新對焦/語音增強/移除風聲"
+  ],
+  "182": [
+    "Action Camera Center, Audio Ducking, Audio Smart Fit, Brush Mask, Content Aware Editing, Magic Cut, Motion Tracker, Object Detection In Mask Designer",
+    "運動攝影工房/音訊閃避/音訊智慧型符合/筆刷遮罩/內容感應編輯/Magic Cut/動態追蹤/遮罩設計師中的物件偵測"
+  ],
+  "183": [
+    "MultiCam Designer, Theme Designer, Screen Recorder, Slideshow Creator, Magic Movie Wizard, Sky Replacement",
+    "多機剪輯設計師/創意主題設計師/Screen Recorder/幻燈片秀編輯器/Magic Movie 精靈/置換天空"
+  ],
+  "184": [
+    "21:9 and 4:5 Video Project",
+    "21:9 和 4:5 的影片專案"
+  ],
+  "185": [
+    "3rd-party Boris Plugins.",
+    "第三方 Boris 外掛模組"
+  ],
+  "186": [
+    "360° Videos/Images Editing and Export",
+    "360° 影片/圖片編輯和匯出"
+  ],
+  "187": [
+    "SVRT Acceleration",
+    "SVRT 加速"
+  ],
+  "188": [
+    "To learn more about the exact feature differences, which are not mentioned herein, please kindly try our Essential (free trial) edition and check the latest supported features in PowerDirector 365 Mac version directly.",
+    "若要瞭解更多有關此處未提及的確切功能差異，我們建議您下載基礎版 (免費試用)，直接確認威力導演 365 的 Mac 版本最新支援的功能。"
+  ],
+  "189": [
+    "Related Articles:",
+    "相關文章："
+  ],
+  "190": [
+    "Which content packs are supported for CyberLink PowerDirector 365 Mac version?",
+    "訊連科技威力導演 365 的 Mac 版本支援哪些內容套件？"
+  ],
+  "191": [
+    "Which file formats are supported in CyberLink PowerDirector 365 Mac version?",
+    "訊連科技威力導演 365 的 Mac 版本支援哪些檔案格式？"
+  ],
+  "192": [
+    "CyberLink PowerDirector crashed when adding video effects from certain NewBlue video plugins.",
+    "訊連科技威力導演在加入某些 NewBlue 視訊外掛程式時會當機，"
+  ],
+  "194": [
+    "This compatibility issue conflicts with and crashes the PowerDirector program.",
+    "此相容性問題與威力導演程式衝突並導致當機。"
+  ],
+  "195": [
+    "As CyberLink is not the developer and vendor of the NewBlue plugins, we are afraid we do not have access to the technical details of the plugins.",
+    "由於訊連科技並非 NewBlue 外掛程式的開發商和供應商，我們無法取得外掛程式的技術詳細資料。"
+  ],
+  "196": [
+    "This issue is not resolve-able by changing or updating just the program code of CyberLink PowerDirector.",
+    "因此只透過更改或更新訊連科技威力導演的程式代碼並無法解決此問題。"
+  ],
+  "198": [
+    "It could be the most feasible action for resolving the NewBlue plugin concern:",
+    "這可能是要解決 NewBlue 外掛程式問題最可行的操作："
+  ],
+  "199": [
+    "Why did I receive a message saying that my operating system or CPU is not supported when using the AI related features in CyberLink PowerDirector 365?",
+    "為什麼我在使用訊連科技威力導演 365 中的 AI 相關功能時，會出現訊息顯示不支援我的作業系統或 CPU？"
+  ],
+  "200": [
+    "Updates to the *AI related features in CyberLink PowerDirector 365 require both Microsoft Windows 10 64-bit (and above versions) and the CPU hardware instruction set (AVX2).",
+    "威力導演 365 更新後的 AI 相關功能*需要使用 Microsoft Windows 10 以上的版本 ( 64 位元)，以及 CPU 硬體指令集 (AVX2)。"
+  ],
+  "201": [
+    "*Al related features:",
+    "*AI 相關功能："
+  ],
+  "202": [
+    "1. Mask Designer:",
+    "1. 遮罩設計師："
+  ],
+  "203": [
+    "Salient Object selection in Brush Mask Designer 2. Ad Designer:",
+    "「筆刷遮罩設計師」中的顯著物件選取 2. 廣告設計師："
+  ],
+  "204": [
+    "Salient object selection 3. Fix/Enhance:",
+    "顯著物件選取 3. 修補/加強："
+  ],
+  "205": [
+    "Audio wind removal 4. Fix/Enhance:",
+    "音訊移除風聲 4. 修補/加強："
+  ],
+  "206": [
+    "Speech enhancement 5. Video sky replacement If your computer's CPU or operating system doesn’t support the feature, a message will display informing you.",
+    "語音增強 5. 影片置換天空 如果電腦的 CPU 或作業系統不支援該功能，威力導演將會顯示通知訊息。"
+  ],
+  "207": [
+    "As a workaround, move to another platform that meets the CPU requirements, or use the other Mask Designer features and check if they can meet your requirements.",
+    "作為解決方案，您可以在另一個符合 CPU 要求的平台上使用威力導演；或使用其他「遮罩設計師」功能並確認是否符合您的需求。"
+  ],
+  "208": [
+    "What are the CPU requirements of the AI related features:",
+    "AI 相關功能的 CPU 要求："
+  ],
+  "209": [
+    "If you have question about the AI related features in PowerDirector 365, please contact CyberLink for further technical support:",
+    "如果您對威力導演 365 中的 AI 相關功能有任何問題，請與訊連科技聯繫以取得進一步的技術支援："
+  ],
+  "210": [
+    "How do I back up my project files on Google Drive with CyberLink ActionDirector Mobile Android?",
+    "如何使用威力酷剪行動版 (Android) 將專案檔備份到 Google 雲端硬碟？"
+  ],
+  "211": [
+    "ActionDirector Mobile Android supports the packing of project files and then uploading them to your Google Drive to back them up.",
+    "威力酷剪行動版 (Android) 支援將專案檔打包並上傳到 Google 雲端硬碟以作備份。"
+  ],
+  "212": [
+    "You can also download project packs on different Android devices and keep editing.",
+    "您也可以在另一台 Android 裝置上下載專案套件，繼續編輯。"
+  ],
+  "213": [
+    "1. Go to the My Projects page of ActionDirector Mobile Android.",
+    "1. 在威力酷剪中前往「我的專案」頁面。"
+  ],
+  "214": [
+    "2. Tap on the Google Drive icon and log in with your Google account.",
+    "2. 點選 Google 雲端硬碟圖示，並使用您的 Google 帳戶登入。"
+  ],
+  "215": [
+    "3. Select the project that you would like to upload.",
+    "3. 選取要上傳的專案。"
+  ],
+  "216": [
+    "4. Tap on the top right \"...\" button of the project and choose \"Upload\".",
+    "4. 點選專案右上方的「...」按鈕，然後選擇「上傳」。"
+  ],
+  "217": [
+    "If you have any questions, please tap \"Send Feedback\" in-app Settings to contact the CyberLink Customer Support team.",
+    "若您有任何問題，請點選應用程式內設定選單中的「意見反應」來聯繫訊連科技客戶支援團隊。"
+  ],
+  "218": [
+    "How do I add a custom font in CyberLink PowerDirector Mobile Android?",
+    "如何在訊連科技威力導演行動版 (Android) 中新增自訂字型？"
+  ],
+  "219": [
+    "To add a custom font in the Title Designer of CyberLink PowerDirector Mobile Android, do this:",
+    "若要在訊連科技威力導演行動版 (Android) 的「文字設計師」中新增自訂字型，請執行下列操作："
+  ],
+  "221": [
+    "2. Find your font file* and then copy it to the following folders**:",
+    "2. 找到您的字型檔*，然後將其複製到下列資料夾**："
+  ],
+  "222": [
+    "- If your device OS is Android 10 or below, please copy your font file to the folder:",
+    "- 如果裝置的作業系統是 Android 10 以下，請將字型檔複製到此資料夾："
+  ],
+  "223": [
+    "//PowerDirector/fonts/custom/ - If your device OS is Android 11 or above, please copy your font file to the folder:",
+    "//PowerDirector/fonts/custom/ - 如果裝置的作業系統是 Android 11 以上，請將字型檔複製到此資料夾："
+  ],
+  "224": [
+    "/storage/emulated/0/Android/data/com.cyberlink.powerdirector.DRA140225_01/files/fonts/custom/ 3. Go to the Title Designer in CyberLink PowerDirector Mobile Android, and then begin using it in your titles.",
+    "/storage/emulated/0/Android/data/com.cyberlink.powerdirector.DRA140225_01/files/fonts/custom/ 3. 前往訊連科技威力導演行動版 (Android) 的「文字設計師」，便可開始在文字中使用自訂字型。"
+  ],
+  "225": [
+    "For more detailed information on adding a custom font, please refer to the tutorial video.",
+    "如需有關新增自訂字型的詳細資訊，請參閱教學影片。"
+  ],
+  "227": [
+    "**The capabilities of the fonts, such as the number of words, are dependent on the specification of the fonts.",
+    "**字型所提供的特性 (如字數) 將取決於字型本身的規格。"
+  ],
+  "228": [
+    "Which mobile device system on chips (SoC) support video overlay editing and producing in CyberLink PowerDirector Mobile Android?",
+    "哪些行動裝置的系統晶片 (SoC) 支援在訊連科技威力導演行動版 (Android) 中進行視訊覆疊編輯和輸出？"
+  ],
+  "229": [
+    "* The PiP video overlay capacity of the SoCs is dependent on the device manufacturer's customized Android operating system.",
+    "* 系統晶片的子母畫面覆疊特性將取決於裝置製造商所自訂的 Android 作業系統。"
+  ],
+  "230": [
+    "** The maximum number of overlay tracks allowed is dependent on the hardware capabilities of your mobile device.",
+    "** 覆疊軌道的數量上限將取決於行動裝置的硬體特性。"
+  ],
+  "231": [
+    "PowerDirector Mobile will auto-detect your device’s hardware capability, and if the device supports it, you can use up to 3 video overlay tracks at the same time in a project.",
+    "威力導演行動版會自動偵測裝置的硬體特性，若裝置支援子母畫面覆疊功能，您最多可以在一個專案中同時使用 3 個視訊覆疊軌道。"
+  ],
+  "232": [
+    "4K or above",
+    "4K 以上"
+  ],
+  "233": [
+    "If you receive the message, we suggest you to check the CPU requirements below as reference.",
+    "如果收到此訊息，我們建議您參考下方的 CPU 要求。"
+  ],
+  "234": [
+    "Core i7-4770 (only Core and Xeon branded), and above AMD AMD A8-7670K and above AMD Ryzen™ 3 1200 and above",
+    "Core i7-4770 (僅支援 Core 和 Xeon) 以上 AMD AMD A8-7670K 以上 AMD Ryzen™ 3 1200 以上"
+  ],
+  "235": [
+    "https://www.cyberlink.com/support/index.html",
+    "https://tw.cyberlink.com/support/index.html"
+  ],
+  "236": [
+    "You will receive a pop-up message if you add the 11th premium stock media to the timeline.",
+    "如果在時間軸中加入第 11 個進階媒體素材，將出現快顯通知訊息。"
+  ],
+  "237": [
+    "**The maximum tryout limit is 10 clips.",
+    "**您最多可以試用 10 個進階片段。"
+  ],
+  "238": [
+    "4. If you download a clip with the “$” icon* and import it to your project, the tab “Pay for stock content used” will show in the top left corner of the project.**",
+    "4. 如果您下載標有「$」的片段並匯入專案中*，專案的左上角將顯示「購買使用的素材」標籤。**"
+  ],
+  "239": [
+    "3. Choose “iStock by Getty Images”.",
+    "3. 選擇「iStock by Getty Images」。"
+  ],
+  "240": [
+    "5. Tap on the produce button.",
+    "5. 點選輸出按鈕。"
+  ],
+  "241": [
+    "Why can't I import or export videos with DTS audio in PowerDirector365?",
+    "為什麼我無法將帶有 DTS 音訊的影片匯入或匯出威力導演？"
+  ],
+  "242": [
+    "Due to declining usage and lack of support from software and hardware companies, we have decided to remove the DTS audio (both import and export) feature and migrate the support of surround sound audio to AAC 5.1 format in new versions of PowerDirector.",
+    "由於使用率下降並缺乏軟體和硬體公司的支援，我們決定在新版本的威力導演中移除 DTS 音訊功能（匯入和匯出），並將支援的環繞音效轉置為 AAC 5.1 格式。"
+  ],
+  "243": [
+    "We are pleased to announce that new versions of PowerDirector 20/365 (released after Sept. 2021) now include the AAC 5.1 audio format for video file production.",
+    "我們很高興地宣布，威力導演 20/365 的新版本（2021 年 9 月之後發布）可在輸出視訊檔案時選擇 AAC 5.1 的音訊格式。"
+  ],
+  "244": [
+    "If you’d like to import video files that contain DTS audio, please consult your video content provider to acquire video content that is not encoded with DTS audio format, or transcode the videos with AAC or LPCM audio format before importing into PowerDirector.",
+    "如果您想匯入包含 DTS 音訊的視訊檔案，請諮詢您的影片內容提供商以取得未使用 DTS 音訊格式編碼的影片內容，或者在匯入威力導演之前先將影片的音訊格式轉為 AAC 或 LPCM。"
+  ],
+  "245": [
+    "For PowerDirector 365 subscribers that have a previous version installed, you can continue using the DTS audio feature until your subscription expires or by not applying the new version update released in 2021 September.",
+    "若是安裝之前版本的威力導演 365 訂閱戶，您可以繼續使用 DTS 音訊功能直到訂閱到期，或在 2021 年 9 月的新版推出後，選擇略過版本更新。"
+  ],
+  "246": [
+    "For more questions about the DTS audio compatibility, please contact CyberLink customer service for further assistance:",
+    "有關 DTS 音訊相容性的更多問題，請聯絡訊連科技客戶服務以獲得進一步協助："
+  ],
+  "247": [
+    "Why can't I find the \"2 Color Gradient\" and \"4 Color Gradient\" features in the Title Designer of PowerDirector 365?",
+    "為什麼我在威力導演 365 的「文字設計師」中，找不到「雙色漸層」和「四色漸層」功能？"
+  ],
+  "248": [
+    "The “2 Color Gradient” & \"4 Color Gradient\" feature in Title Designer of PowerDirector 365 (released before August 2021) has changed its name to “Gradient Color” in the new version (released after September 2021).",
+    "威力導演 365 「文字設計師」中的「雙色漸層」和「四色漸層」功能，已在 2021 年 9 月推出的新版本中更名為「漸層色彩」。"
+  ],
+  "249": [
+    "For more questions about theGradient Color feature, please contact CyberLink customer service for further assistance:",
+    "有關漸層色彩功能的更多問題，請聯絡訊連科技客戶服務以獲得進一步協助："
+  ],
+  "250": [
+    "How do I add multiple borders on my titles in CyberLink PowerDirector 20/365?",
+    "如何使用訊連科技威力導演 20/365 為文字新增多個外框？"
+  ],
+  "251": [
+    "CyberLink PowerDirector 20/365 now supports adding multiple borders to title text in the Title Designer.",
+    "訊連科技威力導演 20/365 現可在「文字設計師」中為標題文字新增多個外框。"
+  ],
+  "252": [
+    "To add multiple borders to title text, do this:",
+    "若要對標題文字新增多個外框，請執行下列步驟："
+  ],
+  "253": [
+    "Select a Title Effect Template in PowerDirector Title Room library, and then drag it to the timeline.",
+    "在威力導演的「文字工房」媒體庫中選取文字特效範本，然後將其拖放到時間軸。"
+  ],
+  "254": [
+    "Double click on the title to open Title Designer",
+    "對標題按兩下，開啟文字設計師"
+  ],
+  "255": [
+    "In Title Designer > Object, enable the Border option.",
+    "在文字設計師 > 物件中啟用「外框」選項。"
+  ],
+  "256": [
+    "Add borders and adjust their colors.",
+    "新增外框並調整其色彩。"
+  ],
+  "257": [
+    "Click OK to save the adjustment.",
+    "按一下確定，儲存調整。"
+  ],
+  "258": [
+    "Text with single border:",
+    "單一文字邊框："
+  ],
+  "259": [
+    "Text with multiple borders:",
+    "多個文字外框："
+  ],
+  "260": [
+    "To learn more about the features in PowerDirector, please refer to the video tutorials located in the CyberLink Learning Center.",
+    "若要瞭解更多有關威力導演的功能，請參考訊連科技教學中心上的教學影片。"
+  ],
+  "261": [
+    "How do I use the Speech Enhancement feature in CyberLink PowerDirector 20/365?",
+    "如何使用訊連科技威力導演 20/365 的「語音增強」功能？"
+  ],
+  "262": [
+    "The Speech Enhancement feature uses AI technology to detect and adjust the volume of dialogue in audio recordings, letting you produce clearer speech and volume enhanced audio clips.",
+    "「語音增強」功能使用了 AI 技術來偵測並調整錄製音訊中的對白音量，協助您輸出音質更加清晰且音量增強的音訊片段。"
+  ],
+  "263": [
+    "To use the feature, import an audio clip that contains dialogue, and then click the Speech Enhancement* tool to apply in the Fix/Enhance feature.",
+    "若要使用此功能，先匯入含有對白的音訊片段，然後按一下語音增強*工具以套用修補/加強功能。"
+  ],
+  "264": [
+    "Click Apply to apply the edited result.",
+    "按一下套用，套用編輯結果。"
+  ],
+  "265": [
+    "Note: *The first time you use any of the new AI features, a download and installation of AI components from the CyberLink server is required via an Internet connection.",
+    "附註：*首次使用任何新的 AI 功能時，需透過網路連線從訊連科技伺服器中下載並安裝 AI 元件。"
+  ],
+  "266": [
+    "Occasional updates may also be downloaded in the future for these features.",
+    "之後也可能偶爾需要下載這些功能的更新。"
+  ],
+  "267": [
+    "To learn more about the Speech Enhancement feature, please view the video tutorial at CyberLink Learning Center.",
+    "若要瞭解更多有關「語音增強」的功能，請參考訊連科技教學中心上的教學影片。"
+  ],
+  "268": [
+    "New Features",
+    "新功能"
+  ],
+  "269": [
+    "- Download premium stock videos and images from Getty Images",
+    "- 可從 Getty Images 下載進階影片/圖片素材"
+  ],
+  "270": [
+    "- Lighting Adjustment support in Fix/Enhance",
+    "- 可在「修補/加強」中調整光線"
+  ],
+  "271": [
+    "- Color Match in Fix/Enhance",
+    "- 可在「修補/加強」中進行色彩配對"
+  ],
+  "273": [
+    "How do I use the Color Gradient feature in CyberLink PowerDirector 20/365?",
+    "如何使用訊連科技威力導演 20/365 的「色彩漸層」功能？"
+  ],
+  "274": [
+    "The Color Gradient feature lets you add 2 to 4 gradient colors to title text in Title Designer.",
+    "「色彩漸層」功能可讓您在「文字設計師」中對標題文字新增 2 到 4 個漸層色彩。"
+  ],
+  "275": [
+    "You can Fill in the gradients on \"Each character\", \"Each line\", or \"Entire title\".",
+    "您可以選擇將漸層填入「每個字元」、「每行」或「整個文字」。"
+  ],
+  "276": [
+    "There are also three gradient style to choose from:",
+    "另有三種漸層樣式可供選擇："
+  ],
+  "277": [
+    "Add and drag gradient stops to adjust the look for the gradients (the default stops on the left and right side cannot be moved).",
+    "新增並拖曳漸層停駐點來調整漸層外觀 (預設在左右兩端的停駐點無法移動)。"
+  ],
+  "278": [
+    "*Note:",
+    "*附註："
+  ],
+  "279": [
+    "Gradient stops are only available for Linear and Radial gradients.",
+    "漸層停駐點只適用於線性和放射狀漸層。"
+  ],
+  "280": [
+    "Liner, Radial and Corner, allowing you to create text with a various combo of color styles.",
+    "線性、放射狀和邊角，讓您可以創作出各種色彩樣式組合的文字。"
+  ],
+  "281": [
+    "Adjust the level of the Speech Compensation or the Removal Strength of your audio clip if required.",
+    "視需要調整音訊片段的補正或移除強度。"
+  ],
+  "282": [
+    "- Title Backdrop tool",
+    "- 文字底圖工具"
+  ],
+  "283": [
+    "The corner gradient style is the same as previous 4 Color Gradient.",
+    "邊角漸層的樣式與之前的四色漸層相同。"
+  ],
+  "284": [
+    "For more questions about the color gradients, please contact CyberLink customer service for further assistance:",
+    "有關色彩漸層的更多問題，請聯絡訊連科技客戶服務以獲得進一步協助："
+  ],
+  "285": [
+    "Why my NewBlue plug-in effects has a watermark?",
+    "為什麼我的 NewBlue 外掛程式特效有浮水印？"
+  ],
+  "287": [
+    "However, NewBlue plugins that were purchased from the NewBlue store will still work in PowerDirector 20/365 and NewBlue Bundled plugins installed from PowerDirector 19 and below versions will have a watermark.",
+    "不過從 NewBlue 商店購買的外掛程式仍然可以用於威力導演 20/365，而在威力導演 19 之前的版本所安裝的 NewBlue 搭售外掛程式將會有浮水印。"
+  ],
+  "288": [
+    "For PowerDirector 365 subscribers that have a previous version installed, you can continue using the bundled NewBlue plugins until your subscription expires by not applying the new version update released in 2021 September.",
+    "若是安裝之前版本的威力導演 365 訂閱戶，您可以繼續使用搭售的 NewBlue 外掛程式直到訂閱到期，或在 2021 年 9 月的新版推出後，選擇略過版本更新。"
+  ],
+  "289": [
+    "For more questions about the NewBlue plugins, please contact CyberLink customer service for further assistance:",
+    "有關 NewBlue 外掛程式的更多問題，請聯絡訊連科技客戶服務以獲得進一步協助："
+  ],
+  "290": [
+    "Why are NewBlue and ProDAD plugins no longer included with PowerDirector 20/365?",
+    "為什麼威力導演 20/365 不再包含 NewBlue 和 ProDAD 外掛程式？"
+  ],
+  "293": [
+    "What are the supported file formats in CyberLink PowerDirector 20/365?",
+    "訊連科技威力導演 20/365 支援哪些檔案格式？"
+  ],
+  "294": [
+    "2D Video: MVC (MTS), MOD, Dual-Stream AVI, MPEG-1, FLV (H.264), MPEG-2, MKV (multiple audio streams), MPEG-4 AVC (H.264), 3GPP2, *XAVC-S (MP4), AVCHD (M2T, MTS), TOD, AVI, VOB, DAT, WMV, WMV-HD, DV-AVI, WTV in H.264/MPEG2 (multiple video and audio streams), DVR-MS, DSLR video clip in H.264 format with LPCM audio, *H.265/HEVC in 8bit /10 bit (4:2:0 MP4/MKV/M2TS), *WEBM (VP9), *MXF (8bit 4:2:0 AVC/XAVC), MOV (H.264 in 8bit 4:2:0 and *Apple ProRes in 10bit 4:2:2 and *V210 YUV in 10bit 4:2:2)",
+    "2D 影片：MVC (MTS)、MOD、雙串流 AVI、MPEG-1、FLV (H.264)、MPEG-2、MKV (多個音訊串流)、MPEG-4 AVC (H.264)、3GPP2、*XAVC-S (MP4)、AVCHD (M2T、MTS)、TOD、AVI、VOB、DAT、WMV、WMV-HD、DV-AVI、H.264/MPEG2 的 WTV (多重視訊與音訊串流)、DVR-MS、DSLR 視訊片段 (LPCM 音訊 的 H.264 格式)、*8 位元/10 位元 H.265/HEVC (4:2:0 MP4/MKV/M2TS)、*WEBM (VP9)、*MXF (8 位元 4:2:0 的 AVC/XAVC)、MOV (8 位元 4:2:0 的 H.264、10 位元 4:2:2 的*Apple ProResand 和 *10 位元 4:2:2 的 V210 YUV)"
+  ],
+  "295": [
+    "2D Image: BMP, GIF, Animated-GIF NEW, JPEG, PNG, TIFF, **HEIC",
+    "2D 圖片：BMP、GIF、動畫 GIF、JPEG、PNG、TIFF、**HEIC"
+  ],
+  "296": [
+    "AVI, MPEG-2 (.MPG), Windows Media Video (WMV), H.264 AVC MPEG-4 (.MP4) in 8 bit with AAC/LPCM, H.264 AVC (.MKV) in 8 bit with LPCM/AAC, H.264 AVC (.M2TS) in 8 bit with LPCM audio, *XAVC-S(MP4) in 8 bit with LPCM audio/AAC, *H.265 HEVC (.MP4) in 8 bit with AAC/LPCM, *H.265 HEVC (.MKV) in 8 bit with LPCM/AAC, *H.265 AVC (.M2TS) in 8 bit with LPCM",
+    "AVI、MPEG-2 (.MPG)、Windows Media 視訊 (WMV)、8 位元 H.264 AVC MPEG-4 (.MP4)，含 AAC/LPCM、8 位元 H.264 AVC (.MKV)，含 LPCM/AAC、8 位元 H.264 AVC (.M2TS)，含 LPCM 音訊、*8 位元 XAVC-S (MP4)，含 LPCM 音訊/AAC、*8 位元 H.265 HEVC (.MP4)，含 AAC/LPCM、*8 位元 H.265 HEVC (.MKV)，含 LPCM/AAC、*8 位元 H.265 AVC (.M2TS)*，含 LPCM"
+  ],
+  "297": [
+    "Image Sequence in JPG or PNG",
+    "JPG 或 PNG 格式的圖片序列"
+  ],
+  "299": [
+    "What are the system requirements of CyberLink PowerDirector 20/365?",
+    "訊連科技威力導演 20/365 的系統需求為何？"
+  ],
+  "302": [
+    "Intel Corei5 or AMD Phenom II X4 above recommended 2K/4K/3D/360° video editing***:",
+    "建議使用 Intel Corei5 或 AMD Phenom II X4 以上 2K/4K/3D/360° 影片編輯***："
+  ],
+  "303": [
+    "128 MB VGA VRAM or higher (1 GB or higher VRAM and OpenCL capable are recommended) DirectX 11 compatible for 360° video editing.",
+    "128 MB VGA VRAM 以上 (建議使用 1 GB 以上的 VRAM 並支援 OpenCL)相容於 360° 影片編輯的 DirectX 11。"
+  ],
+  "304": [
+    "[NVIDIA] GeForce 8500GT/9800GT and above GeForce GT/GTS/GTX 200/400/500/600/700/800/900/1000/2000/3000 Series GeForce RTX 2000 series",
+    "[NVIDIA] GeForce 8500GT/9800GT 或更高版本 GeForce GT/GTS/GTX 200/400/500/600/700/800/900/1000/2000/3000 系列 GeForce RTX 2000 系列"
+  ],
+  "305": [
+    "1024 x 768, 16-bit color or above.",
+    "1024 x 768，16 位元色彩以上。"
+  ],
+  "306": [
+    "2GB required (8GB or above recommended)",
+    "需有 2 GB (建議有 8 GB 以上)"
+  ],
+  "307": [
+    "7GB required minimum 10 GB (20 GB recommended) for DVD production 60 GB (100 GB recommended) for Blu-ray Disc/AVCHD production",
+    "最少需有 7 GB 10 GB (建議 20 GB) 用於 DVD 輸出 60 GB (建議 100 GB) 用於藍光光碟/AVCHD 輸出"
+  ],
+  "308": [
+    "A Blu-ray Disc recordable drive is required to burn Blu-ray Discs*.",
+    "燒錄藍光光碟需要配備藍光光碟燒錄機*。"
+  ],
+  "309": [
+    "It is also required to access the subscription version, for online services, some software features, and to download program and AI component updates",
+    "在存取訂閱版本、線上服務、部分軟體功能，以及下載程式和 AI 元件更新時，亦需要網路連線。"
+  ],
+  "310": [
+    "*The AI related features require Windows11/10 system components \"AVX2\" and AI computing module to operate the features.",
+    "*AI 相關功能需要 Windows11/10 系統元件 \"AVX2\" 和 AI 運算模組才能操作。"
+  ],
+  "311": [
+    "Internet connection is required to download and install these AI components from the CyberLink server.",
+    "從訊連科技伺服器下載和安裝這些 AI 元件時需要網路連線。"
+  ],
+  "312": [
+    "Minimum system requirement of AVX2 instruction set:",
+    "AVX2 指令集的最低系統要求："
+  ],
+  "313": [
+    "Intel Haswell (4th generation) processor:",
+    "Intel Haswell (第 4 代) 處理器："
+  ],
+  "314": [
+    "Core i7-4770 (only Core and Xeon branded), and above AMD AMD A8-7670K and above AMD Ryzen™ 3 1200 and above",
+    "Core i7-4770 (僅支援 Core 和 Xeon) 以上 AMD AMD A8-7670K 以上 AMD Ryzen™ 3 1200 以上"
+  ],
+  "316": [
+    "*** Optional feature in PowerDirector.",
+    "*** 威力導演的選用功能。"
+  ],
+  "317": [
+    "What are the feature differences between CyberLink Director Suite 365, PowerDirector 365 and PowerDirector 20 versions?",
+    "訊連科技創意導演 365、威力導演 365 和威力導演 20 在功能上有什麼不同？"
+  ],
+  "318": [
+    "365 Business",
+    "365 商業版"
+  ],
+  "319": [
+    "Travel Pack 6",
+    "旅遊風格套件 6"
+  ],
+  "320": [
+    "Ad Designer Enhanced",
+    "廣告設計師 升級"
+  ],
+  "321": [
+    "Exclusive New Features Update",
+    "獨家新功能更新"
+  ],
+  "322": [
+    "Exclusive New Background Music",
+    "獨家全新背景音樂"
+  ],
+  "323": [
+    "Exclusive New Audio Clips",
+    "獨家全新音效片段"
+  ],
+  "324": [
+    "Premium New Contents",
+    "精選全新內容"
+  ],
+  "325": [
+    "Premium Effects & Content Packs",
+    "精選特效 & 內容套件"
+  ],
+  "326": [
+    "Content Pack Essential",
+    "基礎版內容套件"
+  ],
+  "327": [
+    "Bloggers Social Media Pack",
+    "部落格與社群媒體專屬包"
+  ],
+  "328": [
+    "Sketch Animation PiP template",
+    "向量筆畫動畫子母畫面範本"
+  ],
+  "329": [
+    "AI Style Packs",
+    "AI 藝術風格包"
+  ],
+  "330": [
+    "All Other Creative Design Packs",
+    "所有其他創意設計套件"
+  ],
+  "331": [
+    "Mask Designer:",
+    "遮罩設計師："
+  ],
+  "332": [
+    "Salient Object DetectionNEW",
+    "顯著物件偵測 新"
+  ],
+  "333": [
+    "Fix/Enhance:",
+    "修補/加強："
+  ],
+  "334": [
+    "Wind Removal New",
+    "移除風聲 新"
+  ],
+  "335": [
+    "Fix/Enhance:",
+    "修補/加強："
+  ],
+  "336": [
+    "Speech Enhancement New",
+    "語音增強 新"
+  ],
+  "337": [
+    "CLUT strength adjustment New",
+    "CLUT 強度調整 新"
+  ],
+  "338": [
+    "My Favorites & Downloaded in library New",
+    "媒體庫「我的最愛」&「已下載」類別 新"
+  ],
+  "339": [
+    "Gradient color board New",
+    "漸層色板 新"
+  ],
+  "340": [
+    "Title Designer:",
+    "文字設計師："
+  ],
+  "341": [
+    "Radial Gradient support New",
+    "支援放射狀漸層 新"
+  ],
+  "342": [
+    "Custom color fill New",
+    "自訂色彩填充 新"
+  ],
+  "343": [
+    "Color Gradient stop New",
+    "色彩漸層停駐點 新"
+  ],
+  "344": [
+    "Multiple Border New",
+    "多個外框 新"
+  ],
+  "345": [
+    "Motion graphics PiP support New",
+    "支援動態圖形子母畫面 新"
+  ],
+  "346": [
+    "Create media folder New",
+    "建立媒體資料夾 新"
+  ],
+  "347": [
+    "Smart fit for audio duration New",
+    "音訊長度智慧型符合 新"
+  ],
+  "348": [
+    "AI Sky Replacement New",
+    "AI 置換天空 新"
+  ],
+  "349": [
+    "Anchor point keyframe",
+    "錨點關鍵畫格"
+  ],
+  "350": [
+    "Keyframe interpolation:",
+    "關鍵畫格插值："
+  ],
+  "351": [
+    "Hold",
+    "停留"
+  ],
+  "352": [
+    "Vertex Hand Painting",
+    "向量手繪"
+  ],
+  "353": [
+    "Selection Mask",
+    "選取遮罩"
+  ],
+  "354": [
+    "Vertex selection mask",
+    "向量選取遮罩"
+  ],
+  "355": [
+    "Linear and Parallel mask",
+    "線性和平行遮罩"
+  ],
+  "356": [
+    "Title Reveal Mask",
+    "文字顯示遮罩"
+  ],
+  "357": [
+    "Keyframe anchor point",
+    "關鍵畫格錨點"
+  ],
+  "358": [
+    ".MXF (8bit, 4:2:0) video editing support",
+    "支援 .MXF (8 位元，4:2:0) 影片編輯"
+  ],
+  "359": [
+    "Apple ProRes MOV (10bit, 4:2:2) video editing support",
+    "支援 Apple ProRes MOV (10 位元，4:2:2) 影片編輯"
+  ],
+  "360": [
+    "V210 YUV MOV (10bit, 4:2:2) video editing support",
+    "支援 V210 YUV MOV (10 位元，4:2:2) 影片編輯"
+  ],
+  "361": [
+    "Auto Convert 10bit to 8bit SDR video",
+    "自動轉換 10 位元至 8 位元 SDR 視訊"
+  ],
+  "362": [
+    "1:1 video editing and producing",
+    "1:1 影片編輯和輸出"
+  ],
+  "363": [
+    "21:9 video editing and producingNew",
+    "21:9 影片編輯和輸出 新"
+  ],
+  "364": [
+    "4:5 video editing and producingNew",
+    "4:5 影片編輯和輸出新"
+  ],
+  "365": [
+    "Timeline preview volume (dB) meter",
+    "時間軸預覽音量表 (dB)"
+  ],
+  "366": [
+    "Reverse timeline order",
+    "反轉時間軸順序"
+  ],
+  "367": [
+    "Audio scrubbing",
+    "音訊拖曳瀏覽"
+  ],
+  "368": [
+    "4K preview quality",
+    "4K 預覽品質"
+  ],
+  "369": [
+    "Dual preview windows for library",
+    "媒體庫雙預覽視窗"
+  ],
+  "370": [
+    "Undock library and timeline panel",
+    "解除鎖定媒體庫和時間軸面板"
+  ],
+  "371": [
+    "Snap auxiliary lines",
+    "貼齊輔助線"
+  ],
+  "372": [
+    "Motion Graphic Title",
+    "動態圖形文字"
+  ],
+  "373": [
+    "Backdrop:",
+    "底圖："
+  ],
+  "374": [
+    "Curve radius control for curve-edged rectangle New",
+    "圓角矩形的曲線半徑控制 新"
+  ],
+  "375": [
+    "Move particle background position in Title Designer",
+    "在文字設計師中移動炫粒背景位置"
+  ],
+  "376": [
+    "Particle speed change in Title Designer",
+    "在文字設計師中變更炫粒速度"
+  ],
+  "377": [
+    "Animation PiP speed change",
+    "子母畫面動畫速度變更"
+  ],
+  "378": [
+    "Animation PiP ending behavior define",
+    "定義子母畫面結束行為"
+  ],
+  "379": [
+    "Move/resize/rotate painting objects in Paint Designer",
+    "在繪圖設計師中移動/調整大小/旋轉繪圖物件"
+  ],
+  "380": [
+    "Shape DesignerEnhanced",
+    "形狀設計師 強化"
+  ],
+  "381": [
+    "Particle rotation control",
+    "炫粒旋轉控制"
+  ],
+  "382": [
+    "Particle fade in/out",
+    "炫粒淡入/淡出"
+  ],
+  "383": [
+    "Particle ending behavior define",
+    "定義炫粒結束行為"
+  ],
+  "384": [
+    "Nested Project Editing",
+    "巢狀專案編輯"
+  ],
+  "386": [
+    "Color Match",
+    "色彩配對"
+  ],
+  "387": [
+    "Motion Tracking support",
+    "支援動態追蹤"
+  ],
+  "388": [
+    "Lens Correction support",
+    "支援鏡頭校正"
+  ],
+  "389": [
+    "120/240 fps mp4 video SVRT support",
+    "支援 120/240 fps mp4 視訊 SVRT"
+  ],
+  "390": [
+    "H.265 SVRT support",
+    "支援 H.265 SVRT"
+  ],
+  "391": [
+    "Title templates",
+    "文字範本"
+  ],
+  "392": [
+    "PiP template",
+    "子母畫面範本"
+  ],
+  "393": [
+    "Particle templates",
+    "炫粒範本"
+  ],
+  "394": [
+    "Menu templates",
+    "選單範本"
+  ],
+  "395": [
+    "To determine your version of CyberLink PowerDirector, click on the CyberLink PowerDirector logo in the top right corner.",
+    "若要判斷訊連科技威力導演的版本，請按一下右上角的訊連科技威力導演標誌。"
+  ],
+  "396": [
+    "* Features are only supported under 64-bit version PowerDirector.",
+    "* 只有 64 位元版本的威力導演才支援此功能。"
+  ],
+  "397": [
+    "** Features are only supported when Graphic cards support.",
+    "** 支援圖形顯示卡時才可支援此功能。"
+  ],
+  "398": [
+    "- Title Special Effects including lightning, neon, LED lights, and more.",
+    "- 包含了閃電、霓虹、LED 燈等文字特效"
+  ],
+  "399": [
+    "- Import and edit animated GIFs as video",
+    "- 可匯入並編輯動畫 GIF"
+  ],
+  "400": [
+    "- Produce only audio in following formats:",
+    "- 可將音訊輸出為下列格式："
+  ],
+  "401": [
+    "M4A, WAV, AIFF",
+    "M4A、WAV、AIFF"
+  ],
+  "402": [
+    "For users who encounter the symptom that PowerDirector crashes when using the Carousel Transition Pack, please update or reinstall the Carousel Transition Pack via the CyberLink Application Manager (CAM) and then re-launch PowerDirector to check if it resolves the crash error.",
+    "威力導演若在使用「幻燈片輪播轉場特效包」時出現當機，請透過訊連科技 Application Manager (CAM) 更新或重新安裝「幻燈片輪播轉場特效」，然後重新啟動威力導演，確認當機錯誤是否已解決。"
+  ],
+  "403": [
+    "In CAM, go to Effect Packs, find the Carousel Transition Pack, and then do this:",
+    "在訊連科技 Application Manager 中前往「風格 & 特效」，找到「幻燈片輪播轉場特效包」，然後執行以下操作："
+  ],
+  "404": [
+    "Click Update button.",
+    "按一下更新按鈕。"
+  ],
+  "406": [
+    "Right click on the Carousel Transition Pack and then click Uninstall.",
+    "對「幻燈片輪播轉場特效包」按一下滑鼠右鍵，然後按一下解除安裝。"
+  ],
+  "407": [
+    "After it is has been uninstalled, click Install again.",
+    "解除安裝後，再按一次安裝。"
+  ],
+  "409": [
+    "If the crash issue persists after the content pack updated, please contact CyberLink customer service for further assistance:",
+    "如果在更新內容套件後，當機問題仍持續發生，請聯絡訊連科技客戶服務以獲得進一步協助："
+  ],
+  "410": [
+    "***You will pay for the additional stock media in the app and the payment method depends on your Play Store or App Store Settings.",
+    "***您需要在應用程式中另外購買媒體素材，其付款方式取決於您的 Play 商店或 App Store 設定。"
+  ],
+  "411": [
+    "The premium stock media is consumable, so it cannot be refunded.",
+    "進階媒體素材屬於消耗性產品，因此無法退款。"
+  ],
+  "412": [
+    "To download or re-download the iStock premium media that you purchased via CyberLink subscription software, your subscription must still be active (not expired).",
+    "如果要下載/重新下載您透過訊連科技訂閱軟體所購買的 iStock 進階媒體素材，您的訂閱必須仍然有效 (未到期)。"
+  ],
+  "413": [
+    "If your subscription has not yet expired, please do the following steps:",
+    "如果您的訂閱尚未到期，請執行下列步驟："
+  ],
+  "415": [
+    "In PowerDirector 365 Windows/Mac version:",
+    "在威力導演 365 Windows/Mac 版中："
+  ],
+  "417": [
+    "Click the Stock Content icon in the Media Room, and then click iStock (Getty Images) tab in the online media library window.",
+    "按一下媒體庫中的線上素材圖示，然後在線上媒體庫視窗中按一下 iStock (Getty Images) 頁標。"
+  ],
+  "418": [
+    "Click the tab to browse the media you already purchased.",
+    "按一下 頁標可瀏覽已購買的媒體素材。"
+  ],
+  "419": [
+    "Select the media you would like to download and then click \"Download\" to re-download it to the Media Room and edit it in PowerDirector further.",
+    "選取想要下載的媒體素材，然後按一下「下載」以將媒體素材再次下載到「媒體庫」，並在威力導演中進一步編輯。"
+  ],
+  "420": [
+    "In PhotoDirector 365 Windows/Mac version:",
+    "在相片大師 365 Windows/Mac 版中："
+  ],
+  "421": [
+    "Click Stock Photos to import photos from the online media library into the Library module.",
+    "按一下圖片素材以將照片從線上媒體庫匯入「圖庫」模組。"
+  ],
+  "422": [
+    "Select the iStock (Getty Images) tab on the online media library window.",
+    "在線上媒體庫視窗中選取 iStock (Getty Images) 頁標。"
+  ],
+  "423": [
+    "Click the tab to browse the media you've already purchased.",
+    "按一下 頁標可瀏覽已購買的媒體素材。"
+  ],
+  "424": [
+    "Select the purchased media to re-download it to PhotoDirector's library for further editing.",
+    "選取購買的媒體 以重新將其下載到相片大師的圖庫，執行進一步的編輯。"
+  ],
+  "425": [
+    "If you have other questions about purchasing or using the iStock's media in CyberLink software, please don't hesitate to contact our customer service team to get further assistance:",
+    "如果您有其他關於在訊連科技軟體中購買或使用 iStock 媒體素材的問題，歡迎隨時聯絡我們的客戶服務部門以取得進一步協助："
+  ],
+  "426": [
+    "How do I use the NVIDIA GPU powered features (e.g., NVIDIA Video/Audio Noise Removal, Room Echo Removal) in CyberLink PowerDirector 365?",
+    "如何在威力導演 365 中使用 NVIDIA GPU 提供的功能 (例如：NVIDIA 影像/聲音雜訊移除、室內回音移除)？"
+  ],
+  "427": [
+    "I received a message saying my hardware is not compatible.",
+    "我收到訊息顯示我的硬體無法相容。"
+  ],
+  "428": [
+    "CyberLink PowerDirector 365 (released after Dec 2021) supports a series of NVIDIA GPU hardware powered features:",
+    "訊連科技威力導演 365 (2021 年 12 月推出的版本) 可支援一系列的 NVIDIA GPU 硬體驅動功能："
+  ],
+  "429": [
+    "NVIDIA Audio/Video Noise Removal, Room Echo Removal in Video/Audio Denoise, and the DeReverb tools of the Fix/Enhance panel.",
+    "NVIDIA 影像/聲音雜訊移除功能、視訊/音訊降噪中的室內回音移除功能，以及修補/加強面板中的移除殘響。"
+  ],
+  "430": [
+    "These features utilize the NVIDIA GPU hardware's computing power to process and add the effects to your media clips.",
+    "這些功能運用了 NVIDIA GPU 硬體的計算效能來處理您的媒體片段並新增特效。"
+  ],
+  "431": [
+    "You can select the options (NVIDIA Audio/Video Noise Removal, Room Echo Removal) on the panel to use the features if your platform is installed with the compatible hardware, drivers, and OS version.",
+    "如果您的平台已安裝相容的硬體、驅動程式和作業系統版本，您可以在面板上選取對應選項來使用相關功能 (NVIDIA 影像/聲音雜訊移除功能、室內回音)。"
+  ],
+  "432": [
+    "To use the NVIDIA GPU hardware powered features, your platform must meet the following conditions in addition to the minimum system requirements of PowerDirector 365:",
+    "如果要使用 NVIDIA GPU 硬體驅動功能，您的平台除了要符合威力導演 365 的最低系統需求，還必須符合下列條件："
+  ],
+  "433": [
+    "Microsoft Windows 11/10",
+    "Microsoft Windows 11/10"
+  ],
+  "434": [
+    "Intel Core i5 8600, AMD Ryzen R5 2600 or higher (Recommended)",
+    "Intel Core i5 8600、AMD Ryzen R5 2600 以上 (建議)"
+  ],
+  "435": [
+    "NVIDIA GeForce RTX 2060, Quadro RTX 3000, TITAN RTX or higher that supports NVIDIA Broadcast SDK* feature",
+    "NVIDIA GeForce RTX 2060、Quadro RTX 3000、TITAN RTX 以上 (支援 NVIDIA Broadcast SDK 功能)*"
+  ],
+  "436": [
+    "GPU Driver",
+    "GPU 驅動程式"
+  ],
+  "437": [
+    "NVIDIA Studio Driver Version 462.46, Game Ready Driver Version 465.89, NVIDIA RTX Enterprise Driver Version 462.59, or above.",
+    "NVIDIA Studio 驅動程式 (版本 462.46)、Game Ready 動程式 (版本 462.46)、NVIDIA RTX Enterprise 驅動程式 (版本 462.59) 以上。"
+  ],
+  "438": [
+    "The Internet connection is required to download or update the NVIDIA features components.",
+    "需要網路連線來下載或更新 NVIDIA 功能元件。"
+  ],
+  "439": [
+    "If your platform is not compatible to use the NVIDIA GPU features, you can still use the built-in Video/Audio Denoise and DeReverb features in PowerDirector to edit your video and audio clips.",
+    "如果因為平台不相容而無法使用 NVIDIA GPU 功能，您仍然可以使用威力導演內建的「視訊/音訊降噪」和「移除殘響」功能來編輯視訊和音訊片段。"
+  ],
+  "440": [
+    "If your platform is compatible with the above NVIDIA features but you are still receiving a hardware incompatible message, please contact our customer support team for further assistance:",
+    "如果您的平台可相容於上述 NVIDIA 功能，但仍收到硬體不相容的訊息，請聯絡我們的客戶支援團隊以取得進一步的協助："
+  ],
+  "441": [
+    "* To learn more about the NVIDIA Broadcast SDK feature that NVIDIA offers in its GPU products, please refer to the introduction on NVIDIA website.",
+    "* 如果要了解更多有關 NVIDIA 在其 GPU 產品中所提供的 NVIDIA Broadcast SDK 功能，請參閱 NVIDIA 網站上的介紹。"
+  ],
+  "442": [
+    "If your products were purchased from the CyberLink website, download and install the to get your programs.",
+    "如果您是從訊連科技網站上購買產品，請下載並安裝購買的程式。"
+  ],
+  "443": [
+    "If you still can’t find your program, please fill out the below form to contact customer support.",
+    "如果您仍然無法找到購買的程式，請填寫以下表格來聯絡客戶支援中心。"
+  ],
+  "444": [
+    "If your products were purchased from the CyberLink website, download and install the CyberLink Application Manager to get your programs.",
+    "如果您是從訊連科技網站上購買產品，請下載並安裝訊連科技 Application Manager 來取得購買的程式。"
+  ],
+  "445": [
+    "https://www.cyberlink.com/downloads/application-manager/download_en_US.html",
+    "https://tw.cyberlink.com/downloads/application-manager/download_zh_TW.html"
+  ],
+  "446": [
+    "Your project includes Premium($) media from our expanded Getty Images Library.",
+    "您的專案包含了我們最新的 Getty Images 素材庫所提供的「進階 ($)」媒體素材。"
+  ],
+  "447": [
+    "Your subscription includes unlimited access to over 8,000,000 stock media assets from Shutterstock and Getty Images at no additional cost.",
+    "您的訂閱方案可無限制使用超過 800 萬件的 Shutterstock 和 Getty Images 媒體素材，無須額外付費。"
+  ],
+  "448": [
+    "But one size doesn’t fit all.",
+    "然而創作的需求不盡相同。"
+  ],
+  "449": [
+    "You can browse Premium($) media in the library and insert it in your timeline to preview how it fits in your project at no cost.",
+    "您可以瀏覽素材庫中的「進階 ($)」媒體，然後免費將進階素材插入時間軸以預覽編輯效果。"
+  ],
+  "450": [
+    "You only pay for the individual items that you keep in your produced video.",
+    "您只需為想要保留在輸出影片中的個別項目付費。"
+  ],
+  "451": [
+    "CyberLink Products Unaffected by Log4j Vulnerability",
+    "訊連科技的產品未受到 Log4j 漏洞問題的影響"
+  ],
+  "452": [
+    "CyberLink is aware of the recently disclosed security issue for the Apache Log4j utility, a commonly used component for logging requests.",
+    "訊連科技已注意到近期揭露關於 Apache Log4j 公用程式 (一款用於記錄網站請求的常用元件) 的安全問題。"
+  ],
+  "453": [
+    "We want to inform you that none of CyberLink's software products or web services use versions of Log4j that are affected by the vulnerability.",
+    "我們在此通知訊連科技的軟體產品或 Web 服務均未使用受到此漏洞影響的 Log4j 版本。"
+  ],
+  "454": [
+    "CyberLink products and services are focused on protecting our users and customers, and we are continuously monitoring any and all cybersecurity issues.",
+    "訊連科技的產品和服務專注於保護我們的使用者和客戶，我們會持續監控任何和所有網路安全問題。"
+  ],
+  "455": [
+    "If you have further concerns about the security of our products, please contact CyberLink customer support to let us know.",
+    "如果您對我們產品的安全性有其他疑慮，請聯絡訊連科技客服部門。"
+  ]
+}

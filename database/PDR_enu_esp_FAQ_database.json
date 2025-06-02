@@ -1,0 +1,450 @@
+{
+  "1": [
+    "OS",
+    "Sistema operativo"
+  ],
+  "2": [
+    "CPU",
+    "CPU"
+  ],
+  "3": [
+    "To do this:",
+    "Para ello:"
+  ],
+  "4": [
+    "Question:",
+    "Question:"
+  ],
+  "5": [
+    "What are the new features in CyberLink AudioDirector 4?",
+    "¿Cuáles son las nuevas funciones de CyberLink AudioDirector 4?"
+  ],
+  "6": [
+    "Answer:",
+    "Answer:"
+  ],
+  "7": [
+    "Solution",
+    "Solución"
+  ],
+  "8": [
+    "The system requirements listed below are recommended as minimums for running CyberLink AudioDirector.",
+    "Los requisitos del sistema que se indican a continuación se recomiendan como requisitos mínimos para ejecutar CyberLink AudioDirector."
+  ],
+  "9": [
+    "Microphone for recording audio.",
+    "Micrófono para grabar audio."
+  ],
+  "10": [
+    "CyberLink AudioDirector supports the import and edit of audio and video files with 5.1 channel audio.",
+    "CyberLink AudioDirector permite la importación y edición de archivos de audio y vídeo con audio de 5.1 canales."
+  ],
+  "11": [
+    "It also supports the import of audio and video files with 7.1 channels, but only for .WAV audio files are all 8 channels displayed in the program and available for editing.",
+    "También admite la importación de archivos de audio y vídeo con 7.1 canales, pero los 8 canales solo se muestran en el programa y están disponibles para su edición para archivos de audio .WAV."
+  ],
+  "12": [
+    "MP3, WAV, WMA, M4A.",
+    "MP3, WAV, WMA, M4A."
+  ],
+  "13": [
+    "Mix Room",
+    "Sala Mezclar"
+  ],
+  "14": [
+    "The latest version of CyberLink AudioDirector includes many new features that make editing audio even easier.",
+    "La última versión de CyberLink AudioDirector incluye numerosas funciones nuevas que facilitan la edición de audio."
+  ],
+  "15": [
+    "This section lists the latest features in the CyberLink AudioDirector program.",
+    "En esta sección se describen las funciones más recientes del programa CyberLink AudioDirector."
+  ],
+  "16": [
+    "Audio Effect Room",
+    "Sala de efectos de audio"
+  ],
+  "17": [
+    "6 more audio effects for enhancing soundtracks.",
+    "6 efectos de audio adicionales para mejorar las bandas sonoras."
+  ],
+  "18": [
+    "Dynamic profile change to instantly convert sample rate, bit depth and channel number.",
+    "Cambio de perfil dinámico para convertir al instante la velocidad de muestreo, la profundidad de bits y el número de canales."
+  ],
+  "19": [
+    "Restoration Room",
+    "Sala de restauraciones"
+  ],
+  "20": [
+    "Hum Removal and Noise Reduction for cleaner, crisper audio.",
+    "Eliminación de zumbidos y Reducción de ruido para conseguir un audio más limpio y cristalino."
+  ],
+  "21": [
+    "Smart Transition to smoothly move between pieces of background music",
+    "Transición inteligente para cambiar sin problemas de una pieza a otra de la música de fondo"
+  ],
+  "22": [
+    "Surround Sound Panner to dynamically control speaker output",
+    "Panoramizador de sonido envolvente para controlar dinámicamente la salida de altavoces"
+  ],
+  "23": [
+    "Virtual Surround Sound generator with TrueTheater™ Surround",
+    "Generador de sonido envolvente virtual con TrueTheater™ Surround"
+  ],
+  "24": [
+    "Master Track control for global control over all tracks",
+    "Control de pista maestra para un control global sobre todas las pistas"
+  ],
+  "25": [
+    "CD Burning",
+    "Grabación de CD"
+  ],
+  "26": [
+    "Easier storage and sharing with new burning capability",
+    "Almacenamiento y compartición más sencillos con la nueva capacidad de grabación"
+  ],
+  "27": [
+    "Format Support",
+    "Compatibilidad de formatos"
+  ],
+  "28": [
+    "Video support:",
+    "Compatibilidad de vídeo:"
+  ],
+  "29": [
+    "2K/4K video import/export support",
+    "Compatibilidad con importación/exportación de vídeo 2K/4K"
+  ],
+  "30": [
+    "Audio support:",
+    "Compatibilidad de audio:"
+  ],
+  "31": [
+    ".flac NEW, .ogg, .aiff, .aif",
+    ".flac NUEVO, .ogg, .aiff, .aif"
+  ],
+  "32": [
+    "What are the minimum system requirements for CyberLink AudioDirector 4?",
+    "¿Cuáles son los requisitos mínimos del sistema para CyberLink AudioDirector 4?"
+  ],
+  "33": [
+    "Microsoft Windows 8, Windows 7, Vista and XP 32-bit SP3 (Windows XP Service Pack 3 is required)",
+    "Microsoft Windows 8, Windows 7, Vista y XP SP3 de 32 bits (se requiere Windows XP Service Pack 3)"
+  ],
+  "34": [
+    "1 GB (2 GB recommended).",
+    "1 GB (se recomiendan 2 GB)."
+  ],
+  "35": [
+    "Intel Core 2 Duo 2.0 GHz.",
+    "Intel Core 2 Duo 2,0 GHz."
+  ],
+  "36": [
+    "1 GB free space required.",
+    "Se requiere 1 GB de espacio libre."
+  ],
+  "37": [
+    "Windows-compatible sound card.",
+    "Tarjeta de sonido compatible con Windows."
+  ],
+  "38": [
+    "1024 x 768, 16-bit color or higher.",
+    "1024 x 768, color de 16 bits o superior."
+  ],
+  "39": [
+    "What are the supported file formats in CyberLink AudioDirector 8?",
+    "¿Cuáles son los formatos de archivo admitidos en CyberLink AudioDirector 8?"
+  ],
+  "40": [
+    "CyberLink AudioDirector supports in the following formats:",
+    "CyberLink AudioDirector admite los siguientes formatos:"
+  ],
+  "41": [
+    "AIF, AIFF, FLAC NEW, M4A, MP3, OGG, WAV, WMA* Note:",
+    "AIF, AIFF, FLAC NUEVO, M4A, MP3, OGG, WAV, WMA* Nota:"
+  ],
+  "42": [
+    "* CyberLink AudioDirector does not support the editing of WMA audio files with DRM file protection.",
+    "* CyberLink AudioDirector no permite la edición de archivos de audio WMA con protección de archivos DRM."
+  ],
+  "43": [
+    "3GPP2, AVI, DivX (on Windows 7), DV-AVI, DVR-MS, HD MPEG-2, M2T, MKV (H.264), MOD, MOV, MOV (H.264), MP4, MPEG-1, MPEG-2, MPEG-4 AVC (H.264), TOD, VOB, VRO, WMV, WMV-HD.",
+    "3GPP2, AVI, DivX (en Windows 7), DV-AVI, DVR-MS, HD MPEG-2, M2T, MKV (H.264), MOD, MOV, MOV (H.264), MP4, MPEG-1, MPEG-2, MPEG-4 AVC (H.264), TOD, VOB, VRO, WMV, WMV-HD."
+  ],
+  "44": [
+    "For video files with 7.1 channel audio, two of the audio channels (BL/BR) are hidden and unavailable for editing.",
+    "Para archivos de vídeo con audio de 7.1 canales, dos de los canales de audio (BL/BR) están ocultos y no están disponibles para su edición."
+  ],
+  "45": [
+    "H.264, MPEG-2, MPEG-4, WMV",
+    "H.264, MPEG-2, MPEG-4, WMV."
+  ],
+  "46": [
+    "Please consult the CyberLink AudioDirector product page for the most recent information.",
+    "Consulte en la página de producto de CyberLink AudioDirector la información más reciente."
+  ],
+  "47": [
+    "Why cant I hear the surround sound effect when using Surround Sound Panner in CyberLink AudioDirector 4?",
+    "¿Por qué no consigo escuchar el efecto de sonido envolvente mediante el Panoramizador de sonido envolvente en CyberLink AudioDirector 4?"
+  ],
+  "48": [
+    "Cause",
+    "Causa"
+  ],
+  "49": [
+    "This may due to the following reason:",
+    "Puede deberse a la siguiente razón:"
+  ],
+  "50": [
+    "Surround Sound Panner doesnt support the mono audio profile, since its purpose is to manipulate audio that across multiple channels to achieve a surround sound effect.",
+    "El Panoramizador de sonido envolvente no permite el perfil de audio mono, pues su finalidad es manipular el audio que procede de varios canales para conseguir un efecto de sonido envolvente."
+  ],
+  "51": [
+    "Your speakers arent set up correctly for Stereo / 5.1ch / 7.1ch surround sound in Windows.",
+    "No tiene los altavoces correctamente configurados para el sonido envolvente Estéreo / 5.1canales / 7.1canales en Windows."
+  ],
+  "52": [
+    "If you want to apply 5.1ch / 7.1ch for the Surround Sound Panner effect in CyberLink AudioDirector, ensure you set up the following:",
+    "Si desea aplicar 5.1 canales / 7.1 canales para el efecto Panoramizador de sonido envolvente en CyberLink AudioDirector, asegúrese de que configura lo siguiente:"
+  ],
+  "53": [
+    "I. Configure audio profile settings in AudioDirector:",
+    "I. Configure el perfil de audio en AudioDirector:"
+  ],
+  "54": [
+    "Go to the Mix room",
+    "Vaya a la sala Mezclar"
+  ],
+  "55": [
+    "Click on the Configure audio profile settings in Mix room button",
+    "Haga clic en el botón Configurar el perfil de audio en la sala Mezclar"
+  ],
+  "56": [
+    "Select one of the audio channels settings below from the drop-down list.",
+    "Seleccione una de las siguientes configuraciones de canales de audio en la lista desplegable."
+  ],
+  "57": [
+    "The Surround Sound Panner effect is only available if the mix’s audio profile channel setting is set to Stereo, 5.1 Channels or 7.1 Channels.",
+    "El efecto Panoramizador de sonido envolvente solo está disponible si el ajuste del canal del perfil de audio de la mezcla se ajusta en Estéreo, Canales 5.1 o Canales 7.1."
+  ],
+  "58": [
+    "5.1 Channels",
+    "Canales 5.1"
+  ],
+  "59": [
+    "7.1 Channels",
+    "Canales 7.1"
+  ],
+  "60": [
+    "Click OK.",
+    "Haga clic en Aceptar."
+  ],
+  "61": [
+    "II.",
+    "II."
+  ],
+  "62": [
+    "Set up surround sound in Windows:",
+    "Configurar el sonido envolvente en Windows:"
+  ],
+  "63": [
+    "If you want to hear the audio effect correctly, you must set up your corresponding speaker surround sound in Windows.",
+    "Si desea escuchar el efecto de audio correctamente, deberá configurar el sonido envolvente del altavoz correspondiente en Windows."
+  ],
+  "64": [
+    "Click onStart Control Panel Hardware and Sound Sound.",
+    "Haga clic enInicio Panel de control Hardware y sonido Sonido."
+  ],
+  "65": [
+    "In the Sound window, select your the sound device that you are about to configure and then click on Set Default.",
+    "En la ventana Sonido, seleccione el dispositivo de sonido que va a configurar y haga clic en Predeterminar."
+  ],
+  "66": [
+    "Then click the Configure button.",
+    "A continuación, haga clic en el botón Configurar."
+  ],
+  "67": [
+    "In Speaker Setup window, select the configuration you want in theAudio Channelsbox.",
+    "En la ventana Instalación de altavoces, seleccione la configuración que desee en el cuadroCanales de audio."
+  ],
+  "68": [
+    "If there are Stereo, 5.1 and 7.1 options in Audio channels, it means your computer supportsStereo, 5.1 Surround and 7.1 Surround.",
+    "Si aparecen las opciones Estéreo, 5.1 y 7.1 en Canales de audio, significa que el equipo admiteEstéreo, 5.1 envolvente y 7.1 envolvente."
+  ],
+  "69": [
+    "Your computer may support more or fewer depending on your hardware.",
+    "Es posible que su equipo admita más o menos según el hardware."
+  ],
+  "70": [
+    "Select the configuration you want in theAudio Channelsbox.",
+    "Seleccione la configuración que desea en el cuadroCanales de audio."
+  ],
+  "71": [
+    "Make sure your speakers are turned on and the volume is turned up enough so you can hear them.",
+    "Compruebe que tiene encendidos los altavoces y que el volumen está a un nivel suficiente como para que lo escuche."
+  ],
+  "72": [
+    "Click theTestbutton and listen as Windows tests each of the speakers in your setup.",
+    "Haga clic en el botónProbary escuche la prueba que realiza Windows en cada uno de los altavoces de su configuración."
+  ],
+  "73": [
+    "Ensure the testing result is fine then you can click theNextbutton.",
+    "Si el resultado de la prueba es correcto, haga clic en el botónSiguiente."
+  ],
+  "74": [
+    "Finally, click on theFinishbutton to complete the surround sound setting in Windows built-in sound utility.",
+    "Finalmente, haga clic en el botónFinalizarpara completar la configuración de sonido envolvente en la utilidad de sonido integrada en Windows."
+  ],
+  "75": [
+    "The set up process or the options might be slightly different according to Windows OS or sound card hardware environment setting.",
+    "El proceso de configuración o las opciones podrían ser ligeramente diferentes según el SO de Windows o la configuración de entorno del hardware de la tarjeta de sonido."
+  ],
+  "76": [
+    "If you are not able to follow the steps above, please consult with your computer manufacturer or sound card vendor for how to set up speaker surround sound in Windows.",
+    "Si no puede seguir los pasos anteriores, consulte con el fabricante del equipo o con el distribuidor de la tarjeta de sonido sobre el modo de configurar el sonido envolvente de los altavoces en Windows."
+  ],
+  "77": [
+    "Why is the option Smart Transition grayed out or not available in CyberLink AudioDirector 4?",
+    "¿Por qué está atenuada la opción Transición inteligente o no está disponible en CyberLink AudioDirector 4?"
+  ],
+  "78": [
+    "When using the Smart Transition in CyberLink AudioDirector 4, you may find that it is not working.",
+    "Cuando se usa la Transición inteligente en CyberLink AudioDirector 4, puede que observe que no funciona."
+  ],
+  "79": [
+    "If this occurs, please check the following:",
+    "Si sucede esto, compruebe lo siguiente:"
+  ],
+  "80": [
+    "Smart Transition can only be applied on audio that has a Stereo profile setting.",
+    "Transición inteligente solo puede aplicarse a audio que tenga una configuración de perfil Estéreo."
+  ],
+  "81": [
+    "Go to Mix room",
+    "Vaya a la sala Mezclar"
+  ],
+  "82": [
+    "Select the Stereo for audio channels in drop-down list.",
+    "Seleccione Estéreo para los canales de audio en la lista desplegable."
+  ],
+  "83": [
+    "Smart Transition can only be applied on transitions that are less than or equal to 30 seconds.",
+    "Transición inteligente solo puede aplicarse a transiciones que duren un máximo de 30 segundos."
+  ],
+  "84": [
+    "If the overlap between the two audio clips exceeds 30 seconds, the Smart Transition option will be gray out.",
+    "Si el solapamiento entre los dos clips de audio supera los 30 segundos, la opción Transición inteligente estará atenuada."
+  ],
+  "85": [
+    "If you change the audio profile setting in the Mix room from Stereo to mono, 5.1 or 7.1 channels, you will find that the smart transition you applied changes to an warning [!] icon.",
+    "Si cambia la configuración del perfil de audio en la sala Mezclar de Estéreo a los canales mono, 5.1 o 7.1, observará que la transición inteligente que ha aplicado cambia a un icono [!] de advertencia."
+  ],
+  "86": [
+    "Q17-00192",
+    "Q17-00192"
+  ],
+  "87": [
+    "What is the Plosive Removal feature in CyberLink AudioDirector 8?",
+    "¿Qué significa la función Eliminación de explosivos en CyberLink AudioDirector 8?"
+  ],
+  "88": [
+    "Plosive Removal helps you remove plosives, which are blasts of air or thumps/pops in the audio that can occur when speaking/singing the letters b, k, p, t.",
+    "Eliminación de explosivos le ayuda a eliminar explosivos, entendidos como corrientes de aire o ruidos sordos/molestos en el audio que pueden aparecer al hablar/cantar letras como b, k, p, t."
+  ],
+  "89": [
+    "To use the feature, click the Restore button and then Plosive Removal to open the Plosive Removal window.",
+    "Para utilizar esta función, haga clic en el botón Restaurar y después en Eliminación de explosivos para abrir la ventana de Eliminación de explosivos."
+  ],
+  "90": [
+    "Q17-00193",
+    "Q17-00193"
+  ],
+  "91": [
+    "What is the Ambience Match feature in CyberLink AudioDirector 8?",
+    "¿Qué significa la función Ajuste de entorno en CyberLink AudioDirector 8?"
+  ],
+  "92": [
+    "Use the Ambience Match feature to add ambience, or background noise, into your audio and video clips.",
+    "Utilice la función Ajuste de entorno para añadir entorno, o ruido de fondo, en los clips de audio y vídeo."
+  ],
+  "93": [
+    "You can also use this feature to analyze and extract the ambience from a clip and then save it as an ambience preset.",
+    "También puede utilizar esta función para analizar y extraer el entorno de un clip y después guardarlo como un preajuste de entorno."
+  ],
+  "94": [
+    "To use the feature, click the Edit button and then Ambience Match to open the Ambience Match window.",
+    "Para utilizar esta función, haga clic en el botón Editar y después en Ajuste de entorno para abrir la ventana de Ajuste de entorno."
+  ],
+  "95": [
+    "Q17-00194",
+    "Q17-00194"
+  ],
+  "96": [
+    "What is the Auto Remix feature in CyberLink AudioDirector 8?",
+    "¿Qué significa la función Remezcla automática en CyberLink AudioDirector 8?"
+  ],
+  "97": [
+    "Use the Auto Remix feature to change the length of audio by remixing the selected audio clip without changing the beat of the source audio.",
+    "Utilice la función Remezcla automática para cambiar la duración del audio al remezclar el clip de audio seleccionado sin cambiar el ritmo del audio de origen."
+  ],
+  "98": [
+    "To use the feature, select the media file in the Mix room and then click the Adjust Length (auto remix) under the Adjust Audio section to open the auto remix window.",
+    "Para utilizar esta función, seleccione el archivo multimedia en la sala de Mezcla y después, haga clic en Ajustar duración (remezcla automática) en la sección Ajustar audio para abrir la ventana de remezcla automática."
+  ],
+  "99": [
+    "Q17-00195",
+    "Q17-00195"
+  ],
+  "100": [
+    "What is the Codec Preview feature in CyberLink AudioDirector 8?",
+    "¿Qué significa la función Vista previa del códec en CyberLink AudioDirector 8?"
+  ],
+  "101": [
+    "Codec Preview allows you to preview the edited audio in real-time with different codecs, bitrates and sample rates before you actually output the media.",
+    "Vista previa del códec le permite previsualizar el audio auditado en tiempo real con diferentes códecs, velocidades de bits y velocidades de muestreo antes de transmitir como tal el archivo multimedia."
+  ],
+  "102": [
+    "To use the feature, click the Codec button below the timeline to enable codec preview.",
+    "Para utilizar esta función, haga clic en el botón Códec debajo de la línea de tiempo para habilitar la vista previa del códec."
+  ],
+  "103": [
+    "Q17-00196",
+    "Q17-00196"
+  ],
+  "104": [
+    "Intel Core i3-530, AMD Phenom II X6",
+    "Intel Core i3-530, AMD Phenom II X6"
+  ],
+  "105": [
+    "Windows compatible graphic card is required",
+    "Se requiere una tarjeta gráfica compatible con Windows"
+  ],
+  "106": [
+    "Q17-00197",
+    "Q17-00197"
+  ],
+  "107": [
+    "CyberLink AudioDirector 8 supports the following formats:",
+    "CyberLink AudioDirector 8 admite los siguientes formatos:"
+  ],
+  "108": [
+    "Video",
+    "Video"
+  ],
+  "109": [
+    "▪ 3GPP2 ▪ AVI ▪ DivX (on Windows 7) ▪ DV-AVI ▪ DVR-MS ▪ HD MPEG-2 ▪ M2T (H.264 AVC, H.265 HEVC) ▪ MKV (H.264 AVC, H.265 HEVC) ▪ MOD ▪ MOV ▪ MOV (H.264 AVC) ▪ MP4 (H.264 AVC, H.265 HEVC) ▪ MPEG-1 ▪ MPEG-2 ▪ TOD ▪ VOB ▪ VRO ▪ WMV ▪ WMV-HD",
+    "▪ 3GPP2 ▪ AVI ▪ DivX (en Windows 7) ▪ DV-AVI ▪ DVR-MS ▪ HD MPEG-2 ▪ M2T (H.264 AVC, H.265 HEVC) ▪ MKV (H.264 AVC, H.265 HEVC) ▪ MOD ▪ MOV ▪ MOV (H.264 AVC) ▪ MP4 (H.264 AVC, H.265 HEVC) ▪ MPEG-1 ▪ MPEG-2 ▪ TOD ▪ VOB ▪ VRO ▪ WMV ▪ WMV-HD"
+  ],
+  "110": [
+    "▪ H.264 AVC (.M2TS, .MP4) ▪ H.265 HEVC (.MKV, .MP4) ▪ MPEG-2 (.MPG) ▪ Windows Media Video (.WMV).",
+    "▪ H.264 AVC (.M2TS, .MP4) ▪ H.265 HEVC (.MKV, .MP4) ▪ MPEG-2 (.MPG) ▪ Windows Media Video (.WMV)."
+  ],
+  "111": [
+    "▪ AIF ▪ AIFF ▪ APE ▪ CAF ▪ DSD Audio ▪ FLAC ▪ MP3 ▪ M4A (AAC, ALAC) ▪ OGG ▪ WAV ▪ WMA",
+    "▪ AIF ▪ AIFF ▪ APE ▪ CAF ▪ DSD Audio ▪ FLAC ▪ MP3 ▪ M4A (AAC, ALAC) ▪ OGG ▪ WAV ▪ WMA"
+  ],
+  "112": [
+    "▪ APE ▪ FLAC ▪ M4A ▪ WAV ▪ WMA",
+    "▪ APE ▪ FLAC ▪ M4A ▪ WAV ▪ WMA"
+  ]
+}
