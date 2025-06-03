@@ -709,7 +709,8 @@ def get_lang_specific_review_sys_prompt(target_lang):
                 "Rewrite UI messages about unsaved changes clearly and naturally",
                 "Follow Spanish grammar and punctuation strictly",
                 "Use few pronouns, avoid formal ones like 'usuario'",
-                "Skip pronouns if context is clear"
+                "Skip pronouns if context is clear",
+                "Only capitalize the first letter of nouns or the first word of a sentence; all other letters should be lowercase"
             ],
             "Consistency with Reference": [
                 "Always keep product names and trademarks in English",

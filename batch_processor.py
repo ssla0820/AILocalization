@@ -19,13 +19,13 @@ You can optionally specify a custom GROUND_TRUTH_PATH for each row.
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__))))
-import asyncio
+# import asyncio
 import pandas as pd
 from translate.translate import main as translate_main
-from verify import main as verify_main
+# from verify import main as verify_main
 from groundtruth_check.GroundTruth_Check import main as groundtruth_main
 from config import translate_config
-import logging
+# import logging
 from datetime import datetime
 import openpyxl
 from openpyxl.styles import Font, Alignment, PatternFill
@@ -381,10 +381,11 @@ def process_batch_file(batch_excel_path):
             'SOURCE_TYPE',
             'INPUT_FILE_PATH_FOLDER', 
             'OUTPUT_FILE_PATH_FOLDER', 
-            'COMPARE_FILE_PATH_FOLDER', 
+            # 'COMPARE_FILE_PATH_FOLDER', 
             'SOURCE_LANGUAGE',
             'TARGET_LANGUAGE', 
             'SOFTWARE_TYPE',
+            'REVIEW_PATH', 
         ]        # Optional column
         optional_columns = ['SPECIFIC_NAMES_XLSX_PATH', 'IMAGE_PATH_FOLDER', 'CHECK_VERIFICATION', 'CHECK_GROUND_TRUTH', 'GROUND_TRUTH_PATH', 'DATABASE_PATH']
         
@@ -405,7 +406,8 @@ def process_batch_file(batch_excel_path):
             source_type = str(row['SOURCE_TYPE'])
             input_folder = str(row['INPUT_FILE_PATH_FOLDER'])
             output_folder = str(row['OUTPUT_FILE_PATH_FOLDER'])
-            compare_folder = str(row['COMPARE_FILE_PATH_FOLDER'])
+            # compare_folder = str(row['COMPARE_FILE_PATH_FOLDER'])
+            compare_folder = ''
             source_language = str(row['SOURCE_LANGUAGE'])
             target_language = str(row['TARGET_LANGUAGE'])
             software_type = str(row['SOFTWARE_TYPE'])
@@ -445,7 +447,7 @@ def process_batch_file(batch_excel_path):
 
             # Create output directories if they don't exist
             ensure_dir(output_folder)
-            ensure_dir(compare_folder)
+            # ensure_dir(compare_folder)
             
             # Create results Excel file in the output folder for this row
             results_file = os.path.join(output_folder, f"translation_results_{source_language}_to_{target_language}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.xlsx")
@@ -479,10 +481,10 @@ def process_batch_file(batch_excel_path):
                         
                         # Generate output and compare file paths
                         output_file, ground_truth_file_name = get_output_filename(input_file, output_folder, current_target_language)
-                        compare_file = get_output_filename(input_file, compare_folder, f"{current_target_language}_Comparison", is_compare_file=True)
+                        # compare_file = get_output_filename(input_file, compare_folder, f"{current_target_language}_Comparison", is_compare_file=True)
                         
                         print(f"Output file: {output_file}")
-                        print(f"Compare file: {compare_file}")
+                        # print(f"Compare file: {compare_file}")
                         print(f"Ground truth file name: {ground_truth_file_name}")
                         
                         # Get the file-specific image path folder if available
@@ -535,48 +537,48 @@ def process_batch_file(batch_excel_path):
                         except Exception as e:
                             print(f"Error in translation: {str(e)}")
                             result_data['translation_status'] = 'Failed'
-                          # Run verification only if translation succeeded
-                        verification_success = False
-                        
-                        # Check if verification is enabled for this row (default to True)
-                        check_verification = True
-                        if 'CHECK_VERIFICATION' in df.columns:
-                            check_verification_value = row.get('CHECK_VERIFICATION')
-                            if isinstance(check_verification_value, str) and check_verification_value.lower() == 'false':
-                                check_verification = False
-                            elif isinstance(check_verification_value, bool) and not check_verification_value:
-                                check_verification = False
-                        
-                        if translation_success and check_verification:
-                            print(f"Starting verification...")
-                            try:
-                                verify_main(
-                                    input_file, 
-                                    output_file, 
-                                    compare_file, 
-                                    specific_names_xlsx, 
-                                    software_type, 
-                                    source_language,  # Pass source language 
-                                    current_target_language,  # Pass target language
-                                    source_type=source_type,
-                                    translate_refer=None, 
-                                    database_path=database_path,
-                                )
+                        #   # Run verification only if translation succeeded
+                        verification_success = None
 
-                                verification_success = os.path.exists(compare_file)
-                                result_data['verification_status'] = 'Success' if verification_success else 'Failed'
+                        # # Check if verification is enabled for this row (default to True)
+                        # check_verification = True
+                        # if 'CHECK_VERIFICATION' in df.columns:
+                        #     check_verification_value = row.get('CHECK_VERIFICATION')
+                        #     if isinstance(check_verification_value, str) and check_verification_value.lower() == 'false':
+                        #         check_verification = False
+                        #     elif isinstance(check_verification_value, bool) and not check_verification_value:
+                        #         check_verification = False
+                        
+                        # if translation_success and check_verification:
+                        #     print(f"Starting verification...")
+                        #     try:
+                        #         verify_main(
+                        #             input_file, 
+                        #             output_file, 
+                        #             compare_file, 
+                        #             specific_names_xlsx, 
+                        #             software_type, 
+                        #             source_language,  # Pass source language 
+                        #             current_target_language,  # Pass target language
+                        #             source_type=source_type,
+                        #             translate_refer=None, 
+                        #             database_path=database_path,
+                        #         )
+
+                        #         verification_success = os.path.exists(compare_file)
+                        #         result_data['verification_status'] = 'Success' if verification_success else 'Failed'
                                 
-                                # Extract failed sentences if verification succeeded
-                                if verification_success:
-                                    result_data['failed_sentences'] = extract_failed_sentences(compare_file)
+                        #         # Extract failed sentences if verification succeeded
+                        #         if verification_success:
+                        #             result_data['failed_sentences'] = extract_failed_sentences(compare_file)
                                     
-                                print(f"Verification completed: {compare_file}")
-                            except Exception as e:
-                                print(f"Error in verification: {str(e)}")
-                                result_data['verification_status'] = 'Failed'
-                        elif translation_success and not check_verification:
-                            print(f"Verification skipped as per configuration")
-                            result_data['verification_status'] = 'Skipped'
+                        #         print(f"Verification completed: {compare_file}")
+                        #     except Exception as e:
+                        #         print(f"Error in verification: {str(e)}")
+                        #         result_data['verification_status'] = 'Failed'
+                        # elif translation_success and not check_verification:
+                        #     print(f"Verification skipped as per configuration")
+                        #     result_data['verification_status'] = 'Skipped'
                         
                         # Run ground truth check if enabled
                         groundtruth_success = False

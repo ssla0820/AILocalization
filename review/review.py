@@ -253,6 +253,8 @@ async def review_n_improve_process(source_lang,
                                     review_path=None,
                                     max_retry_times=3):
     
+    print(f'review path is {review_path}')
+    
     # 如果沒有提供聊天對象，則創建新的
     if not review_chat_obj_list:
         review_chat_obj_list = make_model_object(model_list, software_type, source_type, source_lang, target_lang, image_path)
@@ -352,16 +354,20 @@ async def review_n_improve_process(source_lang,
                 # if key not in reviewed_dict[retry_time+1][model_name]:
                 #     reviewed_dict[retry_time+1][model_name] = {}
                 review_response_dict = {}
-                for key, value in raw_review_response_dict.items():
-                    if value is None or not isinstance(value, dict):
-                        review_response_dict[key] = None
-                    else:
-                        review_response_dict[key] = value['Suggestions']
-                        
-                # Store the improvement suggestions
-                reviewed_dict[retry_time+1][model_name] = review_response_dict
-                print(f'reviewed_dict for {retry_time+1} times: {reviewed_dict}')
-
+                try:
+                    for key, value in raw_review_response_dict.items():
+                        if value is None or not isinstance(value, dict):
+                            review_response_dict[key] = None
+                        else:
+                            review_response_dict[key] = value['Suggestions']
+                    # Store the improvement suggestions
+                    reviewed_dict[retry_time+1][model_name] = review_response_dict
+                    print(f'reviewed_dict for {retry_time+1} times: {reviewed_dict}')
+                except Exception as e:
+                    reviewed_dict[retry_time+1][model_name] = raw_review_response_dict
+                    print(f"Error processing review response for {model_name}: {str(e)}")
+                    process_pass_flag = f'Error in review response with {model_name}'
+                    
         print(f'Current reviewed_dict: {reviewed_dict}')
 
         if type(process_pass_flag) == str and 'Error in review response' in process_pass_flag:
@@ -459,7 +465,7 @@ async def review_n_improve_process(source_lang,
     review_result_dict["final_translated_text"] = translated_text
 
     print('='*40)
-    print(review_result_dict)
+    print(f'review result dict: {review_result_dict}')
     print('='*40)
     # Append review_result_dict to the "review_results.xlsx" file
     if review_path:

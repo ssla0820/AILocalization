@@ -31,8 +31,8 @@ MULTI_LANGUAGE_OPTIONS = {
 
 TRANSLATE_MODEL = 'gpt-4o'
 # COMPARISON_MODEL = ['gpt-4o', 'gemini-pro-vision']  # Models used for translation and comparison
-COMPARISON_MODEL = ['gpt-4o', 'gemini-2.0-flash']
-# COMPARISON_MODEL = ['gpt-4o']
+# COMPARISON_MODEL = ['gpt-4o', 'gemini-2.0-flash']
+COMPARISON_MODEL = ['gpt-4o']
 N_INPUT_TOKEN = 4096 * 0.4
 RESTRUCT_MODEL = 'gpt-4o'
 
@@ -45,7 +45,7 @@ CHECK_GROUND_TRUTH = True  # Set to True to check the ground truth
 GROUND_TRUTH_EXCEL_PATH = r"E:\Debby\9_Scripts\TranslateHTML\Translate_HTML_XML_v6\ground_truth.xlsx"  # Path to the ground truth Excel file
 
 # ========= Information for [Run Batch] (Batch Files)==========
-BATCH_EXCEL_PATH = r""  # Default Excel file for batch processing
+BATCH_EXCEL_PATH = r"E:\Debby\9_Scripts\TranslateHTML\Translate_HTML_XML_v11\translate_files.xlsx"  # Default Excel file for batch processing
 # ========= Information for [Run Batch] (Batch Files)==========
 
 # ========= Information for [Run Program] (Single File)==========

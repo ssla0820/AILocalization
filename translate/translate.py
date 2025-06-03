@@ -577,7 +577,7 @@ def main(p_in="default",
         return
     
     # Single language processing
-    process_single_file(p_in, p_out, source_lang, target_lang, specific_names_xlsx, software_type, source_type, image_path, database_path)
+    process_single_file(p_in, p_out, source_lang, target_lang, specific_names_xlsx, software_type, source_type, image_path, database_path, review_report_path)
 
 
 def process_single_file(p_in, p_out, source_lang, target_lang, specific_names_xlsx, software_type, source_type, image_path=None, database_path=None, review_report_path=None):
