@@ -56,7 +56,7 @@ def get_files_to_process(input_folder, extensions=['.html', '.htm', '.xml', '.xl
                 files.append(full_path)
     return files
 
-def get_output_filename(input_path, output_folder, target_language, is_compare_file=False, is_ground_truth_file=False):
+def get_output_filename(input_path, output_folder, target_language, is_compare_file=False, is_ground_truth_file=False, is_review_file=False):
     """
     Generate output filename with target language suffix.
     
@@ -78,21 +78,24 @@ def get_output_filename(input_path, output_folder, target_language, is_compare_f
     # For comparison files, always use .html extension
     if is_compare_file:
         ext = ".html"
-    elif is_ground_truth_file:
+    elif is_ground_truth_file or is_review_file:
         ext = ".xlsx"
     
-    # Generate output filename
-    output_filename = f"{name}_{lang_suffix}_{counter:02d}{ext}"
-    output_path = os.path.join(output_folder, output_filename)
-    
+    if is_review_file:
+        output_filename = f"{name}_{lang_suffix}_Review_{counter:02d}{ext}"
+        output_path = os.path.join(output_folder, output_filename)
+    else:
+        # Generate output filename
+        output_filename = f"{name}_{lang_suffix}_{counter:02d}{ext}"
+        output_path = os.path.join(output_folder, output_filename)
+        
 
     while os.path.exists(output_path):
         output_filename = f"{name}_{lang_suffix}_{counter:02d}{ext}"
         output_path = os.path.join(output_folder, output_filename)
         counter += 1
-    if is_compare_file:
-        return output_path
-    if is_ground_truth_file:
+        
+    if is_compare_file or is_ground_truth_file or is_review_file:
         return output_path
     
     return output_path, f"{name}_{lang_suffix}"
@@ -411,6 +414,7 @@ def process_batch_file(batch_excel_path):
             source_language = str(row['SOURCE_LANGUAGE'])
             target_language = str(row['TARGET_LANGUAGE'])
             software_type = str(row['SOFTWARE_TYPE'])
+            review_folder = str(row['REVIEW_PATH'])
 
             
             # Check if this is a multi-language option
@@ -433,6 +437,7 @@ def process_batch_file(batch_excel_path):
             print(f"Input folder: {input_folder}")
             print(f"Output folder: {output_folder}")
             print(f"Compare folder: {compare_folder}")
+            print(f"Review folder: {review_folder}")
             if image_path_folder:
                 if str(image_path_folder) == 'nan':
                     print(f"Image path folder is nan, relocate to None")
@@ -482,7 +487,8 @@ def process_batch_file(batch_excel_path):
                         # Generate output and compare file paths
                         output_file, ground_truth_file_name = get_output_filename(input_file, output_folder, current_target_language)
                         # compare_file = get_output_filename(input_file, compare_folder, f"{current_target_language}_Comparison", is_compare_file=True)
-                        
+                        review_file = get_output_filename(input_file, review_folder, current_target_language, is_review_file=True)
+
                         print(f"Output file: {output_file}")
                         # print(f"Compare file: {compare_file}")
                         print(f"Ground truth file name: {ground_truth_file_name}")
@@ -520,7 +526,7 @@ def process_batch_file(batch_excel_path):
                         try:
                             translate_main(input_file, output_file, source_language, current_target_language, 
                                         specific_names_xlsx, software_type, image_path=file_specific_image_path,
-                                        source_type=source_type, database_path=database_path)
+                                        source_type=source_type, database_path=database_path, review_report_path=review_file)
                             
                             translation_success = os.path.exists(output_file)
                             result_data['translation_status'] = 'Success' if translation_success else 'Failed'

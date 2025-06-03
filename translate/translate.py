@@ -214,6 +214,7 @@ async def translate_groups(
 
         debug_process(source_text_index, source_text, relevant_specific_names, relevant_pair_database, p, response, list(as_json_obj(response).values())[-1])
 
+    print(f'Original Inputs: {groups_in}')
     print(f"Translation response--2: {groups_out}")
     # Ensure groups_out has the exact same keys as groups_in to preserve structure
     if groups_out and set(groups_out.keys()) != set(groups_in.keys()):
@@ -237,7 +238,7 @@ async def translate_groups(
     is_excel_translation = all(group.elements[0] is None for group in groups_map.values())
     
     # Add await to properly call the async function
-    await restruct_process(is_excel_translation, groups_in, groups_out, groups_map)
+    return await restruct_process(is_excel_translation, groups_in, groups_out, groups_map)
 
 async def translation_pipeline(
         soup: BeautifulSoup,
@@ -443,9 +444,12 @@ async def translate_xlsx(
                     review_report_path
                 )
                 
+                print(f'Received responses for segment: {responses}')
+
                 # Process the translated texts
                 for i, group_key in enumerate(segment.keys()):
                     try:
+                        print(f'i: {i}, group_key: {group_key}, response: {responses[i]}')
                         # Get the translated text from the response
                         if isinstance(responses[i], str):
                             all_translated_results[group_key] = responses[i]

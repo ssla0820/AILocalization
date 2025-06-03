@@ -367,7 +367,7 @@ async def review_n_improve_process(source_lang,
                     reviewed_dict[retry_time+1][model_name] = raw_review_response_dict
                     print(f"Error processing review response for {model_name}: {str(e)}")
                     process_pass_flag = f'Error in review response with {model_name}'
-                    
+
         print(f'Current reviewed_dict: {reviewed_dict}')
 
         if type(process_pass_flag) == str and 'Error in review response' in process_pass_flag:
@@ -491,6 +491,7 @@ async def review_n_improve_process(source_lang,
 
         # Save the updated results back to the Excel file
         final_df.to_excel(review_path, index=False)
+    print(f'Start Return Process.... Return Traslated Text {translated_text}')
     return translated_text, process_pass_flag
 
     # except Exception as e:
