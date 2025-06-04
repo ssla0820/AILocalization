@@ -147,7 +147,7 @@ def check_if_need_review(source_text: str, relevant_pair_database: list) -> bool
         need_native_review = True
         return need_native_review, direct_use_database
 
-def get_translated_text_from_db(source_text: str, relevant_pair_database: list) -> str:
+def get_translated_text_from_db(relevant_pair_database: list) -> str:
     """
     Retrieves the translated text from the database if available.
     :param source_text_index: The index of the source text
@@ -156,7 +156,7 @@ def get_translated_text_from_db(source_text: str, relevant_pair_database: list) 
     """
     for item in relevant_pair_database:
         print(f"Checking database item: {item}")
-        if item[1] == source_text: 
+        if item[-1] >= 1.00: 
             print(f"Found matching item in database: {item}, return translated text: {item[2]}")
             return item[2]
 
