@@ -129,11 +129,12 @@ def check_if_need_review(source_text: str, relevant_pair_database: list) -> bool
     need_native_review = False
     direct_use_database = False
 
-    for items in relevant_pair_database:
-        if items[-1] >=1.00:
-            print(f"Found a relevant pair with score 1.00: {items}. Using this pair for translation.")
-            direct_use_database = True
-            return need_native_review, direct_use_database
+    if relevant_pair_database:
+        for items in relevant_pair_database:
+            if items[-1] >=1.00:
+                print(f"Found a relevant pair with score 1.00: {items}. Using this pair for translation.")
+                direct_use_database = True
+                return need_native_review, direct_use_database
 
     if len(source_text) > 50:
         print(f"Source text length is greater than 50 characters: {len(source_text)}. Marking for native review.")
