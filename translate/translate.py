@@ -155,7 +155,10 @@ def get_translated_text_from_db(source_text: str, relevant_pair_database: list) 
     :return: Translated text if found, otherwise an empty string
     """
     for item in relevant_pair_database:
-        if item[1] == source_text: return item[2]
+        print(f"Checking database item: {item}")
+        if item[1] == source_text: 
+            print(f"Found matching item in database: {item}, return translated text: {item[2]}")
+            return item[2]
 
 
 async def translate_groups(
