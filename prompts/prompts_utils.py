@@ -295,59 +295,66 @@ def get_lang_specific_translate_sys_prompt(target_lang):
                 ]
             }
         },
-        'Korean': {
-            'language_style': {
-                'tone': 'natural and conversational',
-                'formality': "using '-세요' endings for general content",
-                'audience': 'tailor vocabulary to audience (general vs technical)'
-            },
-            'translation_principles': [
-                'Use everyday words and expressions for general consumers',
-                'Apply technical terms only when addressing technical audiences',
-                'Aim for natural, idiomatic Korean style—not word-for-word translation',
-                'Rewrite sentences to read as if originally written in Korean',
-                "Use conversational tone with '-세요' ending; reserve formal '-십시오' for legal content",
-                'Avoid archaic or difficult Hanja characters',
-                'Prefer simple, commonly used vocabulary',
-                "Omit action-nominalizers (서술형 명사) such as '수행', '실행', '제공'",
-                'Use active verbs or natural verb phrases instead',
-                'Favor short, simple words familiar to customers',
-                'Break up long compound words to maintain clarity and correct spacing',
-                'Translate cultural idioms by meaning, not literally',
-                'Rephrase metaphors into natural, polite Korean expressions',
-                'Minimize pronoun use; omit when context is clear',
-                'Include pronouns only when needed for disambiguation',
-                'Render English fragments into grammatically correct Korean phrases'
-            ],
-            'terminology_guidelines': {
-                'product_names': 'Retain English product names without abbreviation',
-                'version_strings': 'Translate version strings and copyright notices only'
-            },
-            'grammar_rules': [
-                "Use '~하고 있습니다' or '~하는 중' for ongoing actions",
-                'Match tenses to source, defaulting to simple present when appropriate',
-                "End '~하세요'/'~합니다' sentences with a period",
-                'Preserve source punctuation in non-full sentences'
-            ],
-            'ui_guidelines': {
-                'acronyms': [
-                    "Format as 'ABC (full spelling)'",
-                    "Use Korean full spelling for acronyms common in Korean, otherwise English",
-                    "Keep letters uppercase, drop plural 's,' omit full spelling in titles",
-                    "Follow English source for English abbreviations",
-                    "Use English month/day abbreviations but Korean abbreviations for weekdays"
+        "Korean": {
+            "language_style": {
+                "tone": "natural and conversational",
+                "formality": "use '-세요' endings for general content",
+                "audience": "adjust vocabulary based on the audience (general vs. technical)"
+                },
+            "translation_principles": [
+                "Use simple words for general consumers and technical terms for technical audiences",
+                "Focus on producing natural, idiomatic Korean rather than translating word-for-word",
+                "Rephrase sentences to sound like they were originally written in Korean",
+                "Avoid archaic Hanja and complex terminology",
+                "Use active verbs and simple, short words"
                 ],
-                'ui_elements': 'Enclose UI terms in square brackets [ ] and preserve double quotes for quoted strings',
-                'placeholders': [
-                    'For numbered placeholders (%1, %2), reorder as needed for natural flow',
-                    'For non-numbered placeholders (%s), keep original order',
-                    'Attach measurement units directly after numeric placeholders (%d) with no space',
-                    'Add appropriate postpositions (은(는), 이(가), 을(를), 과(와), (으)로) after placeholders'
+            "terminology_guidelines": {
+                "product_names": "Keep product names in English as they are",
+                "version_strings": "Translate version and copyright notices accurately",
+                "examples": [
+                    {"Korean": "'모션 트래킹' 또는 '모션 추적'의 경우 일관성을 위해 '지원하지 않습니다'를 사용하세요.","avoid": "'지원하지 않습니다'는 피하세요."},
+                    {"Korean": "'객체'는 '분할', '개체'는 '분류'를 사용할 때 객체 추적 또는 분류의 특정 맥락에 맞게 사용하세요.","avoid": "'객체'와 '개체'의 혼용을 피하세요."},
+                    {"Korean": "'힌디어'를 사용하고 '힌디'는 피하세요.","avoid": "'힌디' 사용을 피하세요."},
+                    {"Korean": "'말레이시아어'를 사용하고 '말레이어'는 덜 정확하므로 피하세요.","avoid": "'말레이어' 사용을 피하세요."},
+                    {"Korean": "'차원을 넘는'을 사용하여 문장을 더 시적이고 덜 문자 그대로 전달하세요.","avoid": "'차원을 여행하며'는 피하세요."},
+                    {"Korean": "'가져온'을 사용하고 '수입된'은 피하세요.","avoid": "'수입된' 사용을 피하세요."},
+                    {"Korean": "'드래그하여'를 사용하여 이미지를 추가하고, 이미지를 드롭하는 경우 '이미지를 추가하려면 드롭하세요'를 사용하세요.","avoid": "'이미지를 드래그하여'와 같은 불분명한 표현은 피하세요."},
+                    {"Korean": "'음소거'는 오디오를 음소거하고, '음소거 해제'는 음소거를 해제할 때 사용하세요.","avoid": "'소리 끄기'와 같은 불명확한 표현은 피하세요."},
+                    {"Korean": "'클릭하여 마스크 선택에 추가하거나 제거하세요'를 사용하여 더 명확한 지침을 제공하세요.","avoid": "'마스크를 선택하거나 제거'는 피하세요."},
+                    {"Korean": "'객체 추적'에서는 '객체'를 사용하세요. 이는 더 공식적입니다.","avoid": "'개체 추적'을 피하세요."},
+                    {"Korean": "'가져오는 중'은 더 구어체로 들리며, '임포트하는 중'은 더 격식 있는 표현입니다.","avoid": "'임포트하는 중'을 사용할 때는 문맥에 맞게 사용하세요."},
+                    {"Korean": "'리빌'은 비공식적이거나 브랜드에 특화된 용어에서 사용되며, '밝히기'는 더 공식적이고 전통적인 표현입니다.","avoid": "'밝히기'만 사용할 때는 너무 공식적이지 않게 표현해야 합니다."},
+                    {"Korean": "'읽기'는 일반적인 읽기의 행위를 나타내고, '읽음'은 읽었다는 상태를 나타냅니다.","avoid": "'읽음'을 사용할 때는 상태를 명확히 구분하세요."},
+                    {"Korean": "'되돌아가기'는 내비게이션이나 역사에서 돌아가는 것에 대해 사용하고, '반환'은 객체나 항목의 반환에 대해 사용하세요.","avoid": "'뒤로 가기'와 같은 일반적인 표현은 피하세요."},
+                    {"Korean": "'리턴'은 이전 단계나 상태로 돌아갈 때 사용하고, '뒤로'는 물리적으로나 비유적으로 뒤로 갈 때 사용하세요.","avoid": "'뒤로 가기'는 문맥에 맞게 피하세요."},
+                    {"Korean": "'자세히 보기'는 더 자세한 정보를 볼 때 사용하고, '더 보기'는 '보기 더 보기'로 해석됩니다.","avoid": "'더 보기'만 사용할 때는 과도하게 간결한 표현으로 피하세요."}
+                ]
+            },
+            "grammar_rules": [
+                "Use '~하고 있습니다' or '~하는 중' to indicate ongoing actions",
+                "Match tenses to the source text, defaulting to simple present when appropriate",
+                "End sentences with '~하세요' or '~합니다' and use a period",
+                "Preserve punctuation from the source text in non-full sentences"
                 ],
-                'keyboard_shortcuts': [
-                    "Add '키' after single key names (Shift, Ctrl, Alt, Enter)",
+            "ui_guidelines": {
+                "acronyms": [
+                    "Format acronyms as 'ABC (full spelling)'",
+                    "Use Korean full spelling for acronyms commonly used in Korean, otherwise use English",
+                    "Keep acronyms in uppercase and drop plural 's' when needed",
+                    "Follow English conventions for English abbreviations",
+                    "Use Korean abbreviations for weekdays and English for months/days"
+                ],
+                "ui_elements": "Enclose UI terms in square brackets [ ] and preserve double quotes for quoted strings",
+                "placeholders": [
+                    "For numbered placeholders (%1, %2), reorder them as needed to match natural sentence flow",
+                    "For non-numbered placeholders (%s), keep their original order",
+                    "Attach measurement units directly after numeric placeholders (%d) without a space",
+                    "Add appropriate postpositions (은(는), 이(가), 을(를), 과(와), (으)로) after placeholders"
+                ],
+                "keyboard_shortcuts": [
+                    "Add '키' after single key names (e.g., Shift, Ctrl, Alt, Enter)",
                     "Wrap key names in angle brackets (<Shift 키>)",
-                    "Do not use angle brackets in manuals or help text",
+                    "Avoid using angle brackets in manuals or help text",
                     "For ampersand (&) shortcuts, append '&X' (e.g., '저장&S')"
                 ]
             }

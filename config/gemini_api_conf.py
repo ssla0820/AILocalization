@@ -3,7 +3,8 @@ import os
 # >>> gemini api >>>
 GEMINI_API_KEY = ""  # Please provide your own key
 # DEFAULT_MODEL_NAME = 'gemini-pro'  # Default text model
-GEMINI_VISION_MODEL = 'gemini-2.5-pro-preview-05-06'  # Model that supports image input
+# GEMINI_VISION_MODEL = 'gemini-2.5-pro-preview-05-06'  # Model that supports image input
+GEMINI_VISION_MODEL = 'gemini-2.0-flash'  # Model that supports image input
 DEFAULT_SYS_PROMPT = 'you are a helpful assistant.'
 
 # Model configuration
@@ -15,6 +16,12 @@ MODEL_CONFIG = {
     #     'max_output_tokens': 4096,  # Maximum output length
     # },
     'gemini-2.5-pro-preview-05-06': {
+        'temperature': 0.0,
+        'top_p': 1.0,
+        'top_k': 40,
+        'max_output_tokens': 4096,
+    },
+    'gemini-2.0-flash': {
         'temperature': 0.0,
         'top_p': 1.0,
         'top_k': 40,

@@ -26,6 +26,7 @@ def chat_completion_create(*args, **kwargs):
     content = kwargs.pop('content', '')  # Remove content from kwargs
     temperature = kwargs.pop('temperature', 0.0)  # Remove temperature from kwargs
     seed = kwargs.pop('seed', None)  # Get seed parameter if provided
+    model_name = kwargs.pop('model_name', conf.GEMINI_VISION_MODEL)  # Get model name or use default
     
     # Create generation config
     generation_config = {
@@ -43,8 +44,8 @@ def chat_completion_create(*args, **kwargs):
     if hasattr(conf, 'SAFETY_SETTINGS'):
         kwargs['safety_settings'] = conf.SAFETY_SETTINGS
     
-    # Always create a fresh model instance to avoid session closure issues
-    model = genai.GenerativeModel(conf.GEMINI_VISION_MODEL)
+    # Create a fresh model instance with the specified model name
+    model = genai.GenerativeModel(model_name)
     return model.generate_content(content, generation_config=generation_config, **kwargs)
 
 @rate_control.apply(asynchronous=True)
@@ -52,6 +53,7 @@ async def chat_completion_acreate(*args, **kwargs):
     content = kwargs.pop('content', '')  # Remove content from kwargs
     temperature = kwargs.pop('temperature', 0.0)  # Get temperature parameter
     seed = kwargs.pop('seed', None)  # Get seed parameter if provided
+    model_name = kwargs.pop('model_name', conf.GEMINI_VISION_MODEL)  # Get model name or use default
     
     # Create generation config that will be used if the API supports it
     generation_config = {
@@ -70,8 +72,8 @@ async def chat_completion_acreate(*args, **kwargs):
     if hasattr(conf, 'SAFETY_SETTINGS'):
         kwargs['safety_settings'] = conf.SAFETY_SETTINGS
     
-    # Always create a fresh model instance to avoid session closure issues
-    model = genai.GenerativeModel(conf.GEMINI_VISION_MODEL)
+    # Create a fresh model instance with the specified model name
+    model = genai.GenerativeModel(model_name)
     
     # Improved error handling - use existing event loop instead of creating new ones
     try:
@@ -257,14 +259,14 @@ class GeminiAPIChat:
         while retry_cnt < self.max_retry:
             try:
                 content = self._make_content(user_prompt, to_continue)
-                
-                # Add temperature and seed if provided
+                  # Add temperature and seed if provided
                 if temperature is not None:
                     extra_kwargs['temperature'] = temperature
                 if seed is not None:
                     extra_kwargs['seed'] = seed
-                    
-                response = chat_completion_create(content=content, **extra_kwargs)
+                
+                # Pass the model name to the API function
+                response = chat_completion_create(content=content, model_name=self.model_name, **extra_kwargs)
                 full_content = response.text
                 finish_reason = "stop"  # Gemini doesn't provide finish reason
                 
@@ -307,14 +309,14 @@ class GeminiAPIChat:
                     extra_kwargs['temperature'] = temperature
                 if seed is not None:
                     extra_kwargs['seed'] = seed
-                
-                # Remove generation parameters that aren't supported in async API
+                  # Remove generation parameters that aren't supported in async API
                 clean_kwargs = extra_kwargs.copy()
                 for param in ['top_p', 'top_k', 'max_output_tokens']:
                     if param in clean_kwargs:
                         clean_kwargs.pop(param)
                 
-                response = await chat_completion_acreate(content=content, **clean_kwargs)
+                # Pass the model name to the API function
+                response = await chat_completion_acreate(content=content, model_name=self.model_name, **clean_kwargs)
                 full_content = response.text
                 finish_reason = "stop"  # Gemini doesn't provide finish reason
                 
@@ -358,13 +360,12 @@ class GeminiAPIChat:
                 extra_kwargs['temperature'] = temperature
             if seed is not None:
                 extra_kwargs['seed'] = seed
-            
-            # Get model configuration if available
+              # Get model configuration if available
             if hasattr(conf, 'MODEL_CONFIG') and self.model_name in conf.MODEL_CONFIG:
                 extra_kwargs.update(conf.MODEL_CONFIG[self.model_name])
             
-            # Create a new model instance for this streaming session
-            response = chat_completion_create(content=content, **extra_kwargs)
+            # Create a new model instance for this streaming session using the specified model name
+            response = chat_completion_create(content=content, model_name=self.model_name, **extra_kwargs)
             
             full_content = ""
             # Gemini handles streaming differently from OpenAI
@@ -429,11 +430,10 @@ class GeminiAPIChat:
                         # Only pass parameters that aren't generation config
                         if key not in ['temperature', 'top_p', 'top_k', 'max_output_tokens']:
                             async_safe_kwargs[key] = value
-                            
-                    extra_kwargs.update(async_safe_kwargs)
+                extra_kwargs.update(async_safe_kwargs)
                 
                 # Use existing event loop for API calls
-                response = await chat_completion_acreate(content=content, **extra_kwargs)
+                response = await chat_completion_acreate(content=content, model_name=self.model_name, **extra_kwargs)
                 
                 full_content = ""
                 # Process streaming response
