@@ -200,6 +200,7 @@ async def translate_groups(
         print(f"Relevant similar pair for translation: {relevant_pair_database}")
         
         need_native_review, direct_use_database = check_if_need_review(source_text, relevant_pair_database)
+        print(f"Need native review: {need_native_review}, Direct use of database: {direct_use_database}")
 
         if direct_use_database:
             # If direct use of database is allowed, use the first item in the database
