@@ -118,6 +118,44 @@ def segment_groups_map(
     ret.append(seg)
     return ret
 
+def check_if_need_review(source_text: str, relevant_pair_database: list) -> bool:
+    '''
+    1. If source text lengh > 50, mark need_native_review as True
+    2. If similiar pairs are not found in the database, mark need_native_review as True
+    3. If similiar pairs' score =1.00, mark direct_use_database as True
+    :param source_text: The original text to be translated
+    :param relevant_pair_database: Database of similar pairs for reference
+    '''
+    need_native_review = False
+    direct_use_database = False
+
+    for items in relevant_pair_database:
+        if items[-1] >=1.00:
+            print(f"Found a relevant pair with score 1.00: {items}. Using this pair for translation.")
+            direct_use_database = True
+            return need_native_review, direct_use_database
+
+    if len(source_text) > 50:
+        print(f"Source text length is greater than 50 characters: {len(source_text)}. Marking for native review.")
+        need_native_review = True
+        return need_native_review, direct_use_database
+
+
+    if not relevant_pair_database:
+        print("No relevant pairs found in the database. Marking for native review.")
+        need_native_review = True
+        return need_native_review, direct_use_database
+
+def get_translated_text_from_db(source_text: str, relevant_pair_database: list) -> str:
+    """
+    Retrieves the translated text from the database if available.
+    :param source_text_index: The index of the source text
+    :param relevant_pair_database: List of relevant pairs from the database
+    :return: Translated text if found, otherwise an empty string
+    """
+    for item in relevant_pair_database:
+        if item[1] == source_text: return item[2]
+
 
 async def translate_groups(
         groups_map: OrderedDict[str, InlineGroup],
@@ -158,8 +196,18 @@ async def translate_groups(
         relevant_pair_database = []
         if database_path:
             relevant_pair_database = search_similar_pair_main(translate_dict={source_text_index: source_text}, database_path=database_path, grammar_top_n=5, term_top_n=5)
-        print(f"Relevant specific names for translation: {relevant_pair_database}")
+        print(f"Relevant similar pair for translation: {relevant_pair_database}")
         
+        need_native_review, direct_use_database = check_if_need_review(source_text, relevant_pair_database)
+
+        if direct_use_database:
+            # If direct use of database is allowed, use the first item in the database
+            translated_text = get_translated_text_from_db(source_text, relevant_pair_database)
+            print(f"Directly using database translation: {translated_text}")
+            groups_out[source_text_index] = translated_text
+            debug_process(source_text_index, source_text, relevant_specific_names, relevant_pair_database, 'Use DB directly', 'N/A', translated_text)
+            continue
+
         # Initialize the chat with image_path if provided
         chat = OpenaiAPIChat(
             model_name=conf.TRANSLATE_MODEL,
@@ -196,7 +244,7 @@ async def translate_groups(
             continue        
         translated_text = list(as_json_obj(response).values())[-1]
         # Add await to properly call the async function
-        translated_text, review_pass_flag = await review_n_improve_process(source_lang,
+        translated_text = await review_n_improve_process(source_lang,
                                             target_lang,
                                             software_type,
                                             source_type,
@@ -208,7 +256,8 @@ async def translate_groups(
                                             model_list=conf.COMPARISON_MODEL, 
                                             temperature=conf.TEMPERATURE, 
                                             seed=conf.SEED,
-                                            review_path=review_report_path)
+                                            review_path=review_report_path,
+                                            need_native_review=need_native_review,)
 
         groups_out[source_text_index] = translated_text
 
