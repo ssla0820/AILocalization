@@ -74,9 +74,9 @@ if __name__ == "__main__":
     # Get the Excel file path from command line arguments if provided
     import sys
     
-    target_language = 'ITA'  # Default target language
-    excel_path = r"E:\Debby\9_Scripts\TranslateHTML\Translate_HTML_XML_v10\database\PDR FAQ_ITA_result.xlsx"
-    output_json_path = r"E:\Debby\9_Scripts\TranslateHTML\Translate_HTML_XML_v10\database\PDR_enu_ita_FAQ_database.json"
+    target_language = 'KOR'  # Default target language
+    excel_path = r"E:\Debby\9_Scripts\TranslateHTML\Translate_HTML_XML_v11\database\raw_data\0603\PDR23_trunk_DEU+FRA+KOR_0603.xlsx"
+    output_json_path = r"E:\Debby\9_Scripts\TranslateHTML\Translate_HTML_XML_v11\database\PDR_enu_kor_database.json"
     
     if len(sys.argv) > 1:
         excel_path = sys.argv[1]
