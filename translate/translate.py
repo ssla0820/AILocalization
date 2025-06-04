@@ -129,6 +129,9 @@ def check_if_need_review(source_text: str, relevant_pair_database: list) -> bool
     need_native_review = False
     direct_use_database = False
 
+    print(f"Checking if source text needs native review or can use database directly: {source_text}")
+    print(f"Checking the Relevant pair database: {relevant_pair_database}")
+
     # if relevant_pair_database:
     #     for items in relevant_pair_database:
     #         if items[-1] >=1.00:
