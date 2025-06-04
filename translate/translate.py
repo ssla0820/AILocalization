@@ -207,7 +207,7 @@ async def translate_groups(
 
         if direct_use_database:
             # If direct use of database is allowed, use the first item in the database
-            translated_text = get_translated_text_from_db(source_text, relevant_pair_database)
+            translated_text = get_translated_text_from_db(relevant_pair_database)
             print(f"Directly using database translation: {translated_text}")
             groups_out[source_text_index] = translated_text
             debug_process(source_text_index, source_text, relevant_specific_names, relevant_pair_database, 'Use DB directly', 'N/A', translated_text)
