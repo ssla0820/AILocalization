@@ -150,6 +150,8 @@ def check_if_need_review(source_text: str, relevant_pair_database: list) -> bool
         need_native_review = True
         return need_native_review, direct_use_database
 
+    return need_native_review, direct_use_database
+
 def get_translated_text_from_db(relevant_pair_database: list) -> str:
     """
     Retrieves the translated text from the database if available.
@@ -432,141 +434,141 @@ async def translate_xlsx(
     print(f"Starting XLSX translation from {input_file} to {output_file}")
     print(f"Source language: {source_lang}, Target languages: {', '.join(target_langs)}")
     
-    # try:
-    # Read the Excel file with pandas
-    df = pd.read_excel(input_file)
-    
-    # Check if the file has data
-    if df.empty:
-        print("Error: Input Excel file is empty")
-        return {"success": 0, "error": 1}
-    
-    # Get the name of the first column, which should contain source language text
-    source_column = df.columns[0]
-    print(f"Found input column: {source_column}")
-    
-    # Create a single output dataframe that will contain all translations
-    output_df = df.copy()
-    
-    # Process each target language and add as a new column
-    for lang in target_langs:
-        print(f"Translating to {lang}...")
+    try:
+        # Read the Excel file with pandas
+        df = pd.read_excel(input_file)
         
-        # For multi-language options, use specific mapping table for each language if available
-        current_mapping = mapping_table
-
-            # Extract all text to translate into a dictionary
-        text_to_translate = {}
-        for i, row in df.iterrows():
-            # Skip empty cells or non-string values
-            if pd.isna(row[source_column]) or not isinstance(row[source_column], str):
-                continue
+        # Check if the file has data
+        if df.empty:
+            print("Error: Input Excel file is empty")
+            return {"success": 0, "error": 1}
+        
+        # Get the name of the first column, which should contain source language text
+        source_column = df.columns[0]
+        print(f"Found input column: {source_column}")
+        
+        # Create a single output dataframe that will contain all translations
+        output_df = df.copy()
+        
+        # Process each target language and add as a new column
+        for lang in target_langs:
+            print(f"Translating to {lang}...")
             
-            text_value = str(row[source_column])
-            text_to_translate[str(i)] = text_value
-        
-        # Create an OrderedDict that mimics the structure expected by translate_groups
-        groups_map = OrderedDict({})
-        for idx, text in text_to_translate.items():
-            # Create a dummy InlineGroup for each text entry
-            # This allows us to use the translate_groups function
-            text_list = [text]
-            cids_list = [0]  # Dummy cid
-            elements_list = [None]  # We don't need actual elements for this use case
-            groups_map[idx] = InlineGroup(text_list, cids_list, elements_list)
-        
-        # Segment the groups if needed to respect token limits
-        groups_map_segments = segment_groups_map(
-            groups_map,
-            int(conf.N_INPUT_TOKEN),
-            OpenaiAPIChat(conf.TRANSLATE_MODEL).n_tokens
-        )
-        
-        print(f"Split the text into {len(groups_map_segments)} segments for translation")
-        
-        # Process each segment and gather results
-        all_translated_results = {}
-        for segment in groups_map_segments:
-            print(f"Processing segment with {len(segment)} text entries...")                
-            # Use the existing translate_groups function
-            responses = await translate_groups(
-                segment, 
-                source_lang, 
-                lang, 
-                current_mapping, 
-                software_type, 
-                source_type,
-                image_path,
-                database_path,
-                review_report_path
+            # For multi-language options, use specific mapping table for each language if available
+            current_mapping = mapping_table
+
+              # Extract all text to translate into a dictionary
+            text_to_translate = {}
+            for i, row in df.iterrows():
+                # Skip empty cells or non-string values
+                if pd.isna(row[source_column]) or not isinstance(row[source_column], str):
+                    continue
+                
+                text_value = str(row[source_column])
+                text_to_translate[str(i)] = text_value
+            
+            # Create an OrderedDict that mimics the structure expected by translate_groups
+            groups_map = OrderedDict({})
+            for idx, text in text_to_translate.items():
+                # Create a dummy InlineGroup for each text entry
+                # This allows us to use the translate_groups function
+                text_list = [text]
+                cids_list = [0]  # Dummy cid
+                elements_list = [None]  # We don't need actual elements for this use case
+                groups_map[idx] = InlineGroup(text_list, cids_list, elements_list)
+            
+            # Segment the groups if needed to respect token limits
+            groups_map_segments = segment_groups_map(
+                groups_map,
+                int(conf.N_INPUT_TOKEN),
+                OpenaiAPIChat(conf.TRANSLATE_MODEL).n_tokens
             )
             
-            print(f'Received responses for segment: {responses}')
+            print(f"Split the text into {len(groups_map_segments)} segments for translation")
+            
+            # Process each segment and gather results
+            all_translated_results = {}
+            for segment in groups_map_segments:
+                print(f"Processing segment with {len(segment)} text entries...")                
+                # Use the existing translate_groups function
+                responses = await translate_groups(
+                    segment, 
+                    source_lang, 
+                    lang, 
+                    current_mapping, 
+                    software_type, 
+                    source_type,
+                    image_path,
+                    database_path,
+                    review_report_path
+                )
+                
+                print(f'Received responses for segment: {responses}')
 
-            # Process the translated texts
-            for i, group_key in enumerate(segment.keys()):
-                try:
-                    print(f'i: {i}, group_key: {group_key}, response: {responses[i]}')
-                    # Get the translated text from the response
-                    if isinstance(responses[i], str):
-                        all_translated_results[group_key] = responses[i]
-                    else:
-                        # Handle case where response might be a success code
-                        print(f"Warning: Unexpected response type for item {group_key}")
+                # Process the translated texts
+                for i, group_key in enumerate(segment.keys()):
+                    try:
+                        print(f'i: {i}, group_key: {group_key}, response: {responses[i]}')
+                        # Get the translated text from the response
+                        if isinstance(responses[i], str):
+                            all_translated_results[group_key] = responses[i]
+                        else:
+                            # Handle case where response might be a success code
+                            print(f"Warning: Unexpected response type for item {group_key}")
+                            all_translated_results[group_key] = text_to_translate[group_key]
+                    except Exception as e:
+                        print(f"Warning: Error processing translation for item {group_key}: {e}")
                         all_translated_results[group_key] = text_to_translate[group_key]
-                except Exception as e:
-                    print(f"Warning: Error processing translation for item {group_key}: {e}")
-                    all_translated_results[group_key] = text_to_translate[group_key]
+            
+            # Add translated text back to the dataframe
+            lang_column_name = conf.LANGUAGE_MAP.get(lang, lang)
+            for idx_str, translated_text in all_translated_results.items():
+                try:
+                    idx = int(idx_str)
+                    # Only add if the index exists in the dataframe
+                    if idx < len(output_df):
+                        output_df.loc[idx, lang_column_name] = translated_text
+                except (ValueError, KeyError) as e:
+                    print(f"Error adding translation at index {idx_str}: {e}")
+                    
+            print(f"Added translations for {lang} as column '{lang_column_name}'")
+                # Save the output dataframe to Excel
+        print(f"Saving Excel file with {len(output_df)} rows and {len(output_df.columns)} columns")
         
-        # Add translated text back to the dataframe
-        lang_column_name = conf.LANGUAGE_MAP.get(lang, lang)
-        for idx_str, translated_text in all_translated_results.items():
-            try:
-                idx = int(idx_str)
-                # Only add if the index exists in the dataframe
-                if idx < len(output_df):
-                    output_df.loc[idx, lang_column_name] = translated_text
-            except (ValueError, KeyError) as e:
-                print(f"Error adding translation at index {idx_str}: {e}")
-                
-        print(f"Added translations for {lang} as column '{lang_column_name}'")
-            # Save the output dataframe to Excel
-    print(f"Saving Excel file with {len(output_df)} rows and {len(output_df.columns)} columns")
-    
-    # Use openpyxl to save with nice formatting
-    # First save with pandas
-    output_df.to_excel(output_file, index=False)
-    
-    # Then apply formatting with openpyxl
-    wb = openpyxl.load_workbook(output_file)
-    ws = wb.active
-    
-    # Format header row
-    for col_idx, column in enumerate(output_df.columns):
-        # Bold header
-        cell = ws.cell(row=1, column=col_idx+1)
-        cell.font = openpyxl.styles.Font(bold=True)
+        # Use openpyxl to save with nice formatting
+        # First save with pandas
+        output_df.to_excel(output_file, index=False)
         
-        # Auto-adjust column width based on content length
-        max_length = len(str(column))
-        for i, value in enumerate(output_df[column]):
-            if value:
-                max_length = max(max_length, len(str(value)))
-                
-        adjusted_width = min(max(max_length + 2, 10), 80)  # Min 10, Max 80
-        ws.column_dimensions[openpyxl.utils.get_column_letter(col_idx+1)].width = adjusted_width
+        # Then apply formatting with openpyxl
+        wb = openpyxl.load_workbook(output_file)
+        ws = wb.active
+        
+        # Format header row
+        for col_idx, column in enumerate(output_df.columns):
+            # Bold header
+            cell = ws.cell(row=1, column=col_idx+1)
+            cell.font = openpyxl.styles.Font(bold=True)
+            
+            # Auto-adjust column width based on content length
+            max_length = len(str(column))
+            for i, value in enumerate(output_df[column]):
+                if value:
+                    max_length = max(max_length, len(str(value)))
+                    
+            adjusted_width = min(max(max_length + 2, 10), 80)  # Min 10, Max 80
+            ws.column_dimensions[openpyxl.utils.get_column_letter(col_idx+1)].width = adjusted_width
+        
+        # Save the formatted workbook
+        wb.save(output_file)
+        
+        print(f"Excel translation completed. Output saved to {output_file} with {len(target_langs)} language columns.")
+        return {"success": 1, "error": 0}
     
-    # Save the formatted workbook
-    wb.save(output_file)
-    
-    print(f"Excel translation completed. Output saved to {output_file} with {len(target_langs)} language columns.")
-    return {"success": 1, "error": 0}
-
-    # except Exception as e:
-    #     print(f"Error processing Excel file: {e}")
-    #     import traceback
-    #     traceback.print_exc()
-    #     return {"success": 0, "error": 1}
+    except Exception as e:
+        print(f"Error processing Excel file: {e}")
+        import traceback
+        traceback.print_exc()
+        return {"success": 0, "error": 1}
 
 
 def main(p_in="default", 
