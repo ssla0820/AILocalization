@@ -118,6 +118,10 @@ def segment_groups_map(
     ret.append(seg)
     return ret
 
+
+
+
+
 def check_if_need_review(source_text: str, relevant_pair_database: list) -> bool:
     '''
     1. If source text lengh > 50, mark need_native_review as True
@@ -130,14 +134,18 @@ def check_if_need_review(source_text: str, relevant_pair_database: list) -> bool
     direct_use_database = False
 
     print(f"Checking if source text needs native review or can use database directly: {source_text}")
-    print(f"Checking the Relevant pair database: {relevant_pair_database}")
+    # print(f"Checking the Relevant pair database: {relevant_pair_database}")
 
-    # if relevant_pair_database:
-    #     for items in relevant_pair_database:
-    #         if items[-1] >=1.00:
-    #             print(f"Found a relevant pair with score 1.00: {items}. Using this pair for translation.")
-    #             direct_use_database = True
-    #             return need_native_review, direct_use_database
+    if relevant_pair_database:
+        clean_source_text = clean_text(source_text)
+        for items in relevant_pair_database:
+            similiar_type, similiar_source, similiar_translated, similiar_score = items[0], items[1], items[2], items[3]
+            clean_similiar_source_text = clean_text(similiar_source)
+            if clean_source_text == clean_similiar_source_text:
+                print(f"Found a direct match in the database: {items}")
+                direct_use_database = similiar_translated
+                return need_native_review, direct_use_database
+
 
     if len(source_text) > 50:
         print(f"Source text length is greater than 50 characters: {len(source_text)}. Marking for native review.")
@@ -211,8 +219,7 @@ async def translate_groups(
         print(f"Need native review: {need_native_review}, Direct use of database: {direct_use_database}")
 
         if direct_use_database:
-            # If direct use of database is allowed, use the first item in the database
-            translated_text = get_translated_text_from_db(relevant_pair_database)
+            translated_text = direct_use_database
             print(f"Directly using database translation: {translated_text}")
             groups_out[source_text_index] = translated_text
             debug_process(source_text_index, source_text, relevant_specific_names, relevant_pair_database, 'Use DB directly', 'N/A', translated_text)

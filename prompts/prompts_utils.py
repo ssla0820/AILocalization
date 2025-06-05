@@ -672,23 +672,22 @@ def get_lang_specific_review_sys_prompt(target_lang):
         },
         "German": {
             "language_style": {
-            "tone": "formal, natural, and empathetic",
-            "formality": "using formal 'Sie' form for adults, 'du' for children/teens under 18",
-            "audience": "adapt tone to context, using 'wir' when a personal touch is needed"
+                "tone": "formal, natural, and empathetic",
+                "formality": "using formal 'Sie' form for adults, 'du' for children/teens under 18",
+                "audience": "adapt tone to context, using 'wir' when a personal touch is needed"
             },
-            "translation_principles": [
-            "Use natural, everyday conversational language that does not sound robotic",
-            "Avoid word-for-word translation; adapt sentences for natural German flow",
-            "Split or shorten sentences when needed for clarity and conciseness",
-            "Prefer short, simple words from everyday language",
-            "Integrate English technical terms according to German grammar and syntax rules",
-            "Avoid false friends and awkward anglicisms"
+            "Accuracy": [
+                "Use natural, everyday conversational language that does not sound robotic",
+                "Avoid word-for-word translation; adapt sentences for natural German flow",
+                "Split or shorten sentences when needed for clarity and conciseness",
+                "Prefer short, simple words from everyday language",
+                "Integrate English technical terms according to German grammar and syntax rules",
+                "Avoid false friends and awkward anglicisms"
             ],
-            "terminology_guidelines": {
-            "product_names": "Keep application and product names in English unless a legally required German form exists",
-            "technical_terms": "Integrate English technical terms according to German grammar rules",
-            "specific_translations": "Always translate 'AI' consistently into German",
-            "example": [
+            "Native Usage": [
+                "Keep application and product names in English unless a legally required German form exists",
+                "Integrate English technical terms according to German grammar rules",
+                "Always translate 'AI' consistently into German",
                 "Use 'Philippinisch' for the language because it’s the standard term. Avoid 'Filipinisch' because it’s less common.",
                 "Use 'blitzschnell' to emphasize speed. Avoid 'sofort' because it’s too general.",
                 "Use 'Wiederholen' to directly tell someone to retry. Avoid 'Erneut versuchen' because it sounds formal.",
@@ -711,28 +710,28 @@ def get_lang_specific_review_sys_prompt(target_lang):
                 "Use 'Fokus' for the professional term in visual contexts. Avoid 'schärfen' for focusing.",
                 "Use 'Blog' for modern internet contexts. Avoid 'Netztagebuch' because it sounds outdated.",
                 "Use 'Zurück' because it’s simple and clear. Avoid 'Zurückweisen' because it implies rejection."
-            ]
-            },
-            "grammar_rules": [
-            "Follow German grammar and syntax rules strictly",
-            "Pay attention to articles, compound words, genitive case, agreement, verbs, prepositions, punctuation",
-            "Maintain proper German sentence structure",
-            "Format error messages consistently using established German patterns"
             ],
-            "ui_guidelines": {
-            "error_messages": "Use consistent, non-literal phrasing following standard German patterns",
-            "placeholders": "Pay attention to placeholders (%s, %d) and their grammatically correct integration"
-            }
-        },
-
-
+            "Word Correctness": [
+                "Follow German grammar and syntax rules strictly",
+                "Pay attention to articles, compound words, genitive case, agreement, verbs, prepositions, punctuation",
+                "Maintain proper German sentence structure",
+                "Format error messages consistently using established German patterns"
+            ],
+            "Sentence Structure": [
+                "Use consistent, non-literal phrasing following standard German patterns",
+                "Pay attention to placeholders (%s, %d) and their grammatically correct integration"
+            ],
+            "Consistency with Reference": [
+                "Ensure that all translations are aligned with the established guidelines and examples to maintain clarity and standard usage."
+                ]
+            },
         "French": {
             "language_style": {
                 "tone": "natural and conversational",
                 "formality": "using formal 'vous' form",
                 "audience": "tailor vocabulary to audience (general vs technical)"
-                },
-            "translation_principles": [
+            },
+            "Accuracy": [
                 "Use conversational language suited to the audience",
                 "Use simple words for general audiences, technical terms for professionals",
                 "Don't translate word-for-word, focus on natural French",
@@ -740,56 +739,54 @@ def get_lang_specific_review_sys_prompt(target_lang):
                 "Use short, common words over rare or long ones",
                 "Avoid impersonal forms like 'on', 'il faut', 'c'est'",
                 "Maintain consistent style and terminology"
+            ],
+            "Native Usage": [
+                "Keep product names and brands in English unless legally required",
+                "Avoid complex words like 'invariablement', 'pléthore'",
+                "Use clear, precise vocabulary"
                 ],
-            "terminology_guidelines": {
-                "product_names": "Keep product names and brands in English unless legally required",
-                "vocabulary_choices": [
-                    "Avoid complex words like 'invariablement', 'pléthore'",
-                    "Use clear, precise vocabulary"
-                    ]
-                },
-            "grammar_rules": [
+            "Word Correctness": [
                 "Follow French grammar, syntax, and punctuation rules precisely",
                 "Use proper articles, capitalization, and liaisons",
                 "Prefer simple tenses (present, passé composé)",
                 "Use French-style quotation marks « »",
                 "Add non-breaking spaces before punctuation marks ; ! : ?"
-                ],
-            "ui_guidelines": {
-                "user_address": "Address the user directly using 'vous', never 'on'",
-                "error_messages": "Keep error messages empathetic and natural, ending with a period",
-                "placeholders": "Handle reserved spaces correctly (%s, %d) with proper grammar",
-                "keyboard_shortcuts": "Adapt key names like « Suppr », « Maj » carefully"
-                },
-            "translation_tips": [
-                { "term": "cloud", "description": "Use 'cloud' instead of 'à distance' or 'nuagique.'" },
-                { "term": "Les crédits ont été remboursés", "description": "Include 'credits refunded' for completeness." },
-                { "term": "D'origine", "description": "Use for original content. Avoid 'section découpée.'" },
-                { "term": "Début et de fin", "description": "For video start and end. Avoid 'cadres.'" },
-                { "term": "Média", "description": "Use for media/files. Avoid 'données' (data)." },
-                { "term": "Nuagique", "description": "'Cloud' is the more accurate term for cloud services." },
-                { "term": "À ajouter ou à supprimer", "description": "This is the standard phrasing for adding/removing." },
-                { "term": "Effet de frappe", "description": "Use this for typing effect. Avoid 'tapement.'" },
-                { "term": "Révéler", "description": "Use for revealing or showing something hidden." },
-                { "term": "Mise au point", "description": "This refers to focus in photography. Avoid 'focaliser.'" },
-                { "term": "Revenir en arrière", "description": "Use this for 'go back.' Avoid 'rebrousser chemin.'" },
-                { "term": "Retour", "description": "Use for 'return.' Avoid 'reculer,' which means retreat." },
-                { "term": "Retourner", "description": "Use for 'return' or 'turn back.' Avoid 'revenir.'" },
-                { "term": "Voir plus", "description": "This means 'see more.' Avoid 'explorer davantage.'" },
-                { "term": "Sélectionnée", "description": "Ensure this agrees with the number (singular/plural)." },
-                { "term": "Commencer à générer", "description": "Use this instead of 'débuter la création.'" },
-                { "term": "Composition de l'image", "description": "Refers to image structure. Avoid 'structure de l'image.'" },
-                { "term": "Portrait photo", "description": "This is the correct term for a personal portrait." },
-                { "term": "À l'aide de l'IA", "description": "Clearly indicates using AI." },
-                { "term": "Look", "description": "Use 'apparence' for a more professional term." },
-                { "term": "Appareils photo", "description": "Correct term for cameras. Avoid 'caméras.'" },
-                { "term": "Pack", "description": "Refers to a package or bundle." },
-                { "term": "Photo", "description": "Use 'photo' for a picture. Avoid 'visuel.'" },
-                { "term": "Sélectionnée(s)", "description": "Must match the number (singular/plural)." },
-                { "term": "Pourrait", "description": "'Could' expresses possibility. Avoid 'peut.'" },
-                { "term": "Style artistique", "description": "Refers to artistic style. Avoid 'style esthétique.'" },
-                { "term": "Commencer à générer", "description": "Use for starting generation, not 'commencer à créer.'" },
-                { "term": "Images", "description": "Use 'images' for pictures, not 'fichiers.'" }
+            ],
+            "Sentence Structure": [
+                "Address the user directly using 'vous', never 'on'",
+                "Keep error messages empathetic and natural, ending with a period",
+                "Handle reserved spaces correctly (%s, %d) with proper grammar",
+                "Adapt key names like « Suppr », « Maj » carefully"
+            ],
+            "Consistency with Reference": [
+                """term": "cloud", "description": "Use 'cloud' instead of 'à distance' or 'nuagique.'""",
+                """term": "Les crédits ont été remboursés", "description": "Include 'credits refunded' for completeness.""",
+                """term": "D'origine", "description": "Use for original content. Avoid 'section découpée.'""",
+                """term": "Début et de fin", "description": "For video start and end. Avoid 'cadres.'""",
+                """term": "Média", "description": "Use for media/files. Avoid 'données' (data).""",
+                """term": "Nuagique", "description": "'Cloud' is the more accurate term for cloud services.""",
+                """term": "À ajouter ou à supprimer", "description": "This is the standard phrasing for adding/removing.""",
+                """term": "Effet de frappe", "description": "Use this for typing effect. Avoid 'tapement.'""",
+                """term": "Révéler", "description": "Use for revealing or showing something hidden.""",
+                """term": "Mise au point", "description": "This refers to focus in photography. Avoid 'focaliser.'""",
+                """term": "Revenir en arrière", "description": "Use this for 'go back.' Avoid 'rebrousser chemin.'""",
+                """term": "Retour", "description": "Use for 'return.' Avoid 'reculer,' which means retreat.""",
+                """term": "Retourner", "description": "Use for 'return' or 'turn back.' Avoid 'revenir.'""",
+                """term": "Voir plus", "description": "This means 'see more.' Avoid 'explorer davantage.'""",
+                """term": "Sélectionnée", "description": "Ensure this agrees with the number (singular/plural).""",
+                """term": "Commencer à générer", "description": "Use this instead of 'débuter la création.'""",
+                """term": "Composition de l'image", "description": "Refers to image structure. Avoid 'structure de l'image.'""",
+                """term": "Portrait photo", "description": "This is the correct term for a personal portrait.""",
+                """term": "À l'aide de l'IA", "description": "Clearly indicates using AI.""",
+                """term": "Look", "description": "Use 'apparence' for a more professional term.""",
+                """term": "Appareils photo", "description": "Correct term for cameras. Avoid 'caméras.'""",
+                """term": "Pack", "description": "Refers to a package or bundle.""",
+                """term": "Photo", "description": "Use 'photo' for a picture. Avoid 'visuel.'""",
+                """term": "Sélectionnée(s)", "description": "Must match the number (singular/plural).""",
+                """term": "Pourrait", "description": "'Could' expresses possibility. Avoid 'peut.'""",
+                """term": "Style artistique", "description": "Refers to artistic style. Avoid 'style esthétique.'""",
+                """term": "Commencer à générer", "description": "Use for starting generation, not 'commencer à créer.'""",
+                """term": "Images", "description": "Use 'images' for pictures, not 'fichiers.'"""
             ]
         },
         'Spanish': {
@@ -903,64 +900,50 @@ def get_lang_specific_review_sys_prompt(target_lang):
                 "tone": "natural and conversational",
                 "formality": "use '-세요' endings for general content",
                 "audience": "adjust vocabulary based on the audience (general vs. technical)"
-                },
-            "translation_principles": [
+            },
+            "Accuracy": [
                 "Use simple words for general consumers and technical terms for technical audiences",
                 "Focus on producing natural, idiomatic Korean rather than translating word-for-word",
                 "Rephrase sentences to sound like they were originally written in Korean",
                 "Avoid archaic Hanja and complex terminology",
                 "Use active verbs and simple, short words"
-                ],
-            "terminology_guidelines": {
-                "product_names": "Keep product names in English as they are",
-                "version_strings": "Translate version and copyright notices accurately",
-                "examples": [
-                    {"Korean": "'모션 트래킹' 또는 '모션 추적'의 경우 일관성을 위해 '지원하지 않습니다'를 사용하세요.","avoid": "'지원하지 않습니다'는 피하세요."},
-                    {"Korean": "'객체'는 '분할', '개체'는 '분류'를 사용할 때 객체 추적 또는 분류의 특정 맥락에 맞게 사용하세요.","avoid": "'객체'와 '개체'의 혼용을 피하세요."},
-                    {"Korean": "'힌디어'를 사용하고 '힌디'는 피하세요.","avoid": "'힌디' 사용을 피하세요."},
-                    {"Korean": "'말레이시아어'를 사용하고 '말레이어'는 덜 정확하므로 피하세요.","avoid": "'말레이어' 사용을 피하세요."},
-                    {"Korean": "'차원을 넘는'을 사용하여 문장을 더 시적이고 덜 문자 그대로 전달하세요.","avoid": "'차원을 여행하며'는 피하세요."},
-                    {"Korean": "'가져온'을 사용하고 '수입된'은 피하세요.","avoid": "'수입된' 사용을 피하세요."},
-                    {"Korean": "'드래그하여'를 사용하여 이미지를 추가하고, 이미지를 드롭하는 경우 '이미지를 추가하려면 드롭하세요'를 사용하세요.","avoid": "'이미지를 드래그하여'와 같은 불분명한 표현은 피하세요."},
-                    {"Korean": "'음소거'는 오디오를 음소거하고, '음소거 해제'는 음소거를 해제할 때 사용하세요.","avoid": "'소리 끄기'와 같은 불명확한 표현은 피하세요."},
-                    {"Korean": "'클릭하여 마스크 선택에 추가하거나 제거하세요'를 사용하여 더 명확한 지침을 제공하세요.","avoid": "'마스크를 선택하거나 제거'는 피하세요."},
-                    {"Korean": "'객체 추적'에서는 '객체'를 사용하세요. 이는 더 공식적입니다.","avoid": "'개체 추적'을 피하세요."},
-                    {"Korean": "'가져오는 중'은 더 구어체로 들리며, '임포트하는 중'은 더 격식 있는 표현입니다.","avoid": "'임포트하는 중'을 사용할 때는 문맥에 맞게 사용하세요."},
-                    {"Korean": "'리빌'은 비공식적이거나 브랜드에 특화된 용어에서 사용되며, '밝히기'는 더 공식적이고 전통적인 표현입니다.","avoid": "'밝히기'만 사용할 때는 너무 공식적이지 않게 표현해야 합니다."},
-                    {"Korean": "'읽기'는 일반적인 읽기의 행위를 나타내고, '읽음'은 읽었다는 상태를 나타냅니다.","avoid": "'읽음'을 사용할 때는 상태를 명확히 구분하세요."},
-                    {"Korean": "'되돌아가기'는 내비게이션이나 역사에서 돌아가는 것에 대해 사용하고, '반환'은 객체나 항목의 반환에 대해 사용하세요.","avoid": "'뒤로 가기'와 같은 일반적인 표현은 피하세요."},
-                    {"Korean": "'리턴'은 이전 단계나 상태로 돌아갈 때 사용하고, '뒤로'는 물리적으로나 비유적으로 뒤로 갈 때 사용하세요.","avoid": "'뒤로 가기'는 문맥에 맞게 피하세요."},
-                    {"Korean": "'자세히 보기'는 더 자세한 정보를 볼 때 사용하고, '더 보기'는 '보기 더 보기'로 해석됩니다.","avoid": "'더 보기'만 사용할 때는 과도하게 간결한 표현으로 피하세요."}
-                ]
-            },
-            "grammar_rules": [
+            ],
+            "Native Usage": [
+                "Keep product names in English as they are",
+                "Translate version and copyright notices accurately",
+                """Korean": "'모션 트래킹' 또는 '모션 추적'의 경우 일관성을 위해 '지원하지 않습니다'를 사용하세요.","avoid": "'지원하지 않습니다'는 피하세요.""",
+                """Korean": "'객체'는 '분할', '개체'는 '분류'를 사용할 때 객체 추적 또는 분류의 특정 맥락에 맞게 사용하세요.","avoid": "'객체'와 '개체'의 혼용을 피하세요.""",
+                """Korean": "'힌디어'를 사용하고 '힌디'는 피하세요.","avoid": "'힌디' 사용을 피하세요.""",
+                """Korean": "'말레이시아어'를 사용하고 '말레이어'는 덜 정확하므로 피하세요.","avoid": "'말레이어' 사용을 피하세요.""",
+                """Korean": "'차원을 넘는'을 사용하여 문장을 더 시적이고 덜 문자 그대로 전달하세요.","avoid": "'차원을 여행하며'는 피하세요.""",
+                """Korean": "'가져온'을 사용하고 '수입된'은 피하세요.","avoid": "'수입된' 사용을 피하세요.""",
+                """Korean": "'드래그하여'를 사용하여 이미지를 추가하고, 이미지를 드롭하는 경우 '이미지를 추가하려면 드롭하세요'를 사용하세요.","avoid": "'이미지를 드래그하여'와 같은 불분명한 표현은 피하세요.""",
+                """Korean": "'음소거'는 오디오를 음소거하고, '음소거 해제'는 음소거를 해제할 때 사용하세요.","avoid": "'소리 끄기'와 같은 불명확한 표현은 피하세요.""",
+                """Korean": "'클릭하여 마스크 선택에 추가하거나 제거하세요'를 사용하여 더 명확한 지침을 제공하세요.","avoid": "'마스크를 선택하거나 제거'는 피하세요.""",
+                """Korean": "'객체 추적'에서는 '객체'를 사용하세요. 이는 더 공식적입니다.","avoid": "'개체 추적'을 피하세요.""",
+                """Korean": "'가져오는 중'은 더 구어체로 들리며, '임포트하는 중'은 더 격식 있는 표현입니다.","avoid": "'임포트하는 중'을 사용할 때는 문맥에 맞게 사용하세요.""",
+                """Korean": "'리빌'은 비공식적이거나 브랜드에 특화된 용어에서 사용되며, '밝히기'는 더 공식적이고 전통적인 표현입니다.","avoid": "'밝히기'만 사용할 때는 너무 공식적이지 않게 표현해야 합니다.""",
+                """Korean": "'읽기'는 일반적인 읽기의 행위를 나타내고, '읽음'은 읽었다는 상태를 나타냅니다.","avoid": "'읽음'을 사용할 때는 상태를 명확히 구분하세요.""",
+                """Korean": "'되돌아가기'는 내비게이션이나 역사에서 돌아가는 것에 대해 사용하고, '반환'은 객체나 항목의 반환에 대해 사용하세요.","avoid": "'뒤로 가기'와 같은 일반적인 표현은 피하세요.""",
+                """Korean": "'리턴'은 이전 단계나 상태로 돌아갈 때 사용하고, '뒤로'는 물리적으로나 비유적으로 뒤로 갈 때 사용하세요.","avoid": "'뒤로 가기'는 문맥에 맞게 피하세요.""",
+                """Korean": "'자세히 보기'는 더 자세한 정보를 볼 때 사용하고, '더 보기'는 '보기 더 보기'로 해석됩니다.","avoid": "'더 보기'만 사용할 때는 과도하게 간결한 표현으로 피하세요."""
+            ],
+            "Word Correctness": [
                 "Use '~하고 있습니다' or '~하는 중' to indicate ongoing actions",
                 "Match tenses to the source text, defaulting to simple present when appropriate",
                 "End sentences with '~하세요' or '~합니다' and use a period",
                 "Preserve punctuation from the source text in non-full sentences"
-                ],
-            "ui_guidelines": {
-                "acronyms": [
-                    "Format acronyms as 'ABC (full spelling)'",
-                    "Use Korean full spelling for acronyms commonly used in Korean, otherwise use English",
-                    "Keep acronyms in uppercase and drop plural 's' when needed",
-                    "Follow English conventions for English abbreviations",
-                    "Use Korean abbreviations for weekdays and English for months/days"
-                ],
-                "ui_elements": "Enclose UI terms in square brackets [ ] and preserve double quotes for quoted strings",
-                "placeholders": [
-                    "For numbered placeholders (%1, %2), reorder them as needed to match natural sentence flow",
-                    "For non-numbered placeholders (%s), keep their original order",
-                    "Attach measurement units directly after numeric placeholders (%d) without a space",
-                    "Add appropriate postpositions (은(는), 이(가), 을(를), 과(와), (으)로) after placeholders"
-                ],
-                "keyboard_shortcuts": [
-                    "Add '키' after single key names (e.g., Shift, Ctrl, Alt, Enter)",
-                    "Wrap key names in angle brackets (<Shift 키>)",
-                    "Avoid using angle brackets in manuals or help text",
-                    "For ampersand (&) shortcuts, append '&X' (e.g., '저장&S')"
-                ]
-            }
+            ],
+            "Sentence Structure": [
+                "Use active verbs and simple, short words",
+                "Ensure that sentences are clear and concise",
+                "Avoid complex sentence structures"
+            ],
+            "Consistency with Reference": [
+                "Maintain consistency with the original reference material in translation",
+                "Ensure terminology is used consistently throughout the text",
+                "Check for adherence to terminology guidelines and examples"
+            ]
         },
         "Italian": {
             "language_style": {

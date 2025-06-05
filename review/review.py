@@ -74,6 +74,21 @@ def make_model_object(model_list, software_type, source_type, source_lang, targe
                     ),
                 ]
             )
+            # print('='*40)
+            # print(f'Current review prompt:\n{review_sys_prompt_accuracy(source_lang, target_lang, software_type, source_type)}')
+            # print('='*40)
+            # print(f'Current review prompt:\n{review_sys_prompt_native(source_lang, target_lang, software_type, source_type)}')
+            # print('='*40)
+            # print(f'Current review prompt:\n{review_sys_prompt_word(source_lang, target_lang, software_type, source_type)}')
+            # print('='*40)
+            # print(f'Current review prompt:\n{review_sys_prompt_grammar(source_lang, target_lang, software_type, source_type)}')
+            # print('='*40)
+            # print(f'Current review prompt:\n{review_sys_prompt_consistency(source_lang, target_lang, software_type, source_type)}')
+            # print('='*40)
+            # print(f'Current review prompt:\n{review_sys_prompt_gender(source_lang, target_lang, software_type, source_type)}')
+            # print('='*40)
+            
+                            
         else:
             # Create LLM chat instance
             chat_obj_list.append(
@@ -322,9 +337,9 @@ async def review_n_improve_process(source_lang,
                         elif check_item_index == 5:
                             prompt_text = review_prompt_gender(source_lang, target_lang, source_text, translated_text, relevant_specific_names, relevant_pair_database)
 
-                        # print('='*40)
-                        # print(f'Current review prompt:\n{prompt_text}')
-                        # print('='*40)
+                        print('='*40)
+                        print(f'Current review prompt:\n{prompt_text}')
+                        print('='*40)
 
                         # Handle possible token limitation
                         try:

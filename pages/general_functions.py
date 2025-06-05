@@ -158,6 +158,34 @@ def as_json_obj(raw_string):
     return None
 
 
+def clean_text(text: str) -> str:
+    """
+    Remove all unexpected characters from the text. Like %S, %d, etc.
+    :param text: The text to be cleaned
+    :return: Cleaned text
+    """
+
+    special_cases = {
+                        0: ("&quot;", '"'), 
+                        1: (" &lt; ", " < "), 
+                        2: (" &gt; ", " > "), 
+                        3: (" &amp; ", " & "), 
+                        4: (" &amp;amp; ", " & "),
+                        # 5: ("[%][a-zA-Z]", " "),
+                        6: ("\\n", ""),
+                        7: ("\\r", ""),
+                        8: ("\\t", ""),
+                        9: ("\n", ""),
+                        10: ("\r", ""),
+                        11: ("\t", ""),
+                        12: ("\\", ""),
+                    }
+    
+    for index, value in special_cases.items():
+        if value[0] in text:
+            text = text.replace(value[0], value[1])
+    return text.strip()
+
 
 def get_relevant_specific_names(specific_names, source_text):
     """

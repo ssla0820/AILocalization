@@ -158,6 +158,9 @@ def review_sys_prompt_accuracy(source_lang, target_lang, software_type, source_t
     '''
     import json
     language_review_guidance = get_language_review_guidance(target_lang)
+    # print('='*40)
+    # print(language_review_guidance)
+    # print('='*40)
     system_prompt = default_sys_prompt(source_lang, target_lang, software_type, source_type, language_review_guidance)
     system_prompt["evaluation_criteria"] = [
             "If the translation conveys the same meaning as the original text, score it higher.",
@@ -493,3 +496,16 @@ def review_prompt_gender(source_lang, target_lang, source_text, translation, spe
     # Convert to JSON string
     import json
     return json.dumps(review_prompt, ensure_ascii=False, indent=2)
+
+
+if __name__ == "__main__":
+    source_lang = "English"
+    target_lang = "Spanish"
+    software_type = "Software"
+    source_type = "UI"
+    print(review_sys_prompt_accuracy(source_lang, target_lang, software_type, source_type))
+    print(review_sys_prompt_native(source_lang, target_lang, software_type, source_type))
+    print(review_sys_prompt_word(source_lang, target_lang, software_type, source_type))
+    print(review_sys_prompt_grammar(source_lang, target_lang, software_type, source_type))
+    print(review_sys_prompt_consistency(source_lang, target_lang, software_type, source_type))
+
