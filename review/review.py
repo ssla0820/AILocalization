@@ -457,27 +457,27 @@ async def review_n_improve_process(source_lang,
             # print(f'Current review result: {reviewed_dict}')
             # print(f'Current improved result: {improved_dict}')
 
+            for key, value in reviewed_dict.items():
+                for model_name, suggestions in value.items():
+                    # Format suggestions dictionary with proper indentation if it's a dictionary
+                    if isinstance(suggestions, dict):
+                        import json
+                        # Store as a formatted JSON string with indentation
+                        review_result_dict[f"{model_name}_review_{key}"] = json.dumps(suggestions, indent=4)
+                    else:
+                        review_result_dict[f"{model_name}_review_{key}"] = suggestions
+                
+                # review_result_dict[f"improved_{key}"] = improved_dict[key]
+
+            review_result_dict["review_pass_flag"] = process_pass_flag
+            review_result_dict["final_translated_text"] = translated_text
+
         except Exception as e:
             error_message = str(e)
             print(f"{error_message}")
             return error_message
         
     try:
-        for key, value in reviewed_dict.items():
-            for model_name, suggestions in value.items():
-                # Format suggestions dictionary with proper indentation if it's a dictionary
-                if isinstance(suggestions, dict):
-                    import json
-                    # Store as a formatted JSON string with indentation
-                    review_result_dict[f"{model_name}_review_{key}"] = json.dumps(suggestions, indent=4)
-                else:
-                    review_result_dict[f"{model_name}_review_{key}"] = suggestions
-            
-            # review_result_dict[f"improved_{key}"] = improved_dict[key]
-
-        review_result_dict["review_pass_flag"] = process_pass_flag
-        review_result_dict["final_translated_text"] = translated_text
-
         print('='*40)
         print(f'review result dict: {review_result_dict}')
         print('='*40)
