@@ -109,34 +109,58 @@ def get_lang_specific_translate_sys_prompt(target_lang):
                 ]
             }
         },
-        'German': {
-            'language_style': {
-                'tone': 'formal, natural, and empathetic',
-                'formality': "using formal 'Sie' form for adults, 'du' for children/teens under 18",
-                'audience': "adapt tone to context, using 'wir' when a personal touch is needed"
+        "German": {
+            "language_style": {
+                "tone": "formal, natural, and empathetic",
+                "formality": "using formal 'Sie' form for adults, 'du' for children/teens under 18",
+                "audience": "adapt tone to context, using 'wir' when a personal touch is needed"
             },
-            'translation_principles': [
-                'Use natural, everyday conversational language that does not sound robotic',
-                'Avoid word-for-word translation; adapt sentences for natural German flow',
-                'Split or shorten sentences when needed for clarity and conciseness',
-                'Prefer short, simple words from everyday language',
-                'Integrate English technical terms according to German grammar and syntax rules',
-                'Avoid false friends and awkward anglicisms'
+            "translation_principles": [
+                "Use natural, everyday conversational language that does not sound robotic",
+                "Avoid word-for-word translation; adapt sentences for natural German flow",
+                "Split or shorten sentences when needed for clarity and conciseness",
+                "Prefer short, simple words from everyday language",
+                "Integrate English technical terms according to German grammar and syntax rules",
+                "Avoid false friends and awkward anglicisms"
             ],
-            'terminology_guidelines': {
-                'product_names': 'Keep application and product names in English unless a legally required German form exists',
-                'technical_terms': 'Integrate English technical terms according to German grammar rules',
-                'specific_translations': "Always translate 'AI' consistently into German"
+            "terminology_guidelines": {
+                "product_names": "Keep application and product names in English unless a legally required German form exists",
+                "technical_terms": "Integrate English technical terms according to German grammar rules",
+                "specific_translations": "Always translate 'AI' consistently into German",
+                "example": [
+                    "Use 'Philippinisch' for the language because it’s the standard term. Avoid 'Filipinisch' because it’s less common.",
+                    "Use 'blitzschnell' to emphasize speed. Avoid 'sofort' because it’s too general.",
+                    "Use 'Wiederholen' to directly tell someone to retry. Avoid 'Erneut versuchen' because it sounds formal.",
+                    "Use 'Versuchen Sie es später erneut' as it is simple and common. Avoid 'Bitte versuchen Sie es später erneut' because 'Bitte' makes it too formal.",
+                    "Use 'Zielsprache' in translation contexts, as it's the professional term. Avoid 'übersetzte Sprache' because it’s literal.",
+                    "Use 'Vorschau des zugeschnittenen Abschnitts' for a preview of a trimmed section. Avoid 'Die zugeschnittene Passage des Clips in der Vorschau anzeigen' because it’s wordy.",
+                    "Use 'Anfangs- und Endframe' for visual or media contexts, as it’s the standard. Avoid 'Start- und Endabschnitte' because it’s unnatural.",
+                    "Use 'himmlische Meereskönigin' because it’s more natural. Avoid 'ätherische Meereskönigin' because it’s awkward.",
+                    "Use 'Importierte Medien' for media files being processed. Avoid 'Hinzugefügte Medien' because it makes the meaning unclear.",
+                    "Use 'Ablegen' for intuitive actions like dragging and dropping. Avoid 'Zum Hinzufügen weiterer Bilder fallen lassen' because it’s too long.",
+                    "Use 'Klicken oder legen Sie Videos oder Bilder hier ab' because it’s simple and clear. Avoid longer or more complex expressions.",
+                    "Use 'Maximale Anzahl Dateien' because it’s standard. Avoid 'Maximale Dateianzahl' because it’s too literal.",
+                    "Use 'auf dem Cloudserver' as it's the most commonly used term. Avoid 'auf dem Cloud-Server' because of unnecessary hyphen.",
+                    "Use 'generierten Videos' because it’s the common term for generated videos. Avoid 'erstellten Videos' because 'erstellen' focuses too much on the creation process.",
+                    "Use 'Verarbeitung' to describe processing. Avoid unnecessary punctuation or overly complex terms.",
+                    "Use 'Verfolgungsprozess' in video processing, as it’s the standard term. Avoid 'Trackingprozess' because it’s not widely used.",
+                    "Use 'Maskenauswahl' as it’s the professional term. Avoid 'Auswahl der Maske' because it’s literal.",
+                    "Use 'Trackingprozess' because it’s more common in video contexts. Avoid 'Überwachungsprozess' because it doesn’t fit the context.",
+                    "Use 'Einblenden' for visual effects like fades. Avoid 'offenbaren' because it’s too formal.",
+                    "Use 'Fokus' for the professional term in visual contexts. Avoid 'schärfen' for focusing.",
+                    "Use 'Blog' for modern internet contexts. Avoid 'Netztagebuch' because it sounds outdated.",
+                    "Use 'Zurück' because it’s simple and clear. Avoid 'Zurückweisen' because it implies rejection."
+                ]
             },
-            'grammar_rules': [
-                'Follow German grammar and syntax rules strictly',
-                'Pay attention to articles, compound words, genitive case, agreement, verbs, prepositions, punctuation',
-                'Maintain proper German sentence structure',
-                'Format error messages consistently using established German patterns'
+            "grammar_rules": [
+                "Follow German grammar and syntax rules strictly",
+                "Pay attention to articles, compound words, genitive case, agreement, verbs, prepositions, punctuation",
+                "Maintain proper German sentence structure",
+                "Format error messages consistently using established German patterns"
             ],
-            'ui_guidelines': {
-                'error_messages': 'Use consistent, non-literal phrasing following standard German patterns',
-                'placeholders': 'Pay attention to placeholders (%s, %d) and their grammatically correct integration'
+            "ui_guidelines": {
+                "error_messages": "Use consistent, non-literal phrasing following standard German patterns",
+                "placeholders": "Pay attention to placeholders (%s, %d) and their grammatically correct integration"
             }
         },
         "French": {
@@ -646,36 +670,62 @@ def get_lang_specific_review_sys_prompt(target_lang):
                 ]
             }
         },
-        'German': {
-            'language_style': {
-                'tone': 'formal, natural, and empathetic',
-                'formality': "using formal 'Sie' form for adults, 'du' for children/teens under 18",
-                'audience': "adapt tone to context, using 'wir' when a personal touch is needed"
+        "German": {
+            "language_style": {
+            "tone": "formal, natural, and empathetic",
+            "formality": "using formal 'Sie' form for adults, 'du' for children/teens under 18",
+            "audience": "adapt tone to context, using 'wir' when a personal touch is needed"
             },
-            'translation_principles': [
-                'Use natural, everyday conversational language that does not sound robotic',
-                'Avoid word-for-word translation; adapt sentences for natural German flow',
-                'Split or shorten sentences when needed for clarity and conciseness',
-                'Prefer short, simple words from everyday language',
-                'Integrate English technical terms according to German grammar and syntax rules',
-                'Avoid false friends and awkward anglicisms'
+            "translation_principles": [
+            "Use natural, everyday conversational language that does not sound robotic",
+            "Avoid word-for-word translation; adapt sentences for natural German flow",
+            "Split or shorten sentences when needed for clarity and conciseness",
+            "Prefer short, simple words from everyday language",
+            "Integrate English technical terms according to German grammar and syntax rules",
+            "Avoid false friends and awkward anglicisms"
             ],
-            'terminology_guidelines': {
-                'product_names': 'Keep application and product names in English unless a legally required German form exists',
-                'technical_terms': 'Integrate English technical terms according to German grammar rules',
-                'specific_translations': "Always translate 'AI' consistently into German"
+            "terminology_guidelines": {
+            "product_names": "Keep application and product names in English unless a legally required German form exists",
+            "technical_terms": "Integrate English technical terms according to German grammar rules",
+            "specific_translations": "Always translate 'AI' consistently into German",
+            "example": [
+                "Use 'Philippinisch' for the language because it’s the standard term. Avoid 'Filipinisch' because it’s less common.",
+                "Use 'blitzschnell' to emphasize speed. Avoid 'sofort' because it’s too general.",
+                "Use 'Wiederholen' to directly tell someone to retry. Avoid 'Erneut versuchen' because it sounds formal.",
+                "Use 'Versuchen Sie es später erneut' as it is simple and common. Avoid 'Bitte versuchen Sie es später erneut' because 'Bitte' makes it too formal.",
+                "Use 'Zielsprache' in translation contexts, as it's the professional term. Avoid 'übersetzte Sprache' because it’s literal.",
+                "Use 'Vorschau des zugeschnittenen Abschnitts' for a preview of a trimmed section. Avoid 'Die zugeschnittene Passage des Clips in der Vorschau anzeigen' because it’s wordy.",
+                "Use 'Anfangs- und Endframe' for visual or media contexts, as it’s the standard. Avoid 'Start- und Endabschnitte' because it’s unnatural.",
+                "Use 'himmlische Meereskönigin' because it’s more natural. Avoid 'ätherische Meereskönigin' because it’s awkward.",
+                "Use 'Importierte Medien' for media files being processed. Avoid 'Hinzugefügte Medien' because it makes the meaning unclear.",
+                "Use 'Ablegen' for intuitive actions like dragging and dropping. Avoid 'Zum Hinzufügen weiterer Bilder fallen lassen' because it’s too long.",
+                "Use 'Klicken oder legen Sie Videos oder Bilder hier ab' because it’s simple and clear. Avoid longer or more complex expressions.",
+                "Use 'Maximale Anzahl Dateien' because it’s standard. Avoid 'Maximale Dateianzahl' because it’s too literal.",
+                "Use 'auf dem Cloudserver' as it's the most commonly used term. Avoid 'auf dem Cloud-Server' because of unnecessary hyphen.",
+                "Use 'generierten Videos' because it’s the common term for generated videos. Avoid 'erstellten Videos' because 'erstellen' focuses too much on the creation process.",
+                "Use 'Verarbeitung' to describe processing. Avoid unnecessary punctuation or overly complex terms.",
+                "Use 'Verfolgungsprozess' in video processing, as it’s the standard term. Avoid 'Trackingprozess' because it’s not widely used.",
+                "Use 'Maskenauswahl' as it’s the professional term. Avoid 'Auswahl der Maske' because it’s literal.",
+                "Use 'Trackingprozess' because it’s more common in video contexts. Avoid 'Überwachungsprozess' because it doesn’t fit the context.",
+                "Use 'Einblenden' for visual effects like fades. Avoid 'offenbaren' because it’s too formal.",
+                "Use 'Fokus' for the professional term in visual contexts. Avoid 'schärfen' for focusing.",
+                "Use 'Blog' for modern internet contexts. Avoid 'Netztagebuch' because it sounds outdated.",
+                "Use 'Zurück' because it’s simple and clear. Avoid 'Zurückweisen' because it implies rejection."
+            ]
             },
-            'grammar_rules': [
-                'Follow German grammar and syntax rules strictly',
-                'Pay attention to articles, compound words, genitive case, agreement, verbs, prepositions, punctuation',
-                'Maintain proper German sentence structure',
-                'Format error messages consistently using established German patterns'
+            "grammar_rules": [
+            "Follow German grammar and syntax rules strictly",
+            "Pay attention to articles, compound words, genitive case, agreement, verbs, prepositions, punctuation",
+            "Maintain proper German sentence structure",
+            "Format error messages consistently using established German patterns"
             ],
-            'ui_guidelines': {
-                'error_messages': 'Use consistent, non-literal phrasing following standard German patterns',
-                'placeholders': 'Pay attention to placeholders (%s, %d) and their grammatically correct integration'
+            "ui_guidelines": {
+            "error_messages": "Use consistent, non-literal phrasing following standard German patterns",
+            "placeholders": "Pay attention to placeholders (%s, %d) and their grammatically correct integration"
             }
         },
+
+
         "French": {
             "language_style": {
                 "tone": "natural and conversational",
