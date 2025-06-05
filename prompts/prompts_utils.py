@@ -139,41 +139,71 @@ def get_lang_specific_translate_sys_prompt(target_lang):
                 'placeholders': 'Pay attention to placeholders (%s, %d) and their grammatically correct integration'
             }
         },
-        'French': {
-            'language_style': {
-                'tone': 'natural and conversational',
-                'formality': "using formal 'vous' form",
-                'audience': 'tailor vocabulary to audience (general vs technical)'
-            },
-            'translation_principles': [
-                'Use everyday conversational language tailored to the audience',
-                'Prefer simple words for general audiences, technical terms for professionals',
-                'Do not translate word-for-word; prioritize natural French expression',
-                'Adapt content by merging, splitting, or removing elements as needed',
-                'Prefer short and common words over lengthy or rare expressions',
-                'Avoid impersonal forms like \'on\', \'il faut\', \'c\'est\'',
-                'Maintain consistent terminology and style throughout the translation'
-            ],
-            'terminology_guidelines': {
-                'product_names': 'Keep product names and brands in English unless legally required',
-                'vocabulary_choices': [
-                    'Avoid terms like \'invariablement\', \'pléthore\'',
-                    'Use precise, common French vocabulary'
-                ]
-            },
-            'grammar_rules': [
-                'Follow French grammar, syntax and punctuation rules precisely',
-                'Use proper articles, capitalization, and liaisons',
-                'Prefer simple tenses (present, passé composé)',
-                'Use proper spacing with French-style quotation marks « »',
-                'Add non-breaking spaces before punctuation marks ; ! : ?'
-            ],
-            'ui_guidelines': {
-                'user_address': "Address the user directly using 'vous' (masculine singular), never 'on'",
-                'error_messages': 'Make error messages empathetic and natural; always end with a period',
-                'placeholders': 'Handle reserved spaces (%s, %d) correctly with proper grammar',
-                'keyboard_shortcuts': 'Carefully preserve or adapt key names and shortcuts (« Suppr », « Maj »)'
-            }
+        "French": {
+            "language_style": {
+                "tone": "natural and conversational",
+                "formality": "using formal 'vous' form",
+                "audience": "tailor vocabulary to audience (general vs technical)"
+                },
+            "translation_principles": [
+                "Use conversational language suited to the audience",
+                "Use simple words for general audiences, technical terms for professionals",
+                "Don't translate word-for-word, focus on natural French",
+                "Adapt content by merging, splitting, or removing parts as needed",
+                "Use short, common words over rare or long ones",
+                "Avoid impersonal forms like 'on', 'il faut', 'c'est'",
+                "Maintain consistent style and terminology"
+                ],
+            "terminology_guidelines": {
+                "product_names": "Keep product names and brands in English unless legally required",
+                "vocabulary_choices": [
+                    "Avoid complex words like 'invariablement', 'pléthore'",
+                    "Use clear, precise vocabulary"
+                    ]
+                },
+            "grammar_rules": [
+                "Follow French grammar, syntax, and punctuation rules precisely",
+                "Use proper articles, capitalization, and liaisons",
+                "Prefer simple tenses (present, passé composé)",
+                "Use French-style quotation marks « »",
+                "Add non-breaking spaces before punctuation marks ; ! : ?"
+                ],
+            "ui_guidelines": {
+                "user_address": "Address the user directly using 'vous', never 'on'",
+                "error_messages": "Keep error messages empathetic and natural, ending with a period",
+                "placeholders": "Handle reserved spaces correctly (%s, %d) with proper grammar",
+                "keyboard_shortcuts": "Adapt key names like « Suppr », « Maj » carefully"
+                },
+            "translation_tips": [
+                { "term": "cloud", "description": "Use 'cloud' instead of 'à distance' or 'nuagique.'" },
+                { "term": "Les crédits ont été remboursés", "description": "Include 'credits refunded' for completeness." },
+                { "term": "D'origine", "description": "Use for original content. Avoid 'section découpée.'" },
+                { "term": "Début et de fin", "description": "For video start and end. Avoid 'cadres.'" },
+                { "term": "Média", "description": "Use for media/files. Avoid 'données' (data)." },
+                { "term": "Nuagique", "description": "'Cloud' is the more accurate term for cloud services." },
+                { "term": "À ajouter ou à supprimer", "description": "This is the standard phrasing for adding/removing." },
+                { "term": "Effet de frappe", "description": "Use this for typing effect. Avoid 'tapement.'" },
+                { "term": "Révéler", "description": "Use for revealing or showing something hidden." },
+                { "term": "Mise au point", "description": "This refers to focus in photography. Avoid 'focaliser.'" },
+                { "term": "Revenir en arrière", "description": "Use this for 'go back.' Avoid 'rebrousser chemin.'" },
+                { "term": "Retour", "description": "Use for 'return.' Avoid 'reculer,' which means retreat." },
+                { "term": "Retourner", "description": "Use for 'return' or 'turn back.' Avoid 'revenir.'" },
+                { "term": "Voir plus", "description": "This means 'see more.' Avoid 'explorer davantage.'" },
+                { "term": "Sélectionnée", "description": "Ensure this agrees with the number (singular/plural)." },
+                { "term": "Commencer à générer", "description": "Use this instead of 'débuter la création.'" },
+                { "term": "Composition de l'image", "description": "Refers to image structure. Avoid 'structure de l'image.'" },
+                { "term": "Portrait photo", "description": "This is the correct term for a personal portrait." },
+                { "term": "À l'aide de l'IA", "description": "Clearly indicates using AI." },
+                { "term": "Look", "description": "Use 'apparence' for a more professional term." },
+                { "term": "Appareils photo", "description": "Correct term for cameras. Avoid 'caméras.'" },
+                { "term": "Pack", "description": "Refers to a package or bundle." },
+                { "term": "Photo", "description": "Use 'photo' for a picture. Avoid 'visuel.'" },
+                { "term": "Sélectionnée(s)", "description": "Must match the number (singular/plural)." },
+                { "term": "Pourrait", "description": "'Could' expresses possibility. Avoid 'peut.'" },
+                { "term": "Style artistique", "description": "Refers to artistic style. Avoid 'style esthétique.'" },
+                { "term": "Commencer à générer", "description": "Use for starting generation, not 'commencer à créer.'" },
+                { "term": "Images", "description": "Use 'images' for pictures, not 'fichiers.'" }
+            ]
         },
         'Spanish': {
             "language_style": {
