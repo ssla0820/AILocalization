@@ -58,6 +58,9 @@ SOFTWARE_TYPE = 'video editing software'  # Type of software being translated (e
 SOURCE_TYPE = 'UI' # Type of source file (e.g., 'UI', 'Help', etc.)
 # SPECIFIC_NAMES_XLSX = r"E:\Debby\9_Scripts\TranslateHTML\Translate_HTML_XML_v8\Report\Mapping_Table\PHD 16.5 UI_4L_20250527.xlsx" # The path of mapping table
 SPECIFIC_NAMES_XLSX = r"e:\Debby\9_Scripts\TranslateHTML\Translate_HTML_XML_v8\Report\Mapping_Table\specific_name_pdr365_short.xlsx" # The path of mapping table
+REGION_TABLE_PATH = r"E:\Debby\9_Scripts\TranslateHTML\Translate_HTML_XML_v11\region_table\region_table.xlsx"
+REFER_TEXT_TABLE_PATH = r""
+
 
 # Input and output file paths
 INPUT_FILE_PATH = r"E:\Debby\9_Scripts\TranslateHTML\Translate_HTML_XML_v8\Report\0526_Source\0526_Batch1n2n3_ProblemTest_ITA_PDR.xlsx" # Path to the original file

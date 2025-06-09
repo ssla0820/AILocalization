@@ -86,7 +86,15 @@ def default_sys_prompt(source_lang, target_lang, software_type, source_type, lan
 
     return system_prompt
 
-def default_review_prompt(source_lang, target_lang, source_text, translation, specific_names=None, translate_refer=None):
+def default_review_prompt(source_lang, target_lang, source_text, translation, specific_names=None, region_table=None, translate_refer=None):
+    specific_names_list = []
+    if specific_names and len(specific_names) > 0:
+        specific_names_list = [{"term": k, "translation": v} for k, v in specific_names.items()]
+
+    region_table_list = []
+    if region_table and len(region_table) > 0:
+        region_table_list = [{"Original": k, "Use": v[0], "Avoid": v[1]} for k, v in region_table.items()]
+    
     review_prompt = {
         "task": [
             "translation_review",
@@ -137,13 +145,28 @@ def default_review_prompt(source_lang, target_lang, source_text, translation, sp
                 "The entire response must be a valid JSON object with the exact fields specified below.",
                 "If you include any text before or after the JSON, it will cause parsing errors.",
             ],
-        }
+        },
+        "specific_term_translations": {
+            "terms": specific_names_list,
+            "rule": [
+                "Use singular and lowercase for all specific terms.",
+                "If a specific term appears in the source text, translate it using the provided term.",
+                "Please refer the specific term carefully. Don't tranlate error to similar source texts"
+                "If the specific term is not found, use the general translation instead.",
+                "Match the case (uppercase/lowercase) and number (singular/plural) of the original text when translating."
+            ]
+        },
+        "region_table": {
+            "terms": region_table_list,
+            "rule": [
+                "When translating 'Original' terms, use the 'Use' translation. Don't use the 'Avoid' translation.",
+                "If the 'Original' term is not found, use the general translation instead.",
+                "Match the case (uppercase/lowercase) and number (singular/plural) of the original text when translating."
+            ]
+        },
     }
     
-    if specific_names and len(specific_names) > 0:
-        review_prompt["specific_term_translations"] = [
-            {"term": k, "required_translation": v} for k, v in specific_names.items()
-        ]
+
     
     return review_prompt
     
@@ -176,7 +199,7 @@ def review_sys_prompt_accuracy(source_lang, target_lang, software_type, source_t
     # Convert to JSON string
     return json.dumps(system_prompt, ensure_ascii=False, indent=2)
 
-def review_prompt_accuracy(source_lang, target_lang, source_text, translation, specific_names=None, translate_refer=None):
+def review_prompt_accuracy(source_lang, target_lang, source_text, translation, specific_names=None, region_table=None, translate_refer=None):
     '''
     Enhanced version of the review prompt with stricter JSON formatting requirements.
     
@@ -188,7 +211,7 @@ def review_prompt_accuracy(source_lang, target_lang, source_text, translation, s
     :return: Formatted review prompt string in JSON format
     '''
 
-    review_prompt = default_review_prompt(source_lang, target_lang, source_text, translation, specific_names, translate_refer)
+    review_prompt = default_review_prompt(source_lang, target_lang, source_text, translation, specific_names, region_table, translate_refer)
     review_prompt["required_output_format"]["example_response"] = {
                 "Score": 9.5, 
                 "Suggestions": ["incorrect phrase 1", "word 2"],
@@ -233,7 +256,7 @@ def review_sys_prompt_native(source_lang, target_lang, software_type, source_typ
     # Convert to JSON string
     return json.dumps(system_prompt, ensure_ascii=False, indent=2)
 
-def review_prompt_native(source_lang, target_lang, source_text, translation, specific_names=None, translate_refer=None):
+def review_prompt_native(source_lang, target_lang, source_text, translation, specific_names=None, region_table=None, translate_refer=None):
     '''
     Enhanced version of the review prompt with stricter JSON formatting requirements.
     
@@ -245,7 +268,7 @@ def review_prompt_native(source_lang, target_lang, source_text, translation, spe
     :return: Formatted review prompt string in JSON format
     '''
 
-    review_prompt = default_review_prompt(source_lang, target_lang, source_text, translation, specific_names, translate_refer)
+    review_prompt = default_review_prompt(source_lang, target_lang, source_text, translation, specific_names, region_table, translate_refer)
     review_prompt["required_output_format"]["example_response"] = {
                 "Score": 8.5, 
                 "Suggestions": ["awkward phrase 1", "word 2"],
@@ -290,7 +313,7 @@ def review_sys_prompt_word(source_lang, target_lang, software_type, source_type)
     # Convert to JSON string
     return json.dumps(system_prompt, ensure_ascii=False, indent=2)
 
-def review_prompt_word(source_lang, target_lang, source_text, translation, specific_names=None, translate_refer=None):
+def review_prompt_word(source_lang, target_lang, source_text, translation, specific_names=None, region_table=None, translate_refer=None):
     '''
     Enhanced version of the review prompt with stricter JSON formatting requirements.
     
@@ -302,7 +325,7 @@ def review_prompt_word(source_lang, target_lang, source_text, translation, speci
     :return: Formatted review prompt string in JSON format
     '''
 
-    review_prompt = default_review_prompt(source_lang, target_lang, source_text, translation, specific_names, translate_refer)
+    review_prompt = default_review_prompt(source_lang, target_lang, source_text, translation, specific_names, region_table, translate_refer)
     review_prompt["required_output_format"]["example_response"] = {
                 "Score": 9.0, 
                 "Suggestions": ["wrong term 1", "word 2"],
@@ -347,7 +370,7 @@ def review_sys_prompt_grammar(source_lang, target_lang, software_type, source_ty
     # Convert to JSON string
     return json.dumps(system_prompt, ensure_ascii=False, indent=2)
 
-def review_prompt_grammar(source_lang, target_lang, source_text, translation, specific_names=None, translate_refer=None):
+def review_prompt_grammar(source_lang, target_lang, source_text, translation, specific_names=None, region_table=None, translate_refer=None):
     '''
     Enhanced version of the review prompt with stricter JSON formatting requirements.
     
@@ -359,7 +382,7 @@ def review_prompt_grammar(source_lang, target_lang, source_text, translation, sp
     :return: Formatted review prompt string in JSON format
     '''
 
-    review_prompt = default_review_prompt(source_lang, target_lang, source_text, translation, specific_names, translate_refer)
+    review_prompt = default_review_prompt(source_lang, target_lang, source_text, translation, specific_names, region_table, translate_refer)
     review_prompt["required_output_format"]["example_response"] = {
                 "Score": 9.0, 
                 "Suggestions": ["wrong term 1", "word 2"],
@@ -405,7 +428,7 @@ def review_sys_prompt_consistency(source_lang, target_lang, software_type, sourc
     # Convert to JSON string
     return json.dumps(system_prompt, ensure_ascii=False, indent=2)
 
-def review_prompt_consistency(source_lang, target_lang, source_text, translation, specific_names=None, translate_refer=None):
+def review_prompt_consistency(source_lang, target_lang, source_text, translation, specific_names=None, region_table=None, translate_refer=None):
     '''
     Enhanced version of the review prompt with stricter JSON formatting requirements.
     
@@ -417,7 +440,7 @@ def review_prompt_consistency(source_lang, target_lang, source_text, translation
     :return: Formatted review prompt string in JSON format
     '''
 
-    review_prompt = default_review_prompt(source_lang, target_lang, source_text, translation, specific_names, translate_refer)
+    review_prompt = default_review_prompt(source_lang, target_lang, source_text, translation, specific_names, region_table, translate_refer)
     review_prompt["required_output_format"]["example_response"] = {
                 "Score": 8.0, 
                 "Suggestions": ["inconsistent term 1"],
@@ -467,7 +490,7 @@ def review_sys_prompt_gender(source_lang, target_lang, software_type, source_typ
     # Convert to JSON string
     return json.dumps(system_prompt, ensure_ascii=False, indent=2)
 
-def review_prompt_gender(source_lang, target_lang, source_text, translation, specific_names=None, translate_refer=None):
+def review_prompt_gender(source_lang, target_lang, source_text, translation, specific_names=None, region_table=None, translate_refer=None):
     '''
     Enhanced version of the review prompt with stricter JSON formatting requirements.
     
@@ -479,7 +502,7 @@ def review_prompt_gender(source_lang, target_lang, source_text, translation, spe
     :return: Formatted review prompt string in JSON format
     '''
 
-    review_prompt = default_review_prompt(source_lang, target_lang, source_text, translation, specific_names, translate_refer)
+    review_prompt = default_review_prompt(source_lang, target_lang, source_text, translation, specific_names, region_table, translate_refer)
     review_prompt["required_output_format"]["example_response"] = {
                 "Score": 8.0, 
                 "Suggestions": ["word 1"],

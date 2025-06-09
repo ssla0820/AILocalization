@@ -23,7 +23,10 @@ def debug_process(
         source_text_index: str,
         source_text: str,
         relevant_specific_names: dict[str, str],
+        relevant_region_table: dict[str, str],
+        relevant_refer_text_table: dict[str, str],
         relevant_pair_database: list[dict],
+        system_prompt: str,
         prompt: str,
         response: str,
         output: dict[str, str]
@@ -53,7 +56,8 @@ def debug_process(
             wb = openpyxl.Workbook()
             ws = wb.active
             # Add headers if creating a new file
-            headers = ["Source Index", "Source Text", "Specific Names", "Similar Pairs", "Prompt", "Response", "Output"]
+            headers = ["Source Index", "Source Text", "Specific Names", "Region Table", "Refer Text",\
+                       "Similar Pairs", "System Prompt", "Prompt", "Response", "Output"]
             for col, header in enumerate(headers, 1):
                 ws.cell(row=1, column=col, value=header)
             next_row = 2  # Start data from row 2
@@ -62,13 +66,16 @@ def debug_process(
         ws.cell(row=next_row, column=1, value=str(source_text_index))
         ws.cell(row=next_row, column=2, value=str(source_text))
         ws.cell(row=next_row, column=3, value=str(relevant_specific_names))
-        ws.cell(row=next_row, column=4, value=str(relevant_pair_database))
-        ws.cell(row=next_row, column=5, value=str(prompt))
-        ws.cell(row=next_row, column=6, value=str(response))
-        ws.cell(row=next_row, column=7, value=str(output))
+        ws.cell(row=next_row, column=4, value=str(relevant_region_table))
+        ws.cell(row=next_row, column=5, value=str(relevant_refer_text_table))
+        ws.cell(row=next_row, column=6, value=str(relevant_pair_database))
+        ws.cell(row=next_row, column=7, value=str(system_prompt))
+        ws.cell(row=next_row, column=8, value=str(prompt))
+        ws.cell(row=next_row, column=9, value=str(response))
+        ws.cell(row=next_row, column=10, value=str(output))
         
         # Apply word wrap for better readability in Excel
-        for col in range(1, 8):
+        for col in range(1, 11):
             cell = ws.cell(row=next_row, column=col)
             cell.alignment = Alignment(wrap_text=True)
         
@@ -117,8 +124,6 @@ def segment_groups_map(
         token_cnt += n
     ret.append(seg)
     return ret
-
-
 
 
 
@@ -176,7 +181,7 @@ def get_translated_text_from_db(relevant_pair_database: list) -> str:
 
 async def translate_groups(
         groups_map: OrderedDict[str, InlineGroup],
-        source_lang, target_lang, mapping_table, software_type, source_type, image_path=None, database_path=None, review_report_path=None
+        source_lang, target_lang, mapping_table, region_table, refer_text_table, software_type, source_type, image_path=None, database_path=None, review_report_path=None
 ):
     """
     Performs translation and restruct task on one segment of all inline groups.
@@ -209,6 +214,12 @@ async def translate_groups(
         relevant_specific_names = get_relevant_specific_names(mapping_table, source_text)
         print(f"Relevant specific names for translation: {relevant_specific_names}")
 
+        relevant_region_table = get_relevant_region_table(region_table, source_text)
+        print(f"Relevant region table for translation: {relevant_region_table}")
+
+        relevant_refer_text_table = get_relevant_refer_text_table(refer_text_table, source_text)
+        print(f"Relevant refer text table for translation: {relevant_refer_text_table}")
+
         # Search for relevant translated pairs in the database
         relevant_pair_database = []
         if database_path:
@@ -222,7 +233,9 @@ async def translate_groups(
             translated_text = direct_use_database
             print(f"Directly using database translation: {translated_text}")
             groups_out[source_text_index] = translated_text
-            debug_process(source_text_index, source_text, relevant_specific_names, relevant_pair_database, 'Use DB directly', 'N/A', translated_text)
+            debug_process(source_text_index, source_text, relevant_specific_names,\
+                           relevant_region_table, relevant_refer_text_table, relevant_pair_database, \
+                          'Use DB directly', 'Use DB directly', 'N/A', translated_text)
             continue
 
         # Initialize the chat with image_path if provided
@@ -243,6 +256,8 @@ async def translate_groups(
                 target_lang, 
                 source_text,
                 specific_names=relevant_specific_names,
+                region_table=relevant_region_table,
+                refer_text_table=relevant_refer_text_table,
                 refer_data_list=relevant_pair_database,
             )
             async for chunk, stop_reason in chat.get_stream_aresponse(p, temperature=0.01):
@@ -268,6 +283,7 @@ async def translate_groups(
                                             source_text, 
                                             translated_text, 
                                             relevant_specific_names,
+                                            relevant_region_table,
                                             relevant_pair_database,
                                             image_path,
                                             model_list=conf.COMPARISON_MODEL, 
@@ -278,7 +294,9 @@ async def translate_groups(
 
         groups_out[source_text_index] = translated_text
 
-        debug_process(source_text_index, source_text, relevant_specific_names, relevant_pair_database, p, response, list(as_json_obj(response).values())[-1])
+        debug_process(source_text_index, source_text, relevant_specific_names,\
+                    relevant_region_table, relevant_refer_text_table, relevant_pair_database, \
+                    chat.sys_prompt, p, response, list(as_json_obj(response).values())[-1])
 
     print(f'Original Inputs: {groups_in}')
     print(f"Translation response--2: {groups_out}")
@@ -308,7 +326,7 @@ async def translate_groups(
 
 async def translation_pipeline(
         soup: BeautifulSoup,
-        source_lang, target_lang, mapping_table, software_type, source_type, image_path=None, database_path=None, review_report_path=None
+        source_lang, target_lang, mapping_table, region_table, refer_text_table, software_type, source_type, image_path=None, database_path=None, review_report_path=None
 ) -> list[str]:
     """
     Main entry point to translates the HTML in the soup object in place.
@@ -342,7 +360,7 @@ async def translation_pipeline(
         int(conf.N_INPUT_TOKEN),
         OpenaiAPIChat(conf.TRANSLATE_MODEL).n_tokens
     )
-    tasks = [translate_groups(seg, source_lang, target_lang, mapping_table, software_type, source_type, image_path, database_path, review_report_path) for seg in groups_map_segments]
+    tasks = [translate_groups(seg, source_lang, target_lang, mapping_table, region_table, refer_text_table, software_type, source_type, image_path, database_path, review_report_path) for seg in groups_map_segments]
     results = await asyncio.gather(*tasks)
     results = [j for i in results for j in i]
     return results
@@ -417,6 +435,8 @@ async def translate_xlsx(
         source_lang, 
         target_langs, 
         mapping_table, 
+        region_table,
+        refer_text_table, 
         software_type, 
         source_type, 
         image_path=None, 
@@ -503,6 +523,8 @@ async def translate_xlsx(
                     source_lang, 
                     lang, 
                     current_mapping, 
+                    region_table, 
+                    refer_text_table, 
                     software_type, 
                     source_type,
                     image_path,
@@ -582,7 +604,9 @@ def main(p_in="default",
          p_out="default", 
          source_lang="default", 
          target_lang="default", 
-         specific_names_xlsx="default", 
+         specific_names_xlsx="default",
+         region_table_path="default",
+         refer_text_table_path="default",
          software_type="default", 
          image_path="default",
          source_type="default",
@@ -603,6 +627,12 @@ def main(p_in="default",
 
     if specific_names_xlsx=="default":
         specific_names_xlsx = conf.SPECIFIC_NAMES_XLSX
+
+    if region_table_path=="default":
+        region_table_path = conf.REGION_TABLE_PATH
+
+    if refer_text_table_path=="default":
+        refer_text_table_path = conf.REFER_TEXT_TABLE_PATH
 
     if software_type=="default":
         software_type = conf.SOFTWARE_TYPE
@@ -642,21 +672,24 @@ def main(p_in="default",
             print(f"Output path: {current_output_path}")
             
             # Call process_single_file to handle this language
-            process_single_file(p_in, current_output_path, source_lang, current_target, specific_names_xlsx, software_type, source_type, image_path, database_path, review_report_path)
+            process_single_file(p_in, current_output_path, source_lang, current_target, specific_names_xlsx, region_table_path, refer_text_table_path, software_type, source_type, image_path, database_path, review_report_path)
         
         return
     
     # Single language processing
-    process_single_file(p_in, p_out, source_lang, target_lang, specific_names_xlsx, software_type, source_type, image_path, database_path, review_report_path)
+    process_single_file(p_in, p_out, source_lang, target_lang, specific_names_xlsx, region_table_path, refer_text_table_path, software_type, source_type, image_path, database_path, review_report_path)
 
 
-def process_single_file(p_in, p_out, source_lang, target_lang, specific_names_xlsx, software_type, source_type, image_path=None, database_path=None, review_report_path=None):
+def process_single_file(p_in, p_out, source_lang, target_lang, specific_names_xlsx, region_table_path, refer_text_table_path, 
+                        software_type, source_type, image_path=None, database_path=None, review_report_path=None):
     """Process a single file translation"""
     print(f"Input file: {p_in}")
     print(f"Output file: {p_out}")
     print(f"Source language: {source_lang}")
     print(f"Target language: {target_lang}")
     print(f"Specific names file: {specific_names_xlsx}")
+    print(f"Region table path: {region_table_path}" if region_table_path else "No region table path provided")
+    print(f"Refer text table path: {refer_text_table_path}" if refer_text_table_path else "No refer text table path provided")
     print(f"Software type: {software_type}")
     print(f"Source type: {source_type}")
     print(f"Image path: {image_path}" if image_path else "No image path provided")
@@ -668,6 +701,16 @@ def process_single_file(p_in, p_out, source_lang, target_lang, specific_names_xl
     if specific_names_xlsx:
         mapping_table = load_specific_names(specific_names_xlsx, source_lang, target_lang)
         # print(f"Loaded specific names: {mapping_table}")
+
+    region_table = {}
+    if region_table_path:
+        region_table = load_region_table(region_table_path, source_lang)
+        # print(f"Loaded region table: {region_table}")
+
+    refer_text_table = {}
+    if refer_text_table_path:
+        refer_text_table = load_refer_text_table(refer_text_table_path, source_lang)
+        print(f"Loaded refer text table: {refer_text_table}")
 
     try:
         # Check if the file exists
@@ -702,7 +745,7 @@ def process_single_file(p_in, p_out, source_lang, target_lang, specific_names_xl
             print(f"Single language translation to: {target_lang}")
             
         # For XLSX files, we run special translation procedure
-        result = asyncio.run(translate_xlsx(p_in, p_out, source_lang, target_languages, mapping_table, software_type, source_type, image_path, database_path, review_report_path))
+        result = asyncio.run(translate_xlsx(p_in, p_out, source_lang, target_languages, mapping_table, region_table, refer_text_table, software_type, source_type, image_path, database_path, review_report_path))
         
         # Check the result
         if result["success"]:
@@ -711,20 +754,18 @@ def process_single_file(p_in, p_out, source_lang, target_lang, specific_names_xl
             print(f"XLSX translation encountered errors.")
         return
 
-    # Handle HTML files    
     if file_type == 'html':
         bs = BeautifulSoup(file_content, 'html.parser')
-        ret = asyncio.run(translation_pipeline(bs, source_lang, target_lang, mapping_table, software_type, source_type, image_path, database_path, review_report_path))
+        ret = asyncio.run(translation_pipeline(bs, source_lang, target_lang, mapping_table, region_table, refer_text_table, software_type, source_type, image_path, database_path, review_report_path))
         
         # Use the same encoding for writing
         with open(p_out, 'w', encoding=used_encoding) as fout:
             fout.write(str(bs))
 
-    # Handle XML files
     else:
         print('Start to translate XML...')
         bs = BeautifulSoup(file_content, file_type)
-        ret = asyncio.run(translation_pipeline(bs, source_lang, target_lang, mapping_table, software_type, source_type, image_path, database_path, review_report_path))
+        ret = asyncio.run(translation_pipeline(bs, source_lang, target_lang, mapping_table, region_table, refer_text_table, software_type, source_type, image_path, database_path, review_report_path))
 
         # Use the same encoding for writing
         with open(p_out, 'w', encoding=used_encoding) as fout:

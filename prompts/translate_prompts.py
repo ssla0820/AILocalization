@@ -92,7 +92,9 @@ def translate_sys_prompt(src_lang, tgt_lang, software_type, source_type):
     return system_prompt_json_str
 
 
-def translate_prompt(src_lang, tgt_lang, json_str, refer_data_list, specific_names=None, is_xlsx=False, suggestions=[], pre_translated_text=None):
+def translate_prompt(src_lang, tgt_lang, json_str, refer_data_list, 
+                     specific_names=None, region_table=None, refer_text_table=None, 
+                     is_xlsx=False, suggestions=[], pre_translated_text=None):
     '''
     The task assigned to LLM for Translation.
     :param src_lang: Source language code (e.g., 'English')
@@ -105,6 +107,14 @@ def translate_prompt(src_lang, tgt_lang, json_str, refer_data_list, specific_nam
     specific_names_list = []
     if specific_names and len(specific_names) > 0:
         specific_names_list = [{"term": k, "translation": v} for k, v in specific_names.items()]
+
+    region_table_list = []
+    if region_table and len(region_table) > 0:
+        region_table_list = [{"Original": k, "Use": v[0], "Avoid": v[1]} for k, v in region_table.items()]
+
+    refer_text_condition= None
+    if refer_text_table and len(refer_text_table) > 0:
+        refer_text_condition = list(refer_text_table.values())[0]
 
     translate_refer = []
     translate_refer.extend(
@@ -135,6 +145,14 @@ def translate_prompt(src_lang, tgt_lang, json_str, refer_data_list, specific_nam
                 "Match the case (uppercase/lowercase) and number (singular/plural) of the original text when translating."
             ]
         },
+        "region_table": {
+            "terms": region_table_list,
+            "rule": [
+                "When translating 'Original' terms, use the 'Use' translation. Don't use the 'Avoid' translation.",
+                "If the 'Original' term is not found, use the general translation instead.",
+                "Match the case (uppercase/lowercase) and number (singular/plural) of the original text when translating."
+            ]
+        },
         "image_processing_instructions": [
             "Examine screenshots to understand UI context",
             "Use image context for accurate UI element translation",
@@ -155,6 +173,14 @@ def translate_prompt(src_lang, tgt_lang, json_str, refer_data_list, specific_nam
         "source_text": json_str,
         "output_format": "json (key: 'translation' with translated text as value)"
     }
+    if refer_text_condition:
+        translation_prompt["use condition"] = {
+            "condition": refer_text_condition,
+            "rules":[
+                "Please refer to the condition when translating the source text.",
+                "When translating, please use the condition to determine the translation.",
+            ]
+        }
 
     if is_xlsx:
         translation_prompt["instruction"]["format"] = "You MUST preserve all line breaks (\\n), bullet points, and formatting exactly as they appear in the original text."

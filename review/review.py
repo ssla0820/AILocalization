@@ -258,6 +258,7 @@ async def review_n_improve_process(source_lang,
                                     source_text, 
                                     translated_text, 
                                     relevant_specific_names,
+                                    relevant_region_table,
                                     relevant_pair_database,
                                     image_path,
                                     model_list=None, 
@@ -325,21 +326,21 @@ async def review_n_improve_process(source_lang,
                         review_response = ''
                         review_stop_reason = ''
                         if check_item_index == 0:
-                            prompt_text = review_prompt_accuracy(source_lang, target_lang, source_text, translated_text, relevant_specific_names, relevant_pair_database)
+                            prompt_text = review_prompt_accuracy(source_lang, target_lang, source_text, translated_text, relevant_specific_names, relevant_region_table, relevant_pair_database)
                         elif check_item_index == 1:
-                            prompt_text = review_prompt_native(source_lang, target_lang, source_text, translated_text, relevant_specific_names, relevant_pair_database)
+                            prompt_text = review_prompt_native(source_lang, target_lang, source_text, translated_text, relevant_specific_names, relevant_region_table, relevant_pair_database)
                         elif check_item_index == 2:
-                            prompt_text = review_prompt_word(source_lang, target_lang, source_text, translated_text, relevant_specific_names, relevant_pair_database)
+                            prompt_text = review_prompt_word(source_lang, target_lang, source_text, translated_text, relevant_specific_names, relevant_region_table, relevant_pair_database)
                         elif check_item_index == 3:
-                            prompt_text = review_prompt_grammar(source_lang, target_lang, source_text, translated_text, relevant_specific_names, relevant_pair_database)
+                            prompt_text = review_prompt_grammar(source_lang, target_lang, source_text, translated_text, relevant_specific_names, relevant_region_table, relevant_pair_database)
                         elif check_item_index == 4:
-                            prompt_text = review_prompt_consistency(source_lang, target_lang, source_text, translated_text, relevant_specific_names, relevant_pair_database)
+                            prompt_text = review_prompt_consistency(source_lang, target_lang, source_text, translated_text, relevant_specific_names, relevant_region_table, relevant_pair_database)
                         elif check_item_index == 5:
-                            prompt_text = review_prompt_gender(source_lang, target_lang, source_text, translated_text, relevant_specific_names, relevant_pair_database)
+                            prompt_text = review_prompt_gender(source_lang, target_lang, source_text, translated_text, relevant_specific_names, relevant_region_table, relevant_pair_database)
 
-                        print('='*40)
-                        print(f'Current review prompt:\n{prompt_text}')
-                        print('='*40)
+                        # print('='*40)
+                        # print(f'Current review prompt:\n{prompt_text}')
+                        # print('='*40)
 
                         # Handle possible token limitation
                         try:

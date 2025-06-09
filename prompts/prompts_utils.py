@@ -109,60 +109,89 @@ def get_lang_specific_translate_sys_prompt(target_lang):
                 ]
             }
         },
-        "German": {
-            "language_style": {
-                "tone": "formal, natural, and empathetic",
-                "formality": "using formal 'Sie' form for adults, 'du' for children/teens under 18",
-                "audience": "adapt tone to context, using 'wir' when a personal touch is needed"
-            },
-            "translation_principles": [
-                "Use natural, everyday conversational language that does not sound robotic",
-                "Avoid word-for-word translation; adapt sentences for natural German flow",
-                "Split or shorten sentences when needed for clarity and conciseness",
-                "Prefer short, simple words from everyday language",
-                "Integrate English technical terms according to German grammar and syntax rules",
-                "Avoid false friends and awkward anglicisms"
+        'German': {
+            "Context Analysis": [
+                "Technical and Formal Context: Both parts emphasize the direct, literal translation of technical, legal, and formal terms, and they maintain clarity by keeping proper nouns (like country names) unchanged.",   
+                "Clear and Non-Idiomatic Language: Both parts stress that the translation avoids idiomatic expressions, focusing on straightforward and precise language suited for a technical digital context.",   
+                "Consistency and Precision: Both parts discuss how technical terms are translated literally to preserve the original meaning, and instructional language is clear to guide users effectively.",   
+                "Audience Assumptions: Both parts assume that the target audience is familiar with the core concepts and doesn't need additional context or cultural references.",   
+                "Consistency Across Contexts: Both parts mention that the translation accurately mirrors the original content across different contexts (image manipulation, technical support, etc.) while preserving the correct tone and intent.",   
             ],
-            "terminology_guidelines": {
-                "product_names": "Keep application and product names in English unless a legally required German form exists",
-                "technical_terms": "Integrate English technical terms according to German grammar rules",
-                "specific_translations": "Always translate 'AI' consistently into German",
-                "example": [
-                    "Use 'Philippinisch' for the language because it’s the standard term. Avoid 'Filipinisch' because it’s less common.",
-                    "Use 'blitzschnell' to emphasize speed. Avoid 'sofort' because it’s too general.",
-                    "Use 'Wiederholen' to directly tell someone to retry. Avoid 'Erneut versuchen' because it sounds formal.",
-                    "Use 'Versuchen Sie es später erneut' as it is simple and common. Avoid 'Bitte versuchen Sie es später erneut' because 'Bitte' makes it too formal.",
-                    "Use 'Zielsprache' in translation contexts, as it's the professional term. Avoid 'übersetzte Sprache' because it’s literal.",
-                    "Use 'Vorschau des zugeschnittenen Abschnitts' for a preview of a trimmed section. Avoid 'Die zugeschnittene Passage des Clips in der Vorschau anzeigen' because it’s wordy.",
-                    "Use 'Anfangs- und Endframe' for visual or media contexts, as it’s the standard. Avoid 'Start- und Endabschnitte' because it’s unnatural.",
-                    "Use 'himmlische Meereskönigin' because it’s more natural. Avoid 'ätherische Meereskönigin' because it’s awkward.",
-                    "Use 'Importierte Medien' for media files being processed. Avoid 'Hinzugefügte Medien' because it makes the meaning unclear.",
-                    "Use 'Ablegen' for intuitive actions like dragging and dropping. Avoid 'Zum Hinzufügen weiterer Bilder fallen lassen' because it’s too long.",
-                    "Use 'Klicken oder legen Sie Videos oder Bilder hier ab' because it’s simple and clear. Avoid longer or more complex expressions.",
-                    "Use 'Maximale Anzahl Dateien' because it’s standard. Avoid 'Maximale Dateianzahl' because it’s too literal.",
-                    "Use 'auf dem Cloudserver' as it's the most commonly used term. Avoid 'auf dem Cloud-Server' because of unnecessary hyphen.",
-                    "Use 'generierten Videos' because it’s the common term for generated videos. Avoid 'erstellten Videos' because 'erstellen' focuses too much on the creation process.",
-                    "Use 'Verarbeitung' to describe processing. Avoid unnecessary punctuation or overly complex terms.",
-                    "Use 'Verfolgungsprozess' in video processing, as it’s the standard term. Avoid 'Trackingprozess' because it’s not widely used.",
-                    "Use 'Maskenauswahl' as it’s the professional term. Avoid 'Auswahl der Maske' because it’s literal.",
-                    "Use 'Trackingprozess' because it’s more common in video contexts. Avoid 'Überwachungsprozess' because it doesn’t fit the context.",
-                    "Use 'Einblenden' for visual effects like fades. Avoid 'offenbaren' because it’s too formal.",
-                    "Use 'Fokus' for the professional term in visual contexts. Avoid 'schärfen' for focusing.",
-                    "Use 'Blog' for modern internet contexts. Avoid 'Netztagebuch' because it sounds outdated.",
-                    "Use 'Zurück' because it’s simple and clear. Avoid 'Zurückweisen' because it implies rejection."
-                ]
-            },
-            "grammar_rules": [
-                "Follow German grammar and syntax rules strictly",
-                "Pay attention to articles, compound words, genitive case, agreement, verbs, prepositions, punctuation",
-                "Maintain proper German sentence structure",
-                "Format error messages consistently using established German patterns"
+            "Tone Matching": [
+                "Neutral, formal, and technical tone: Consistently used across different languages, including German.",
+                "Clarity and precision: Emphasis on these qualities, particularly for technical and instructional contexts.",
+                "Concise and direct: The tone is suitable for professional documentation, including software commands, user interfaces, and technical guides.",
+                "Imperative form for instructions and commands: Ensures consistency across both English and German versions.",
+                "Neutral, factual tone for technical terms: Labels and product descriptions maintain a neutral tone, ideal for technical and business documentation.",
             ],
-            "ui_guidelines": {
-                "error_messages": "Use consistent, non-literal phrasing following standard German patterns",
-                "placeholders": "Pay attention to placeholders (%s, %d) and their grammatically correct integration"
-            }
+            "Target Audience Understanding": [
+                "Audience Knowledge Assumptions: It assumes that users are familiar with technical terminology, photographic terms, and standard formats (e.g., WMV, Videodatei).",
+                "Language and Terminology: The text uses concise and precise language, employing German compound nouns for technical audiences and formal terms for professional contexts. It also incorporates standard German country names and UI terms that users recognize.",
+                "User Expectations: It respects users' familiarity with graphical software, image manipulation, and media playback commands. The tone is formal for business, technical, and instructional contexts, but it avoids unnecessary simplifications for technically savvy users.",
+                "Content Style: The instructions are brief, clear, and straightforward, with a focus on being directly usable by software and creative professionals, without overwhelming non-technical users.",         
+            ],
+            "Use of Contextual Text": [
+                "Precision and Directness: Translations are component-by-component, using direct technical equivalents without cultural references or idioms. Simple, non-idiomatic language is employed for clarity.", 
+                "Technical Terminology: German compound nouns are used to express technical concepts clearly and concisely. English loanwords are used for recognized technical terms.", 
+                "Instructional Clarity: The use of imperative forms for commands and concise, direct language ensures the translation is action-oriented and easily understood.", 
+                "Consistency: The translation avoids unnecessary context, focusing on the technical content, with placeholder terms like '%s' maintained for dynamic elements.", 
+                "Appropriateness: Context-appropriate terminology is chosen, with passive constructions used where necessary to describe processes, and standard country terms ensuring consistency.",            
+            ]
         },
+        # "German": {
+        #     "language_style": {
+        #         "tone": "formal, natural, and empathetic",
+        #         "formality": "using formal 'Sie' form for adults, 'du' for children/teens under 18",
+        #         "audience": "adapt tone to context, using 'wir' when a personal touch is needed"
+        #     },
+        #     "translation_principles": [
+        #         "Use natural, everyday conversational language that does not sound robotic",
+        #         "Avoid word-for-word translation; adapt sentences for natural German flow",
+        #         "Split or shorten sentences when needed for clarity and conciseness",
+        #         "Prefer short, simple words from everyday language",
+        #         "Integrate English technical terms according to German grammar and syntax rules",
+        #         "Avoid false friends and awkward anglicisms"
+        #     ],
+        #     "terminology_guidelines": {
+        #         "product_names": "Keep application and product names in English unless a legally required German form exists",
+        #         "technical_terms": "Integrate English technical terms according to German grammar rules",
+        #         "specific_translations": "Always translate 'AI' consistently into German",
+        #         "example": [
+        #             "Use 'Philippinisch' for the language because it’s the standard term. Avoid 'Filipinisch' because it’s less common.",
+        #             "Use 'blitzschnell' to emphasize speed. Avoid 'sofort' because it’s too general.",
+        #             "Use 'Wiederholen' to directly tell someone to retry. Avoid 'Erneut versuchen' because it sounds formal.",
+        #             "Use 'Versuchen Sie es später erneut' as it is simple and common. Avoid 'Bitte versuchen Sie es später erneut' because 'Bitte' makes it too formal.",
+        #             "Use 'Zielsprache' in translation contexts, as it's the professional term. Avoid 'übersetzte Sprache' because it’s literal.",
+        #             "Use 'Vorschau des zugeschnittenen Abschnitts' for a preview of a trimmed section. Avoid 'Die zugeschnittene Passage des Clips in der Vorschau anzeigen' because it’s wordy.",
+        #             "Use 'Anfangs- und Endframe' for visual or media contexts, as it’s the standard. Avoid 'Start- und Endabschnitte' because it’s unnatural.",
+        #             "Use 'himmlische Meereskönigin' because it’s more natural. Avoid 'ätherische Meereskönigin' because it’s awkward.",
+        #             "Use 'Importierte Medien' for media files being processed. Avoid 'Hinzugefügte Medien' because it makes the meaning unclear.",
+        #             "Use 'Ablegen' for intuitive actions like dragging and dropping. Avoid 'Zum Hinzufügen weiterer Bilder fallen lassen' because it’s too long.",
+        #             "Use 'Klicken oder legen Sie Videos oder Bilder hier ab' because it’s simple and clear. Avoid longer or more complex expressions.",
+        #             "Use 'Maximale Anzahl Dateien' because it’s standard. Avoid 'Maximale Dateianzahl' because it’s too literal.",
+        #             "Use 'auf dem Cloudserver' as it's the most commonly used term. Avoid 'auf dem Cloud-Server' because of unnecessary hyphen.",
+        #             "Use 'generierten Videos' because it’s the common term for generated videos. Avoid 'erstellten Videos' because 'erstellen' focuses too much on the creation process.",
+        #             "Use 'Verarbeitung' to describe processing. Avoid unnecessary punctuation or overly complex terms.",
+        #             "Use 'Verfolgungsprozess' in video processing, as it’s the standard term. Avoid 'Trackingprozess' because it’s not widely used.",
+        #             "Use 'Maskenauswahl' as it’s the professional term. Avoid 'Auswahl der Maske' because it’s literal.",
+        #             "Use 'Trackingprozess' because it’s more common in video contexts. Avoid 'Überwachungsprozess' because it doesn’t fit the context.",
+        #             "Use 'Einblenden' for visual effects like fades. Avoid 'offenbaren' because it’s too formal.",
+        #             "Use 'Fokus' for the professional term in visual contexts. Avoid 'schärfen' for focusing.",
+        #             "Use 'Blog' for modern internet contexts. Avoid 'Netztagebuch' because it sounds outdated.",
+        #             "Use 'Zurück' because it’s simple and clear. Avoid 'Zurückweisen' because it implies rejection."
+        #         ]
+        #     },
+        #     "grammar_rules": [
+        #         "Follow German grammar and syntax rules strictly",
+        #         "Pay attention to articles, compound words, genitive case, agreement, verbs, prepositions, punctuation",
+        #         "Maintain proper German sentence structure",
+        #         "Format error messages consistently using established German patterns"
+        #     ],
+        #     "ui_guidelines": {
+        #         "error_messages": "Use consistent, non-literal phrasing following standard German patterns",
+        #         "placeholders": "Pay attention to placeholders (%s, %d) and their grammatically correct integration"
+        #     }
+        # },
         "French": {
             "language_style": {
                 "tone": "natural and conversational",
