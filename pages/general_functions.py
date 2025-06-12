@@ -219,6 +219,60 @@ def get_relevant_specific_names(specific_names, source_text):
     return relevant_specific_names
 
 
+def get_relevant_region_table(region_table, source_text):
+    """
+    Identify relevant region table entries in the current segment.
+    :param region_table: Dictionary of region table entries
+    :param source_text: Source text content
+    :return: Dictionary of relevant region table entries
+    """
+    relevant_mapping_table = {}
+    if region_table:
+        for source_term, target_term in region_table.items():
+            # Deal with special cases
+            special_cases = {0: ("&quot;", '"'), 1: (" &lt; ", " < "), 2: (" &gt; ", " > "), 3: (" &amp; ", " & "), 4: (" &amp;amp; ", " & ")}
+            
+            source_term_special = None
+            for index, value in special_cases.items():
+                if value[1] in source_term:
+                    source_term_special = source_term.replace(value[1], value[0])
+
+            if source_term_special:
+                if source_term_special.lower() in source_text.lower() or source_term.lower() in source_text.lower():
+                    relevant_mapping_table[source_term] = target_term
+                    relevant_mapping_table[source_term_special] = target_term
+            else:
+                if source_term.lower() in source_text.lower():
+                    relevant_mapping_table[source_term] = target_term
+
+    if relevant_mapping_table:
+        print(f"Source text '{source_text}'': Found {len(relevant_mapping_table)} relevant region table")
+        print(f'Relevant region table: {relevant_mapping_table}')
+    return relevant_mapping_table
+    
+
+def get_relevant_refer_text_table(refer_text_table, source_text):
+    """
+    Identify relevant refer text entries in the current segment.
+    :param refer_text_table: Dictionary of refer text entries
+    :param source_text: Source text content
+    :return: Dictionary of relevant refer text entries
+    """
+    print(f"the table is {refer_text_table}")
+
+    relevant_refer_text_table = {}
+    if refer_text_table:
+        for source_term, target_term in refer_text_table.items():
+            print(f"Source term: {source_term}, Target term: {target_term}")
+            if source_term.lower() == source_text.lower():
+                relevant_refer_text_table[source_term] = target_term
+
+    if relevant_refer_text_table:
+        print(f"Source text '{source_text}'': Found {len(relevant_refer_text_table)} relevant refer text table")
+        print(f'Relevant refer text table: {relevant_refer_text_table}')
+    return relevant_refer_text_table
+
+    
 def load_specific_names(excel_path, source_lang, target_lang):
     """
     Load specific name translations from an Excel file based on the configured source and target languages.
@@ -273,8 +327,113 @@ def load_specific_names(excel_path, source_lang, target_lang):
     
     return specific_names
 
+def load_region_table(excel_path, source_lang):
+    """
+    :param excel_path: Path to the Excel file containing specific names
+    :return: Dictionary mapping source language terms to target language terms
+    """
 
+    print(f"Loading region table from '{excel_path}' for source language '{source_lang}'")
+    region_table = {}
+    if not os.path.exists(excel_path):
+        print(f"Warning: Excel file '{excel_path}' does not exist.")
+        return region_table
+    
+    # Use language_map from config
+    source_col_name = conf.LANGUAGE_MAP.get(source_lang, source_lang)
+    use_col_name = conf.LANGUAGE_MAP.get('Use', 'Use')
+    avoid_col_name = conf.LANGUAGE_MAP.get('Avoid', 'Avoid')
+    
+    print(f"Looking for source column: '{source_col_name}', use column: '{use_col_name}', avoid column: '{avoid_col_name}'")
 
+    try:
+        # Read the Excel file
+        df = pd.read_excel(excel_path)
+        
+        # Find the appropriate columns
+        source_col = None
+        use_col = None
+        avoid_col = None
+        
+        for col in df.columns:
+            if col.upper() == source_col_name.upper():
+                source_col = col
+            elif col.upper() == use_col_name.upper():
+                use_col = col
+            elif col.upper() == avoid_col_name.upper():
+                avoid_col = col
+        
+        if source_col is None or use_col is None or avoid_col is None:
+            print(f"Warning: Could not find columns for {source_col_name} and/or {use_col} and/or {avoid_col} in Excel file.")
+            print(f"Available columns: {', '.join(df.columns)}")
+            return region_table
+        
+        # Create a dictionary from the dataframe using only the source and target columns
+        for _, row in df.iterrows():
+            source_term = str(row[source_col]).strip()
+            use_term = str(row[use_col]).strip()
+            avoid_term = str(row[avoid_col]).strip()
+            
+            # Skip empty or nan values
+            if source_term and use_term  and avoid_term\
+                and source_term.lower() != 'nan' and use_term.lower() != 'nan' and avoid_term.lower() != 'nan':
+                region_table[source_term] = (use_term, avoid_term)
+                
+        print(f"Successfully loaded '{excel_path}' with {len(region_table)} specific name translations for {source_col_name}-> ({use_term}, {avoid_term}).")
+    except Exception as e:
+        print(f"Error loading Excel file '{excel_path}': {e}")
+    
+    return region_table
+
+def load_refer_text_table(excel_path, source_lang):
+    """
+    :param excel_path: Path to the Excel file containing specific names
+    :return: Dictionary mapping source language terms to target language terms
+    """
+    refer_text_table = {}
+    if not os.path.exists(excel_path):
+        print(f"Warning: Excel file '{excel_path}' does not exist.")
+        return refer_text_table
+    
+    # Use language_map from config
+    source_col_name = conf.LANGUAGE_MAP.get(source_lang, source_lang)
+    refer_col_name = conf.LANGUAGE_MAP.get("Refer", "Refer")
+    
+    print(f"Looking for source column: '{source_col_name}', refer column: '{refer_col_name}'")
+    
+    try:
+        # Read the Excel file
+        df = pd.read_excel(excel_path)
+        
+        # Find the appropriate columns
+        source_col = None
+        refer_col = None
+        
+        for col in df.columns:
+            if col.upper() == source_col_name.upper():
+                source_col = col
+            elif col.upper() == refer_col_name.upper():
+                refer_col = col
+        
+        if source_col is None or refer_col is None:
+            print(f"Warning: Could not find columns for {source_col_name} and/or {refer_col_name} in Excel file.")
+            print(f"Available columns: {', '.join(df.columns)}")
+            return refer_text_table
+        
+        # Create a dictionary from the dataframe using only the source and refer columns
+        for _, row in df.iterrows():
+            source_term = str(row[source_col]).strip()
+            refer_term = str(row[refer_col]).strip()
+            
+            # Skip empty or nan values
+            if source_term and refer_term and source_term.lower() != 'nan' and refer_term.lower() != 'nan':
+                refer_text_table[source_term] = refer_term
+                
+        print(f"Successfully loaded '{excel_path}' with {len(refer_text_table)} specific name translations for {source_col_name}->{refer_col_name}.")
+    except Exception as e:
+        print(f"Error loading Excel file '{excel_path}': {e}")
+    
+    return refer_text_table
 
 def get_language_preferred_encodings(language_code=None):
     """
