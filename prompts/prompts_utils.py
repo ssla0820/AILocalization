@@ -332,34 +332,34 @@ def get_lang_specific_translate_sys_prompt(target_lang):
                 "Use primarily simple present tense",
                 "Translate fragments into simple, natural Spanish expressions",
                 "Localize cultural idioms by meaning, not literal translation",
-                "Translate 'media' as 'contenido multimedia' when referring to digital content (not mass media)",
-                "Use 'video' without an accent, not 'vídeo'",
-                "Use 'Ropa gruesa' for 'Heavy Clothing' instead of 'pesada'",
-                "Improve flow and precision for terms like 'highlights' and 'matching captions'; prefer idiomatic phrases for 'instantly' in promos",
-                "Make translations concise and idiomatic for terms like 'Professional Headshot' (e.g., 'Retrato profesional')",
-                "Ensure possessive pronouns and nouns are correctly translated, integrating 'GenAI' naturally",
-                "In software/UI context, use the correct term for 'feature' (avoid 'rasgo' unless referring to human or facial features)",
+                # "Translate 'media' as 'contenido multimedia' when referring to digital content (not mass media)",
+                # "Use 'video' without an accent, not 'vídeo'",
+                # "Use 'Ropa gruesa' for 'Heavy Clothing' instead of 'pesada'",
+                # "Improve flow and precision for terms like 'highlights' and 'matching captions'; prefer idiomatic phrases for 'instantly' in promos",
+                # "Make translations concise and idiomatic for terms like 'Professional Headshot' (e.g., 'Retrato profesional')",
+                # "Ensure possessive pronouns and nouns are correctly translated, integrating 'GenAI' naturally",
+                # "In software/UI context, use the correct term for 'feature' (avoid 'rasgo' unless referring to human or facial features)",
                 "Rephrase messages about unsaved changes for clarity and naturalness in UI contexts"
             ],
             "terminology_guidelines": {
-                "forbidden_replacements": [
-                    {
-                        "avoid": "abortar",
-                        "use": "anular"
-                    },
-                    {
-                        "avoid": "entrenamiento",
-                        "use": "formación"
-                    },
-                    {
-                        "avoid": "subtítulos acordes",
-                        "use": "subtítulos sincronizados"
-                    },
-                    {
-                        "avoid": "ardiente",
-                        "use": "en llamas"
-                    }
-                ],
+                # "forbidden_replacements": [
+                #     {
+                #         "avoid": "abortar",
+                #         "use": "anular"
+                #     },
+                #     {
+                #         "avoid": "entrenamiento",
+                #         "use": "formación"
+                #     },
+                #     {
+                #         "avoid": "subtítulos acordes",
+                #         "use": "subtítulos sincronizados"
+                #     },
+                #     {
+                #         "avoid": "ardiente",
+                #         "use": "en llamas"
+                #     }
+                # ],
                 "product_names": "Keep in English, do not translate",
                 "trademarks": "Keep in English, do not translate"
             },
@@ -371,7 +371,32 @@ def get_lang_specific_translate_sys_prompt(target_lang):
             "ui_guidelines": {
                 "error_messages": "Make natural, empathetic, concise, and properly punctuated; avoid exclamation marks",
                 "keyboard_shortcuts": "Follow instructions exactly for keyboard shortcuts and key names formatting"
-            }
+            },
+            "Context Analysis": [
+                "Preserve the technical, legal, and formal context by using equivalent terms that are familiar within the relevant fields, such as digital environments, legal documents, or technical settings.",
+                "The meaning of the original phrase must be accurately conveyed, whether it refers to efficiency, speed, legal clarity, photography, videography, or digital interfaces.",
+                "The translation must maintain the meaning of key elements, such as labels, headings, legal terms, and placeholders for dynamic content.",
+                "It is important to ensure that context-specific actions and permissions, like adjusting settings or managing cloud storage space, are clear and understood, with the core message staying consistent across languages and environments."
+            ],
+            "Tone Matching": [
+                "Preserve the tone of the original phrase, ensuring it remains neutral, technical, or formal, depending on the context, such as professional, legal, or instructional settings.",
+                "It must use straightforward, clear, and direct language, appropriate for user interfaces, legal documents, or technical contexts.",
+                "Both the source and target texts should be concise and maintain a formal, technical tone, ensuring consistency and clarity, especially when conveying technical limitations or errors.",
+                "The tone must remain consistently formal and technical, ensuring the original message is not altered across different contexts."
+            ],
+            "Target Audience Understanding": [
+                "Show an understanding of the target audience by using terminology that is familiar to professionals, enthusiasts, or people who know legal, photographic, or technical contexts.",
+                "It must align with standard terminology in the target language to ensure clarity and relevance, especially for those familiar with digital devices, legal terms, or technical processes.",
+                "Use universally recognized terms in formal, technical, or legal contexts, avoiding the need for cultural adaptation.",
+                "It should reflect an understanding of the audience, especially those familiar with cloud storage, user interfaces, and photography, using formal language and specific terms that meet the expectations of Spanish-speaking users."
+            ],
+            "Use of Contextual Text": [
+                "Use direct equivalents for key terms, ensuring they are consistent with the technical, legal, or photographic vocabularies of both the source and target languages.",
+                "Contextually appropriate words must be chosen to convey specific meanings accurately, integrating borrowed terms in a way that aligns with how they are understood in technical, business, legal, or photographic contexts.",
+                "Phrases should be adapted to more appropriate expressions in the target language, ensuring they are clear and easily understood by the intended audience.",
+                "Legal phrases or straightforward terms must retain their structure and capitalization, serving as labels, headings, or legal terms as intended.",
+                "Focus on precision, using direct equivalents for technical terms and avoiding idiomatic expressions or cultural references. The goal is to prioritize clarity and preserve the original meaning rather than adapting for cultural differences."
+            ],
         },
         'Japanese': {
             'language_style': {
@@ -580,54 +605,54 @@ def get_lang_specific_translate_sys_prompt(target_lang):
                 "Use short, simple, common Italian words",
                 "It's okay to use sentence fragments sometimes, but not too much",
                 "Avoid very formal, technical, or rare words",
-                "Translate phrases like 'stored on the cloud' and 'local storage' naturally",
-                "Replace '&' with 'e' (and)",
-                "Use a neutral subject ('i video generati') instead of 'tuoi video generati'",
-                "Prefer 'salvare' over 'archiviare'",
-                "Use 'cloud' rather than 'server cloud'",
-                "Use 'disco fisso' instead of 'memoria locale'",
-                "Frame download suggestion in imperative form: 'Ti consigliamo di scaricare sul tuo disco fisso quelli che vuoi salvare'",
-                "Prefer 'celeste infuocata' over 'celestiale infuocata' when describing the goddess",
-                "Place the adjective 'eterea' before 'regina oceanica' to mirror the desired rhythm",
-                "Use 'fino alle profondità di' instead of 'nelle profondità di' to emphasize extension of the journey",
-                "***Additional English notes to force specific structures***",
-                "- Use 'salvare' instead of 'archiviare' so the output reads 'saranno salvati' rather than 'saranno archiviati'.",
-                "- Replace 'server cloud' with 'cloud' so it reads 'saranno salvati nella cloud'.",
-                "- Replace 'memoria locale' with 'disco fisso' so it reads 'sul tuo disco fisso'.",
-                "- Use 'quelli che vuoi salvare' instead of 'quelli che desideri conservare' for a more direct, informal suggestion.",
-                "- For media-import messages, always append 'in corso' after 'Importazione dei file multimediali' and use the single-character ellipsis '…' so it reads exactly: 'Importazione dei file multimediali in corso…'",
-                "***Prefer the following stylistic choices to match the second sentence versions***",
-                "- Use 'sorprendenti e artistiche' instead of 'straordinarie' when describing images with rich details.",
-                "- Use the inclusive or neutral pronoun form 'te stessə' rather than 'te stesso' or 'te stessa'.",
-                "- Prefer 'È richiesto' over 'È necessario' when stating requirements for visible faces.",
-                "- Use the more concise and informal phrasing such as 'somiglianza volto' and 'stile ad hoc' instead of the more formal 'somiglianza del volto' and 'stile personalizzato'.",
-                "- Prefer adjective order 'uno stile nuovo' instead of 'un nuovo stile'.",
+                # "Translate phrases like 'stored on the cloud' and 'local storage' naturally",
+                # "Replace '&' with 'e' (and)",
+                # "Use a neutral subject ('i video generati') instead of 'tuoi video generati'",
+                # "Prefer 'salvare' over 'archiviare'",
+                # "Use 'cloud' rather than 'server cloud'",
+                # "Use 'disco fisso' instead of 'memoria locale'",
+                # "Frame download suggestion in imperative form: 'Ti consigliamo di scaricare sul tuo disco fisso quelli che vuoi salvare'",
+                # "Prefer 'celeste infuocata' over 'celestiale infuocata' when describing the goddess",
+                # "Place the adjective 'eterea' before 'regina oceanica' to mirror the desired rhythm",
+                # "Use 'fino alle profondità di' instead of 'nelle profondità di' to emphasize extension of the journey",
+                # "***Additional English notes to force specific structures***",
+                # "- Use 'salvare' instead of 'archiviare' so the output reads 'saranno salvati' rather than 'saranno archiviati'.",
+                # "- Replace 'server cloud' with 'cloud' so it reads 'saranno salvati nella cloud'.",
+                # "- Replace 'memoria locale' with 'disco fisso' so it reads 'sul tuo disco fisso'.",
+                # "- Use 'quelli che vuoi salvare' instead of 'quelli che desideri conservare' for a more direct, informal suggestion.",
+                # "- For media-import messages, always append 'in corso' after 'Importazione dei file multimediali' and use the single-character ellipsis '…' so it reads exactly: 'Importazione dei file multimediali in corso…'",
+                # "***Prefer the following stylistic choices to match the second sentence versions***",
+                # "- Use 'sorprendenti e artistiche' instead of 'straordinarie' when describing images with rich details.",
+                # "- Use the inclusive or neutral pronoun form 'te stessə' rather than 'te stesso' or 'te stessa'.",
+                # "- Prefer 'È richiesto' over 'È necessario' when stating requirements for visible faces.",
+                # "- Use the more concise and informal phrasing such as 'somiglianza volto' and 'stile ad hoc' instead of the more formal 'somiglianza del volto' and 'stile personalizzato'.",
+                # "- Prefer adjective order 'uno stile nuovo' instead of 'un nuovo stile'.",
             ],
             "terminology_guidelines": {
                 "product_names": "Keep in English unless there is a common Italian name",
                 "loanwords": "Use common Italian loanwords used in the field",
-                "examples": [
-                    {"english": "Motion Tracking", "italian": "Tracking di Movimento", "avoid": "Inseguitore movimento"},
-                    {"english": "Script", "italian": "Testo", "context": "UI", "avoid": "Sceneggiatura"},
-                    {"english": "Key Highlights", "italian": "Caratteristiche Chiave", "avoid": "Punti Salienti"},
-                    {"english": "media", "italian": "Contenuti", "context": "digital content", "avoid": "Media"},
-                    {"english": "outline", "italian": "linee generali", "context": "image generation", "avoid": "contorno"},
-                    {"english": "outline reference", "italian": "linee generali di riferimento"},
-                    {"english": "face/pose", "italian": "volto/viso"},
-                    {"english": "download", "italian": "download", "context": "noun"},
-                    {"english": "download", "italian": "scarica", "context": "verb"},
-                    {"english": "trimmed", "italian": "accorciata", "context": "video clip"},
-                    {"english": "delete the task", "italian": "annulla l'operazione"},
-                    {"english": "task", "italian": "operazione", "context": "software UI and workflow"},
-                    {"english": "sound", "italian": "suoni"},
-                    {"english": "AI", "italian": "l'AI"},
-                    {"english": "celestial goddess", "italian": "dea celeste"},
-                    {"english": "fiery", "italian": "infuocata"},
-                    {"english": "ethereal", "italian": "eterea"},
-                    {"english": "ocean queen", "italian": "regina oceanica"},
-                    {"english": "enchanted underwater realm", "italian": "regno sottomarino incantato"},
-                    {"english": "descend from the sky into the depths", "italian": "scendere dal cielo fino alle profondità"}
-                ]
+                # "examples": [
+                #     {"english": "Motion Tracking", "italian": "Tracking di Movimento", "avoid": "Inseguitore movimento"},
+                #     {"english": "Script", "italian": "Testo", "context": "UI", "avoid": "Sceneggiatura"},
+                #     {"english": "Key Highlights", "italian": "Caratteristiche Chiave", "avoid": "Punti Salienti"},
+                #     {"english": "media", "italian": "Contenuti", "context": "digital content", "avoid": "Media"},
+                #     {"english": "outline", "italian": "linee generali", "context": "image generation", "avoid": "contorno"},
+                #     {"english": "outline reference", "italian": "linee generali di riferimento"},
+                #     {"english": "face/pose", "italian": "volto/viso"},
+                #     {"english": "download", "italian": "download", "context": "noun"},
+                #     {"english": "download", "italian": "scarica", "context": "verb"},
+                #     {"english": "trimmed", "italian": "accorciata", "context": "video clip"},
+                #     {"english": "delete the task", "italian": "annulla l'operazione"},
+                #     {"english": "task", "italian": "operazione", "context": "software UI and workflow"},
+                #     {"english": "sound", "italian": "suoni"},
+                #     {"english": "AI", "italian": "l'AI"},
+                #     {"english": "celestial goddess", "italian": "dea celeste"},
+                #     {"english": "fiery", "italian": "infuocata"},
+                #     {"english": "ethereal", "italian": "eterea"},
+                #     {"english": "ocean queen", "italian": "regina oceanica"},
+                #     {"english": "enchanted underwater realm", "italian": "regno sottomarino incantato"},
+                #     {"english": "descend from the sky into the depths", "italian": "scendere dal cielo fino alle profondità"}
+                # ]
             },
             "grammar_rules": [
                 "Follow Italian grammar rules carefully",
@@ -637,11 +662,11 @@ def get_lang_specific_translate_sys_prompt(target_lang):
                 "Put adjectives after nouns (except where overridden by translation_principles)",
                 "Avoid unnecessary 'di'",
                 "Use singular/plural as sounds natural",
-                "For 'task' assume '%s' means 'regola' (rule), match gender/number",
-                "Use 'l'' before 'AI' (dall'AI)",
-                "Say 'è inferiore a' for 'less than' and 'di almeno' for 'larger than' in minimum resolution",
-                "Translate 'face and pose references are used' as 'volto sia posa di riferimento'",
-                "Use plural 'suoni' for 'sound' and always include article for 'AI' ('l'AI')"
+                # "For 'task' assume '%s' means 'regola' (rule), match gender/number",
+                # "Use 'l'' before 'AI' (dall'AI)",
+                # "Say 'è inferiore a' for 'less than' and 'di almeno' for 'larger than' in minimum resolution",
+                # "Translate 'face and pose references are used' as 'volto sia posa di riferimento'",
+                # "Use plural 'suoni' for 'sound' and always include article for 'AI' ('l'AI')"
             ],
             "ui_guidelines": {
                 "consistency": "Use same terms everywhere",
@@ -650,7 +675,39 @@ def get_lang_specific_translate_sys_prompt(target_lang):
                 "placeholders": "Keep placeholders (%s, %d, %@) and adjust grammar naturally",
                 "capitalization": "Use Italian capitalization rules – lowercase common nouns/adjectives except at sentence start or official names",
                 "example_translation": "Translate 'Drag the clips to arrange their order for your video' naturally, e.g. 'stabilirne l'ordine nel tuo video'"
-            }
+            },
+            "Context Analysis": [
+                "The translation keeps the meaning clear across different areas like technical, legal, formal, educational, and social media.",
+                "It makes sure the meaning stays the same by adjusting the word order to fit the target language while keeping the original message intact.",
+                "The translation considers things like digital interfaces, software settings, user actions, legal permissions, troubleshooting, and social media.",
+                "The right words are chosen to match what people in technical, business, and software fields understand, making the meaning clear.",
+                "The translation correctly explains technical commands, file access, editing instructions, and user agreements.",
+                "It makes sure the original meaning of visual elements and the function of tools stays the same, so the translation fits the original context."
+            ],
+            "Tone Matching": [
+                "The translation keeps a consistent tone in different settings like technical and formal.",
+                "It stays neutral and clear for easy understanding.",
+                "It works for user interfaces, tutorials, legal texts, and social media.",
+                "The tone is formal for legal texts and simple for technical content.",
+                "The tone stays the same in both languages, ensuring no change in meaning.",
+                "Remains neutral, professional, and clear."
+            ],
+            "Target Audience Understanding": [
+                "The translation shows understanding of the target audience, such as professionals in tech, legal, and digital fields.",
+                "It uses familiar terms for users in tech, legal, software, or image editing fields.",
+                "Cultural differences are considered to ensure the meaning is clear in the target language.",
+                "The translation uses simple terms that users with tech knowledge can easily understand.",
+                "It ensures the content is clear and accurate for users with basic to advanced knowledge of technology, photography, or software."
+            ],
+            "Use of Contextual Text": [
+                "The translation uses clear, direct technical terms that are understood in all languages.",
+                "It avoids idioms or cultural references, keeping the style straightforward and technical.",
+                "The translation adjusts terms to fit the context of digital devices, legal settings, and technical functions.",
+                "In legal contexts, it ensures clarity and follows standard rules, keeping the tone serious.",
+                "Words are clear and precise, making it easy for Italian-speaking users to understand.",
+                "The translation follows Italian grammar rules, adjusting word order for clarity while keeping the technical meaning.",
+                "It shows an understanding of the audience's familiarity with technical terms and expectations."
+            ],
         },
         'Dutch': {
             'language_style': {},
