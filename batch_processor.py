@@ -390,7 +390,8 @@ def process_batch_file(batch_excel_path):
             'SOFTWARE_TYPE',
             'REVIEW_PATH', 
         ]        # Optional column
-        optional_columns = ['SPECIFIC_NAMES_XLSX_PATH', 'IMAGE_PATH_FOLDER', 'CHECK_VERIFICATION', 'CHECK_GROUND_TRUTH', 'GROUND_TRUTH_PATH', 'DATABASE_PATH']
+        optional_columns = ['SPECIFIC_NAMES_XLSX_PATH', 'REGION_TABLE_PATH', 'REFER_TEXT_TABLE_PATH', 'IMAGE_PATH_FOLDER', 
+                            'CHECK_VERIFICATION', 'CHECK_GROUND_TRUTH', 'GROUND_TRUTH_PATH', 'DATABASE_PATH']
         
         missing_cols = [col for col in required_columns if col not in df.columns]
         if missing_cols:
@@ -415,7 +416,6 @@ def process_batch_file(batch_excel_path):
             target_language = str(row['TARGET_LANGUAGE'])
             software_type = str(row['SOFTWARE_TYPE'])
             review_folder = str(row['REVIEW_PATH'])
-
             
             # Check if this is a multi-language option
             target_languages = [target_language]
@@ -427,7 +427,10 @@ def process_batch_file(batch_excel_path):
             
             # Get specific names Excel path if provided
             specific_names_xlsx = str(row.get('SPECIFIC_NAMES_XLSX_PATH', None) if 'SPECIFIC_NAMES_XLSX_PATH' in df.columns else None)
-            
+            region_table_path = str(row.get('REGION_TABLE_PATH', None) if 'REGION_TABLE_PATH' in df.columns else None)
+            refer_text_table_path = str(row.get('REFER_TEXT_TABLE_PATH', None) if 'REFER_TEXT_TABLE_PATH' in df.columns else None)
+
+
             # Get image path folder if provided
             image_path_folder = str(row.get('IMAGE_PATH_FOLDER', None) if 'IMAGE_PATH_FOLDER' in df.columns else None)
             database_path = str(row.get('DATABASE_PATH', None) if 'DATABASE_PATH' in df.columns else None)
@@ -524,9 +527,20 @@ def process_batch_file(batch_excel_path):
                         print(f"Starting translation...")
                         translation_success = False
                         try:
-                            translate_main(input_file, output_file, source_language, current_target_language, 
-                                        specific_names_xlsx, software_type, image_path=file_specific_image_path,
-                                        source_type=source_type, database_path=database_path, review_report_path=review_file)
+                            translate_main(input_file, 
+                                           output_file, 
+                                           source_language, 
+                                           current_target_language,
+                                           specific_names_xlsx, 
+                                           region_table_path, 
+                                           refer_text_table_path, 
+                                           software_type, 
+                                           image_path=file_specific_image_path,
+                                           source_type=source_type,
+                                           database_path=database_path,
+                                           review_report_path=review_file)
+                            
+
                             
                             translation_success = os.path.exists(output_file)
                             result_data['translation_status'] = 'Success' if translation_success else 'Failed'
@@ -587,6 +601,7 @@ def process_batch_file(batch_excel_path):
                         #     result_data['verification_status'] = 'Skipped'
                         
                         # Run ground truth check if enabled
+                        verification_success = True
                         groundtruth_success = False
                         check_ground_truth = False
                         
