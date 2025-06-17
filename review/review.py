@@ -259,6 +259,7 @@ async def review_n_improve_process(source_lang,
                                     translated_text, 
                                     relevant_specific_names,
                                     relevant_region_table,
+                                    relevant_refer_text_table,
                                     relevant_pair_database,
                                     image_path,
                                     model_list=None, 
@@ -541,6 +542,8 @@ async def process_segments(
         source_lang,
         target_lang,
         specific_names,
+        region_table,
+        refer_text_table,
         translate_refer,
         database_path,
         temperature,
@@ -572,6 +575,15 @@ async def process_segments(
         # Identify specific named entities in the current segment
         relevant_specific_names = get_relevant_specific_names(specific_names, source_text)
 
+        # Get the region table
+        relevant_region_table = get_relevant_region_table(region_table, source_text)
+        print(f"Relevant region table for translation: {relevant_region_table}")
+
+        # Get the refer text table
+        relevant_refer_text_table = get_relevant_refer_text_table(refer_text_table, source_text)
+        print(f"Relevant refer text table for translation: {relevant_refer_text_table}")
+
+
         # Create the prompt
         relevant_pair_database = get_refer_data(translate_refer, source_text, database_path)
         
@@ -584,6 +596,8 @@ async def process_segments(
             source_text=source_text,
             translated_text=translated_text,
             relevant_specific_names=relevant_specific_names,
+            relevant_region_table=relevant_region_table,
+            relevant_refer_text_table=relevant_refer_text_table,
             relevant_pair_database=relevant_pair_database,
             image_path=None,
             model_list=model_list,
@@ -605,6 +619,8 @@ def compare_result(
         model_list: list,
         software_type: str,
         specific_names: dict = None,
+        region_table: dict = None,
+        refer_text_table: dict = None,
         temperature: float = 0.3,
         seed: int = None,
         source_lang: str = conf.SOURCE_LANGUAGE,
@@ -667,6 +683,8 @@ def compare_result(
                 source_lang,
                 target_lang,
                 specific_names,
+                region_table,
+                refer_text_table,
                 translate_refer,
                 database_path,
                 temperature,
@@ -692,7 +710,9 @@ def main(
         input_file_path="default", 
          output_file_path="default", 
          compare_file_path="default", 
-         specific_names_xlsx_path="default", 
+         specific_names_xlsx_path="default",
+         region_table_path="default",
+         refer_text_table_path="default",
          software_type="default", 
          source_lang="default", 
          target_lang="default",
@@ -711,6 +731,10 @@ def main(
         compare_file_path = conf.COMPARE_FILE_PATH
     if specific_names_xlsx_path=="default":
         specific_names_xlsx_path = conf.SPECIFIC_NAMES_XLSX
+    if region_table_path=="default":
+        region_table_path = conf.REGION_TABLE_PATH
+    if refer_text_table_path=="default":
+        refer_text_table_path = conf.REFER_TEXT_TABLE_PATH
     if software_type=="default":
         software_type = conf.SOFTWARE_TYPE
     if source_lang=="default":
@@ -742,6 +766,22 @@ def main(
         except Exception as e:
             print(f"Warning: Could not load specific names: {e}")
     
+    region_table = {}
+    if region_table_path:
+        try:
+            region_table = load_region_table(region_table_path, source_lang, target_lang)
+            print(f"Loaded {len(region_table)} region translations for review")
+        except Exception as e:
+            print(f"Warning: Could not load region table: {e}")
+    
+    refer_text_table = {}
+    if refer_text_table_path:
+        try:
+            refer_text_table = load_refer_text_table(refer_text_table_path, source_lang, target_lang)
+            print(f"Loaded {len(refer_text_table)} reference translations for review")
+        except Exception as e:
+            print(f"Warning: Could not load refer text table: {e}")
+    
     # Get temperature and seed from config if available
     temperature = getattr(conf, 'TEMPERATURE', 0.3)
     seed = getattr(conf, 'SEED', None)
@@ -768,6 +808,8 @@ def main(
         model_list,
         software_type,
         specific_names,
+        region_table,
+        refer_text_table,
         temperature=temperature,                
         seed=seed,
         source_lang=source_lang,
