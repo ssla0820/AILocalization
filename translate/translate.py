@@ -141,15 +141,16 @@ def check_if_need_review(source_text: str, relevant_pair_database: list) -> bool
     print(f"Checking if source text needs native review or can use database directly: {source_text}")
     # print(f"Checking the Relevant pair database: {relevant_pair_database}")
 
-    if relevant_pair_database:
-        clean_source_text = clean_text(source_text)
-        for items in relevant_pair_database:
-            similiar_type, similiar_source, similiar_translated, similiar_score = items[0], items[1], items[2], items[3]
-            clean_similiar_source_text = clean_text(similiar_source)
-            if clean_source_text == clean_similiar_source_text:
-                print(f"Found a direct match in the database: {items}")
-                direct_use_database = similiar_translated
-                return need_native_review, direct_use_database
+    # # [2025/06/18 Update] Change to always translate no matter is in translation memory or not
+    # if relevant_pair_database:
+    #     clean_source_text = clean_text(source_text)
+    #     for items in relevant_pair_database:
+    #         similiar_type, similiar_source, similiar_translated, similiar_score = items[0], items[1], items[2], items[3]
+    #         clean_similiar_source_text = clean_text(similiar_source)
+    #         if clean_source_text == clean_similiar_source_text:
+    #             print(f"Found a direct match in the database: {items}")
+    #             direct_use_database = similiar_translated
+    #             return need_native_review, direct_use_database
 
 
     if len(source_text) > 50:
@@ -284,6 +285,7 @@ async def translate_groups(
                                             translated_text, 
                                             relevant_specific_names,
                                             relevant_region_table,
+                                            relevant_refer_text_table,
                                             relevant_pair_database,
                                             image_path,
                                             model_list=conf.COMPARISON_MODEL, 

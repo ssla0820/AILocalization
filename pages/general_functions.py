@@ -230,20 +230,31 @@ def get_relevant_region_table(region_table, source_text):
     if region_table:
         for source_term, target_term in region_table.items():
             # Deal with special cases
-            special_cases = {0: ("&quot;", '"'), 1: (" &lt; ", " < "), 2: (" &gt; ", " > "), 3: (" &amp; ", " & "), 4: (" &amp;amp; ", " & ")}
+            special_cases = {0: ("&quot;", '"'), 1: (" &lt; ", " < "), 2: (" &gt; ", " > "), 3: (" &amp; ", " & "), 4: (" &amp;amp; ", " & "),
+                             5: ("&apos;", "'")}
             
             source_term_special = None
             for index, value in special_cases.items():
                 if value[1] in source_term:
                     source_term_special = source_term.replace(value[1], value[0])
 
-            if source_term_special:
-                if source_term_special.lower() in source_text.lower() or source_term.lower() in source_text.lower():
-                    relevant_mapping_table[source_term] = target_term
+            if source_term.lower() in source_text.lower() or\
+                  (source_term_special and source_term_special.lower() in source_text.lower()):
+                relevant_mapping_table[source_term] = target_term
+                if source_term_special:
                     relevant_mapping_table[source_term_special] = target_term
-            else:
-                if source_term.lower() in source_text.lower():
+
+            if " ... " in source_term:
+                source_term_list = source_term.split(" ... ")
+                # if all items in source_term_list are in source_text, add the whole source_term
+                if all(item.lower() in source_text.lower() for item in source_term_list):
                     relevant_mapping_table[source_term] = target_term
+ 
+            if source_term_special and " ... " in source_term_special:
+                source_term_list = source_term_special.split(" ... ")
+                # if all items in source_term_list are in source_text, add the whole source_term_special
+                if all(item.lower() in source_text.lower() for item in source_term_list):
+                    relevant_mapping_table[source_term_special] = target_term
 
     if relevant_mapping_table:
         print(f"Source text '{source_text}'': Found {len(relevant_mapping_table)} relevant region table")

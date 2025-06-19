@@ -332,6 +332,7 @@ def get_lang_specific_translate_sys_prompt(target_lang):
                 "Use primarily simple present tense",
                 "Translate fragments into simple, natural Spanish expressions",
                 "Localize cultural idioms by meaning, not literal translation",
+                "If the word is a proper noun, special term, or function name, it is typically capitalized, as proper nouns refer to specific people, places, or organizations, special terms often represent unique concepts or terminology in a particular field, and function names are usually technical terms that define specific tools, methods, or processes within a domain."
                 # "Translate 'media' as 'contenido multimedia' when referring to digital content (not mass media)",
                 # "Use 'video' without an accent, not 'vídeo'",
                 # "Use 'Ropa gruesa' for 'Heavy Clothing' instead of 'pesada'",

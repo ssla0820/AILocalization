@@ -19,23 +19,27 @@ from config import translate_config as conf
 from pages.general_functions import *
 from database.search_similar_pair import main as search_similar_pair_main
 import json
+# from review.debug_export import export_debug_info
 
 
 def parse_json_column(value):
     """
     Parse a JSON string from Excel back to a Python dictionary/list.
+    Ensures proper handling of East Asian characters.
     """
     if isinstance(value, str) and value.strip().startswith('{') and value.strip().endswith('}'):
         try:
+            # Use ensure_ascii=False to preserve East Asian characters
             return json.loads(value)
         except json.JSONDecodeError:
             return value
     return value
 
 
-def make_model_object(model_list, software_type, source_type, source_lang, target_lang, image_path):
+def make_model_object(review_prompt_obj, model_list, software_type, source_type, source_lang, target_lang, image_path):
     chat_obj_list = []
     # Create LLM chat instance
+    
     for model_name in model_list:
         if 'gemini' in model_name:
             # Create Gemini API chat instance
@@ -44,48 +48,48 @@ def make_model_object(model_list, software_type, source_type, source_lang, targe
                 [
                     GeminiAPIChat(
                         model_name=model_name,
-                        system_prompt=review_sys_prompt_accuracy(source_lang, target_lang, software_type, source_type),
+                        system_prompt=review_prompt_obj.sys_prompt_accuracy,
                         image_path=image_path
                     ),
                     GeminiAPIChat(
                         model_name=model_name,
-                        system_prompt=review_sys_prompt_native(source_lang, target_lang, software_type, source_type),
+                        system_prompt=review_prompt_obj.sys_prompt_native,
                         image_path=image_path
                     ),
                     GeminiAPIChat(
                         model_name=model_name,
-                        system_prompt=review_sys_prompt_word(source_lang, target_lang, software_type, source_type),
+                        system_prompt=review_prompt_obj.sys_prompt_word,
                         image_path=image_path
                     ),
                     GeminiAPIChat(
                         model_name=model_name,
-                        system_prompt=review_sys_prompt_grammar(source_lang, target_lang, software_type, source_type),
+                        system_prompt=review_prompt_obj.sys_prompt_grammar,
                         image_path=image_path
                     ),
                     GeminiAPIChat(
                         model_name=model_name,
-                        system_prompt=review_sys_prompt_consistency(source_lang, target_lang, software_type, source_type),
+                        system_prompt=review_prompt_obj.sys_prompt_consistency,
                         image_path=image_path
                     ),
                     GeminiAPIChat(
                         model_name=model_name,
-                        system_prompt=review_sys_prompt_gender(source_lang, target_lang, software_type, source_type),
+                        system_prompt=review_prompt_obj.sys_prompt_gender,
                         image_path=image_path
                     ),
                 ]
             )
             # print('='*40)
-            # print(f'Current review prompt:\n{review_sys_prompt_accuracy(source_lang, target_lang, software_type, source_type)}')
+            # print(f'Current review prompt:\n{sys_prompt_accuracy(source_lang, target_lang, software_type, source_type)}')
             # print('='*40)
-            # print(f'Current review prompt:\n{review_sys_prompt_native(source_lang, target_lang, software_type, source_type)}')
+            # print(f'Current review prompt:\n{sys_prompt_native(source_lang, target_lang, software_type, source_type)}')
             # print('='*40)
-            # print(f'Current review prompt:\n{review_sys_prompt_word(source_lang, target_lang, software_type, source_type)}')
+            # print(f'Current review prompt:\n{sys_prompt_word(source_lang, target_lang, software_type, source_type)}')
             # print('='*40)
-            # print(f'Current review prompt:\n{review_sys_prompt_grammar(source_lang, target_lang, software_type, source_type)}')
+            # print(f'Current review prompt:\n{sys_prompt_grammar(source_lang, target_lang, software_type, source_type)}')
             # print('='*40)
-            # print(f'Current review prompt:\n{review_sys_prompt_consistency(source_lang, target_lang, software_type, source_type)}')
+            # print(f'Current review prompt:\n{sys_prompt_consistency(source_lang, target_lang, software_type, source_type)}')
             # print('='*40)
-            # print(f'Current review prompt:\n{review_sys_prompt_gender(source_lang, target_lang, software_type, source_type)}')
+            # print(f'Current review prompt:\n{sys_prompt_gender(source_lang, target_lang, software_type, source_type)}')
             # print('='*40)
             
                             
@@ -95,32 +99,32 @@ def make_model_object(model_list, software_type, source_type, source_lang, targe
                 [
                     OpenaiAPIChat(
                         model_name=model_name,
-                        system_prompt= review_sys_prompt_accuracy(source_lang, target_lang, software_type, source_type),
+                        system_prompt= review_prompt_obj.sys_prompt_accuracy,
                         image_path=image_path
                     ),
                     OpenaiAPIChat(
                         model_name=model_name,
-                        system_prompt= review_sys_prompt_native(source_lang, target_lang, software_type, source_type),
+                        system_prompt= review_prompt_obj.sys_prompt_native,
                         image_path=image_path
                     ),
                     OpenaiAPIChat(
                         model_name=model_name,
-                        system_prompt= review_sys_prompt_word(source_lang, target_lang, software_type, source_type),
+                        system_prompt= review_prompt_obj.sys_prompt_word,
                         image_path=image_path
                     ),
                     OpenaiAPIChat(
                         model_name=model_name,
-                        system_prompt= review_sys_prompt_grammar(source_lang, target_lang, software_type, source_type),
+                        system_prompt= review_prompt_obj.sys_prompt_grammar,
                         image_path=image_path
                     ),
                     OpenaiAPIChat(
                         model_name=model_name,
-                        system_prompt= review_sys_prompt_consistency(source_lang, target_lang, software_type, source_type),
+                        system_prompt= review_prompt_obj.sys_prompt_consistency,
                         image_path=image_path
                     ),
                     OpenaiAPIChat(
                         model_name=model_name,
-                        system_prompt= review_sys_prompt_gender(source_lang, target_lang, software_type, source_type),
+                        system_prompt= review_prompt_obj.sys_prompt_gender,
                         image_path=image_path
                     ),
                 ]
@@ -281,8 +285,9 @@ async def review_n_improve_process(source_lang,
     
     else:    
         # 如果沒有提供聊天對象，則創建新的
+        review_prompt_obj = ReviewPrompts(source_lang, target_lang, software_type, source_type)
         if not review_chat_obj_list:
-            review_chat_obj_list = make_model_object(model_list, software_type, source_type, source_lang, target_lang, image_path)
+            review_chat_obj_list = make_model_object(review_prompt_obj, model_list, software_type, source_type, source_lang, target_lang, image_path)
         
         # if not improve_chat:
         #     improve_chat = OpenaiAPIChat(
@@ -296,6 +301,12 @@ async def review_n_improve_process(source_lang,
 
         try:
             review_result_dict = {"source_text": source_text, "original_translated_text": translated_text}
+            review_prompt_obj.source_text = source_text
+            review_prompt_obj.translation = translated_text
+            review_prompt_obj.specific_names = relevant_specific_names
+            review_prompt_obj.region_table = relevant_region_table
+            review_prompt_obj.refer_text_table = relevant_refer_text_table
+            review_prompt_obj.translate_refer = relevant_pair_database
             reviewed_dict = {}
             # improved_dict = {0: translated_text}
             process_pass_flag = False
@@ -314,6 +325,7 @@ async def review_n_improve_process(source_lang,
                             4: 'consistency',
                             5: 'gender neutrality'
                         }
+  
                     raw_review_response_dict ={}
                     for check_item_index in range(len(review_chat_obj_list[_])):
                         print(f'===========Checking Point: {check_item_index_dict[check_item_index]}===========')
@@ -327,17 +339,17 @@ async def review_n_improve_process(source_lang,
                         review_response = ''
                         review_stop_reason = ''
                         if check_item_index == 0:
-                            prompt_text = review_prompt_accuracy(source_lang, target_lang, source_text, translated_text, relevant_specific_names, relevant_region_table, relevant_pair_database)
+                            prompt_text = review_prompt_obj.review_prompt_accuracy()
                         elif check_item_index == 1:
-                            prompt_text = review_prompt_native(source_lang, target_lang, source_text, translated_text, relevant_specific_names, relevant_region_table, relevant_pair_database)
+                            prompt_text = review_prompt_obj.review_prompt_native()
                         elif check_item_index == 2:
-                            prompt_text = review_prompt_word(source_lang, target_lang, source_text, translated_text, relevant_specific_names, relevant_region_table, relevant_pair_database)
+                            prompt_text = review_prompt_obj.review_prompt_word()
                         elif check_item_index == 3:
-                            prompt_text = review_prompt_grammar(source_lang, target_lang, source_text, translated_text, relevant_specific_names, relevant_region_table, relevant_pair_database)
+                            prompt_text = review_prompt_obj.review_prompt_grammar()
                         elif check_item_index == 4:
-                            prompt_text = review_prompt_consistency(source_lang, target_lang, source_text, translated_text, relevant_specific_names, relevant_region_table, relevant_pair_database)
+                            prompt_text = review_prompt_obj.review_prompt_consistency()
                         elif check_item_index == 5:
-                            prompt_text = review_prompt_gender(source_lang, target_lang, source_text, translated_text, relevant_specific_names, relevant_region_table, relevant_pair_database)
+                            prompt_text = review_prompt_obj.review_prompt_gender()
 
                         # print('='*40)
                         # print(f'Current review prompt:\n{prompt_text}')
@@ -472,20 +484,40 @@ async def review_n_improve_process(source_lang,
             # if 3 not in improved_dict.keys(): improved_dict[3] = 'N/A'
 
             # print(f'Current review result: {reviewed_dict}')
-            # print(f'Current improved result: {improved_dict}')
-
+            # print(f'Current improved result: {improved_dict}')            # Create a summary dictionary to collect all suggestions for each model
+            summary_by_model = {}
+            
             for key, value in reviewed_dict.items():
                 for model_name, suggestions in value.items():
                     # Format suggestions dictionary with proper indentation if it's a dictionary
                     if isinstance(suggestions, dict):
                         import json
                         # Store as a formatted JSON string with indentation
-                        review_result_dict[f"{model_name}_review_{key}"] = json.dumps(suggestions, indent=4)
+                        # ensure_ascii=False preserves East Asian characters
+                        review_result_dict[f"{model_name}_review_{key}"] = json.dumps(suggestions, indent=4, ensure_ascii=False)
+                        
+                        # Add to the model's summary if it's not already there
+                        if model_name not in summary_by_model:
+                            summary_by_model[model_name] = []
+                        
+                        # Add only the suggestion content to the summary
+                        for category, suggestion in suggestions.items():
+                            if suggestion:  # Only add non-empty suggestions
+                                summary_by_model[model_name].append(f"{category}: {suggestion}")
                     else:
                         review_result_dict[f"{model_name}_review_{key}"] = suggestions
                 
                 # review_result_dict[f"improved_{key}"] = improved_dict[key]
-
+            
+            # Add the summary columns to the review result dictionary
+            for model_name, summary_items in summary_by_model.items():
+                if summary_items:
+                    # Join all suggestions with line breaks                    
+                    summary_text = "\n".join(summary_items)
+                    review_result_dict[f"summary_{model_name}"] = summary_text
+                else:
+                    review_result_dict[f"summary_{model_name}"] = "No suggestions"
+            
             review_result_dict["review_pass_flag"] = process_pass_flag
             review_result_dict["final_translated_text"] = translated_text
 
@@ -503,7 +535,8 @@ async def review_n_improve_process(source_lang,
             # Load existing results if the file exists, otherwise create a new DataFrame
             if os.path.exists(review_path):
                 try:
-                    existing_df = pd.read_excel(review_path)
+                    # Ensure we use openpyxl engine which has better East Asian character support
+                    existing_df = pd.read_excel(review_path, engine='openpyxl')
                     # Parse any JSON strings in the DataFrame
                     for col in existing_df.columns:
                         if "_review_" in col:
@@ -515,13 +548,40 @@ async def review_n_improve_process(source_lang,
                 existing_df = pd.DataFrame()
 
             # Convert the review result into a DataFrame row
+            # Ensure proper handling of East Asian characters
+            for key, value in review_result_dict.items():
+                if isinstance(value, str):
+                    # Ensure strings are properly encoded for Excel
+                    review_result_dict[key] = value
+            
             new_df = pd.DataFrame([review_result_dict])
 
             # Append the new data
             final_df = pd.concat([existing_df, new_df], ignore_index=True)
 
             # Save the updated results back to the Excel file
-            final_df.to_excel(review_path, index=False)
+            final_df.to_excel(review_path, index=False, engine='openpyxl')
+            
+            # Reload with openpyxl to ensure proper encoding of East Asian characters
+            try:
+                import openpyxl
+                from openpyxl.styles import Font, Alignment
+                
+                # Load the workbook
+                wb = openpyxl.load_workbook(review_path)
+                ws = wb.active
+                
+                # Apply formatting to make the file more readable
+                for col_idx, column in enumerate(final_df.columns):
+                    # Bold header
+                    cell = ws.cell(row=1, column=col_idx+1)
+                    cell.font = Font(bold=True)
+                
+                # Save with formatting
+                wb.save(review_path)
+                print(f"Successfully saved and formatted review results to {review_path}")
+            except Exception as e:
+                print(f"Warning: Could not apply Excel formatting: {e}")
         return translated_text
     except Exception as e:
         error_message = str(e)
