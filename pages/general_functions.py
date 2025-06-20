@@ -10,6 +10,7 @@ import re
 import pandas as pd
 from config import translate_config as conf
 import logging
+from chat.openai_api_analysis_image_chat import OpenaiAPIAnalysisImageChat
 
 @dataclass
 class InlineGroup:
@@ -275,15 +276,44 @@ def get_relevant_refer_text_table(refer_text_table, source_text):
     if refer_text_table:
         for source_term, target_term in refer_text_table.items():
             print(f"Source term: {source_term}, Target term: {target_term}")
-            if source_term.lower() == source_text.lower():
-                relevant_refer_text_table[source_term] = target_term
+            if source_term.lower() == source_text.lower() and (target_term[0] or target_term[0] != 'nan'):
+                relevant_refer_text_table[source_term] = target_term[0]
 
     if relevant_refer_text_table:
         print(f"Source text '{source_text}'': Found {len(relevant_refer_text_table)} relevant refer text table")
         print(f'Relevant refer text table: {relevant_refer_text_table}')
     return relevant_refer_text_table
 
-    
+
+def get_relevant_refer_text_from_image_table(refer_text_table, source_text):
+    """
+    Identify relevant refer text of image entries in the current segment.
+    :param refer_text_table: Dictionary of refer text entries
+    :param source_text: Source text content
+    :return: Dictionary of relevant refer text of image entries
+    """
+    print(f"the table is {refer_text_table}")
+
+    index_refer_image_col = 1
+    image_files = list()
+    relevant_refer_text_from_image_table = {}
+    if refer_text_table:
+        for source_term, target_term in refer_text_table.items():
+            print(f"Source term: {source_term}, Target term: {target_term}")
+            if source_term.lower() == source_text.lower() and (target_term[index_refer_image_col] or target_term[index_refer_image_col] != 'nan'):
+                image_files = target_term[index_refer_image_col].split('\n')
+
+    # get reference text from image by calling ChatGPT
+    if image_files:
+        chat = OpenaiAPIAnalysisImageChat()
+        relevant_refer_text_from_image_table[f"{source_term}_from_image"] = chat.get_describes_from_images(source_text, image_files)
+
+    if relevant_refer_text_from_image_table:
+        print(f"Source text '{source_text}'': Generate {len(relevant_refer_text_from_image_table)} relevant refer text from uploaded image")
+        print(f'Relevant refer text from image table: {relevant_refer_text_from_image_table}')
+    return relevant_refer_text_from_image_table
+
+
 def load_specific_names(excel_path, source_lang, target_lang):
     """
     Load specific name translations from an Excel file based on the configured source and target languages.
@@ -409,6 +439,7 @@ def load_refer_text_table(excel_path, source_lang):
     # Use language_map from config
     source_col_name = conf.LANGUAGE_MAP.get(source_lang, source_lang)
     refer_col_name = conf.LANGUAGE_MAP.get("Refer", "Refer")
+    refer_image_col_name = "Refer_Image"  # Optional column for refer image, if exists 
     
     print(f"Looking for source column: '{source_col_name}', refer column: '{refer_col_name}'")
     
@@ -419,15 +450,18 @@ def load_refer_text_table(excel_path, source_lang):
         # Find the appropriate columns
         source_col = None
         refer_col = None
+        refer_image_col = None  # Optional column for refer image, if exists
         
         for col in df.columns:
             if col.upper() == source_col_name.upper():
                 source_col = col
             elif col.upper() == refer_col_name.upper():
                 refer_col = col
+            elif col.upper() == refer_image_col_name.upper():  # Optional column for refer image, if exists (by Jim)
+                refer_image_col = col
         
-        if source_col is None or refer_col is None:
-            print(f"Warning: Could not find columns for {source_col_name} and/or {refer_col_name} in Excel file.")
+        if source_col is None or refer_col is None or refer_image_col is None:
+            print(f"Warning: Could not find columns for {source_col_name} and/or {refer_col_name} and/or {refer_image_col_name} in Excel file.")
             print(f"Available columns: {', '.join(df.columns)}")
             return refer_text_table
         
@@ -435,10 +469,13 @@ def load_refer_text_table(excel_path, source_lang):
         for _, row in df.iterrows():
             source_term = str(row[source_col]).strip()
             refer_term = str(row[refer_col]).strip()
+            refer_image_term = str(row[refer_image_col]).strip()  # Optional column for refer image, if exists
             
             # Skip empty or nan values
-            if source_term and refer_term and source_term.lower() != 'nan' and refer_term.lower() != 'nan':
-                refer_text_table[source_term] = refer_term
+            if (source_term and source_term.lower() != 'nan') and ((refer_term and refer_term.lower() != 'nan') or (refer_image_term and refer_image_term.lower() != 'nan')):
+                refer_term = refer_term if refer_term and refer_term.lower() != 'nan' else ''
+                refer_image_term = refer_image_term if refer_image_term and refer_image_term.lower() != 'nan' else ''
+                refer_text_table[source_term] = [refer_term, refer_image_term]
                 
         print(f"Successfully loaded '{excel_path}' with {len(refer_text_table)} specific name translations for {source_col_name}->{refer_col_name}.")
     except Exception as e:

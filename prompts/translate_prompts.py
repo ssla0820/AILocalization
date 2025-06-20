@@ -114,7 +114,7 @@ def translate_prompt(src_lang, tgt_lang, json_str, refer_data_list,
 
     refer_text_condition= None
     if refer_text_table and len(refer_text_table) > 0:
-        refer_text_condition = list(refer_text_table.values())[0]
+        refer_text_condition = list(refer_text_table.values())
 
     translate_refer = []
     translate_refer.extend(

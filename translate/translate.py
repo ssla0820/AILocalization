@@ -221,6 +221,13 @@ async def translate_groups(
         relevant_refer_text_table = get_relevant_refer_text_table(refer_text_table, source_text)
         print(f"Relevant refer text table for translation: {relevant_refer_text_table}")
 
+        relevant_refer_text_from_image_table = get_relevant_refer_text_from_image_table(refer_text_table, source_text)
+        print(f"Relevant refer text from image table for translation: {relevant_refer_text_from_image_table}")
+
+        # merge the relevant refer text from image table into the main refer text table
+        relevant_refer_text_table.update(relevant_refer_text_from_image_table)
+        print(f"Updated relevant refer text table for translation: {relevant_refer_text_table}")
+
         # Search for relevant translated pairs in the database
         relevant_pair_database = []
         if database_path:
