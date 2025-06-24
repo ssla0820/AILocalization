@@ -20,6 +20,7 @@ LANGUAGE_MAP = {
 
 # Multi-language option definitions
 MULTI_LANGUAGE_OPTIONS = {
+    '5L': ['German', 'Spanish', 'French', 'Italian', 'Korean'],
     '9L': ['Traditional Chinese', 'Simplified Chinese', 'German', 'French', 
            'Spanish', 'Japanese', 'Korean', 'Italian'],
     '11L': ['Traditional Chinese', 'Simplified Chinese', 'German', 'French', 
@@ -29,9 +30,17 @@ MULTI_LANGUAGE_OPTIONS = {
               'Russian', 'Hindi', 'Indonesian', 'Malay', 'Thai'],
 }
 
+SOFTWARE_TYPE_MAP = {
+    'PDR': 'Video Editing Software',
+    'PHD': 'Image Editing Software',
+}
+
 TRANSLATE_MODEL = 'gpt-4o'
+# TRANSLATE_MODEL = 'o3-2025-04-16'
 # COMPARISON_MODEL = ['gpt-4o', 'gemini-pro-vision']  # Models used for translation and comparison
+
 COMPARISON_MODEL = ['gpt-4o', 'gemini-2.0-flash']
+
 # COMPARISON_MODEL = ['gpt-4o']
 N_INPUT_TOKEN = 4096 * 0.4
 RESTRUCT_MODEL = 'gpt-4o'

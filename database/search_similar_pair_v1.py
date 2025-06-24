@@ -14,7 +14,6 @@ import nltk
 import string
 import sys
 from sklearn.feature_extraction.text import TfidfVectorizer
-from openai import OpenAI
 
 # Download necessary NLTK resources if not already downloaded
 try:
@@ -42,60 +41,6 @@ print("Using NLTK for NLP processing")
 spacy_available = False
 nlp = None
 
-class OpenAIEmbeddingModel:
-    """
-    Class that mimics the SentenceTransformer interface but uses OpenAI's embedding model.
-    """
-    def __init__(self, model_name="text-embedding-3-small"):
-        """
-        Initialize the OpenAI embedding model.
-        
-        Args:
-            model_name (str): OpenAI embedding model name
-        """
-        self.client = OpenAI()
-        self.model_name = model_name
-        self.embedding_dim = 1536  # text-embedding-3-small default dimension
-        
-    def encode(self, texts, batch_size=32):
-        """
-        Encode the texts using OpenAI's embedding model.
-        
-        Args:
-            texts (list): List of texts to encode
-            batch_size (int): Batch size for processing
-            
-        Returns:
-            numpy.ndarray: Array of embeddings
-        """
-        if not texts:
-            return np.array([])
-            
-        # Handle single text input
-        if isinstance(texts, str):
-            texts = [texts]
-            
-        # Process in batches to avoid rate limits
-        all_embeddings = []
-        for i in range(0, len(texts), batch_size):
-            batch = texts[i:i+batch_size]
-            try:
-                response = self.client.embeddings.create(
-                    model=self.model_name,
-                    input=batch
-                )
-                # Extract embeddings from response
-                batch_embeddings = [item.embedding for item in response.data]
-                all_embeddings.extend(batch_embeddings)
-                
-            except Exception as e:
-                print(f"Error generating embeddings for batch {i//batch_size}: {e}")
-                # Return zeros as fallback embeddings for this batch
-                for _ in range(len(batch)):
-                    all_embeddings.append([0.0] * self.embedding_dim)
-                    
-        return np.array(all_embeddings)
-
 class SimilarPairSearcher:
     def __init__(self, json_path):
         """
@@ -106,7 +51,6 @@ class SimilarPairSearcher:
         """
         self.json_path = json_path
         self.data = self._load_json_data()
-        # self.model = OpenAIEmbeddingModel()  # Using OpenAI model
         self.model = SentenceTransformer('all-MiniLM-L6-v2')
         self.english_texts = [pair[0] for pair in self.data.values()]
         self.stop_words = set(stopwords.words('english'))

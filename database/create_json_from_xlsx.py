@@ -75,14 +75,11 @@ if __name__ == "__main__":
     import sys
     
     target_language_list = ['DEU', 'ESP', 'KOR', 'ITA', 'FRA']
-
+    excel_path = r"E:\Debby\9_Scripts\TranslateHTML\Translate_HTML_XML_v11\database\raw_data\0620_TillMay_Update\PHD 16.5 UI_20250619-3.xlsx"
+    save_folder = r"E:\Debby\9_Scripts\TranslateHTML\Translate_HTML_XML_v11\database"
     for target_language in target_language_list:
-        output_json_name = f"PDR_enu_{target_language.lower()}_database.json"
-        excel_path = r"E:\Debby\9_Scripts\TranslateHTML\Translate_HTML_XML_v11\database\raw_data\0616_TillMay\PDR23_May_5L.xlsx"
-        output_json_path = os.path.join(
-            r"E:\Debby\9_Scripts\TranslateHTML\Translate_HTML_XML_v11\database",
-            output_json_name
-        )
+        output_json_name = f"PHD_{target_language}_translation_memory.json"
+        output_json_path = os.path.join(save_folder, output_json_name)
         
         if len(sys.argv) > 1:
             excel_path = sys.argv[1]

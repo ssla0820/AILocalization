@@ -268,16 +268,22 @@ async def translate_groups(
                 refer_text_table=relevant_refer_text_table,
                 refer_data_list=relevant_pair_database,
             )
-            async for chunk, stop_reason in chat.get_stream_aresponse(p, temperature=0.01):
-                response += chunk
+            if 'o3' in conf.TRANSLATE_MODEL:
+                async for chunk, stop_reason in chat.get_stream_aresponse(p):
+                    response += chunk
+            else:
+                async for chunk, stop_reason in chat.get_stream_aresponse(p, temperature=0.01):
+                    response += chunk
             
             if stop_reason == 'length':
                 raise RuntimeError
         except RuntimeError:
             raise RuntimeError("Translation response exceeded length limit.")
-        # print("===========================Used Prompt=============================")
-        # print(f"{p}")
-        # print("===========================Used Prompt=============================")
+        
+        print("===========================Used Prompt=============================")
+        print(f"{p}")
+        print("===========================Used Prompt=============================")
+
         print(f"Translation response:\n {response}")
         if not as_json_obj(response):
             print("Translation response is empty, breaking the loop.")

@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Translation Interface</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="header">
+        <h1>Translation Interface</h1>
+        <button id="confirmButton" class="confirm-button">Confirm</button>
+    </div>
+    
+    <div id="blocks-container">
+        <!-- Blocks will be added here dynamically -->
+    </div>
+    
+    <div class="add-block-container">
+        <button id="addBlockButton" class="add-block-button">+</button>
+    </div>
+
+    <div id="statusModal" class="modal">
+        <div class="modal-content">
+            <h2>Translation Status</h2>
+            <p id="statusMessage">Start translation process.. You can close the window</p>
+            <div id="taskDetails"></div>
+            <button id="closeModalButton">Close</button>
+        </div>
+    </div>    <!-- Store data from Flask in global variables -->
+    <script id="flask-data" type="application/json">
+        {
+            "languageMap": {{ language_map|tojson }},
+            "multiLanguageOptions": {{ multi_language_options|tojson }}
+        }
+    </script>
+
+    <script>
+        // Parse the data from the script tag above
+        const flaskData = JSON.parse(document.getElementById('flask-data').textContent);
+        const languageMap = flaskData.languageMap;
+        const multiLanguageOptions = flaskData.multiLanguageOptions;
+        
+        // Track if a user has manually edited a file name field
+        const manuallyEditedFields = new Set();
+        
+        // Function to generate a short language name
+        function getShortLanguageName(language) {
+            return languageMap[language] || language;
+        }
+        
+        // Generate glossary/memory/common term file name based on product name and language
+        function generateFileName(productName, language, fileType) {
+            const shortLang = getShortLanguageName(language);
+            const fileExtension = fileType === 'translation_memory' ? 'json' : 'xlsx';
+            return `${productName}_${shortLang}_${fileType}.${fileExtension}`;
+        }
+          // Function to create multiple file inputs for multi-language options
+        function createMultiLanguageFileInputs(blockId, targetLang, productName, inputType) {
+            const container = document.createElement('div');
+            container.className = 'multi-language-container';
+            
+            if (multiLanguageOptions[targetLang]) {
+                // For multi-language options (9L, 11L, 15L)
+                multiLanguageOptions[targetLang].forEach(lang => {
+                    const row = document.createElement('div');
+                    row.className = 'multi-language-row';
+                    
+                    const label = document.createElement('label');
+                    label.textContent = lang + ':';
+                    
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.className = `file-name-input ${inputType}-file-name`;
+                    input.setAttribute('data-language', lang);
+                    input.setAttribute('data-block-id', blockId);
+                    input.setAttribute('data-input-type', inputType);
+                    
+                    // Generate default file name
+                    const fileType = inputType === 'glossary' ? 'glossory' : 
+                                    inputType === 'translation-memory' ? 'translation_memory' : 
+                                    'common_table';
+                    input.value = generateFileName(productName, lang, fileType);
+                    
+                    // Add event listener for manual edits
+                    input.addEventListener('input', function() {
+                        const key = `${blockId}-${inputType}-${lang}`;
+                        manuallyEditedFields.add(key);
+                    });
+                    
+                    row.appendChild(label);
+                    row.appendChild(input);
+                    container.appendChild(row);
+                });
+            } else {
+                // Single language option - still show language name
+                const row = document.createElement('div');
+                row.className = 'multi-language-row';
+                
+                const label = document.createElement('label');
+                label.textContent = targetLang + ':';
+                
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.className = `file-name-input ${inputType}-file-name`;
+                input.setAttribute('data-language', targetLang);
+                input.setAttribute('data-block-id', blockId);
+                input.setAttribute('data-input-type', inputType);
+                
+                // Generate default file name
+                const fileType = inputType === 'glossary' ? 'glossory' : 
+                                inputType === 'translation-memory' ? 'translation_memory' : 
+                                'common_table';
+                input.value = generateFileName(productName, targetLang, fileType);
+                
+                // Add event listener for manual edits
+                input.addEventListener('input', function() {
+                    const key = `${blockId}-${inputType}-${targetLang}`;
+                    manuallyEditedFields.add(key);
+                });
+                
+                row.appendChild(label);
+                row.appendChild(input);
+                container.appendChild(row);
+            }
+            
+            return container;
+        }
+          // Function to populate target language options
+        function populateTargetLanguageOptions(selectElement) {
+            // Clear existing options
+            selectElement.innerHTML = '';
+            
+            // First add the multi-language package options
+            for (const [packageName, languages] of Object.entries(multiLanguageOptions)) {
+                const option = document.createElement('option');
+                option.value = packageName;
+                option.textContent = packageName;
+                // Make 9L the default selected option
+                if (packageName === '9L') {
+                    option.selected = true;
+                }
+                selectElement.appendChild(option);
+            }
+            
+            // Then add individual language options
+            Object.keys(languageMap).forEach(language => {
+                // Skip English as it's typically the source language
+                if (language !== 'English') {
+                    const option = document.createElement('option');
+                    option.value = language;
+                    option.textContent = language;
+                    selectElement.appendChild(option);
+                }
+            });
+        }
+        
+        // Function to update file names when product or language changes
+        function updateFileNames(blockId, productName, targetLang) {
+            const block = document.getElementById(`block-${blockId}`);
+            if (!block) return;
+            
+            const inputTypes = ['translation-memory', 'common-term'];
+            
+            inputTypes.forEach(inputType => {
+                const fileNameInputs = block.querySelectorAll(`.${inputType}-file-name`);
+                
+                fileNameInputs.forEach(input => {
+                    const language = input.getAttribute('data-language');
+                    const key = `${blockId}-${inputType}-${language}`;
+                    
+                    // Only update if not manually edited
+                    if (!manuallyEditedFields.has(key)) {
+                        const fileType = inputType === 'translation-memory' ? 'translation_memory' : 'common_table';
+                        input.value = generateFileName(productName, language, fileType);
+                    }
+                });
+            });
+        }
+          // Function to handle target language change
+        function handleTargetLanguageChange(blockId, targetLang, productName) {
+            const block = document.getElementById(`block-${blockId}`);
+            if (!block) return;
+            
+            const translationMemoryFileNameContainer = block.querySelector('.translation-memory-file-name-container');
+            const commonTermFileNameContainer = block.querySelector('.common-term-file-name-container');
+            
+            // Clear existing file name inputs
+            translationMemoryFileNameContainer.innerHTML = '';
+            commonTermFileNameContainer.innerHTML = '';
+            
+            // Add new file name inputs based on target language
+            translationMemoryFileNameContainer.appendChild(
+                createMultiLanguageFileInputs(blockId, targetLang, productName, 'translation-memory')
+            );
+            
+            commonTermFileNameContainer.appendChild(
+                createMultiLanguageFileInputs(blockId, targetLang, productName, 'common-term')
+            );
+        }
+
+        // Function to create a new translation block
+        function createTranslationBlock(blockId = Date.now()) {
+            const blockHtml = `
+                <div id="block-${blockId}" class="translation-block">
+                    <div class="block-header">
+                        <h2>Translation Task</h2>
+                        <button class="delete-block-button" data-block-id="${blockId}">-</button>
+                    </div>                    <div class="form-group">
+                        <label for="source-type-${blockId}">Source Type: <span class="required">*</span></label>
+                        <div class="custom-select">
+                            <select id="source-type-${blockId}" class="source-type" required>
+                                <option value="UI" selected>UI</option>
+                                <option value="Help">Help</option>
+                                <option value="FAQ">FAQ</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="product-name-${blockId}">Product Name: <span class="required">*</span></label>
+                        <div class="custom-select">
+                            <select id="product-name-${blockId}" class="product-name" required>
+                                <option value="PDR" selected>PDR</option>
+                                <option value="PHD">PHD</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="source-lang-${blockId}">Source Language: <span class="required">*</span></label>
+                        <div class="custom-select">
+                            <select id="source-lang-${blockId}" class="source-lang" required>
+                                <option value="English" selected>English</option>
+                            </select>
+                        </div>
+                    </div>
+                      <div class="form-group">
+                        <label for="target-lang-${blockId}">Target Language: <span class="required">*</span></label>
+                        <div class="custom-select">
+                            <select id="target-lang-${blockId}" class="target-lang" required>
+                                <!-- Dynamic options will be populated in createTranslationBlock function -->
+                            </select>
+                        </div>
+                    </div><div class="form-group">
+                        <label for="input-folder-${blockId}">Input File Folder: <span class="required">*</span></label>
+                        <input id="input-folder-${blockId}" type="text" class="input-folder" placeholder="Folder path containing source files to translate" required>
+                    </div>                      <div class="form-group">
+                        <label for="refer-info-${blockId}">Refer Text/Image Info Folder:</label>
+                        <input id="refer-info-${blockId}" type="text" class="refer-info" placeholder="Folder path containing reference materials or images (optional)">
+                    </div>
+                      <div class="form-group">
+                        <label for="output-folder-${blockId}">Output File Folder: <span class="required">*</span></label>
+                        <input id="output-folder-${blockId}" type="text" class="output-folder" placeholder="Folder path where translated files will be saved" required>
+                    </div>
+                      <div class="form-group">
+                        <label for="review-folder-${blockId}">Review File Folder: <span class="required">*</span></label>
+                        <input id="review-folder-${blockId}" type="text" class="review-folder" placeholder="Folder path for review files and reports" required>
+                    </div>                    <div class="form-group">
+                        <label>Glossary:</label>
+                        <input id="glossary-file-path-${blockId}" type="text" class="glossary-file-path" placeholder="Full file path for glossary file (.xlsx)">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Translation Memory:</label>
+                        <div class="two-column-input">
+                            <input id="translation-memory-folder-${blockId}" type="text" class="translation-memory-folder" placeholder="Folder path for translation memory files">
+                            <div class="translation-memory-file-name-container">
+                                <!-- File name inputs will be added here dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Common Term Table:</label>
+                        <div class="two-column-input">
+                            <input id="common-term-folder-${blockId}" type="text" class="common-term-folder" placeholder="Folder path for common term tables">
+                            <div class="common-term-file-name-container">
+                                <!-- File name inputs will be added here dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            const container = document.getElementById('blocks-container');
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = blockHtml;
+            const blockElement = tempDiv.firstElementChild;
+              container.appendChild(blockElement);            
+            
+            // Initialize the file name inputs with default values
+            const productNameInput = document.getElementById(`product-name-${blockId}`);
+            const targetLangInput = document.getElementById(`target-lang-${blockId}`);
+            
+            // Populate target language options dynamically
+            populateTargetLanguageOptions(targetLangInput);
+            // Add event listeners for product name and target language changes
+            productNameInput.addEventListener('change', function() {
+                updateFileNames(blockId, this.value, targetLangInput.value);
+            });
+            
+            targetLangInput.addEventListener('change', function() {
+                handleTargetLanguageChange(blockId, this.value, productNameInput.value);
+            });
+            
+            // Initialize file name inputs with default values
+            handleTargetLanguageChange(blockId, targetLangInput.value, productNameInput.value);
+            
+            // Add event listener to delete button
+            const deleteButton = blockElement.querySelector('.delete-block-button');
+            deleteButton.addEventListener('click', function() {
+                const blockId = this.getAttribute('data-block-id');
+                const block = document.getElementById(`block-${blockId}`);
+                if (block) {
+                    block.remove();
+                }
+                
+                // If this was the last block, add a new one
+                const remainingBlocks = document.querySelectorAll('.translation-block');
+                if (remainingBlocks.length === 0) {
+                    createTranslationBlock();
+                }
+            });
+            
+            return blockId;
+        }        // Function to display a task in the modal
+        function displayTaskInModal(block, index, taskDetailsContainer) {
+            const taskDetail = document.createElement('div');
+            taskDetail.className = 'task-detail';
+            
+            // Create a formatted display of all task information
+            let glossaryInfo = block.glossary_file_path || 'None';
+            let translationMemoryInfo = '';
+            let commonTermInfo = '';
+            
+            // Format multi-language file information
+            function formatFileInfo(files, folder) {
+                if (!files || Object.keys(files).length === 0) return 'None';
+                
+                let info = `Folder: ${folder || 'Not specified'}<br>Files:<br>`;
+                for (const [lang, fileName] of Object.entries(files)) {
+                    info += `- ${lang}: ${fileName}<br>`;
+                }
+                return info;
+            }
+            
+            // Generate formatted information for translation memory, and common term
+            translationMemoryInfo = formatFileInfo(block.translation_memory.files, block.translation_memory.folder);
+            commonTermInfo = formatFileInfo(block.common_term.files, block.common_term.folder);
+            
+            taskDetail.innerHTML = `
+                <h3>Task ${index + 1}</h3>
+                <div class="task-details-grid">
+                    <div class="task-detail-item">
+                        <strong>1. Source Type:</strong> ${block.source_type || 'Not specified'}
+                    </div>
+                    <div class="task-detail-item">
+                        <strong>2. Product Name:</strong> ${block.product_name || 'Not specified'}
+                    </div>
+                    <div class="task-detail-item">
+                        <strong>3. Source Language:</strong> ${block.source_lang || 'Not specified'}
+                    </div>
+                    <div class="task-detail-item">
+                        <strong>4. Target Language:</strong> ${block.target_lang || 'Not specified'}
+                    </div>
+                    <div class="task-detail-item">
+                        <strong>5. Input Folder:</strong> ${block.input_folder || 'Not specified'}
+                    </div>
+                    <div class="task-detail-item">
+                        <strong>6. Refer Text/Image Folder:</strong> ${block.refer_info || 'Not specified'}
+                    </div>
+                    <div class="task-detail-item">
+                        <strong>7. Output Folder:</strong> ${block.output_folder || 'Not specified'}
+                    </div>
+                    <div class="task-detail-item">
+                        <strong>8. Review Folder:</strong> ${block.review_folder || 'Not specified'}
+                    </div>
+                    <div class="task-detail-item">
+                        <strong>9. Glossary File:</strong> ${glossaryInfo}
+                    </div>
+                    <div class="task-detail-item">
+                        <strong>10. Translation Memory:</strong><br>${translationMemoryInfo}
+                    </div>
+                    <div class="task-detail-item">
+                        <strong>11. Common Term Table:</strong><br>${commonTermInfo}
+                    </div>
+                </div>
+            `;
+            
+            taskDetailsContainer.appendChild(taskDetail);
+        }
+        
+        // Function to validate form
+        function validateForm() {
+            const requiredFields = document.querySelectorAll('[required]');
+            let isValid = true;
+            
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    isValid = false;
+                    field.classList.add('error');
+                } else {
+                    field.classList.remove('error');
+                }
+            });
+            
+            return isValid;
+        }
+        
+        // Function to gather all block data
+        function gatherBlocksData() {
+            const blocks = [];
+            const blockElements = document.querySelectorAll('.translation-block');
+            
+            blockElements.forEach(block => {
+                const blockId = block.id.replace('block-', '');
+                
+                // Get basic field values                
+                const sourceType = block.querySelector('.source-type').value;
+                const productName = block.querySelector('.product-name').value;
+                const sourceLang = block.querySelector('.source-lang').value;
+                const targetLang = block.querySelector('.target-lang').value;
+                const inputFolder = block.querySelector('.input-folder').value;
+                const referInfo = block.querySelector('.refer-info').value || "None";
+                const outputFolder = block.querySelector('.output-folder').value;
+                const reviewFolder = block.querySelector('.review-folder').value;// Get folder/file paths - optional fields
+                const glossaryFilePath = block.querySelector('.glossary-file-path').value || "None";
+                const translationMemoryFolder = block.querySelector('.translation-memory-folder').value || "None";
+                const commonTermFolder = block.querySelector('.common-term-folder').value || "None";
+                
+                // Get file names for translation memory and common term
+                const translationMemoryFiles = {};
+                const commonTermFiles = {};
+                
+                // Gather translation memory file names
+                const translationMemoryFileInputs = block.querySelectorAll('.translation-memory-file-name');
+                if (translationMemoryFileInputs.length > 0 && translationMemoryFolder !== "None") {
+                    translationMemoryFileInputs.forEach(input => {
+                        const language = input.getAttribute('data-language');
+                        translationMemoryFiles[language] = input.value;
+                    });
+                } else {
+                    // No files or folder is None
+                    translationMemoryFiles["default"] = "None";
+                }
+                
+                // Gather common term file names
+                const commonTermFileInputs = block.querySelectorAll('.common-term-file-name');
+                if (commonTermFileInputs.length > 0 && commonTermFolder !== "None") {
+                    commonTermFileInputs.forEach(input => {
+                        const language = input.getAttribute('data-language');
+                        commonTermFiles[language] = input.value;
+                    });
+                } else {
+                    // No files or folder is None
+                    commonTermFiles["default"] = "None";
+                }
+                  blocks.push({
+                    source_type: sourceType,
+                    product_name: productName,
+                    source_lang: sourceLang,
+                    target_lang: targetLang,
+                    input_folder: inputFolder,
+                    refer_info: referInfo,
+                    output_folder: outputFolder,
+                    review_folder: reviewFolder,
+                    glossary_file_path: glossaryFilePath,
+                    translation_memory: {
+                        folder: translationMemoryFolder,
+                        files: translationMemoryFiles
+                    },
+                    common_term: {
+                        folder: commonTermFolder,
+                        files: commonTermFiles
+                    }
+                });
+            });
+            
+            return blocks;
+        }
+        
+        // Add event listener to add block button
+        document.getElementById('addBlockButton').addEventListener('click', function() {
+            createTranslationBlock();
+        });          // Add event listener to confirm button
+        document.getElementById('confirmButton').addEventListener('click', function() {
+            // Validate the form first
+            if (!validateForm()) {
+                alert('Please fill in all required fields marked with *');
+                return;
+            }
+            
+            const blocks = gatherBlocksData();
+            console.log("Gathered blocks data:", blocks);
+            
+            // Prepare the modal while sending data
+            const modal = document.getElementById('statusModal');
+            const taskDetails = document.getElementById('taskDetails');
+            
+            // Clear previous details
+            taskDetails.innerHTML = '';
+            
+            // Add task details to modal first
+            blocks.forEach((block, index) => {
+                // Create task detail display using our helper function
+                displayTaskInModal(block, index, taskDetails);
+            });
+            
+            // Show the modal immediately
+            modal.style.display = 'block';
+            modal.classList.add('show');
+            console.log("Modal displayed:", modal.style.display, modal.classList);
+            
+            // Send data to server
+            fetch('/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ blocks })            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Received data from server:", data);
+                document.getElementById('statusMessage').textContent = 'Translation tasks submitted successfully.';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            });
+        });        // Close modal when close button is clicked
+        document.getElementById('closeModalButton').addEventListener('click', function() {
+            // First hide the modal
+            const modal = document.getElementById('statusModal');
+            modal.style.display = 'none';
+            modal.classList.remove('show');
+            // Update the UI to show shutdown is in progress
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'shutdown-message';
+            messageDiv.textContent = 'Shutting down server and closing browser...';
+            document.body.appendChild(messageDiv);
+            
+            // Then send a request to shut down the server
+            fetch('/shutdown', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                // Try to close the window even without waiting for the response
+                setTimeout(function() {
+                    window.close();
+                    // As a fallback, if window.close() doesn't work (which is common in modern browsers)
+                    // Display a message asking the user to close the window manually
+                    setTimeout(function() {
+                        messageDiv.textContent = 'Server has been shut down. You can close this window now.';
+                    }, 1000);
+                }, 500);
+            })
+            .catch(error => {
+                console.error('Error shutting down server:', error);
+                messageDiv.textContent = 'Server shutdown error. Please close this window manually.';
+            });
+        });
+        
+        // Create the first block on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            createTranslationBlock();
+        });
+    </script>
+</body>
+</html>

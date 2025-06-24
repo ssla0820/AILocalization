@@ -19,7 +19,121 @@ from config import translate_config as conf
 from pages.general_functions import *
 from database.search_similar_pair import main as search_similar_pair_main
 import json
-# from review.debug_export import export_debug_info
+
+def export_debug_info(
+    source_text,
+    translated_text,
+    relevant_specific_names,
+    relevant_region_table,
+    relevant_refer_text_table,
+    relevant_pair_database,
+    review_prompt_obj,
+    raw_review_response_dict,
+    review_result_dict,
+    model_name,
+    output_file="debug_review.xlsx"
+):
+    """
+    Export debugging information to an Excel file.
+    
+    Args:
+        source_text: The source text being reviewed
+        translated_text: The translated text being reviewed
+        relevant_specific_names: Dictionary of specific names relevant to this text
+        relevant_region_table: Region table information
+        relevant_refer_text_table: Reference text table
+        relevant_pair_database: Similar pairs from the database
+        review_prompt_obj: The ReviewPrompts object with all prompts
+        raw_review_response_dict: Raw responses from all review models
+        review_result_dict: Final review result dictionary
+        model_name: The name of the model used
+        output_file: Output file path
+        
+    Returns:
+        None
+    """
+    debug_info = {}
+
+    
+    # Basic information
+    debug_info["Model Name"] = model_name
+    debug_info["Source Text"] = source_text
+    debug_info["Translated Text"] = translated_text
+    debug_info["Final Translated Text"] = review_result_dict.get("final_translated_text", "")
+    
+    # Reference data
+    debug_info["Specific Names"] = json.dumps(relevant_specific_names, ensure_ascii=False, indent=2) if relevant_specific_names else "{}"
+    debug_info["Region Table"] = json.dumps(relevant_region_table, ensure_ascii=False, indent=2) if relevant_region_table else "{}"
+    debug_info["Refer Text Table"] = json.dumps(relevant_refer_text_table, ensure_ascii=False, indent=2) if relevant_refer_text_table else "{}"
+    debug_info["Similar Pairs"] = json.dumps(relevant_pair_database, ensure_ascii=False, indent=2) if relevant_pair_database else "[]"
+    
+    # System prompts for all 6 rooms
+    debug_info["System Prompt - Accuracy"] = review_prompt_obj.sys_prompt_accuracy
+    debug_info["System Prompt - Native"] = review_prompt_obj.sys_prompt_native
+    debug_info["System Prompt - Word"] = review_prompt_obj.sys_prompt_word
+    debug_info["System Prompt - Grammar"] = review_prompt_obj.sys_prompt_grammar
+    debug_info["System Prompt - Consistency"] = review_prompt_obj.sys_prompt_consistency
+    debug_info["System Prompt - Gender"] = review_prompt_obj.sys_prompt_gender
+    
+    # Prompts for all 6 rooms
+    debug_info["Prompt - Accuracy"] = review_prompt_obj.review_prompt_accuracy()
+    debug_info["Prompt - Native"] = review_prompt_obj.review_prompt_native()
+    debug_info["Prompt - Word"] = review_prompt_obj.review_prompt_word()
+    debug_info["Prompt - Grammar"] = review_prompt_obj.review_prompt_grammar()
+    debug_info["Prompt - Consistency"] = review_prompt_obj.review_prompt_consistency()
+    debug_info["Prompt - Gender"] = review_prompt_obj.review_prompt_gender()
+    
+    # Responses from the model
+    if raw_review_response_dict:
+        for category, response in raw_review_response_dict.items():
+            debug_info[f"Response - {category}"] = json.dumps(response, ensure_ascii=False, indent=2) if response else "None"
+    
+    # Review result data
+    for key, value in review_result_dict.items():
+        if key.startswith(f"{model_name}_review_"):
+            debug_info[f"Result - {key}"] = value
+    
+    # Convert debug info to DataFrame
+    df = pd.DataFrame([debug_info])
+    
+    # Save to Excel with proper encoding for East Asian languages
+    if os.path.exists(output_file):
+        try:
+            existing_df = pd.read_excel(output_file, engine='openpyxl')
+            final_df = pd.concat([existing_df, df], ignore_index=True)
+        except Exception as e:
+            print(f"Error reading existing file: {e}")
+            final_df = df
+    else:
+        final_df = df
+    
+    # Save to Excel with openpyxl engine for better East Asian character support
+    final_df.to_excel(output_file, index=False, engine='openpyxl')
+    
+    try:
+        import openpyxl
+        from openpyxl.styles import Font, Alignment
+        
+        # Format the Excel file to make it more readable
+        wb = openpyxl.load_workbook(output_file)
+        ws = wb.active
+        
+        # Bold the headers
+        for col_idx in range(1, ws.max_column + 1):
+            cell = ws.cell(row=1, column=col_idx)
+            cell.font = Font(bold=True)
+        
+        # Adjust column widths for better readability
+        for col_idx in range(1, ws.max_column + 1):
+            col_letter = openpyxl.utils.get_column_letter(col_idx)
+            ws.column_dimensions[col_letter].width = 50  # Set a reasonable width
+        
+        # Save with formatting
+        wb.save(output_file)
+        print(f"Successfully saved debug information to {output_file}")
+    except Exception as e:
+        print(f"Warning: Could not apply Excel formatting: {e}")
+        print(f"Debug information saved to {output_file} without formatting")
 
 
 def parse_json_column(value):
@@ -331,7 +445,11 @@ async def review_n_improve_process(source_lang,
                         print(f'===========Checking Point: {check_item_index_dict[check_item_index]}===========')
 
                         review_chat = review_chat_obj_list[_][check_item_index]
-                        kwargs = {"temperature": temperature}
+                        
+                        if 'o3' in model_name:
+                            kwargs = {}
+                        else:
+                            kwargs = {"temperature": temperature}
                         if seed is not None:
                             kwargs["seed"] = seed
 
@@ -367,7 +485,6 @@ async def review_n_improve_process(source_lang,
                         except RuntimeError as e:
                             print(f"Review process failed: {str(e)}")
                             raise RuntimeError("Translation review failed due to length limit or other issues.")
-                                
                         print(f"Review response:\n {review_response}")
                         
                         # Parse the review response
@@ -375,6 +492,26 @@ async def review_n_improve_process(source_lang,
                         raw_review_response_dict[check_item_index_dict[check_item_index]] = review_response_json
 
                     print(f"Raw review response dictionary for {retry_time+1} times: {raw_review_response_dict}")
+                    
+                    # Export debug information
+                    debug_file = "debug_review.xlsx"
+                    try:
+                        export_debug_info(
+                            source_text=source_text,
+                            translated_text=translated_text,
+                            relevant_specific_names=relevant_specific_names,
+                            relevant_region_table=relevant_region_table,
+                            relevant_refer_text_table=relevant_refer_text_table,
+                            relevant_pair_database=relevant_pair_database,
+                            review_prompt_obj=review_prompt_obj,
+                            raw_review_response_dict=raw_review_response_dict,
+                            review_result_dict=review_result_dict,
+                            model_name=model_name,
+                            output_file=debug_file
+                        )
+                        print(f"Exported debug information to {debug_file}")
+                    except Exception as e:
+                        print(f"Failed to export debug information: {e}")
 
                     if retry_time+1 not in reviewed_dict.keys():
                         reviewed_dict[retry_time+1] = {model_name: None}

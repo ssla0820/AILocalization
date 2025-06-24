@@ -230,6 +230,7 @@ def get_relevant_region_table(region_table, source_text):
     relevant_mapping_table = {}
     if region_table:
         for source_term, target_term in region_table.items():
+            # print(f"Source term: {source_term}, Target term: {target_term}")
             # Deal with special cases
             special_cases = {0: ("&quot;", '"'), 1: (" &lt; ", " < "), 2: (" &gt; ", " > "), 3: (" &amp; ", " & "), 4: (" &amp;amp; ", " & "),
                              5: ("&apos;", "'")}
@@ -245,14 +246,14 @@ def get_relevant_region_table(region_table, source_text):
                 if source_term_special:
                     relevant_mapping_table[source_term_special] = target_term
 
-            if " ... " in source_term:
-                source_term_list = source_term.split(" ... ")
+            if " ... " in source_term or " … " in source_term:
+                source_term_list = source_term.split(" ... ") if " ... " in source_term else source_term.split(" … ")
                 # if all items in source_term_list are in source_text, add the whole source_term
                 if all(item.lower() in source_text.lower() for item in source_term_list):
                     relevant_mapping_table[source_term] = target_term
  
             if source_term_special and " ... " in source_term_special:
-                source_term_list = source_term_special.split(" ... ")
+                source_term_list = source_term_special.split(" ... ") if " ... " in source_term_special else source_term_special.split(" … ")
                 # if all items in source_term_list are in source_text, add the whole source_term_special
                 if all(item.lower() in source_text.lower() for item in source_term_list):
                     relevant_mapping_table[source_term_special] = target_term
@@ -260,6 +261,7 @@ def get_relevant_region_table(region_table, source_text):
     if relevant_mapping_table:
         print(f"Source text '{source_text}'': Found {len(relevant_mapping_table)} relevant region table")
         print(f'Relevant region table: {relevant_mapping_table}')
+
     return relevant_mapping_table
     
 
@@ -438,7 +440,7 @@ def load_refer_text_table(excel_path, source_lang):
     
     # Use language_map from config
     source_col_name = conf.LANGUAGE_MAP.get(source_lang, source_lang)
-    refer_col_name = conf.LANGUAGE_MAP.get("Refer", "Refer")
+    refer_col_name = conf.LANGUAGE_MAP.get("Refer_Text", "Refer_Text")
     refer_image_col_name = "Refer_Image"  # Optional column for refer image, if exists 
     
     print(f"Looking for source column: '{source_col_name}', refer column: '{refer_col_name}'")
