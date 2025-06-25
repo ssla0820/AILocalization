@@ -567,47 +567,24 @@ def process_batch_file(task):
     #     print(f"Error processing batch file: {str(e)}")
     #     return {"success": 0, "error": 1}
 
-def main(batch_excel_path=None):
+def main():
     """
     Main entry point for batch processing.
     
     :param batch_excel_path: Path to the batch Excel file
     """
-    # tasks = run_translation_interface()
-    tasks = [{'source_type': 'UI', 'product_name': 'PDR', 'source_lang': 'English', 'target_lang': '2L', 'input_folder': 'E:\\Debby\\9_Scripts\\TranslateHTML\\Translate_HTML_XML_v8\\Report\\Batch_Test\\Source', 'refer_info': 'E:\\Debby\\9_Scripts\\TranslateHTML\\Translate_HTML_XML_v8\\Report\\Batch_Test\\Refer', 'output_folder': 'E:\\Debby\\9_Scripts\\TranslateHTML\\Translate_HTML_XML_v8\\Report\\Batch_Test\\Output', 'review_folder': 'E:\\Debby\\9_Scripts\\TranslateHTML\\Translate_HTML_XML_v8\\Report\\Batch_Test\\Review', 'glossary_file_path': 'E:\\Debby\\9_Scripts\\TranslateHTML\\Translate_HTML_XML_v8\\Report\\Mapping_Table\\specific_name_pdr365_June_2.xlsx', 'translation_memory': {'folder': 'E:\\Debby\\9_Scripts\\TranslateHTML\\Translate_HTML_XML_v11\\database', 'files': {'Traditional Chinese': 'PDR_CHT_translation_memory.json', 'Simplified Chinese': 'PDR_CHS_translation_memory.json'}}, 'common_term': {'folder': 'E:\\Debby\\9_Scripts\\TranslateHTML\\Translate_HTML_XML_v11\\region_table', 'files': {'Traditional Chinese': 'PDR_CHT_common_table.xlsx', 'Simplified Chinese': 'PDR_CHS_common_table.xlsx'}}}]
-    # tasks = [
-    #     # {'source_type': 'UI', 
-    #     #       'product_name': 'PDR', 
-    #     #       'source_lang': 'English', 
-    #     #       'target_lang': '2L', 
-    #     #       'input_folder': 'E:\\Debby\\9_Scripts\\TranslateHTML\\Translate_HTML_XML_v8\\Report\\Batch_Test\\Source', 
-    #     #       'refer_info': 'None', 
-    #     #       'output_folder': 'E:\\Debby\\9_Scripts\\TranslateHTML\\Translate_HTML_XML_v8\\Report\\Batch_Test\\Output', 
-    #     #       'review_folder': 'E:\\Debby\\9_Scripts\\TranslateHTML\\Translate_HTML_XML_v8\\Report\\Batch_Test\\Review', 
-    #     #       'glossary_file_path': 'None', 'translation_memory': {'folder': 'None', 'files': {'default': 'None'}}, 
-    #     #       'common_term': {'folder': 'None', 'files': {'default': 'None'}}}, 
-              
-    #           {'source_type': 'UI', 
-    #            'product_name': 'PDR', 
-    #            'source_lang': 'English', 
-    #            'target_lang': 'German', 
-    #            'input_folder': 'E:\\Debby\\9_Scripts\\TranslateHTML\\Translate_HTML_XML_v8\\Report\\Batch_Test\\Source', 
-    #            'refer_info': 'E:\\Debby\\9_Scripts\\TranslateHTML\\Translate_HTML_XML_v8\\Report\\Batch_Test\\Refer', 
-    #            'output_folder': 'E:\\Debby\\9_Scripts\\TranslateHTML\\Translate_HTML_XML_v8\\Report\\Batch_Test\\Output',
-    #              'review_folder': 'E:\\Debby\\9_Scripts\\TranslateHTML\\Translate_HTML_XML_v8\\Report\\Batch_Test\\Review', 
-    #              'glossary_file_path': 'E:\\Debby\\9_Scripts\\TranslateHTML\\Translate_HTML_XML_v8\\Report\\Mapping_Table\\specific_name_pdr365_June_2.xlsx', 
-    #              'translation_memory': {'folder': 'E:\\Debby\\9_Scripts\\TranslateHTML\\Translate_HTML_XML_v11\\database', 'files': {'German': 'PDR_DEU_translation_memory.json'}}, 
-    #              'common_term': {'folder': 'E:\\Debby\\9_Scripts\\TranslateHTML\\Translate_HTML_XML_v11\\region_table', 'files': {'German': 'PDR_DEU_common_table.xlsx'}}}]
+    tasks = run_translation_interface()
 
-    # if tasks:
-    #     print(f"Received {len(tasks)} translation tasks from the interface:")
-    #     for i, task in enumerate(tasks):
-    #         print(f"\nTask {i+1}:")
-    #         print(f"  Source Type: {task.get('source_type')}")
-    #         print(f"  Product Name: {task.get('product_name')}")
-    #         print(f"  Source Language: {task.get('source_lang')}")
-    #         print(f"  Target Language: {task.get('target_lang')}")
-    #         print(f"  Input File Path: {task.get('input_file_path')}")
+    if tasks:
+        print(f"Received {len(tasks)} translation tasks from the interface:")
+        for i, task in enumerate(tasks):
+            print(f"\nTask {i+1}:")
+            print(f"  Source Type: {task.get('source_type')}")
+            print(f"  Product Name: {task.get('product_name')}")
+            print(f"  Source Language: {task.get('source_lang')}")
+            print(f"  Target Language: {task.get('target_lang')}")
+            print(f"  Input File Path: {task.get('input_file_path')}")
+
     for task in tasks:
         print(f"\nProcessing task: {task}")
         results = process_batch_file(task)
