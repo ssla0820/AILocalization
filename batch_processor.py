@@ -383,7 +383,9 @@ def process_batch_file(task):
         is_multi_language = True
     
     specific_names_xlsx = task.get('glossary_file_path') if task.get('glossary_file_path') != 'None' else None
-    refer_text_table_folder = task.get('refer_info') if task.get('refer_info') != 'None' else None
+    refer_text_table_folder = task.get('refer_info')
+    if refer_text_table_folder == 'None':
+        refer_text_table_folder = None
 
     if task.get('translation_memory')['folder'] == 'None':
         database_path_list = None
@@ -429,6 +431,7 @@ def process_batch_file(task):
         # Get all files to process from input folder
         files_to_process = get_files_to_process(input_folder)
         print(f"Found {len(files_to_process)} files to process")
+        print('file to process:', files_to_process)
         
         if not files_to_process:
             print(f"No files found in input folder: {input_folder}")
@@ -436,94 +439,96 @@ def process_batch_file(task):
         
         # Process each file
         for i, input_file in enumerate(files_to_process, 1):
-            try:
-                print('='*100)
-                print(f"Processing file {i} of {len(files_to_process)}: {input_file}")
-                print('='*100)
+            # try:
+            print('='*100)
+            print(f"Processing file {i} of {len(files_to_process)}: {input_file}")
+            print('='*100)
 
-                # Check if this is an Excel file
-                is_excel = input_file.lower().endswith(('.xlsx', '.xls'))
-                
-                # Generate output and compare file paths
-                output_file, ground_truth_file_name = get_output_filename(input_file, output_folder, current_target_language)
-                review_file = get_output_filename(input_file, review_folder, current_target_language, is_review_file=True)
+            # Check if this is an Excel file
+            is_excel = input_file.lower().endswith(('.xlsx', '.xls'))
+            
+            # Generate output and compare file paths
+            output_file, ground_truth_file_name = get_output_filename(input_file, output_folder, current_target_language)
+            review_file = get_output_filename(input_file, review_folder, current_target_language, is_review_file=True)
+            refer_text_table_path = None
+            if refer_text_table_folder:
                 refer_text_table_path = get_refer_text_n_image_path(input_file, refer_text_table_folder)
-                print(f"Output file: {output_file}")
+            print(f"Output file: {output_file}")
 
+            
+            # Get the file-specific image path folder if available
+            file_specific_image_path = False
+
+            # Prepare result data dictionary
+            result_data = {
+                'source_path': input_file,
+                'output_path': output_file,
+                'source_language': source_language,
+                'target_language': current_target_language,
+                'translation_status': 'Failed',
+                'verification_status': 'Failed',
+                'groundtruth_status': 'N/A',
+                'failed_sentences': ''
+            }
+            
+            # Run translation
+            print(f"Starting translation...")
+            translation_success = False
+            try:
+                translate_main(input_file, 
+                                output_file, 
+                                source_language, 
+                                current_target_language,
+                                specific_names_xlsx, 
+                                region_table_path, 
+                                refer_text_table_path, 
+                                software_type, 
+                                image_path=file_specific_image_path,
+                                source_type=source_type,
+                                database_path=database_path,
+                                review_report_path=review_file)
                 
-                # Get the file-specific image path folder if available
-                file_specific_image_path = False
-
-                # Prepare result data dictionary
-                result_data = {
-                    'source_path': input_file,
-                    'output_path': output_file,
-                    'source_language': source_language,
-                    'target_language': current_target_language,
-                    'translation_status': 'Failed',
-                    'verification_status': 'Failed',
-                    'groundtruth_status': 'N/A',
-                    'failed_sentences': ''
-                }
+                translation_success = os.path.exists(output_file)
+                result_data['translation_status'] = 'Success' if translation_success else 'Failed'
+                print(f"Translation completed: {output_file}")
                 
-                # Run translation
-                print(f"Starting translation...")
-                translation_success = False
-                try:
-                    translate_main(input_file, 
-                                    output_file, 
-                                    source_language, 
-                                    current_target_language,
-                                    specific_names_xlsx, 
-                                    region_table_path, 
-                                    refer_text_table_path, 
-                                    software_type, 
-                                    image_path=file_specific_image_path,
-                                    source_type=source_type,
-                                    database_path=database_path,
-                                    review_report_path=review_file)
-                    
-                    translation_success = os.path.exists(output_file)
-                    result_data['translation_status'] = 'Success' if translation_success else 'Failed'
-                    print(f"Translation completed: {output_file}")
-                    
-                    # If this is an Excel file and it's part of a multi-language translation,
-                    # add it to the list of files to merge later
-                    if is_excel and is_multi_language and translation_success:
-                        if input_file not in xlsx_files_to_merge:
-                            xlsx_files_to_merge[input_file] = []
-                        xlsx_files_to_merge[input_file].append(output_file)
-                        print(f"Added {output_file} to Excel files to be merged later")
-                    
-                except Exception as e:
-                    print(f"Error in translation: {str(e)}")
-                    result_data['translation_status'] = 'Failed'
-
-                # Add result to Excel file
-                add_result_to_excel(results_file, result_data)
+                # If this is an Excel file and it's part of a multi-language translation,
+                # add it to the list of files to merge later
+                if is_excel and is_multi_language and translation_success:
+                    if input_file not in xlsx_files_to_merge:
+                        xlsx_files_to_merge[input_file] = []
+                    xlsx_files_to_merge[input_file].append(output_file)
+                    print(f"Added {output_file} to Excel files to be merged later")
                 
-                # Track overall success/error counts
-                process_success = translation_success
-
-                if process_success:
-                    success_count += 1
-                else:
-                    error_count += 1
             except Exception as e:
-                print(f"Error processing file {input_file}: {str(e)}")
-                
-                # Add failed result to Excel
-                result_data = {
-                    'source_path': input_file,
-                    'output_path': output_file if 'output_file' in locals() else '',
-                    'source_language': source_language,
-                    'target_language': current_target_language,
-                    'translation_status': 'Failed',
-                    'failed_sentences': str(e)
-                }
-                add_result_to_excel(results_file, result_data)
-                
+                print(f"Error in translation: {str(e)}")
+                result_data['translation_status'] = 'Failed'
+
+            # Add result to Excel file
+            add_result_to_excel(results_file, result_data)
+            
+            # Track overall success/error counts
+            process_success = translation_success
+
+            if process_success:
+                success_count += 1
+            else:
                 error_count += 1
+            # except Exception as e:
+            #     print(f"Error processing file {input_file}: {str(e)}")
+                
+            #     # Add failed result to Excel
+            #     result_data = {
+            #         'source_path': input_file,
+            #         'output_path': output_file if 'output_file' in locals() else '',
+            #         'source_language': source_language,
+            #         'target_language': current_target_language,
+            #         'translation_status': 'Failed',
+            #         'failed_sentences': str(e)
+            #     }
+            #     add_result_to_excel(results_file, result_data)
+                
+            #     error_count += 1
         
         # After processing all languages, merge the Excel files if needed
         if xlsx_files_to_merge:
