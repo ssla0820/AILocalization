@@ -421,11 +421,10 @@ def process_batch_file(task):
         current_target_language = target_languages[lang_index]
 
         if database_path_list is None: database_path = None
-        else: database_path = os.path.join(task.get('translation_memory')['folder'], database_path_list[lang_index][current_target_language])
+        else: database_path = os.path.join(task.get('translation_memory')['folder'], database_path_list[0][current_target_language])
 
         if region_table_path_list is None: region_table_path = None
-        else: region_table_path = os.path.join(task.get('common_term')['folder'], region_table_path_list[lang_index][current_target_language])
-
+        else: region_table_path = os.path.join(task.get('common_term')['folder'], region_table_path_list[0][current_target_language])
 
         print(f"\n--- Processing language: {current_target_language} ---")
         # Get all files to process from input folder
