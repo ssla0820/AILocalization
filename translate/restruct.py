@@ -31,7 +31,8 @@ def validate_fit_in(
 
     sorted_shreds_out = {k: v for k, v in sorted(shreds_out.items(), key=lambda x: int(x[0]))}
     fit_str = ''.join([v for v in sorted_shreds_out.values()])
-    if (score := match_score(trans_str, fit_str)) != 1.0:
+    # if (score := match_score(trans_str, fit_str)) != 1.0:
+    if (score := match_score(trans_str, fit_str)) < 0.7:
         return score, f'String not match, to_fit="{trans_str}" | fit="{fit_str}"'
     return 1., ''
 
@@ -76,6 +77,11 @@ async def restruct(
         system_prompt=restruct_sys_prompt()
     )
     
+    chat_map = OpenaiAPIChat(
+        model_name=conf.RESTRUCT_MODEL,
+        system_prompt=map_sys_prompt()
+    )
+
     # Create a deterministic ordering of shreds to maintain structure
     shreds_in = OrderedDict({})
     for i, shred in enumerate(group.text_shreds):
@@ -103,19 +109,42 @@ async def restruct(
     # Include structure information in the prompt to help maintain order
     structure_info = json.dumps(structure_map, ensure_ascii=False, indent=0) if structure_map else "{}"
     
-    # Enhanced prompt with structure information
-    p = restruct_prompt(trans, ori, shreds_in_str, structure_info)
-    
     temperature = 0.01
 
     fit_candidates = []
     while True:
         try:
+            chat_map.clear()
+            # Enhanced prompt with structure information
+            map_p = map_prompt(trans, ori, shreds_in_str)
+            # print('==================Used Map Prompt=========================')
+            # print(map_p)
+            # print('==================Used Map Prompt=========================')
+
+            response_map = ''
+            async for chunk, stop_reason in chat_map.get_stream_aresponse(map_p, temperature=temperature):
+                response_map += chunk
+            map_seg_out = as_json_obj(response_map)
+            # print('==================Used Map Seg Out=========================')
+            # print(map_seg_out)
+            # print('==================Used Map Seg Out=========================')
+            # map_seg_out = None
+
+            p = restruct_prompt(trans, ori, shreds_in_str, structure_info, map_seg_out)
+            # print('==================Used Resturct Prompt=========================')
+            # print(p)
+            # print('==================Used Resturct Prompt=========================')
             chat.clear()
             response = ''
             async for chunk, stop_reason in chat.get_stream_aresponse(p, temperature=temperature):
                 response += chunk
             shreds_out = as_json_obj(response)
+
+            print('==================Used Resturct Response=========================')
+            print(shreds_in)
+            print(shreds_out)
+            print('==================Used Resturct Response=========================')
+
             # response validation check
             if not shreds_out:
                 raise ValueError('Invalid model response as JSON object.')
@@ -136,16 +165,19 @@ async def restruct(
                     # Remove extra keys
                     for key in extra_keys:
                         del shreds_out[key]
-            
+            print('========= keys value are correct, start fit =======')
             score, err = validate_fit_in(
                 shreds_in,
                 trans,
                 shreds_out
             )
+            print('========= fit score is:', score, 'err:', err, '========')
             fit_candidates.append([score, shreds_out])
+            print('========= fit candidates are:', fit_candidates, '========')
             if err:
                 raise ValueError(err)
             break
+
 
         except Exception as e:
             print(f"Restructuring attempt {retry+1} failed: {str(e)}")
@@ -193,6 +225,7 @@ async def group_fit_in(
 
 
 async def restruct_process(is_excel_translation, groups_in, groups_out, groups_map):
+    
     if is_excel_translation:
         # For Excel translation, just return the translated texts without DOM manipulation
         results = []

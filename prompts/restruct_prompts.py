@@ -25,7 +25,7 @@ def restruct_sys_prompt():
     return json.dumps(system_prompt, ensure_ascii=False, indent=2)
 
 
-def restruct_prompt(trans_str, ori_str, shreds_str, structure_info=None):
+def restruct_prompt(trans_str, ori_str, shreds_str, structure_info=None, map_seg_out=None):
     '''
     The task assigned to LLM for Restructuring.
     :param trans_str: Translated string
@@ -41,6 +41,7 @@ def restruct_prompt(trans_str, ori_str, shreds_str, structure_info=None):
         "translation": trans_str,
         "original_text": ori_str,
         "segments_json": shreds_str,
+        "map_segments_json": map_seg_out if map_seg_out else None,
         "has_structural_context": structure_info is not None
     }
     if structure_info:
@@ -70,3 +71,44 @@ def restruct_prompt(trans_str, ori_str, shreds_str, structure_info=None):
     # Convert to JSON string
     import json
     return json.dumps(restructuring_prompt, ensure_ascii=False, indent=2)
+
+def map_sys_prompt():
+    system_prompt =  {
+        "instructions": "Map each word or phrase in `source_segments` to its occurrences in `translated_text`, and verify full coverage of the translated text.",
+        "input": {
+            "source_segments": "a dict whose keys are segment IDs and whose values are lists of source words/phrases",
+            "source_text": "the original text string (for reference)",
+            "translated_text": "the translated text string to be mapped"
+        },
+        "process": [
+            "Flatten and deduplicate all words/phrases from `source_segments` values",
+            "For each source word/phrase, locate every occurrence in `translated_text`, recording start indices and counts",
+            "Determine which spans of `translated_text` are not covered by any match"
+        ],
+        "example_input": "{\n\"0\": \"Go to \",\n\"1\": \"Effects \",\n\"2\": \"Room > \",\n\"3\": \"Video                    Effects \",\n\"4\": \"> \",\n\"5\": \"Face Blur\",\n\"6\": \".\"\n}",
+        "example_output": "{\n\"0\": \"Vai a \",\n\"1\": \"Sala effetti \",\n\"2\": \"> \",\n\"3\": \"Effetti video \",\n\"4\": \"> \",\n\"5\": \"Sfocatura volto\",\n\"6\": \".\",\n\"translation\": \"Vai a Sala effetti > Effetti video > Sfocatura volto.\"\n}",
+        "Note":[
+            "The `source_segments` keys are segment IDs that correspond to specific parts of the original text.",
+            "The `translated_text` should be a complete translation of the original text, with no missing segments.",
+            "The output should be a JSON object with the same keys as `source_segments`, where each key maps to the corresponding translated word/phrase.",
+            "The words/phrases in `translated_text` must be mapped to the segments in `source_segments` without losing any information or duplication.",
+        ]
+    }
+
+    
+    # Convert to JSON string
+    import json
+    return json.dumps(system_prompt, ensure_ascii=False, indent=2)
+
+
+def map_prompt(trans_str, ori_str, shreds_str):
+    prompt = {
+        "source_text": ori_str,
+        "source_segments": shreds_str,
+        "translated_text": trans_str,
+        }
+    
+    # Convert to JSON string
+    import json
+    return json.dumps(prompt, ensure_ascii=False, indent=2)
+
