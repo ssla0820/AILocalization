@@ -68,20 +68,10 @@ def export_debug_info(
     debug_info["Similar Pairs"] = json.dumps(relevant_pair_database, ensure_ascii=False, indent=2) if relevant_pair_database else "[]"
     
     # System prompts for all 6 rooms
-    debug_info["System Prompt - Accuracy"] = review_prompt_obj.sys_prompt_accuracy
-    debug_info["System Prompt - Native"] = review_prompt_obj.sys_prompt_native
-    debug_info["System Prompt - Word"] = review_prompt_obj.sys_prompt_word
-    debug_info["System Prompt - Grammar"] = review_prompt_obj.sys_prompt_grammar
-    debug_info["System Prompt - Consistency"] = review_prompt_obj.sys_prompt_consistency
-    debug_info["System Prompt - Gender"] = review_prompt_obj.sys_prompt_gender
+    debug_info["System Prompt"] = review_prompt_obj.sys_prompt
     
     # Prompts for all 6 rooms
-    debug_info["Prompt - Accuracy"] = review_prompt_obj.review_prompt_accuracy()
-    debug_info["Prompt - Native"] = review_prompt_obj.review_prompt_native()
-    debug_info["Prompt - Word"] = review_prompt_obj.review_prompt_word()
-    debug_info["Prompt - Grammar"] = review_prompt_obj.review_prompt_grammar()
-    debug_info["Prompt - Consistency"] = review_prompt_obj.review_prompt_consistency()
-    debug_info["Prompt - Gender"] = review_prompt_obj.review_prompt_gender()
+    debug_info["Prompt"] = review_prompt_obj.review_prompt()
     
     # Responses from the model
     if raw_review_response_dict:
@@ -136,6 +126,56 @@ def export_debug_info(
         print(f"Debug information saved to {output_file} without formatting")
 
 
+def save_prompt_process(source_text_index,
+        source_text,
+        target_lang,
+        system_prompt,
+        prompt,
+        model_name,
+        review_response):
+    # For Debugging: append source text/ relevant specific names/ relevant pair database/ prompt/ response to Excel file
+    prompt_file = f'Prompt_Review_PHD_{target_lang}_{model_name}.xlsx'
+
+    import openpyxl
+    from openpyxl.styles import Alignment
+
+    try:
+        # Check if file exists to determine if we need headers
+        file_exists = os.path.isfile(prompt_file)
+        
+        # Load workbook if it exists, otherwise create a new one
+        if file_exists:
+            wb = openpyxl.load_workbook(prompt_file)
+            ws = wb.active
+            # Get next empty row
+            next_row = ws.max_row + 1
+        else:
+            wb = openpyxl.Workbook()
+            ws = wb.active
+            # Add headers if creating a new file
+            headers = ["Source Index", "Source Text", "System Prompt", "Prompt", "Response"]
+            for col, header in enumerate(headers, 1):
+                ws.cell(row=1, column=col, value=header)
+            next_row = 2  # Start data from row 2
+        
+        # Add data to the next row
+        ws.cell(row=next_row, column=1, value=str(source_text_index))
+        ws.cell(row=next_row, column=2, value=str(source_text))
+        ws.cell(row=next_row, column=3, value=str(system_prompt))
+        ws.cell(row=next_row, column=4, value=str(prompt))
+        ws.cell(row=next_row, column=5, value=str(review_response))
+
+        # Apply word wrap for better readability in Excel
+        for col in range(1, 5):
+            cell = ws.cell(row=next_row, column=col)
+            cell.alignment = Alignment(wrap_text=True)
+        
+        # Save the workbook
+        wb.save(prompt_file)
+        
+    except Exception as e:
+        print(f"Warning: Could not save debug info to Excel: {e}")
+
 def parse_json_column(value):
     """
     Parse a JSON string from Excel back to a Python dictionary/list.
@@ -157,55 +197,15 @@ def make_model_object(review_prompt_obj, model_list, software_type, source_type,
     for model_name in model_list:
         if 'gemini' in model_name:
             # Create Gemini API chat instance
-            
             chat_obj_list.append(
                 [
                     GeminiAPIChat(
                         model_name=model_name,
-                        system_prompt=review_prompt_obj.sys_prompt_accuracy,
-                        image_path=image_path
-                    ),
-                    GeminiAPIChat(
-                        model_name=model_name,
-                        system_prompt=review_prompt_obj.sys_prompt_native,
-                        image_path=image_path
-                    ),
-                    GeminiAPIChat(
-                        model_name=model_name,
-                        system_prompt=review_prompt_obj.sys_prompt_word,
-                        image_path=image_path
-                    ),
-                    GeminiAPIChat(
-                        model_name=model_name,
-                        system_prompt=review_prompt_obj.sys_prompt_grammar,
-                        image_path=image_path
-                    ),
-                    GeminiAPIChat(
-                        model_name=model_name,
-                        system_prompt=review_prompt_obj.sys_prompt_consistency,
-                        image_path=image_path
-                    ),
-                    GeminiAPIChat(
-                        model_name=model_name,
-                        system_prompt=review_prompt_obj.sys_prompt_gender,
+                        system_prompt=review_prompt_obj.sys_prompt,
                         image_path=image_path
                     ),
                 ]
             )
-            # print('='*40)
-            # print(f'Current review prompt:\n{sys_prompt_accuracy(source_lang, target_lang, software_type, source_type)}')
-            # print('='*40)
-            # print(f'Current review prompt:\n{sys_prompt_native(source_lang, target_lang, software_type, source_type)}')
-            # print('='*40)
-            # print(f'Current review prompt:\n{sys_prompt_word(source_lang, target_lang, software_type, source_type)}')
-            # print('='*40)
-            # print(f'Current review prompt:\n{sys_prompt_grammar(source_lang, target_lang, software_type, source_type)}')
-            # print('='*40)
-            # print(f'Current review prompt:\n{sys_prompt_consistency(source_lang, target_lang, software_type, source_type)}')
-            # print('='*40)
-            # print(f'Current review prompt:\n{sys_prompt_gender(source_lang, target_lang, software_type, source_type)}')
-            # print('='*40)
-            
                             
         else:
             # Create LLM chat instance
@@ -213,32 +213,7 @@ def make_model_object(review_prompt_obj, model_list, software_type, source_type,
                 [
                     OpenaiAPIChat(
                         model_name=model_name,
-                        system_prompt= review_prompt_obj.sys_prompt_accuracy,
-                        image_path=image_path
-                    ),
-                    OpenaiAPIChat(
-                        model_name=model_name,
-                        system_prompt= review_prompt_obj.sys_prompt_native,
-                        image_path=image_path
-                    ),
-                    OpenaiAPIChat(
-                        model_name=model_name,
-                        system_prompt= review_prompt_obj.sys_prompt_word,
-                        image_path=image_path
-                    ),
-                    OpenaiAPIChat(
-                        model_name=model_name,
-                        system_prompt= review_prompt_obj.sys_prompt_grammar,
-                        image_path=image_path
-                    ),
-                    OpenaiAPIChat(
-                        model_name=model_name,
-                        system_prompt= review_prompt_obj.sys_prompt_consistency,
-                        image_path=image_path
-                    ),
-                    OpenaiAPIChat(
-                        model_name=model_name,
-                        system_prompt= review_prompt_obj.sys_prompt_gender,
+                        system_prompt= review_prompt_obj.sys_prompt,
                         image_path=image_path
                     ),
                 ]
@@ -432,12 +407,7 @@ async def review_n_improve_process(source_lang,
                     model_name = model_list[_]
                     print(f'========================Used Model: {model_name}========================')
                     check_item_index_dict = {
-                            0: 'accuracy',
-                            1: 'native usage',
-                            2: 'word correctness',
-                            3: 'sentence structure',
-                            4: 'consistency',
-                            5: 'gender neutrality'
+                            0: 'all'
                         }
   
                     raw_review_response_dict ={}
@@ -457,17 +427,8 @@ async def review_n_improve_process(source_lang,
                         review_response = ''
                         review_stop_reason = ''
                         if check_item_index == 0:
-                            prompt_text = review_prompt_obj.review_prompt_accuracy()
-                        elif check_item_index == 1:
-                            prompt_text = review_prompt_obj.review_prompt_native()
-                        elif check_item_index == 2:
-                            prompt_text = review_prompt_obj.review_prompt_word()
-                        elif check_item_index == 3:
-                            prompt_text = review_prompt_obj.review_prompt_grammar()
-                        elif check_item_index == 4:
-                            prompt_text = review_prompt_obj.review_prompt_consistency()
-                        elif check_item_index == 5:
-                            prompt_text = review_prompt_obj.review_prompt_gender()
+                            prompt_text = review_prompt_obj.review_prompt()
+
 
                         # print('='*40)
                         # print(f'Current review prompt:\n{prompt_text}')
@@ -491,10 +452,21 @@ async def review_n_improve_process(source_lang,
                         review_response_json = as_json_obj(review_response)
                         raw_review_response_dict[check_item_index_dict[check_item_index]] = review_response_json
 
+                        # save_prompt_process(
+                        #     source_text_index=0,
+                        #     source_text=source_text,
+                        #     target_lang=target_lang,
+                        #     system_prompt=review_prompt_obj.sys_prompt,
+                        #     prompt=prompt_text,
+                        #     model_name=model_name,
+                        #     review_response=review_response
+                        # )
+
                     print(f"Raw review response dictionary for {retry_time+1} times: {raw_review_response_dict}")
                     
                     # Export debug information
                     debug_file = "debug_review.xlsx"
+                    # debug_file = f"Prompt_Review_{target_lang}_{model_name}_PHD.xlsx"
                     try:
                         export_debug_info(
                             source_text=source_text,

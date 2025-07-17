@@ -109,63 +109,279 @@ def get_lang_specific_translate_sys_prompt(target_lang):
                 ]
             }
         },
-        'German': {
-            "language_style": {
-                "tone": "formal, natural, and empathetic",
-                "formality": "using formal 'Sie' form for adults, 'du' for children/teens under 18",
-                "audience": "adapt tone to context, using 'wir' when a personal touch is needed"
-            },
-            "translation_principles": [
-                "Use natural, everyday conversational language that does not sound robotic",
-                "Avoid word-for-word translation; adapt sentences for natural German flow",
-                "Split or shorten sentences when needed for clarity and conciseness",
-                "Prefer short, simple words from everyday language",
-                "Integrate English technical terms according to German grammar and syntax rules",
-                "Avoid false friends and awkward anglicisms"
+        'German':{
+            "Steps": [
+                {
+                "Title": "Develop the Right Translation Mindset — Master Microsoft’s Tone and Avoid Literal Translation",
+                "Points": [
+                    {
+                    "Title": "Familiarize Yourself with the Core Principles of Microsoft Voice",
+                    "Details": [
+                        "Warm and Relaxed: The tone should be natural, informal, as if having a genuine conversation, and occasionally show some fun.",
+                        "Crisp and Clear: The content should be direct and easy to skim, with extreme conciseness.",
+                        "Ready to Lend a Hand: Show empathy and predict user needs by providing useful information.",
+                        "Consider the Audience: Use technical jargon for technical audiences but simpler vocabulary for general consumers."
+                    ]
+                    },
+                    {
+                    "Title": "Strictly Avoid Word-to-Word Translation",
+                    "Details": [
+                        "Literal translations often fail to convey the original meaning, sound unnatural, or even absurd. These must be avoided.",
+                        "Focus on 'Intention' and 'Audience': The key to translation is choosing words and grammatical structures that reflect the original style, while considering the needs of the audience and the text’s intent.",
+                        "Be Flexible and Rewrite: Encourage rewriting the translation to make it more suitable and natural for the target language audience, even omitting unnecessary content.",
+                        "Be Concise: Split or merge sentences when necessary and omit unnecessary descriptors.",
+                        "Avoid Redundant and Empty Words: Some English words may add formality but no real meaning, so replace them with more common or concise words (e.g., in German, avoid 'erfordern' and use 'benötigen').",
+                        "Use Short, Everyday Words: Microsoft’s tone in English favors short words, and German localization should follow this principle as well."
+                    ]
+                    }
+                ]
+                },
+                {
+                "Title": "Delve into German Language Features and Localization Details",
+                "Points": [
+                    {
+                    "Title": "Master Tone Choices: Formal vs. Informal ('du' vs. 'Sie')",
+                    "Details": [
+                        "Most Microsoft products default to formal 'Sie' to show respect and professionalism.",
+                        "However, for Copilot’s default prompts, it is suggested to use informal 'du' for AI, and also for users under 18.",
+                        "Incorrect tone selection can impact the user experience."
+                    ]
+                    },
+                    {
+                    "Title": "Understand Sentence Structure and Word Order Differences",
+                    "Details": [
+                        "German word order and sentence structure differ from English, especially with separable verb prefixes (e.g., 'aufstehen' separates into 'stehen' and 'auf').",
+                        "When handling long sentences split into multiple strings, ensure the translation remains functionally correct and contextually coherent. Tools like Lingohub’s context panel and discussion features can assist."
+                    ]
+                    },
+                    {
+                    "Title": "Handle Compound Words and Capitalization",
+                    "Details": [
+                        "German tends to use compound words, which may reduce vocabulary but increase word count; avoid overly long or complex compound words for clarity.",
+                        "All nouns in German must be capitalized.",
+                        "It’s advised to create a glossary to list terms and their meanings/descriptions to avoid issues with article usage."
+                    ]
+                    },
+                    {
+                    "Title": "Apply Case and Gender Rules",
+                    "Details": [
+                        "German nouns have three genders (masculine, feminine, neuter) and four cases, which affect the form of articles and adjectives.",
+                        "Refer to German grammar resources and Microsoft terminology to handle grammatical gender and article issues."
+                    ]
+                    },
+                    {
+                    "Title": "Ensure Use of Inclusive Language",
+                    "Details": [
+                        "Avoid Gender Bias: Opt for gender-neutral terms (e.g., 'Schulkind' for student instead of 'Schüler/Schülerin' for student [male/female]).",
+                        "Use neutral suffixes (e.g., '-hilfe', '-kraft', '-personal', '-schaft', '-leute'), plural forms, or the 'person approach' (e.g., 'administrierende Person') to express general concepts.",
+                        "Last Resort: In situations where gendered terms cannot be avoided and do not create awkwardness or ambiguity, use them after evaluation.",
+                        "For real people, use their preferred pronouns."
+                    ]
+                    },
+                    {
+                    "Title": "Follow German Punctuation and Idiomatic Conventions",
+                    "Details": [
+                        "Error messages should end with a period, even if the English source does not. Exclamation marks are usually replaced with periods.",
+                        "German uses en dashes for minus signs or number ranges, typically with spaces before and after; em dashes are not used.",
+                        "Ellipses typically indicate conversational tone; avoid using them in Microsoft content except for UI elements representing ongoing actions.",
+                        "Avoid Anglicisms and literal translations of idiomatic expressions. Convey the intent or omit directly rather than translating word-for-word."
+                    ]
+                    },
+                    {
+                    "Title": "Proper Use of Subjects and Verbs",
+                    "Details": [
+                        "The preference is to directly address the user with first or second-person pronouns ('you'), avoiding the use of third-person references ('user'), which sound formal and impersonal.",
+                        "The use of 'we' creates a sense of team care for the user, but it should be context-appropriate and sometimes replaced with a more neutral translation.",
+                        "Verbs tend to use simple tenses (e.g., present tense) and avoid the future tense unless describing an event that will definitely happen in the future."
+                    ]
+                    }
+                ]
+                },
+                {
+                "Title": "Understand the Target Market’s Culture and Business Environment",
+                "Points": [
+                    {
+                    "Title": "Consider Cultural Dimensions in Germany",
+                    "Details": [
+                        "Low Power Distance: Content should focus on demonstrating the product’s reliability and expertise, rather than relying on authoritative endorsements.",
+                        "Individualism: Marketing should emphasize how the product caters to personal choices and self-expression.",
+                        "High Masculinity: Show the product’s excellence and high performance, but do so carefully, as German consumers also value fair competition.",
+                        "Moderate to High Uncertainty Avoidance: Appreciate clear, comprehensive product information and specifications. Generous return policies are also helpful.",
+                        "High Long-Term Orientation: Emphasize the product’s longevity and sustainability."
+                    ]
+                    },
+                    {
+                    "Title": "Adapt to Germany’s Communication Style",
+                    "Details": [
+                        "Germans prefer practicality, so the language should be direct and avoid fluff.",
+                        "They value facts over motivational language.",
+                        "Germans prefer more formal communication rather than talking to people as if they were friends."
+                    ]
+                    },
+                    {
+                    "Title": "Understand Payment Options and Data Privacy Requirements",
+                    "Details": [
+                        "Germany is very cautious about data privacy and security, and you must comply with GDPR and the German Federal Data Protection Act (BDSG)."
+                    ]
+                    }
+                ]
+                },
+                {
+                "Title": "Software Internationalization Design and Preventive Measures",
+                "Points": [
+                    {
+                    "Title": "Consider Localization from the Beginning (Internationalization)",
+                    "Details": [
+                        "Incorporating localization considerations from the design phase can help reduce subsequent delays and budget overruns."
+                    ]
+                    },
+                    {
+                    "Title": "Avoid Placeholder String Concatenation",
+                    "Details": [
+                        "Different languages have different word order and grammatical rules, so concatenating strings may lead to mistranslations. This should be avoided whenever possible."
+                    ]
+                    },
+                    {
+                    "Title": "Allow Sufficient Space for Text Expansion",
+                    "Details": [
+                        "When translating from English to German, the string length can increase by about 125%. Therefore, reserve at least 30-35% extra space, and consider using white space."
+                    ]
+                    }
+                ]
+                },
+                {
+                "Title": "Utilize Reference Materials and Tools",
+                "Points": [
+                    {
+                    "Title": "Consult the German Localization Style Guide",
+                    "Details": [
+                        "This is your primary reference, including grammar, syntax, and spelling standards for German, as well as localization considerations."
+                    ]
+                    },
+                    {
+                    "Title": "Refer to Duden (duden.de)",
+                    "Details": [
+                        "This is the main reference resource for German grammar and spelling, and is the 'unofficial authority.'"
+                    ]
+                    },
+                    {
+                    "Title": "Use Microsoft Terminology - Globalization | Microsoft Learn",
+                    "Details": [
+                        "Use approved terms from this resource, such as key terms, technical terms, and product names, where applicable."
+                    ]
+                    },
+                    {
+                    "Title": "Utilize Platform Tools like Lingohub",
+                    "Details": [
+                        "Tools like Lingohub can assist with complex sentence structures, term usage, and maintaining tone consistency through context panels, discussion tools, and glossaries."
+                    ]
+                    }
+                ]
+                },
+                {
+                "Title": "Continuous Learning and Quality Control",
+                "Points": [
+                    {
+                    "Title": "Stay Sensitive to Language and Cultural Changes",
+                    "Details": [
+                        "Language and localization styles evolve over time, so stay updated on the latest norms and trends."
+                    ]
+                    },
+                    {
+                    "Title": "Engage Actively in Discussions",
+                    "Details": [
+                        "If you have questions about translation context or terminology, use platform tools (e.g., Lingohub’s discussion tool) to communicate with team members and ensure a shared understanding."
+                    ]
+                    },
+                    {
+                    "Title": "Develop the Habit of Checking the Glossary",
+                    "Details": [
+                        "Especially when dealing with product names, technical terms, and keywords, always check the glossary to maintain consistency."
+                    ]
+                    },
+                    {
+                    "Title": "Learn from Error Messages",
+                    "Details": [
+                        "Analyze how common error messages are localized and understand how to avoid issues caused by literal translations."
+                    ]
+                    },
+                    {
+                    "Title": "Regularly Read Style Guides and Updates",
+                    "Details": [
+                        "Localization style guides are dynamic, so review them periodically to ensure you follow the latest standards."
+                    ]
+                    }
+                ]
+                }
             ],
             "terminology_guidelines": {
                 "product_names": "Keep application and product names in English unless a legally required German form exists",
                 "technical_terms": "Integrate English technical terms according to German grammar rules",
                 "specific_translations": "Always translate 'AI' consistently into German",
             },
-            "grammar_rules": [
-                "Follow German grammar and syntax rules strictly",
-                "Pay attention to articles, compound words, genitive case, agreement, verbs, prepositions, punctuation",
-                "Maintain proper German sentence structure",
-                "Format error messages consistently using established German patterns"
-            ],
             "ui_guidelines": {
                 "error_messages": "Use consistent, non-literal phrasing following standard German patterns",
                 "placeholders": "Pay attention to placeholders (%s, %d) and their grammatically correct integration"
             },
-            "Context Analysis": [
-                "Technical and Formal Context: Both parts emphasize the direct, literal translation of technical, legal, and formal terms, and they maintain clarity by keeping proper nouns (like country names) unchanged.",   
-                "Clear and Non-Idiomatic Language: Both parts stress that the translation avoids idiomatic expressions, focusing on straightforward and precise language suited for a technical digital context.",   
-                "Consistency and Precision: Both parts discuss how technical terms are translated literally to preserve the original meaning, and instructional language is clear to guide users effectively.",   
-                "Audience Assumptions: Both parts assume that the target audience is familiar with the core concepts and doesn't need additional context or cultural references.",   
-                "Consistency Across Contexts: Both parts mention that the translation accurately mirrors the original content across different contexts (image manipulation, technical support, etc.) while preserving the correct tone and intent.",   
-            ],
-            "Tone Matching": [
-                "Neutral, formal, and technical tone: Consistently used across different languages, including German.",
-                "Clarity and precision: Emphasis on these qualities, particularly for technical and instructional contexts.",
-                "Concise and direct: The tone is suitable for professional documentation, including software commands, user interfaces, and technical guides.",
-                "Imperative form for instructions and commands: Ensures consistency across both English and German versions.",
-                "Neutral, factual tone for technical terms: Labels and product descriptions maintain a neutral tone, ideal for technical and business documentation.",
-            ],
-            "Target Audience Understanding": [
-                "Audience Knowledge Assumptions: It assumes that users are familiar with technical terminology, photographic terms, and standard formats (e.g., WMV, Videodatei).",
-                "Language and Terminology: The text uses concise and precise language, employing German compound nouns for technical audiences and formal terms for professional contexts. It also incorporates standard German country names and UI terms that users recognize.",
-                "User Expectations: It respects users' familiarity with graphical software, image manipulation, and media playback commands. The tone is formal for business, technical, and instructional contexts, but it avoids unnecessary simplifications for technically savvy users.",
-                "Content Style: The instructions are brief, clear, and straightforward, with a focus on being directly usable by software and creative professionals, without overwhelming non-technical users.",         
-            ],
-            "Use of Contextual Text": [
-                "Precision and Directness: Translations are component-by-component, using direct technical equivalents without cultural references or idioms. Simple, non-idiomatic language is employed for clarity.", 
-                "Technical Terminology: German compound nouns are used to express technical concepts clearly and concisely. English loanwords are used for recognized technical terms.", 
-                "Instructional Clarity: The use of imperative forms for commands and concise, direct language ensures the translation is action-oriented and easily understood.", 
-                "Consistency: The translation avoids unnecessary context, focusing on the technical content, with placeholder terms like '%s' maintained for dynamic elements.", 
-                "Appropriateness: Context-appropriate terminology is chosen, with passive constructions used where necessary to describe processes, and standard country terms ensuring consistency.",            
-            ]
         },
+
+        # 'German': {
+        #     "language_style": {
+        #         "tone": "formal, natural, and empathetic",
+        #         "formality": "using formal 'Sie' form for adults, 'du' for children/teens under 18",
+        #         "audience": "adapt tone to context, using 'wir' when a personal touch is needed"
+        #     },
+        #     "translation_principles": [
+        #         "Use natural, everyday conversational language that does not sound robotic",
+        #         "Avoid word-for-word translation; adapt sentences for natural German flow",
+        #         "Split or shorten sentences when needed for clarity and conciseness",
+        #         "Prefer short, simple words from everyday language",
+        #         "Integrate English technical terms according to German grammar and syntax rules",
+        #         "Avoid false friends and awkward anglicisms"
+        #     ],
+        #     "terminology_guidelines": {
+        #         "product_names": "Keep application and product names in English unless a legally required German form exists",
+        #         "technical_terms": "Integrate English technical terms according to German grammar rules",
+        #         "specific_translations": "Always translate 'AI' consistently into German",
+        #     },
+        #     "grammar_rules": [
+        #         "Follow German grammar and syntax rules strictly",
+        #         "Pay attention to articles, compound words, genitive case, agreement, verbs, prepositions, punctuation",
+        #         "Maintain proper German sentence structure",
+        #         "Format error messages consistently using established German patterns"
+        #     ],
+        #     "ui_guidelines": {
+        #         "error_messages": "Use consistent, non-literal phrasing following standard German patterns",
+        #         "placeholders": "Pay attention to placeholders (%s, %d) and their grammatically correct integration"
+        #     },
+        #     "Context Analysis": [
+        #         "Technical and Formal Context: Both parts emphasize the direct, literal translation of technical, legal, and formal terms, and they maintain clarity by keeping proper nouns (like country names) unchanged.",   
+        #         "Clear and Non-Idiomatic Language: Both parts stress that the translation avoids idiomatic expressions, focusing on straightforward and precise language suited for a technical digital context.",   
+        #         "Consistency and Precision: Both parts discuss how technical terms are translated literally to preserve the original meaning, and instructional language is clear to guide users effectively.",   
+        #         "Audience Assumptions: Both parts assume that the target audience is familiar with the core concepts and doesn't need additional context or cultural references.",   
+        #         "Consistency Across Contexts: Both parts mention that the translation accurately mirrors the original content across different contexts (image manipulation, technical support, etc.) while preserving the correct tone and intent.",   
+        #     ],
+        #     "Tone Matching": [
+        #         "Neutral, formal, and technical tone: Consistently used across different languages, including German.",
+        #         "Clarity and precision: Emphasis on these qualities, particularly for technical and instructional contexts.",
+        #         "Concise and direct: The tone is suitable for professional documentation, including software commands, user interfaces, and technical guides.",
+        #         "Imperative form for instructions and commands: Ensures consistency across both English and German versions.",
+        #         "Neutral, factual tone for technical terms: Labels and product descriptions maintain a neutral tone, ideal for technical and business documentation.",
+        #     ],
+        #     "Target Audience Understanding": [
+        #         "Audience Knowledge Assumptions: It assumes that users are familiar with technical terminology, photographic terms, and standard formats (e.g., WMV, Videodatei).",
+        #         "Language and Terminology: The text uses concise and precise language, employing German compound nouns for technical audiences and formal terms for professional contexts. It also incorporates standard German country names and UI terms that users recognize.",
+        #         "User Expectations: It respects users' familiarity with graphical software, image manipulation, and media playback commands. The tone is formal for business, technical, and instructional contexts, but it avoids unnecessary simplifications for technically savvy users.",
+        #         "Content Style: The instructions are brief, clear, and straightforward, with a focus on being directly usable by software and creative professionals, without overwhelming non-technical users.",         
+        #     ],
+        #     "Use of Contextual Text": [
+        #         "Precision and Directness: Translations are component-by-component, using direct technical equivalents without cultural references or idioms. Simple, non-idiomatic language is employed for clarity.", 
+        #         "Technical Terminology: German compound nouns are used to express technical concepts clearly and concisely. English loanwords are used for recognized technical terms.", 
+        #         "Instructional Clarity: The use of imperative forms for commands and concise, direct language ensures the translation is action-oriented and easily understood.", 
+        #         "Consistency: The translation avoids unnecessary context, focusing on the technical content, with placeholder terms like '%s' maintained for dynamic elements.", 
+        #         "Appropriateness: Context-appropriate terminology is chosen, with passive constructions used where necessary to describe processes, and standard country terms ensuring consistency.",            
+        #     ]
+        # },
         # "German": {
         #     "language_style": {
         #         "tone": "formal, natural, and empathetic",
@@ -219,6 +435,164 @@ def get_lang_specific_translate_sys_prompt(target_lang):
         #         "error_messages": "Use consistent, non-literal phrasing following standard German patterns",
         #         "placeholders": "Pay attention to placeholders (%s, %d) and their grammatically correct integration"
         #     }
+        # },
+        # "French": {
+        #     "Steps": [
+        #         {
+        #         "Title": "Core Principles and Considerations for Avoiding Literal Translation",
+        #         "Points": [
+        #             {
+        #             "Title": "Flexibility and Rewriting",
+        #             "Details": [
+        #                 "Rewrite content to suit French users, ensuring it feels natural.",
+        #                 "Remove unnecessary content to make the text concise.",
+        #                 "Break long or complex sentences into shorter ones."
+        #             ]
+        #             },
+        #             {
+        #             "Title": "Tone and Style",
+        #             "Details": [
+        #                 "Microsoft’s tone emphasizes 'Warm and relaxed', 'Crisp and clear', and 'Ready to lend a hand'.",
+        #                 "Use clear, friendly, and concise language, similar to everyday conversation.",
+        #                 "Use technical terms for technical audiences, and common words for consumers."
+        #             ]
+        #             },
+        #             {
+        #             "Title": "Word Choice and Terminology",
+        #             "Details": [
+        #                 "Use approved Microsoft terminology.",
+        #                 "For abbreviations like 'app', use 'application' or 'appli' if space is tight.",
+        #                 "Avoid formal terms like 'requérir', and use simpler alternatives like 'demander'.",
+        #                 "Avoid impersonal terms like 'on', 'il y a', or 'il faut'."
+        #             ]
+        #             },
+        #             {
+        #             "Title": "Localizing Colloquialisms, Idioms, and Metaphors",
+        #             "Details": [
+        #                 "Translate the meaning, not the literal expression.",
+        #                 "Omit or rephrase when necessary to retain the meaning.",
+        #                 "Example: 'We’ve hit a snag.' should be 'Nous avons rencontré un problème.'"
+        #             ]
+        #             }
+        #         ]
+        #         },
+        #         {
+        #         "Title": "French-Specific Grammar, Syntax, and Orthographic Standards",
+        #         "Points": [
+        #             {
+        #             "Title": "Addressing the User",
+        #             "Details": [
+        #                 "Use 'vous' to directly address users, avoiding impersonal terms like 'user'."
+        #             ]
+        #             },
+        #             {
+        #             "Title": "Grammar and Syntax",
+        #             "Details": [
+        #                 "Adjectives should agree with gender and number, usually placed after nouns.",
+        #                 "Use definite articles more often in French than in English.",
+        #                 "Keep compound words simple, and check plural rules for consistency.",
+        #                 "Avoid formal conjunctions like 'lors de' and use informal ones for technical content.",
+        #                 "Use masculine forms for general references and neutral terms for inclusivity.",
+        #                 "Ensure prepositions are used correctly, e.g., 'cliquez sur' for 'click on'.",
+        #                 "Avoid redundant pronouns for smooth flow.",
+        #                 "Use simple verb tenses (present, passé composé) for clarity."
+        #             ]
+        #             },
+        #             {
+        #             "Title": "Punctuation",
+        #             "Details": [
+        #                 "Avoid semicolons; use short sentences for clarity.",
+        #                 "Use exclamation and question marks cautiously.",
+        #                 "Use parentheses for additional notes.",
+        #                 "Prefer en dash for emphasis, and avoid em dash.",
+        #                 "Use ellipsis '…' with proper spacing.",
+        #                 "End complete sentences with periods.",
+        #                 "Use French-style quotes '« »' with non-breaking spaces."
+        #             ]
+        #             }
+        #         ]
+        #         },
+        #         {
+        #         "Title": "General Software Localization Considerations and Best Practices",
+        #         "Points": [
+        #             {
+        #             "Title": "Develop a Localization Strategy",
+        #             "Details": [
+        #                 "Treat localization as part of the overall goal from the start.",
+        #                 "Align on target market, language, and potential issues early."
+        #             ]
+        #             },
+        #             {
+        #             "Title": "Design for Localization - Internationalization",
+        #             "Details": [
+        #                 "Design with localization in mind to reduce delays and costs.",
+        #                 "Leave room for text expansion (30-35%) as translations can increase in length.",
+        #                 "Use UTF-8 encoding for accurate display across languages.",
+        #                 "Avoid hardcoding text; store translatable content in separate files.",
+        #                 "Use pseudo-localization for testing UI issues."
+        #             ]
+        #             },
+        #             {
+        #             "Title": "Concise Source Content",
+        #             "Details": [
+        #                 "Keep sentences short and direct.",
+        #                 "Remove idioms and abbreviations.",
+        #                 "Use consistent terms for the same concepts."
+        #             ]
+        #             },
+        #             {
+        #             "Title": "Careful Selection of Icons and Visual Elements",
+        #             "Details": [
+        #                 "Research cultural interpretations of visual elements to avoid misunderstandings."
+        #             ]
+        #             },
+        #             {
+        #             "Title": "Consult Localization Service Providers",
+        #             "Details": [
+        #                 "Provide LSP with as much information as possible.",
+        #                 "Provide a 'Do-Not-Translate (DNT)' list to avoid over or under-localization."
+        #             ]
+        #             }
+        #         ]
+        #         }
+        #     ],
+        #     "language_style": {
+        #         "tone": "natural and conversational",
+        #         "formality": "using formal 'vous' form",
+        #         "audience": "tailor vocabulary to audience (general vs technical)"
+        #         },
+        #     "translation_principles": [
+        #         "Use conversational language suited to the audience",
+        #         "Use simple words for general audiences, technical terms for professionals",
+        #         "Don't translate word-for-word, focus on natural French",
+        #         "Adapt content by merging, splitting, or removing parts as needed",
+        #         "Use short, common words over rare or long ones",
+        #         "Avoid impersonal forms like 'on', 'il faut', 'c'est'",
+        #         "Maintain consistent style and terminology",
+        #         "Use the correct object pronouns"
+        #         ],
+        #     "terminology_guidelines": {
+        #         "product_names": "Keep product names and brands in English unless legally required",
+        #         "vocabulary_choices": [
+        #             "Avoid complex words like 'invariablement', 'pléthore'",
+        #             "Use clear, precise vocabulary"
+        #             ]
+        #         },
+        #     "grammar_rules": [
+        #         "Follow French grammar, syntax, and punctuation rules precisely",
+        #         "Use proper articles, capitalization, and liaisons",
+        #         "Prefer simple tenses (present, passé composé)",
+        #         "Use French-style quotation marks « »",
+        #         "Add non-breaking spaces before punctuation marks ; ! : ?",
+        #         "Use the singular form when the quantity is 0, as it indicates the absence of items or a single object.",
+        #         "Use the plural form when referring to a group or type of item, as it indicates multiple items or a collection.",
+        #         ],
+        #     "ui_guidelines": {
+        #         "user_address": "Address the user directly using 'vous', never 'on'",
+        #         "error_messages": "Keep error messages empathetic and natural, ending with a period",
+        #         "placeholders": "Handle reserved spaces correctly (%s, %d) with proper grammar",
+        #         "keyboard_shortcuts": "Adapt key names like « Suppr », « Maj » carefully"
+        #         },
         # },
         "French": {
             "language_style": {
@@ -315,8 +689,107 @@ def get_lang_specific_translate_sys_prompt(target_lang):
     #             { "term": "Commencer à générer", "description": "Use for starting generation, not 'commencer à créer.'" },
     #             { "term": "Images", "description": "Use 'images' for pictures, not 'fichiers.'" }
     #         ]
-
-        'Spanish': {
+        "Spanish": {
+            "Steps": [
+                {
+                "Title": "Spanish Localization Core Principles and Style",
+                "Points": [
+                    {
+                    "Title": "Microsoft Voice",
+                    "Details": [
+                        "Warm and Relaxed: The tone should be natural, like a sincere conversation.",
+                        "Crisp and Clear: Expression should be direct and concise.",
+                        "Ready to Lend a Hand: Show empathy, predict customer needs, and provide helpful info."
+                    ]
+                    },
+                    {
+                    "Title": "Localization Team Guidelines",
+                    "Details": [
+                        "The team should choose vocabulary and grammar that match the original style while considering the audience and intent."
+                    ]
+                    }
+                ]
+                },
+                {
+                "Title": "Spanish Translation Specific Steps and Considerations",
+                "Points": [
+                    {
+                    "Title": "Flexibility and Rewriting",
+                    "Details": [
+                        "Modify or rewrite content to suit Spanish speakers. Understand the full intent and rewrite instead of translating word-for-word.",
+                        "Remove unnecessary content to make the text snappier.",
+                        "Avoid word-for-word translation, especially for long or complex sentences."
+                    ]
+                    },
+                    {
+                    "Title": "Word Choice and Terminology",
+                    "Details": [
+                        "Use approved Microsoft terminology, especially for key terms and product names.",
+                        "Use short, everyday words, like 'demo' for 'demostración'.",
+                        "Avoid abbreviations like 'app' or 'info' in Spanish; use the full form.",
+                        "Use synonyms for a more conversational tone in longer or informal texts."
+                    ]
+                    },
+                    {
+                    "Title": "Addressing the User Directly",
+                    "Details": [
+                        "Use first and second-person pronouns ('you') to address users, avoiding impersonal terms like 'user'.",
+                        "Use the informal second-person singular pronoun 'tú' in European Spanish.",
+                        "For second-person plural, use 'vosotros' instead of 'ustedes' (Latin American Spanish)."
+                    ]
+                    },
+                    {
+                    "Title": "Inclusive Language",
+                    "Details": [
+                        "Avoid gender bias by using neutral terms like 'personal' instead of 'empleados'.",
+                        "Avoid terms that imply pity or illness unless contextually relevant.",
+                        "Use universal verbs, avoiding device-specific actions like 'click'."
+                    ]
+                    },
+                    {
+                    "Title": "Grammar, Syntax, and Orthographic Standards",
+                    "Details": [
+                        "In Spanish, capitalize the first letter of a sentence and proper nouns, but not country adjectives.",
+                        "Always use accented capital letters unless software incompatibility prevents it.",
+                        "Keep compound words simple and clear.",
+                        "Simplify prepositional phrases and avoid word order changes from English.",
+                        "Use simple verb tenses rather than compound ones.",
+                        "Use punctuation properly: opening question/exclamation marks, commas, semicolons, and avoid excessive dashes or ellipses."
+                    ]
+                    },
+                    {
+                    "Title": "Localization Considerations",
+                    "Details": [
+                        "Retain English names for apps, products, and features, unless local law or approval requires translation.",
+                        "Error messages should sound natural and empathetic, without exclamation marks unless necessary.",
+                        "Follow guidelines for keyboard shortcuts and key names, maintaining consistency with the English original."
+                    ]
+                    },
+                    {
+                    "Title": "Cultural Insights and Market Strategy",
+                    "Details": [
+                        "Emphasize durability, efficiency, and quality, which European consumers value.",
+                        "Provide detailed product information to reduce uncertainty before purchase.",
+                        "Use direct and respectful communication, avoiding overly friendly tones."
+                    ]
+                    },
+                    {
+                    "Title": "General Software Localization Best Practices",
+                    "Details": [
+                        "Plan localization as part of the overall goal, not as a separate phase.",
+                        "Consider localization during design to reduce issues and costs, e.g., via pseudo-localization testing.",
+                        "Create an internationalization database for UI elements, multi-byte character support, and various formats.",
+                        "Keep source content concise and avoid vague expressions.",
+                        "Leave room for text expansion when translating from English to other languages.",
+                        "Use UTF-8 encoding for accurate display of all languages.",
+                        "Avoid hardcoded text or punctuation; use independent resource files.",
+                        "Provide service providers with detailed information and a 'Do-Not-Translate (DNT)' list.",
+                        "Deeply understand the local market and integrate cultural sensitivity into design and development."
+                    ]
+                    }
+                ]
+                }
+            ],
             "language_style": {
                 "tone": "natural and conversational",
                 "formality": "informal, using 'tú' and 'vosotros'",
@@ -333,34 +806,9 @@ def get_lang_specific_translate_sys_prompt(target_lang):
                 "Translate fragments into simple, natural Spanish expressions",
                 "Localize cultural idioms by meaning, not literal translation",
                 "If the word is a proper noun, special term, or function name, it is typically capitalized, as proper nouns refer to specific people, places, or organizations, special terms often represent unique concepts or terminology in a particular field, and function names are usually technical terms that define specific tools, methods, or processes within a domain."
-                # "Translate 'media' as 'contenido multimedia' when referring to digital content (not mass media)",
-                # "Use 'video' without an accent, not 'vídeo'",
-                # "Use 'Ropa gruesa' for 'Heavy Clothing' instead of 'pesada'",
-                # "Improve flow and precision for terms like 'highlights' and 'matching captions'; prefer idiomatic phrases for 'instantly' in promos",
-                # "Make translations concise and idiomatic for terms like 'Professional Headshot' (e.g., 'Retrato profesional')",
-                # "Ensure possessive pronouns and nouns are correctly translated, integrating 'GenAI' naturally",
-                # "In software/UI context, use the correct term for 'feature' (avoid 'rasgo' unless referring to human or facial features)",
                 "Rephrase messages about unsaved changes for clarity and naturalness in UI contexts"
             ],
             "terminology_guidelines": {
-                # "forbidden_replacements": [
-                #     {
-                #         "avoid": "abortar",
-                #         "use": "anular"
-                #     },
-                #     {
-                #         "avoid": "entrenamiento",
-                #         "use": "formación"
-                #     },
-                #     {
-                #         "avoid": "subtítulos acordes",
-                #         "use": "subtítulos sincronizados"
-                #     },
-                #     {
-                #         "avoid": "ardiente",
-                #         "use": "en llamas"
-                #     }
-                # ],
                 "product_names": "Keep in English, do not translate",
                 "trademarks": "Keep in English, do not translate"
             },
@@ -373,32 +821,91 @@ def get_lang_specific_translate_sys_prompt(target_lang):
                 "error_messages": "Make natural, empathetic, concise, and properly punctuated; avoid exclamation marks",
                 "keyboard_shortcuts": "Follow instructions exactly for keyboard shortcuts and key names formatting"
             },
-            "Context Analysis": [
-                "Preserve the technical, legal, and formal context by using equivalent terms that are familiar within the relevant fields, such as digital environments, legal documents, or technical settings.",
-                "The meaning of the original phrase must be accurately conveyed, whether it refers to efficiency, speed, legal clarity, photography, videography, or digital interfaces.",
-                "The translation must maintain the meaning of key elements, such as labels, headings, legal terms, and placeholders for dynamic content.",
-                "It is important to ensure that context-specific actions and permissions, like adjusting settings or managing cloud storage space, are clear and understood, with the core message staying consistent across languages and environments."
-            ],
-            "Tone Matching": [
-                "Preserve the tone of the original phrase, ensuring it remains neutral, technical, or formal, depending on the context, such as professional, legal, or instructional settings.",
-                "It must use straightforward, clear, and direct language, appropriate for user interfaces, legal documents, or technical contexts.",
-                "Both the source and target texts should be concise and maintain a formal, technical tone, ensuring consistency and clarity, especially when conveying technical limitations or errors.",
-                "The tone must remain consistently formal and technical, ensuring the original message is not altered across different contexts."
-            ],
-            "Target Audience Understanding": [
-                "Show an understanding of the target audience by using terminology that is familiar to professionals, enthusiasts, or people who know legal, photographic, or technical contexts.",
-                "It must align with standard terminology in the target language to ensure clarity and relevance, especially for those familiar with digital devices, legal terms, or technical processes.",
-                "Use universally recognized terms in formal, technical, or legal contexts, avoiding the need for cultural adaptation.",
-                "It should reflect an understanding of the audience, especially those familiar with cloud storage, user interfaces, and photography, using formal language and specific terms that meet the expectations of Spanish-speaking users."
-            ],
-            "Use of Contextual Text": [
-                "Use direct equivalents for key terms, ensuring they are consistent with the technical, legal, or photographic vocabularies of both the source and target languages.",
-                "Contextually appropriate words must be chosen to convey specific meanings accurately, integrating borrowed terms in a way that aligns with how they are understood in technical, business, legal, or photographic contexts.",
-                "Phrases should be adapted to more appropriate expressions in the target language, ensuring they are clear and easily understood by the intended audience.",
-                "Legal phrases or straightforward terms must retain their structure and capitalization, serving as labels, headings, or legal terms as intended.",
-                "Focus on precision, using direct equivalents for technical terms and avoiding idiomatic expressions or cultural references. The goal is to prioritize clarity and preserve the original meaning rather than adapting for cultural differences."
-            ],
         },
+
+        # 'Spanish': {
+        #     "language_style": {
+        #         "tone": "natural and conversational",
+        #         "formality": "informal, using 'tú' and 'vosotros'",
+        #         "region": "Spain"
+        #     },
+        #     "translation_principles": [
+        #         "Avoid literal word-for-word translations",
+        #         "Focus on conveying overall meaning and intent clearly",
+        #         "Use simple, common words and phrases",
+        #         "Prefer short, everyday vocabulary",
+        #         "Do not use English abbreviations unless a natural Spanish equivalent exists",
+        #         "Use synonyms for natural and fluid tone",
+        #         "Use primarily simple present tense",
+        #         "Translate fragments into simple, natural Spanish expressions",
+        #         "Localize cultural idioms by meaning, not literal translation",
+        #         "If the word is a proper noun, special term, or function name, it is typically capitalized, as proper nouns refer to specific people, places, or organizations, special terms often represent unique concepts or terminology in a particular field, and function names are usually technical terms that define specific tools, methods, or processes within a domain."
+        #         # "Translate 'media' as 'contenido multimedia' when referring to digital content (not mass media)",
+        #         # "Use 'video' without an accent, not 'vídeo'",
+        #         # "Use 'Ropa gruesa' for 'Heavy Clothing' instead of 'pesada'",
+        #         # "Improve flow and precision for terms like 'highlights' and 'matching captions'; prefer idiomatic phrases for 'instantly' in promos",
+        #         # "Make translations concise and idiomatic for terms like 'Professional Headshot' (e.g., 'Retrato profesional')",
+        #         # "Ensure possessive pronouns and nouns are correctly translated, integrating 'GenAI' naturally",
+        #         # "In software/UI context, use the correct term for 'feature' (avoid 'rasgo' unless referring to human or facial features)",
+        #         "Rephrase messages about unsaved changes for clarity and naturalness in UI contexts"
+        #     ],
+        #     "terminology_guidelines": {
+        #         # "forbidden_replacements": [
+        #         #     {
+        #         #         "avoid": "abortar",
+        #         #         "use": "anular"
+        #         #     },
+        #         #     {
+        #         #         "avoid": "entrenamiento",
+        #         #         "use": "formación"
+        #         #     },
+        #         #     {
+        #         #         "avoid": "subtítulos acordes",
+        #         #         "use": "subtítulos sincronizados"
+        #         #     },
+        #         #     {
+        #         #         "avoid": "ardiente",
+        #         #         "use": "en llamas"
+        #         #     }
+        #         # ],
+        #         "product_names": "Keep in English, do not translate",
+        #         "trademarks": "Keep in English, do not translate"
+        #     },
+        #     "grammar_rules": [
+        #         "Follow Spanish grammar, orthography, punctuation precisely",
+        #         "Minimize use of pronouns, especially formal ones like 'usuario'",
+        #         "Omit pronouns if context is clear"
+        #     ],
+        #     "ui_guidelines": {
+        #         "error_messages": "Make natural, empathetic, concise, and properly punctuated; avoid exclamation marks",
+        #         "keyboard_shortcuts": "Follow instructions exactly for keyboard shortcuts and key names formatting"
+        #     },
+        #     "Context Analysis": [
+        #         "Preserve the technical, legal, and formal context by using equivalent terms that are familiar within the relevant fields, such as digital environments, legal documents, or technical settings.",
+        #         "The meaning of the original phrase must be accurately conveyed, whether it refers to efficiency, speed, legal clarity, photography, videography, or digital interfaces.",
+        #         "The translation must maintain the meaning of key elements, such as labels, headings, legal terms, and placeholders for dynamic content.",
+        #         "It is important to ensure that context-specific actions and permissions, like adjusting settings or managing cloud storage space, are clear and understood, with the core message staying consistent across languages and environments."
+        #     ],
+        #     "Tone Matching": [
+        #         "Preserve the tone of the original phrase, ensuring it remains neutral, technical, or formal, depending on the context, such as professional, legal, or instructional settings.",
+        #         "It must use straightforward, clear, and direct language, appropriate for user interfaces, legal documents, or technical contexts.",
+        #         "Both the source and target texts should be concise and maintain a formal, technical tone, ensuring consistency and clarity, especially when conveying technical limitations or errors.",
+        #         "The tone must remain consistently formal and technical, ensuring the original message is not altered across different contexts."
+        #     ],
+        #     "Target Audience Understanding": [
+        #         "Show an understanding of the target audience by using terminology that is familiar to professionals, enthusiasts, or people who know legal, photographic, or technical contexts.",
+        #         "It must align with standard terminology in the target language to ensure clarity and relevance, especially for those familiar with digital devices, legal terms, or technical processes.",
+        #         "Use universally recognized terms in formal, technical, or legal contexts, avoiding the need for cultural adaptation.",
+        #         "It should reflect an understanding of the audience, especially those familiar with cloud storage, user interfaces, and photography, using formal language and specific terms that meet the expectations of Spanish-speaking users."
+        #     ],
+        #     "Use of Contextual Text": [
+        #         "Use direct equivalents for key terms, ensuring they are consistent with the technical, legal, or photographic vocabularies of both the source and target languages.",
+        #         "Contextually appropriate words must be chosen to convey specific meanings accurately, integrating borrowed terms in a way that aligns with how they are understood in technical, business, legal, or photographic contexts.",
+        #         "Phrases should be adapted to more appropriate expressions in the target language, ensuring they are clear and easily understood by the intended audience.",
+        #         "Legal phrases or straightforward terms must retain their structure and capitalization, serving as labels, headings, or legal terms as intended.",
+        #         "Focus on precision, using direct equivalents for technical terms and avoiding idiomatic expressions or cultural references. The goal is to prioritize clarity and preserve the original meaning rather than adapting for cultural differences."
+        #     ],
+        # },
         'Japanese': {
             'language_style': {
                 'tone': 'natural and conversational',
@@ -462,7 +969,125 @@ def get_lang_specific_translate_sys_prompt(target_lang):
                 ]
             }
         },
-        "Korean": {
+        "Korean":{
+            "Steps": [
+                {
+                "Title": "Core Principles and Considerations for Avoiding Literal Translation",
+                "Points": [
+                    {
+                    "Title": "Flexibility and Rewriting",
+                    "Details": [
+                        "Modify or rewrite to make the translation more natural for Korean users.",
+                        "Remove unnecessary content to make the text concise.",
+                        "Example: 'Your life, connected through the cloud' becomes '클라우드를 통해 일상 연결' (Connecting life through the cloud)."
+                    ]
+                    },
+                    {
+                    "Title": "Tone and Style",
+                    "Details": [
+                        "Microsoft's tone is 'Warm and relaxed', 'Crisp and clear', and 'Ready to lend a hand'.",
+                        "Use clear, friendly, concise language for consumer content, not formal or technical terms.",
+                        "Choose words suited to the audience: technical for technical audiences, simple for consumers.",
+                        "Make the message personal and pleasant."
+                    ]
+                    },
+                    {
+                    "Title": "Word Choice and Terminology",
+                    "Details": [
+                        "Use approved Microsoft terms.",
+                        "Avoid formal Chinese characters, use simple Korean expressions.",
+                        "For abbreviations, prefer full forms unless commonly recognized.",
+                        "Example: 'App' is 'applicazione', not '응용 프로그램'.",
+                        "Avoid common translation errors, e.g., 'This app and all info will be removed from your PC' should be '다음의 앱과 모든 정보가 PC에서 제거됩니다'."
+                    ]
+                    },
+                    {
+                    "Title": "Localizing Colloquialisms, Idioms, and Metaphors",
+                    "Details": [
+                        "Do not translate expressions literally.",
+                        "Translate the meaning, not the words.",
+                        "Use everyday words instead of formal expressions."
+                    ]
+                    }
+                ]
+                },
+                {
+                "Title": "Korean-Specific Grammar, Syntax, and Punctuation Standards",
+                "Points": [
+                    {
+                    "Title": "Addressing the User",
+                    "Details": [
+                        "Avoid gender pronouns, rephrase or omit them.",
+                        "Avoid possessives, e.g., 'his files' becomes 'files'.",
+                        "Use friendly terms like '해 줘' and '해줄래?' for Copilot prompts.",
+                        "Use '-세요' for a friendly tone (use '-십시오' in formal contexts like EULA)."
+                    ]
+                    },
+                    {
+                    "Title": "Grammar and Syntax",
+                    "Details": [
+                        "Select the correct verb endings based on context.",
+                        "Korean word order is Subject-Object-Verb (SOV), unlike English.",
+                        "Modifiers may change parts of speech for readability.",
+                        "Nouns have no gender or plural distinction. Plurals are often omitted.",
+                        "Abbreviations follow English forms; product names shouldn’t be abbreviated.",
+                        "Remove the 's' from English plurals in acronyms."
+                    ]
+                    },
+                    {
+                    "Title": "Punctuation",
+                    "Details": [
+                        "Use a period after '~하세요' or '~합니다', even if the English source uses other punctuation.",
+                        "Adjust the translation if the English source isn't a complete sentence.",
+                        "In software translations, UI terms are enclosed in square brackets '[ ]'."
+                    ]
+                    }
+                ]
+                },
+                {
+                "Title": "General Software Localization Considerations and Best Practices",
+                "Points": [
+                    {
+                    "Title": "Develop a Localization Strategy",
+                    "Details": [
+                        "Treat localization as part of the overall goal.",
+                        "Align all stakeholders early on market, language, and issues."
+                    ]
+                    },
+                    {
+                    "Title": "Design for Localization - Internationalization",
+                    "Details": [
+                        "Design with localization in mind to reduce delays and costs.",
+                        "Leave room for text expansion (at least 30-35%).",
+                        "Use UTF-8 encoding for correct display across languages.",
+                        "Avoid hardcoding text, keep it in separate resource files.",
+                        "Use pseudo-localization for testing potential UI issues."
+                    ]
+                    },
+                    {
+                    "Title": "Concise Source Content",
+                    "Details": [
+                        "Keep sentences short and clear.",
+                        "Remove idioms and abbreviations.",
+                        "Use consistent terms for the same concept."
+                    ]
+                    },
+                    {
+                    "Title": "Careful Selection of Icons and Visual Elements",
+                    "Details": [
+                        "Research cultural meanings of visual elements to avoid misunderstandings."
+                    ]
+                    },
+                    {
+                    "Title": "Consult Localization Service Providers",
+                    "Details": [
+                        "Provide the LSP with as much information as possible.",
+                        "Give a 'Do-Not-Translate (DNT)' list to avoid over or under-localization."
+                    ]
+                    }
+                ]
+                }
+            ],
             "language_style": {
                 "tone": "natural and conversational",
                 "formality": "use '-세요' endings for general content",
@@ -505,31 +1130,75 @@ def get_lang_specific_translate_sys_prompt(target_lang):
                     "For ampersand (&) shortcuts, append '&X' (e.g., '저장&S')"
                 ],
             },
-            "Context Analysis": [
-                "Using common, easily understandable terms for technical, digital, legal areas, ensuring the translation aligns with the original meaning in these fields.",
-                "It suggests preserving the structure of lists, menus, and placeholders, keeping them functional and clear.",
-                "The translation should accurately explain digital actions and functions, maintaining the technical meaning without adding unnecessary details.",
-                "It also highlights the importance of clearly communicating issues, such as cloud storage limitations, and ensuring the translation reflects key concepts like cloud services and project size.",
-            ],
-            "Tone Matching": [
-                "Using simple, clear, and direct language in translations, especially for technical, user interface, legal contexts.",
-                "It advises maintaining the same tone as the original text, whether formal or informal, and ensuring the translation is neutral, clear, and concise.",
-                "The tone should be consistent for commands, instructions, and technical documentation, without altering the formality of the original.",
-                "For technical or legal issues, the translation should remain serious and informative, while user interface commands should be straightforward and simple.",
-            ],
-            "Target Audience Understanding": [
-                "Translations to the audience's familiarity with technical terms, particularly in fields like digital interfaces, legal documents, and software.",
-                "It stresses using clear, standard technical terms that fit the user's knowledge, ensuring the translation is easy to understand for people familiar with technology and AI tools.",
-                "The translation should be adapted for Korean-speaking users, using familiar and culturally appropriate terms for both formal and informal contexts.",
-                "It also highlights the importance of clarity in technical information, especially for things like photo enhancements, software functions, and cloud services."
-            ],
-            "Use of Contextual Text": [
-                "Using clear, simple, and direct translations, especially for technical, digital, legal terms.", 
-                "It suggests avoiding extra explanations, idioms, and cultural references.",
-                "The goal is to maintain accuracy and clarity by using widely understood words and straightforward language, while preserving the original structure and technical terms.",
-                "The focus is on making translations easy to understand without adding unnecessary details or context.",
-            ]
         },
+        # "Korean": {
+        #     "language_style": {
+        #         "tone": "natural and conversational",
+        #         "formality": "use '-세요' endings for general content",
+        #         "audience": "adjust vocabulary based on the audience (general vs. technical)"
+        #         },
+        #     "translation_principles": [
+        #         "Use simple words for general consumers and technical terms for technical audiences",
+        #         "Focus on producing natural, idiomatic Korean rather than translating word-for-word",
+        #         "Rephrase sentences to sound like they were originally written in Korean",
+        #         "Avoid archaic Hanja and complex terminology",
+        #         "Use active verbs and simple, short words",
+        #         "If source text is a short sentence and start from verb, please use a polite imperative form."
+        #         ],
+        #     "grammar_rules": [
+        #         "Use '~하고 있습니다' or '~하는 중' to indicate ongoing actions",
+        #         "Match tenses to the source text, defaulting to simple present when appropriate",
+        #         "End sentences with '~하세요' or '~합니다' and use a period",
+        #         "Preserve punctuation from the source text in non-full sentences"
+        #         ],
+        #     "ui_guidelines": {
+        #         "acronyms": [
+        #             "Format acronyms as 'ABC (full spelling)'",
+        #             "Use Korean full spelling for acronyms commonly used in Korean, otherwise use English",
+        #             "Keep acronyms in uppercase and drop plural 's' when needed",
+        #             "Follow English conventions for English abbreviations",
+        #             "Use Korean abbreviations for weekdays and English for months/days"
+        #         ],
+        #         "ui_elements": "Enclose UI terms in square brackets [ ] and preserve double quotes for quoted strings",
+        #         "placeholders": [
+        #             "For numbered placeholders (%1, %2), reorder them as needed to match natural sentence flow",
+        #             "For non-numbered placeholders (%s), it is a noun phrase, keep it as original",
+        #             "For numeric placeholders (%d), use the correct Korean numeral form",
+        #             "Attach measurement units directly after numeric placeholders (%d) without a space",
+        #             "Add appropriate postpositions (은(는), 이(가), 을(를), 과(와), (으)로) after placeholders"
+        #         ],
+        #         "keyboard_shortcuts": [
+        #             "Add '키' after single key names (e.g., Shift, Ctrl, Alt, Enter)",
+        #             "Wrap key names in angle brackets (<Shift 키>)",
+        #             "Avoid using angle brackets in manuals or help text",
+        #             "For ampersand (&) shortcuts, append '&X' (e.g., '저장&S')"
+        #         ],
+        #     },
+        #     "Context Analysis": [
+        #         "Using common, easily understandable terms for technical, digital, legal areas, ensuring the translation aligns with the original meaning in these fields.",
+        #         "It suggests preserving the structure of lists, menus, and placeholders, keeping them functional and clear.",
+        #         "The translation should accurately explain digital actions and functions, maintaining the technical meaning without adding unnecessary details.",
+        #         "It also highlights the importance of clearly communicating issues, such as cloud storage limitations, and ensuring the translation reflects key concepts like cloud services and project size.",
+        #     ],
+        #     "Tone Matching": [
+        #         "Using simple, clear, and direct language in translations, especially for technical, user interface, legal contexts.",
+        #         "It advises maintaining the same tone as the original text, whether formal or informal, and ensuring the translation is neutral, clear, and concise.",
+        #         "The tone should be consistent for commands, instructions, and technical documentation, without altering the formality of the original.",
+        #         "For technical or legal issues, the translation should remain serious and informative, while user interface commands should be straightforward and simple.",
+        #     ],
+        #     "Target Audience Understanding": [
+        #         "Translations to the audience's familiarity with technical terms, particularly in fields like digital interfaces, legal documents, and software.",
+        #         "It stresses using clear, standard technical terms that fit the user's knowledge, ensuring the translation is easy to understand for people familiar with technology and AI tools.",
+        #         "The translation should be adapted for Korean-speaking users, using familiar and culturally appropriate terms for both formal and informal contexts.",
+        #         "It also highlights the importance of clarity in technical information, especially for things like photo enhancements, software functions, and cloud services."
+        #     ],
+        #     "Use of Contextual Text": [
+        #         "Using clear, simple, and direct translations, especially for technical, digital, legal terms.", 
+        #         "It suggests avoiding extra explanations, idioms, and cultural references.",
+        #         "The goal is to maintain accuracy and clarity by using widely understood words and straightforward language, while preserving the original structure and technical terms.",
+        #         "The focus is on making translations easy to understand without adding unnecessary details or context.",
+        #     ]
+        # },
         # "Korean": {
         #     "language_style": {
         #         "tone": "natural and conversational",
@@ -595,10 +1264,127 @@ def get_lang_specific_translate_sys_prompt(target_lang):
         #     }
         # },
         "Italian": {
+            "Steps": [
+                {
+                "Title": "Core Principles and Considerations for Avoiding Literal Translation",
+                "Points": [
+                    {
+                    "Title": "Flexibility and Rewriting",
+                    "Details": [
+                        "Rewrite content to suit Italian users and ensure clarity.",
+                        "Remove unnecessary content to make the text concise.",
+                        "Example: 'Apps, front and center' becomes 'App in primo piano'; 'The next chapter' becomes 'Il futuro di Windows'."
+                    ]
+                    },
+                    {
+                    "Title": "Tone and Style",
+                    "Details": [
+                        "Microsoft’s tone is 'Warm and relaxed', 'Crisp and clear', and 'Ready to lend a hand'.",
+                        "Use clear, friendly, and concise language for consumer content, avoiding formal or technical terms.",
+                        "Choose vocabulary appropriate for the audience: technical terms for technical audiences, common words for consumers."
+                    ]
+                    },
+                    {
+                    "Title": "Word Choice and Terminology",
+                    "Details": [
+                        "Use approved Microsoft terminology.",
+                        "For abbreviations, Italian prefers full forms unless widely recognized.",
+                        "'App' is 'applicazione', 'info' is 'informazioni', 'PC' is 'PC', 'sync' is 'synchroniser'.",
+                        "Avoid formal terms like 'fare riferimento a', use 'vedere'.",
+                        "Use synonyms to avoid repetition, e.g., 'usare' or 'utilizzare' for 'use'."
+                    ]
+                    },
+                    {
+                    "Title": "Localizing Colloquialisms, Idioms, and Metaphors",
+                    "Details": [
+                        "Translate the meaning, not the literal expression.",
+                        "Omit or rephrase if it doesn’t affect the meaning.",
+                        "Example: 'We’ve hit a snag.' becomes 'Abbiamo incontrato un problema.'"
+                    ]
+                    }
+                ]
+                },
+                {
+                "Title": "Italian-Specific Grammar, Syntax, and Orthographic Standards",
+                "Points": [
+                    {
+                    "Title": "Addressing the User",
+                    "Details": [
+                        "Use 'tu' for a friendly, personalized tone.",
+                        "Use 'we' (noi) for program or wizard messages.",
+                        "Avoid third-person 'user'."
+                    ]
+                    },
+                    {
+                    "Title": "Grammar and Syntax",
+                    "Details": [
+                        "Italian uses articles more often than English.",
+                        "Translated product and feature names may require articles.",
+                        "Use adjectives after nouns, with gender and number agreement.",
+                        "For inclusivity, use gender-neutral alternatives when possible.",
+                        "Avoid overusing possessive adjectives; prefer definite articles.",
+                        "Use simple verbs, avoiding complex tenses like past subjunctive."
+                    ]
+                    },
+                    {
+                    "Title": "Punctuation",
+                    "Details": [
+                        "Avoid semicolons; use commas for clarity.",
+                        "Use ellipses '…' with proper spacing.",
+                        "End complete sentences with periods.",
+                        "Use Italian-style quotation marks '« »', with punctuation outside."
+                    ]
+                    }
+                ]
+                },
+                {
+                "Title": "General Software Localization Considerations and Best Practices",
+                "Points": [
+                    {
+                    "Title": "Develop a Localization Strategy",
+                    "Details": [
+                        "Treat localization as part of the overall goal.",
+                        "Align all stakeholders on the market, language, and potential issues early."
+                    ]
+                    },
+                    {
+                    "Title": "Design for Localization - Internationalization",
+                    "Details": [
+                        "Design with localization in mind to avoid delays and extra costs.",
+                        "Leave room for text expansion (at least 30-35%).",
+                        "Use UTF-8 encoding for correct display across languages.",
+                        "Avoid hardcoding text; keep translatable content separate.",
+                        "Use pseudo-localization for testing potential issues."
+                    ]
+                    },
+                    {
+                    "Title": "Concise Source Content",
+                    "Details": [
+                        "Keep sentences brief and clear.",
+                        "Remove idioms and abbreviations.",
+                        "Use consistent terms for the same concept."
+                    ]
+                    },
+                    {
+                    "Title": "Careful Selection of Icons and Visual Elements",
+                    "Details": [
+                        "Research cultural meanings of visual elements to avoid misunderstandings."
+                    ]
+                    },
+                    {
+                    "Title": "Consult Localization Service Providers",
+                    "Details": [
+                        "Provide the LSP with as much information as possible.",
+                        "Provide a 'Do-Not-Translate (DNT)' list to avoid over or under-localization."
+                    ]
+                    }
+                ]
+                }
+            ],
             "language_style": {
-                "tone": "informal and friendly",
+                # "tone": "informal and friendly",
                 "formality": "use 'tu' and 'voi' forms",
-                "naturalness": "focus on natural flow, not literal translation"
+                # "naturalness": "focus on natural flow, not literal translation"
             },
             "translation_principles": [
                 "Avoid word-for-word translations that sound weird",
@@ -606,54 +1392,10 @@ def get_lang_specific_translate_sys_prompt(target_lang):
                 "Use short, simple, common Italian words",
                 "It's okay to use sentence fragments sometimes, but not too much",
                 "Avoid very formal, technical, or rare words",
-                # "Translate phrases like 'stored on the cloud' and 'local storage' naturally",
-                # "Replace '&' with 'e' (and)",
-                # "Use a neutral subject ('i video generati') instead of 'tuoi video generati'",
-                # "Prefer 'salvare' over 'archiviare'",
-                # "Use 'cloud' rather than 'server cloud'",
-                # "Use 'disco fisso' instead of 'memoria locale'",
-                # "Frame download suggestion in imperative form: 'Ti consigliamo di scaricare sul tuo disco fisso quelli che vuoi salvare'",
-                # "Prefer 'celeste infuocata' over 'celestiale infuocata' when describing the goddess",
-                # "Place the adjective 'eterea' before 'regina oceanica' to mirror the desired rhythm",
-                # "Use 'fino alle profondità di' instead of 'nelle profondità di' to emphasize extension of the journey",
-                # "***Additional English notes to force specific structures***",
-                # "- Use 'salvare' instead of 'archiviare' so the output reads 'saranno salvati' rather than 'saranno archiviati'.",
-                # "- Replace 'server cloud' with 'cloud' so it reads 'saranno salvati nella cloud'.",
-                # "- Replace 'memoria locale' with 'disco fisso' so it reads 'sul tuo disco fisso'.",
-                # "- Use 'quelli che vuoi salvare' instead of 'quelli che desideri conservare' for a more direct, informal suggestion.",
-                # "- For media-import messages, always append 'in corso' after 'Importazione dei file multimediali' and use the single-character ellipsis '…' so it reads exactly: 'Importazione dei file multimediali in corso…'",
-                # "***Prefer the following stylistic choices to match the second sentence versions***",
-                # "- Use 'sorprendenti e artistiche' instead of 'straordinarie' when describing images with rich details.",
-                # "- Use the inclusive or neutral pronoun form 'te stessə' rather than 'te stesso' or 'te stessa'.",
-                # "- Prefer 'È richiesto' over 'È necessario' when stating requirements for visible faces.",
-                # "- Use the more concise and informal phrasing such as 'somiglianza volto' and 'stile ad hoc' instead of the more formal 'somiglianza del volto' and 'stile personalizzato'.",
-                # "- Prefer adjective order 'uno stile nuovo' instead of 'un nuovo stile'.",
             ],
             "terminology_guidelines": {
                 "product_names": "Keep in English unless there is a common Italian name",
                 "loanwords": "Use common Italian loanwords used in the field",
-                # "examples": [
-                #     {"english": "Motion Tracking", "italian": "Tracking di Movimento", "avoid": "Inseguitore movimento"},
-                #     {"english": "Script", "italian": "Testo", "context": "UI", "avoid": "Sceneggiatura"},
-                #     {"english": "Key Highlights", "italian": "Caratteristiche Chiave", "avoid": "Punti Salienti"},
-                #     {"english": "media", "italian": "Contenuti", "context": "digital content", "avoid": "Media"},
-                #     {"english": "outline", "italian": "linee generali", "context": "image generation", "avoid": "contorno"},
-                #     {"english": "outline reference", "italian": "linee generali di riferimento"},
-                #     {"english": "face/pose", "italian": "volto/viso"},
-                #     {"english": "download", "italian": "download", "context": "noun"},
-                #     {"english": "download", "italian": "scarica", "context": "verb"},
-                #     {"english": "trimmed", "italian": "accorciata", "context": "video clip"},
-                #     {"english": "delete the task", "italian": "annulla l'operazione"},
-                #     {"english": "task", "italian": "operazione", "context": "software UI and workflow"},
-                #     {"english": "sound", "italian": "suoni"},
-                #     {"english": "AI", "italian": "l'AI"},
-                #     {"english": "celestial goddess", "italian": "dea celeste"},
-                #     {"english": "fiery", "italian": "infuocata"},
-                #     {"english": "ethereal", "italian": "eterea"},
-                #     {"english": "ocean queen", "italian": "regina oceanica"},
-                #     {"english": "enchanted underwater realm", "italian": "regno sottomarino incantato"},
-                #     {"english": "descend from the sky into the depths", "italian": "scendere dal cielo fino alle profondità"}
-                # ]
             },
             "grammar_rules": [
                 "Follow Italian grammar rules carefully",
@@ -663,11 +1405,6 @@ def get_lang_specific_translate_sys_prompt(target_lang):
                 "Put adjectives after nouns (except where overridden by translation_principles)",
                 "Avoid unnecessary 'di'",
                 "Use singular/plural as sounds natural",
-                # "For 'task' assume '%s' means 'regola' (rule), match gender/number",
-                # "Use 'l'' before 'AI' (dall'AI)",
-                # "Say 'è inferiore a' for 'less than' and 'di almeno' for 'larger than' in minimum resolution",
-                # "Translate 'face and pose references are used' as 'volto sia posa di riferimento'",
-                # "Use plural 'suoni' for 'sound' and always include article for 'AI' ('l'AI')"
             ],
             "ui_guidelines": {
                 "consistency": "Use same terms everywhere",
@@ -677,39 +1414,74 @@ def get_lang_specific_translate_sys_prompt(target_lang):
                 "capitalization": "Use Italian capitalization rules – lowercase common nouns/adjectives except at sentence start or official names",
                 "example_translation": "Translate 'Drag the clips to arrange their order for your video' naturally, e.g. 'stabilirne l'ordine nel tuo video'"
             },
-            "Context Analysis": [
-                "The translation keeps the meaning clear across different areas like technical, legal, formal, educational, and social media.",
-                "It makes sure the meaning stays the same by adjusting the word order to fit the target language while keeping the original message intact.",
-                "The translation considers things like digital interfaces, software settings, user actions, legal permissions, troubleshooting, and social media.",
-                "The right words are chosen to match what people in technical, business, and software fields understand, making the meaning clear.",
-                "The translation correctly explains technical commands, file access, editing instructions, and user agreements.",
-                "It makes sure the original meaning of visual elements and the function of tools stays the same, so the translation fits the original context."
-            ],
-            "Tone Matching": [
-                "The translation keeps a consistent tone in different settings like technical and formal.",
-                "It stays neutral and clear for easy understanding.",
-                "It works for user interfaces, tutorials, legal texts, and social media.",
-                "The tone is formal for legal texts and simple for technical content.",
-                "The tone stays the same in both languages, ensuring no change in meaning.",
-                "Remains neutral, professional, and clear."
-            ],
-            "Target Audience Understanding": [
-                "The translation shows understanding of the target audience, such as professionals in tech, legal, and digital fields.",
-                "It uses familiar terms for users in tech, legal, software, or image editing fields.",
-                "Cultural differences are considered to ensure the meaning is clear in the target language.",
-                "The translation uses simple terms that users with tech knowledge can easily understand.",
-                "It ensures the content is clear and accurate for users with basic to advanced knowledge of technology, photography, or software."
-            ],
-            "Use of Contextual Text": [
-                "The translation uses clear, direct technical terms that are understood in all languages.",
-                "It avoids idioms or cultural references, keeping the style straightforward and technical.",
-                "The translation adjusts terms to fit the context of digital devices, legal settings, and technical functions.",
-                "In legal contexts, it ensures clarity and follows standard rules, keeping the tone serious.",
-                "Words are clear and precise, making it easy for Italian-speaking users to understand.",
-                "The translation follows Italian grammar rules, adjusting word order for clarity while keeping the technical meaning.",
-                "It shows an understanding of the audience's familiarity with technical terms and expectations."
-            ],
         },
+        # "Italian": {
+        #     "language_style": {
+        #         "tone": "informal and friendly",
+        #         "formality": "use 'tu' and 'voi' forms",
+        #         "naturalness": "focus on natural flow, not literal translation"
+        #     },
+        #     "translation_principles": [
+        #         "Avoid word-for-word translations that sound weird",
+        #         "Focus on meaning and natural Italian phrases",
+        #         "Use short, simple, common Italian words",
+        #         "It's okay to use sentence fragments sometimes, but not too much",
+        #         "Avoid very formal, technical, or rare words",
+        #     ],
+        #     "terminology_guidelines": {
+        #         "product_names": "Keep in English unless there is a common Italian name",
+        #         "loanwords": "Use common Italian loanwords used in the field",
+        #     },
+        #     "grammar_rules": [
+        #         "Follow Italian grammar rules carefully",
+        #         "Use correct articles, gender, plurals, prepositions, and pronouns",
+        #         "Use natural sentence order and punctuation",
+        #         "Prefer present tense and simple verbs",
+        #         "Put adjectives after nouns (except where overridden by translation_principles)",
+        #         "Avoid unnecessary 'di'",
+        #         "Use singular/plural as sounds natural",
+        #     ],
+        #     "ui_guidelines": {
+        #         "consistency": "Use same terms everywhere",
+        #         "messages": "Make messages clear, friendly, and kind",
+        #         "error_format": "Format errors as '[ProductName]: [message]' when needed",
+        #         "placeholders": "Keep placeholders (%s, %d, %@) and adjust grammar naturally",
+        #         "capitalization": "Use Italian capitalization rules – lowercase common nouns/adjectives except at sentence start or official names",
+        #         "example_translation": "Translate 'Drag the clips to arrange their order for your video' naturally, e.g. 'stabilirne l'ordine nel tuo video'"
+        #     },
+        #     "Context Analysis": [
+        #         "The translation keeps the meaning clear across different areas like technical, legal, formal, educational, and social media.",
+        #         "It makes sure the meaning stays the same by adjusting the word order to fit the target language while keeping the original message intact.",
+        #         "The translation considers things like digital interfaces, software settings, user actions, legal permissions, troubleshooting, and social media.",
+        #         "The right words are chosen to match what people in technical, business, and software fields understand, making the meaning clear.",
+        #         "The translation correctly explains technical commands, file access, editing instructions, and user agreements.",
+        #         "It makes sure the original meaning of visual elements and the function of tools stays the same, so the translation fits the original context."
+        #     ],
+        #     "Tone Matching": [
+        #         "The translation keeps a consistent tone in different settings like technical and formal.",
+        #         "It stays neutral and clear for easy understanding.",
+        #         "It works for user interfaces, tutorials, legal texts, and social media.",
+        #         "The tone is formal for legal texts and simple for technical content.",
+        #         "The tone stays the same in both languages, ensuring no change in meaning.",
+        #         "Remains neutral, professional, and clear."
+        #     ],
+        #     "Target Audience Understanding": [
+        #         "The translation shows understanding of the target audience, such as professionals in tech, legal, and digital fields.",
+        #         "It uses familiar terms for users in tech, legal, software, or image editing fields.",
+        #         "Cultural differences are considered to ensure the meaning is clear in the target language.",
+        #         "The translation uses simple terms that users with tech knowledge can easily understand.",
+        #         "It ensures the content is clear and accurate for users with basic to advanced knowledge of technology, photography, or software."
+        #     ],
+        #     "Use of Contextual Text": [
+        #         "The translation uses clear, direct technical terms that are understood in all languages.",
+        #         "It avoids idioms or cultural references, keeping the style straightforward and technical.",
+        #         "The translation adjusts terms to fit the context of digital devices, legal settings, and technical functions.",
+        #         "In legal contexts, it ensures clarity and follows standard rules, keeping the tone serious.",
+        #         "Words are clear and precise, making it easy for Italian-speaking users to understand.",
+        #         "The translation follows Italian grammar rules, adjusting word order for clarity while keeping the technical meaning.",
+        #         "It shows an understanding of the audience's familiarity with technical terms and expectations."
+        #     ],
+        # },
         'Dutch': {
             'language_style': {},
             'translation_principles': [],

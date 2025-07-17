@@ -35,11 +35,11 @@ SOFTWARE_TYPE_MAP = {
     'PHD': 'Image Editing Software',
 }
 
-TRANSLATE_MODEL = 'gpt-4o'
-# TRANSLATE_MODEL = 'o3-2025-04-16'
+# TRANSLATE_MODEL = 'gpt-4o'
+TRANSLATE_MODEL = 'o3-2025-04-16'
 # COMPARISON_MODEL = ['gpt-4o', 'gemini-pro-vision']  # Models used for translation and comparison
 
-COMPARISON_MODEL = ['gpt-4o', 'gemini-2.0-flash']
+COMPARISON_MODEL = ['o3-2025-04-16', 'gemini-2.0-flash']
 
 # COMPARISON_MODEL = ['gpt-4o']
 N_INPUT_TOKEN = 4096 * 0.4

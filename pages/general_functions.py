@@ -252,11 +252,12 @@ def get_relevant_region_table(region_table, source_text):
                 if all(item.lower() in source_text.lower() for item in source_term_list):
                     relevant_mapping_table[source_term] = target_term
  
-            if source_term_special and " ... " in source_term_special:
-                source_term_list = source_term_special.split(" ... ") if " ... " in source_term_special else source_term_special.split(" … ")
-                # if all items in source_term_list are in source_text, add the whole source_term_special
-                if all(item.lower() in source_text.lower() for item in source_term_list):
-                    relevant_mapping_table[source_term_special] = target_term
+            if source_term_special:
+                if " ... " in source_term_special or " … " in source_term_special:
+                    source_term_list = source_term_special.split(" ... ") if " ... " in source_term_special else source_term_special.split(" … ")
+                    # if all items in source_term_list are in source_text, add the whole source_term_special
+                    if all(item.lower() in source_text.lower() for item in source_term_list):
+                        relevant_mapping_table[source_term_special] = target_term
 
     if relevant_mapping_table:
         print(f"Source text '{source_text}'': Found {len(relevant_mapping_table)} relevant region table")
@@ -294,16 +295,26 @@ def get_relevant_refer_text_from_image_table(refer_text_table, source_text):
     :param source_text: Source text content
     :return: Dictionary of relevant refer text of image entries
     """
-    print(f"the table is {refer_text_table}")
+    # print(f"the table is {refer_text_table}")
 
     index_refer_image_col = 1
     image_files = list()
     relevant_refer_text_from_image_table = {}
     if refer_text_table:
         for source_term, target_term in refer_text_table.items():
-            print(f"Source term: {source_term}, Target term: {target_term}")
-            if source_term.lower() == source_text.lower() and (target_term[index_refer_image_col] or target_term[index_refer_image_col] != 'nan'):
+            # print(f"Source term: {source_term}, Target term: {target_term}")
+            if source_term.lower() == source_text.lower() and\
+                (target_term[index_refer_image_col] != 'nan' and target_term[index_refer_image_col] != ''):
+                #   (target_term[index_refer_image_col] or target_term[index_refer_image_col] != 'nan'):
                 image_files = target_term[index_refer_image_col].split('\n')
+
+    #  Check if image_files is existed
+    if image_files:
+        for image in image_files:
+            if not os.path.exists(image):
+                #  remove image from image_files if it does not exist
+                print(f"Warning: Image file '{image}' does not exist. It will be removed from the list.")
+                image_files.remove(image)
 
     # get reference text from image by calling ChatGPT
     if image_files:

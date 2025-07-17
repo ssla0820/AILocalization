@@ -12,12 +12,14 @@ class ReviewPrompts:
         self.software_type = software_type
         self.source_type = source_type
         self.language_review_guidance = self.get_language_review_guidance()
-        self.sys_prompt_accuracy = self.review_sys_prompt_accuracy()
-        self.sys_prompt_native = self.review_sys_prompt_native()
-        self.sys_prompt_word = self.review_sys_prompt_word()
-        self.sys_prompt_grammar = self.review_sys_prompt_grammar()
-        self.sys_prompt_consistency = self.review_sys_prompt_consistency()
-        self.sys_prompt_gender = self.review_sys_prompt_gender()
+        self.sys_prompt = self.review_sys_prompt()
+        
+        # self.sys_prompt_accuracy = self.review_sys_prompt_accuracy()
+        # self.sys_prompt_native = self.review_sys_prompt_native()
+        # self.sys_prompt_word = self.review_sys_prompt_word()
+        # self.sys_prompt_grammar = self.review_sys_prompt_grammar()
+        # self.sys_prompt_consistency = self.review_sys_prompt_consistency()
+        # self.sys_prompt_gender = self.review_sys_prompt_gender()
 
         #  should be replaced with actual translation and specific names when calling the review prompts
         self.source_text = source_text
@@ -101,13 +103,6 @@ class ReviewPrompts:
             },       
             "language_style": self.language_review_guidance.get('language_style', []),
             "specific_type_instructions": specific_type_instruction if 'specific_type_instruction' in locals() else [],
-            "image_review_guidelines": [
-                "Validate terminology accuracy using interface screenshots",
-                "Verify UI element references match visual elements",
-                "Ensure directional descriptions align with visual layout",
-                "Check workflow descriptions against visual process",
-                "Confirm translation clarity for interactive elements"
-            ],
         }
 
         return system_prompt
@@ -195,318 +190,53 @@ class ReviewPrompts:
 
         return review_prompt
     
-    def review_sys_prompt_accuracy(self):
-        '''
-        Enhanced version of the review system prompt with stricter JSON formatting requirements.
-        
-        :param software_type: Type of software being localized
-        :param source_lang: Source language (e.g., 'English')
-        :param target_lang: Target language (e.g., 'Traditional Chinese')
-        :return: Formatted system prompt string in JSON format
-        '''
+    def review_sys_prompt(self):
+
         import json
 
         # print('='*40)
         # print(language_review_guidance)
         # print('='*40)
         system_prompt = self.default_sys_prompt()
-        system_prompt["evaluation_criteria"] = [
+        system_prompt["evaluation_criteria"] = {}
+        system_prompt["evaluation_criteria"]["accuracy"] = [
                 "If the translation conveys the same meaning as the original text, score it higher.",
                 "If the translation does not match the original text, score it lower.",
                 "Other Rules: ",
             ] + [f"  {rule}" for rule in self.language_review_guidance.get('Accuracy', [])],          
-        
-        system_prompt["json_response_example"] = {
-                "Score": 9.5, 
-                "Suggestions": ["incorrect term 1 with reason and suggestion", "incorrect term 2 with reason and suggestion"],
-            }
 
-        # Convert to JSON string
-        return json.dumps(system_prompt, ensure_ascii=False, indent=2)
 
-    def review_prompt_accuracy(self):
-        '''
-        Enhanced version of the review prompt with stricter JSON formatting requirements.
-        
-        :param source_text: Source text in the source language
-        :param translation: Translated text in the target language
-        :param specific_names: Dictionary of specific names and their translations
-        :param source_lang: Source language (e.g., 'English')
-        :param target_lang: Target language (e.g., 'Traditional Chinese')
-        :return: Formatted review prompt string in JSON format
-        '''
-
-        review_prompt = self.default_review_prompt()
-        review_prompt["required_output_format"]["example_response"] = {
-                    "Score": 9.5, 
-                    "Suggestions": ["incorrect term 1 with reason and suggestion", "incorrect term 2 with reason and suggestion"],
-                }
-        review_prompt["required_output_format"]["format"] = {
-                "Score": "Float (Score from 0 to 10, where 0 means no accuracy and 10 means perfect accuracy)",
-                "Suggestions":[
-                    "a list of ERROR WORDS or PHRASES ONLY if 'Accuracy Score' less than 10.0 else None",
-                    # "Must be a list of strings (e.g., [\"word1\", \"word2\"]), not a single string.",
-                    "If score is less than 10.0, the list MUST NOT be empty or None.",
-                    "Response the incorrect phrases or words that cause the accuracy score to be less than 10.0.",
-                    "Response the incorrect pharases and words, reasons, and suggestions to improve the translation accuracy.",
-                ]
-            }
-        
-        # Convert to JSON string
-        import json
-        return json.dumps(review_prompt, ensure_ascii=False, indent=2)
-
-    def review_sys_prompt_native(self):
-        '''
-        Enhanced version of the review system prompt with stricter JSON formatting requirements.
-        
-        :param software_type: Type of software being localized
-        :param source_lang: Source language (e.g., 'English')
-        :param target_lang: Target language (e.g., 'Traditional Chinese')
-        :return: Formatted system prompt string in JSON format
-        '''
-        import json
-
-        system_prompt = self.default_sys_prompt()
-        system_prompt["evaluation_criteria"] = [
+        system_prompt["evaluation_criteria"]["native"] = [
                         "If the sentence structure, word choice, and word order sound natural and like how a native speaker would say it, score it higher.",
                         "If the words used are in 'eavaluation_guidelines', 'specific_term_translations' or 'translation_references', score it higher.",
                         "If the translation sounds awkward or unnatural, score it lower.",
                         "Other Rules: ",
                     ] + [f"  {rule}" for rule in self.language_review_guidance.get('Native Usage', [])]       
         
-        system_prompt["json_response_example"] = {
-                "Score": 8.5, 
-                "Suggestions": ["incorrect term 1 with reason and suggestion", "incorrect term 2 with reason and suggestion"],
-            }
 
-        # Convert to JSON string
-        return json.dumps(system_prompt, ensure_ascii=False, indent=2)
-
-    def review_prompt_native(self):
-        '''
-        Enhanced version of the review prompt with stricter JSON formatting requirements.
-        
-        :param source_text: Source text in the source language
-        :param translation: Translated text in the target language
-        :param specific_names: Dictionary of specific names and their translations
-        :param source_lang: Source language (e.g., 'English')
-        :param target_lang: Target language (e.g., 'Traditional Chinese')
-        :return: Formatted review prompt string in JSON format
-        '''
-
-        review_prompt = self.default_review_prompt()
-        review_prompt["required_output_format"]["example_response"] = {
-                    "Score": 8.5, 
-                    "Suggestions": ["incorrect term 1 with reason and suggestion", "incorrect term 2 with reason and suggestion"],
-                }
-        review_prompt["required_output_format"]["format"] = {
-                "Score": "Float (Score from 0 to 10, where 0 means no native usage and 10 means perfect native usage)",
-                "Suggestions":[
-                    "a list of ERROR WORDS or PHRASES ONLY if 'Native Usage Score' less than 10.0 else None",
-                    # "Must be a list of strings (e.g., [\"word1\", \"word2\"]), not a single string.",
-                    "If score is less than 10.0, the list MUST NOT be empty or None.",
-                    "Response the incorrect phrases or words that cause the accuracy score to be less than 10.0.",
-                    "Response the incorrect pharases and words, reasons, and suggestions to improve the translation accuracy.",
-                ]
-            }
-        
-        # Convert to JSON string
-        import json
-        return json.dumps(review_prompt, ensure_ascii=False, indent=2)
-
-    def review_sys_prompt_word(self):
-        '''
-        Enhanced version of the review system prompt with stricter JSON formatting requirements.
-        
-        :param software_type: Type of software being localized
-        :param source_lang: Source language (e.g., 'English')
-        :param target_lang: Target language (e.g., 'Traditional Chinese')
-        :return: Formatted system prompt string in JSON format
-        '''
-        import json
-
-        system_prompt = self.default_sys_prompt()
-        system_prompt["evaluation_criteria"] = [
+        system_prompt["evaluation_criteria"]["word"] = [
                         "If the translation uses the correct words and terminology, score it higher.",
                         "If the words used are in 'evaluation_guidelines', 'specific_term_translations' or 'translation_references', score it higher.",
                         "If the translation uses incorrect or inappropriate words, score it lower.",
                         "Other Rules: ",
                     ] + [f"  {rule}" for rule in self.language_review_guidance.get('Word Correctness', [])]    
         
-        system_prompt["json_response_example"] = {
-                "Score": 9.0, 
-                "Suggestions": ["incorrect term 1 with reason and suggestion", "incorrect term 2 with reason and suggestion"],
-            }
-
-        # Convert to JSON string
-        return json.dumps(system_prompt, ensure_ascii=False, indent=2)
-
-    def review_prompt_word(self):
-        '''
-        Enhanced version of the review prompt with stricter JSON formatting requirements.
-        
-        :param source_text: Source text in the source language
-        :param translation: Translated text in the target language
-        :param specific_names: Dictionary of specific names and their translations
-        :param source_lang: Source language (e.g., 'English')
-        :param target_lang: Target language (e.g., 'Traditional Chinese')
-        :return: Formatted review prompt string in JSON format
-        '''
-
-        review_prompt = self.default_review_prompt()
-        review_prompt["required_output_format"]["example_response"] = {
-                    "Score": 9.0, 
-                    "Suggestions": ["incorrect term 1 with reason and suggestion", "incorrect term 2 with reason and suggestion"],
-                }
-        review_prompt["required_output_format"]["format"] = {
-                "Score": "Float (Score from 0 to 10, where 0 means no word correctness and 10 means perfect word correctness)",
-                "Suggestions":[
-                    "a list of ERROR WORDS or PHRASES ONLY if 'Word Correctness Score' less than 10.0 else None",
-                    # "Must be a list of strings (e.g., [\"word1\", \"word2\"]), not a single string.",
-                    "If score is less than 10.0, the list MUST NOT be empty or None.",
-                    "Response the incorrect phrases or words that cause the accuracy score to be less than 10.0.",
-                    "Response the incorrect pharases and words, reasons, and suggestions to improve the translation accuracy.",
-                ]
-            }
-        
-        # Convert to JSON string
-        import json
-        return json.dumps(review_prompt, ensure_ascii=False, indent=2)
-
-    def review_sys_prompt_grammar(self):
-        '''
-        Enhanced version of the review system prompt with stricter JSON formatting requirements.
-        
-        :param software_type: Type of software being localized
-        :param source_lang: Source language (e.g., 'English')
-        :param target_lang: Target language (e.g., 'Traditional Chinese')
-        :return: Formatted system prompt string in JSON format
-        '''
-        import json
-
-        system_prompt = self.default_sys_prompt()
-        system_prompt["evaluation_criteria"] = [
+        system_prompt["evaluation_criteria"]["grammar"]= [
                     "If the translation uses correct grammar and sentence structure, score it higher.",
                     "If the sentences are in 'evaluation_guidelines', 'specific_term_translations' or 'translation_references', score it higher.",
                     "If the translation uses incorrect grammar or sentence structure, score it lower.",
                     "Other Rules: ",
                     ] + [f"  {rule}" for rule in self.language_review_guidance.get('Sentence Structure', [])]  
         
-        system_prompt["json_response_example"] = {
-                "Score": 9.0, 
-                "Suggestions": ["incorrect term 1 with reason and suggestion", "incorrect term 2 with reason and suggestion"],
-            }
-
-        # Convert to JSON string
-        return json.dumps(system_prompt, ensure_ascii=False, indent=2)
-
-    def review_prompt_grammar(self):
-        '''
-        Enhanced version of the review prompt with stricter JSON formatting requirements.
-        
-        :param source_text: Source text in the source language
-        :param translation: Translated text in the target language
-        :param specific_names: Dictionary of specific names and their translations
-        :param source_lang: Source language (e.g., 'English')
-        :param target_lang: Target language (e.g., 'Traditional Chinese')
-        :return: Formatted review prompt string in JSON format
-        '''
-
-        review_prompt = self.default_review_prompt()
-        review_prompt["required_output_format"]["example_response"] = {
-                    "Score": 9.0, 
-                    "Suggestions": ["incorrect term 1 with reason and suggestion", "incorrect term 2 with reason and suggestion"],
-                }
-        review_prompt["required_output_format"]["format"] = {
-                "Score": "Float (Score from 0 to 10, where 0 means no sentence structure and 10 means perfect sentence structure)",
-                "Suggestions": [
-                    "a list of ERROR WORDS or PHRASES ONLY if 'Sentence Structure Score' less than 10.0 else None",
-                    # "Must be a list of strings (e.g., [\"word1\", \"word2\"]), not a single string.",
-                    "If score is less than 10.0, the list MUST NOT be empty or None.",
-                    "Response the incorrect phrases or words that cause the accuracy score to be less than 10.0.",
-                    "Response the incorrect pharases and words, reasons, and suggestions to improve the translation accuracy.",
-
-                ]
-            }
-        
-        # Convert to JSON string
-        import json
-        return json.dumps(review_prompt, ensure_ascii=False, indent=2)
-
-    def review_sys_prompt_consistency(self):
-        '''
-        Enhanced version of the review system prompt with stricter JSON formatting requirements.
-        
-        :param software_type: Type of software being localized
-        :param source_lang: Source language (e.g., 'English')
-        :param target_lang: Target language (e.g., 'Traditional Chinese')
-        :return: Formatted system prompt string in JSON format
-        '''
-        import json
-
-        system_prompt = self.default_sys_prompt()
-        system_prompt["evaluation_criteria"] = [
+        system_prompt["evaluation_criteria"]["consistency"] = [
                     "If the translation uses the same terminology, sentence patterns, and vocabulary as the provided reference data, score it higher.",
                     "If the translation is similar to the 'translation_references' but uses different terminology, sentence patterns, or vocabulary, score it higher.",
                     "If the translation is similar to 'evaluation_guidelines', 'specific_term_translations' or 'translation_references', score it higher.",
                     "If the translation uses different terminology, sentence patterns, or vocabulary from the provided reference data, score it lower.",
                     "Other Rules: ",
                     ] + [f"  {rule}"  for rule in self.language_review_guidance.get('Consistency with Reference', [])]
-        
-        system_prompt["json_response_example"] = {
-                "Score": 8.0, 
-                "Suggestions": ["incorrect term 1 with reason and suggestion", "incorrect term 2 with reason and suggestion"],
-            }
 
-        # Convert to JSON string
-        return json.dumps(system_prompt, ensure_ascii=False, indent=2)
-
-    def review_prompt_consistency(self):
-        '''
-        Enhanced version of the review prompt with stricter JSON formatting requirements.
-        
-        :param source_text: Source text in the source language
-        :param translation: Translated text in the target language
-        :param specific_names: Dictionary of specific names and their translations
-        :param source_lang: Source language (e.g., 'English')
-        :param target_lang: Target language (e.g., 'Traditional Chinese')
-        :return: Formatted review prompt string in JSON format
-        '''
-
-        review_prompt = self.default_review_prompt()
-        review_prompt["required_output_format"]["example_response"] = {
-                    "Score": 8.0, 
-                    "Suggestions": ["incorrect term 1 with reason and suggestion", "incorrect term 2 with reason and suggestion"],
-                }
-        review_prompt["required_output_format"]["format"] = {
-                "Score": "Float (Score from 0 to 10, where 0 means no consistency with reference and 10 means perfect consistency with reference)",
-                "Suggestions": [
-                    "a list of ERROR WORDS or PHRASES ONLY if 'Consistency with Reference Score' less than 10.0 else None",
-                    "Must be a list of strings (e.g., [\"word1\", \"word2\"]), not a single string.",
-                    "If score is less than 10.0, the list MUST NOT be empty or None.",
-                    "Response the incorrect phrases or words that cause the accuracy score to be less than 10.0.",
-                    "Response the incorrect pharases and words, reasons, and suggestions to improve the translation accuracy.",
-                ]
-            }
-        
-        # Convert to JSON string
-        import json
-        return json.dumps(review_prompt, ensure_ascii=False, indent=2)
-
-    def review_sys_prompt_gender(self):
-        '''
-        Enhanced version of the review system prompt with stricter JSON formatting requirements.
-        
-        :param software_type: Type of software being localized
-        :param source_lang: Source language (e.g., 'English')
-        :param target_lang: Target language (e.g., 'Traditional Chinese')
-        :return: Formatted system prompt string in JSON format
-        '''
-        import json
-
-        system_prompt = self.default_sys_prompt()
-        system_prompt["evaluation_criteria"] = [
+        system_prompt["evaluation_criteria"]["gender"]= [
                     "Check if the translation uses the correct gender for all words that change by gender.",
                     "Look at nouns, adjectives, articles, and pronouns to make sure their gender matches.",
                     "Make sure words that go together agree in gender (like 'the big house' uses matching forms).",
@@ -520,33 +250,28 @@ class ReviewPrompts:
         
         system_prompt["json_response_example"] = {
                 "Score": 8.0, 
+                # "Type": ["Accuracy", "Native Usage", "Word Correctness", "Grammar", "Consistency", "Gender"],
                 "Suggestions": ["incorrect term 1 with reason and suggestion", "incorrect term 2 with reason and suggestion"],
             }
 
         # Convert to JSON string
         return json.dumps(system_prompt, ensure_ascii=False, indent=2)
 
-    def review_prompt_gender(self):
-        '''
-        Enhanced version of the review prompt with stricter JSON formatting requirements.
-        
-        :param source_text: Source text in the source language
-        :param translation: Translated text in the target language
-        :param specific_names: Dictionary of specific names and their translations
-        :param source_lang: Source language (e.g., 'English')
-        :param target_lang: Target language (e.g., 'Traditional Chinese')
-        :return: Formatted review prompt string in JSON format
-        '''
 
+    
+    def review_prompt(self):
         review_prompt = self.default_review_prompt()
         review_prompt["required_output_format"]["example_response"] = {
-                    "Score": 8.0, 
-                    "Suggestions": ["incorrect term 1 with reason and suggestion", "incorrect term 2 with reason and suggestion"],
-                }
+                "Score": 8.0, 
+                # "Type": ["Accuracy", "Native Usage", "Word Correctness", "Grammar", "Consistency", "Gender"],
+                "Suggestions": ["incorrect term 1 with reason and suggestion", "incorrect term 2 with reason and suggestion"],
+            }
+
         review_prompt["required_output_format"]["format"] = {
-                "Score": "Float (Score from 0 to 10, where 0 means incorrect gender and 10 means correct gender)",
-                "Suggestions": [
-                    "a list of ERROR WORDS or PHRASES ONLY if 'Gender Score' less than 10.0 else None",
+                "Score": "Float (Score from 0 to 10, where 0 means no accuracy and 10 means perfect accuracy)",
+                "Suggestions":[
+                    "a list of ERROR WORDS or PHRASES ONLY if 'Score' less than 10.0 else return []",
+                    "a list of ERROR TYPE in 'Type' only if 'Score' less than 10.0 else return []",
                     # "Must be a list of strings (e.g., [\"word1\", \"word2\"]), not a single string.",
                     "If score is less than 10.0, the list MUST NOT be empty or None.",
                     "Response the incorrect phrases or words that cause the accuracy score to be less than 10.0.",
@@ -565,16 +290,5 @@ if __name__ == "__main__":
     software_type = "Software"
     source_type = "UI"
     review_prompt_obj = ReviewPrompts(source_lang, target_lang, software_type, source_type)
-    print("System Prompt Accuracy:")
-    print(review_prompt_obj.sys_prompt_accuracy)
-    print("System Prompt Native:")
-    print(review_prompt_obj.sys_prompt_native)
-    print("System Prompt Word:")
-    print(review_prompt_obj.sys_prompt_word)
-    print("System Prompt Grammar:")
-    print(review_prompt_obj.sys_prompt_grammar)
-    print("System Prompt Consistency:")
-    print(review_prompt_obj.sys_prompt_consistency)
-    print("System Prompt Gender:")
-    print(review_prompt_obj.sys_prompt_gender)
+
 
