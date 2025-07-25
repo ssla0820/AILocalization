@@ -65,6 +65,7 @@ def get_text_group_inline(
         nonlocal cnt, all_groups
         group = []
         inline = is_inline_ele(ele)
+
         for cid, c in enumerate(ele.contents):
             if isinstance(c, (Doctype, Comment)) or c.name == 'script':
                 continue

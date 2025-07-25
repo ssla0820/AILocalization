@@ -43,7 +43,7 @@ COMPARISON_MODEL = ['o3-2025-04-16', 'gemini-2.0-flash']
 
 # COMPARISON_MODEL = ['gpt-4o']
 N_INPUT_TOKEN = 4096 * 0.4
-RESTRUCT_MODEL = 'gpt-4o'
+RESTRUCT_MODEL = 'o3-2025-04-16'
 
 # LLM response parameters
 TEMPERATURE = 0.0

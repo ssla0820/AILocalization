@@ -82,6 +82,11 @@ async def restruct(
         system_prompt=map_sys_prompt()
     )
 
+    chat_reorder = OpenaiAPIChat(
+        model_name=conf.RESTRUCT_MODEL,
+        system_prompt=sys_reorder_group_out_prompt()
+    )
+
     # Create a deterministic ordering of shreds to maintain structure
     shreds_in = OrderedDict({})
     for i, shred in enumerate(group.text_shreds):
@@ -122,33 +127,33 @@ async def restruct(
             # print('==================Used Map Prompt=========================')
 
             response_map = ''
-            async for chunk, stop_reason in chat_map.get_stream_aresponse(map_p, temperature=temperature):
+            async for chunk, stop_reason in chat_map.get_stream_aresponse(map_p):
                 response_map += chunk
             map_seg_out = as_json_obj(response_map)
-            # print('==================Used Map Seg Out=========================')
-            # print(map_seg_out)
-            # print('==================Used Map Seg Out=========================')
-            # map_seg_out = None
+            print('==================Used Map Seg Out=========================')
+            print('map_seg_out:', map_seg_out)
+            print('==================Used Map Seg Out=========================')
 
-            p = restruct_prompt(trans, ori, shreds_in_str, structure_info, map_seg_out)
-            # print('==================Used Resturct Prompt=========================')
-            # print(p)
-            # print('==================Used Resturct Prompt=========================')
-            chat.clear()
-            response = ''
-            async for chunk, stop_reason in chat.get_stream_aresponse(p, temperature=temperature):
-                response += chunk
-            shreds_out = as_json_obj(response)
+            # p = restruct_prompt(trans, ori, shreds_in_str, structure_info, map_seg_out)
+            # # print('==================Used Resturct Prompt=========================')
+            # # print(p)
+            # # print('==================Used Resturct Prompt=========================')
+            # chat.clear()
+            # response = ''
+            # async for chunk, stop_reason in chat.get_stream_aresponse(p, temperature=temperature):
+            #     response += chunk
+            # shreds_out = as_json_obj(response)
+            shreds_out = map_seg_out
 
-            print('==================Used Resturct Response=========================')
-            print(shreds_in)
-            print(shreds_out)
-            print('==================Used Resturct Response=========================')
+            # print('==================Used Resturct Response=========================')
+            # print('shreds_in:', shreds_in)
+            # print('shreds_out:', shreds_out)
+            # print('==================Used Resturct Response=========================')
 
             # response validation check
             if not shreds_out:
                 raise ValueError('Invalid model response as JSON object.')
-                
+            
             # Make sure all original keys are present in the response
             if set(shreds_in.keys()) != set(shreds_out.keys()):
                 missing_keys = set(shreds_in.keys()) - set(shreds_out.keys())
@@ -165,16 +170,15 @@ async def restruct(
                     # Remove extra keys
                     for key in extra_keys:
                         del shreds_out[key]
-            print('========= keys value are correct, start fit =======')
+
             score, err = validate_fit_in(
                 shreds_in,
                 trans,
                 shreds_out
             )
-            print('========= fit score is:', score, 'err:', err, '========')
             fit_candidates.append([score, shreds_out])
-            print('========= fit candidates are:', fit_candidates, '========')
             if err:
+                print('Come in this error')
                 raise ValueError(err)
             break
 
@@ -185,22 +189,121 @@ async def restruct(
             temperature *= 1.6  # exponential increase temperature
             if retry > max_retry:
                 break
+    print(fit_candidates)
+
 
     # replace contents
     if fit_candidates:
+        print('==================Data =====================')
+        print('trans:', trans)
+        print('shreds_in_str:', shreds_in_str)
+        print('shreds_out:', shreds_out)
+        print('group.cids:', group.cids)
+        print('group.elements:', group.elements)
+        print('==================Data =====================')
+
         max_score, shreds_out = max(fit_candidates, key=lambda x: x[0])
         
-        # Sort by original position before replacing to maintain order
-        sorted_items = sorted(shreds_out.items(), key=lambda x: int(x[0]))
+        # Convert elements to serializable format to avoid JSON serialization error
+        elements_info = []
+        for i, element in enumerate(group.elements):
+            element_info = {
+                'index': i,
+                'tag_name': getattr(element, 'name', 'unknown'),
+                'element_id': str(id(element)),
+                'attributes': dict(element.attrs) if hasattr(element, 'attrs') else {},
+                'is_semantic': getattr(element, 'name', '') in ['strong', 'em', 'b', 'i', 'code', 'mark']
+            }
+            elements_info.append(element_info)
         
-        for k, v in sorted_items:
-            cid = group.cids[int(k)]
-            ele = group.elements[int(k)]
-            ele.contents[cid].replace_with(v)
+        reorder_p = reorder_group_out_prompt(trans, shreds_in_str, shreds_out, group.cids, elements_info)
+
+
+        chat_reorder.clear()
+        response = ''
+        async for chunk, stop_reason in chat_reorder.get_stream_aresponse(reorder_p):
+            response += chunk
+
+        reorder_group = as_json_obj(response)
+        print('==================reorder Group out =========================')
+        print('reorder_group:', reorder_group)
+        print('==================reorder Group out =========================')
+
+        # Use reordered text shreds from AI response if available
+        final_shreds_out = shreds_out
+        final_cids = group.cids
+        final_elements = group.elements
+
+        # final_shreds_out = reorder_group.get('reordered_text_shreds', shreds_out)
+        # final_cids = reorder_group.get('reordered_cids', group.cids)
+        # final_elements = reorder_group.get('reordered_elements_info', group.elements)
+        
+        if reorder_group and 'reordered_text_shreds' in reorder_group:
+            final_shreds_out = reorder_group['reordered_text_shreds']
+            print('==================Using AI reordered shreds =========================')
+            print('final_shreds_out:', final_shreds_out)
+            
+            # Use reordered cids if available
+            if 'reordered_cids' in reorder_group:
+                final_cids = reorder_group['reordered_cids']
+                print('final_cids:', final_cids)
+            
+            # Use reordered elements_info if available and reconstruct elements order
+            if 'reordered_elements_info' in reorder_group:
+                reordered_elements_info = reorder_group['reordered_elements_info']
+                print('reordered_elements_info:', reordered_elements_info)
+                
+                # Map element_id back to actual elements
+                element_id_map = {str(id(ele)): ele for ele in group.elements}
+                final_elements = []
+                for elem_info in reordered_elements_info:
+                    if elem_info['element_id'] in element_id_map:
+                        final_elements.append(element_id_map[elem_info['element_id']])
+                    else:
+                        # Fallback to original order if mapping fails
+                        final_elements.append(group.elements[elem_info['index']])
+                
+                print('final_elements:', final_elements)
+            
+            print('==================Using AI reordered shreds =========================')
+
+        # Use enumeration instead of dictionary keys to process in order
+        print(f"Processing {len(final_shreds_out)} shreds with enumeration...")
+        for i, (k, v) in enumerate(final_shreds_out.items()):
+            try:
+                print(f"Processing index {i} (key: {k}, value: {v})")
+                print(f"Available keys in final_shreds_out: {list(final_shreds_out.keys())}")
+                print(f"Length of final_cids: {len(final_cids)}")
+                print(f"Length of final_elements: {len(final_elements)}")
+                
+                # Use enumeration index instead of dictionary key
+                if i >= len(final_cids):
+                    print(f"ERROR: Enumeration index {i} out of range for final_cids (length: {len(final_cids)})")
+                    continue
+                    
+                if i >= len(final_elements):
+                    print(f"ERROR: Enumeration index {i} out of range for final_elements (length: {len(final_elements)})")
+                    continue
+                    
+                cid = final_cids[i]  # Use enumeration index i
+                ele = final_elements[i]  # Use enumeration index i
+                
+                print(f"Using enumeration index {i} - cid: {cid}, element: {ele}")
+                print(f"Element contents length: {len(ele.contents) if hasattr(ele, 'contents') else 'No contents'}")
+                
+                if hasattr(ele, 'contents') and cid < len(ele.contents):
+                    ele.contents[cid].replace_with(v)
+                    print(f"Successfully replaced content at index {cid} using enumeration index {i}")
+                else:
+                    print(f"ERROR: cid {cid} out of range for element contents (length: {len(ele.contents) if hasattr(ele, 'contents') else 0})")
+                
+            except Exception as e:
+                print(f"ERROR processing enumeration index {i} (key {k}): {str(e)}")
+                import traceback
+                traceback.print_exc()
         return 'C' if max_score < 1.0 else 'S'
     else:
         return 'F'
-
 
 async def group_fit_in(
         group: InlineGroup,
@@ -214,18 +317,28 @@ async def group_fit_in(
     :param trans: translated text
     :return: fit-in result
     """
+    print('entering group_fit_in with group:', group.text_shreds)
     if match_score(str(group), trans) == 1.0:  # no translation is needed, e.g. function name, special symbols, etc.
+        print('========')
+        print('Enter Method 1')
+        print('========')
         return 'S'
     elif len(group) == 1:  # single element text
+        print('========')
+        print('Enter Method 2')
+        print('========')
+        print('trans is: ', trans)
         str_content = group.elements[0].contents[group.cids[0]]
         str_content.replace_with(trans)
         return 'S'
     else:  # multi element text: restruct is needed
+        print('========')
+        print('Enter Method 3')
+        print('========')
         return await restruct(group, ori, trans)
 
+async def restruct_process(is_excel_translation, groups_out, ori_html=None):
 
-async def restruct_process(is_excel_translation, groups_in, groups_out, groups_map):
-    
     if is_excel_translation:
         # For Excel translation, just return the translated texts without DOM manipulation
         results = []
@@ -233,10 +346,26 @@ async def restruct_process(is_excel_translation, groups_in, groups_out, groups_m
             results.append(trans)
         return results
     else:
-        # For HTML/XML translation, perform the fitting back into the DOM
-        fit_in_tasks = []
-        for i, trans in groups_out.items():
-            group = groups_map[i]
-            fit_in_tasks.append(group_fit_in(group, groups_in[i], trans))
-        results = await asyncio.gather(*fit_in_tasks, return_exceptions=True)
-        return results
+        restruct_chat = OpenaiAPIChat(
+            model_name=conf.RESTRUCT_MODEL,
+            system_prompt=restruct_sys_prompt()
+        )
+        p = restruct_prompt(
+            groups_out,
+            ori_html,
+            # structure_info=json.dumps(groups_map, ensure_ascii=False, indent=0) if groups_map else "{}",
+        )
+
+        # print('===============System Prompt=====================')
+        # print(restruct_chat.sys_prompt)
+        # print('===============System Prompt=====================')
+
+        # print('===============Used Restruct Prompt=====================')
+        # print(p)
+        # print('===============Used Restruct Prompt=====================')
+
+
+        restruct_chat.clear()
+        response = ''
+        async for chunk, stop_reason in restruct_chat.get_stream_aresponse(p):
+            response += chunk

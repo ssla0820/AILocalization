@@ -225,7 +225,7 @@ def get_translated_text_from_db(relevant_pair_database: list) -> str:
 
 async def translate_groups(
         groups_map: OrderedDict[str, InlineGroup],
-        source_lang, target_lang, mapping_table, region_table, refer_text_table, software_type, source_type, image_path=None, database_path=None, review_report_path=None
+        source_lang, target_lang, mapping_table, region_table, refer_text_table, software_type, source_type, image_path=None, database_path=None, review_report_path=None,ori_html=None
 ):
     """
     Performs translation and restruct task on one segment of all inline groups.
@@ -251,8 +251,10 @@ async def translate_groups(
     groups_in = {
         k: str(v).replace('\n', '') for k, v in groups_map.items()
     }
+
     # groups_in_str = json.dumps(groups_in, indent=0, ensure_ascii=False)
     groups_out = {}
+
     for source_text_index, source_text in groups_in.items():
         # Identify specific named entities in the text to translate
         relevant_specific_names = get_relevant_specific_names(mapping_table, source_text)
@@ -310,6 +312,7 @@ async def translate_groups(
                 region_table=relevant_region_table,
                 refer_text_table=relevant_refer_text_table,
                 refer_data_list=relevant_pair_database,
+                # full_tag_source_text = full_tag_source_text,
             )
             if 'o3' in conf.TRANSLATE_MODEL:
                 async for chunk, stop_reason in chat.get_stream_aresponse(p):
@@ -350,22 +353,18 @@ async def translate_groups(
                                             review_path=review_report_path,
                                             need_native_review=need_native_review,)
 
+        # translated_text = full_tag_source_text
         groups_out[source_text_index] = translated_text
+        # temp_full_tag[source_text_index] = str(full_tag_source_text[0])
 
         debug_process(source_text_index, source_text, relevant_specific_names,\
                     relevant_region_table, relevant_refer_text_table, relevant_pair_database, \
                     chat.sys_prompt, p, response, list(as_json_obj(response).values())[-1])
         
-        # save_prompt_process(
-        #     source_text_index,
-        #     source_text,
-        #     target_lang,
-        #     chat.sys_prompt,
-        #     p,
-        # )
 
-    print(f'Original Inputs: {groups_in}')
-    print(f"Translation response--2: {groups_out}")
+    # print(f'Original Inputs: {groups_in}')
+    # print(f"Translation response--2: {groups_out}")
+
     # Ensure groups_out has the exact same keys as groups_in to preserve structure
     if groups_out and set(groups_out.keys()) != set(groups_in.keys()):
         print("Warning: Translated structure doesn't match original structure. Attempting to fix...")
@@ -383,16 +382,12 @@ async def translate_groups(
         if extra_keys:
             print(f"Warning: Found extra keys in translation response: {extra_keys}")
         
-        groups_out = fixed_groups_out    
+        groups_out = fixed_groups_out
     # Check if the groups_map contains actual HTML elements or is from Excel (with None elements)
     is_excel_translation = all(group.elements[0] is None for group in groups_map.values())
-    
-    # groups_in = {'0': 'body {\ttext-align: center;\tpadding: 0px;\tmargin: 0px auto;}#container {    margin: 0 auto !important;    margin-left: auto;\tmargin-right: auto;\twidth: 980px;\ttext-align: left;}.star {\tcolor: #FF0000;}', '1': ' ENU', '2': 'FAQID(CS):', '3': 'Q25-00012', '4': 'FAQ ID:', '5': 'Weight:', '6': '1000', '7': 'Question:', '8': 'How do I blur out (add mosaic effect) people or                objects in a video in CyberLink PowerDirector 365?', '9': 'Answer:', '10': 'In the new version of PowerDirector 365 (released after Apr.                2025), the Motion Tracker has been redesigned and moved to the                "Tracking" tab on the top of the quick editing panel. This new                Motion Tracking feature does not include the FX option to add a                mosaic or blur effect, which was available in the old Motion                Tracker. As an alternative, we suggest you follow the steps                below to apply a blur effect to your video:', '11': "To blur out people's faces in video in PowerDirector 365, do                this: ", '12': "Add the video that has people's faces on the timeline.", '13': 'Go to Effects Room > Video         Effects > Face Blur.', '14': 'Select an effect and drag it onto the video clip on the                  timeline.', '15': 'After analyzing, select the video on the timeline and then                  click the  button above the                  timeline to modify the effect settings if needed.', '16': 'To blur out an object in video in PowerDirector 365, do this: ', '17': 'Add the video you want to blur the object on the timeline.', '18': 'Add a Face Cover sticker (e.g.,                  Face Cover 02, Face Cover 04, etc) from the                  Overlays Room to a lower track (below the                  video) in the timeline.', '19': 'Select the Face Cover sticker and then click Edit                  > Tracking tab.', '20': 'Enable the Apply Motion Tracking option', '21': 'A yellow tracking box will then display in the preview                  window. Drag and resize this box to fit over the object in                  your video that you want to track.', '22': 'Adjust the position and size of the Face Cover sticker in                  the preview window to cover the tracked object.', '23': 'Click the Track button to start the                  motion tracking process.', '24': 'After tracking, check the preview window to see if the added                  Face Cover sticker is following the video element the way you                  expect.'}
-    # groups_out = {'0': 'body {\ttext-align: center;\tpadding: 0px;\tmargin: 0px auto;}#container {    margin: 0 auto !important;    margin-left: auto;\tmargin-right: auto;\twidth: 980px;\ttext-align: left;}.star {\tcolor: #FF0000;}', '1': 'ENU', '2': 'ID FAQ (CS):', '3': 'Q25-00012', '4': 'ID FAQ:', '5': 'Peso:', '6': '1000', '7': 'Domanda:', '8': "Come faccio a sfocare (aggiungere l'effetto mosaico) persone o oggetti in un video con CyberLink PowerDirector 365?", '9': 'Risposta:', '10': 'Nella nuova versione di PowerDirector 365 (rilasciata dopo aprile 2025), Motion Tracker è stato riprogettato e spostato nella scheda "Tracking" nella parte superiore del pannello di modifica rapida. La nuova funzione di Motion Tracking non include più l’opzione FX per aggiungere un effetto mosaico o sfocatura, presente invece nel vecchio Motion Tracker. In alternativa, ti consigliamo di seguire i passaggi qui sotto per applicare un effetto di sfocatura al tuo video:', '11': 'Per sfocare i volti delle persone in un video in PowerDirector 365, fai così:', '12': 'Aggiungi il video con i volti delle persone alla timeline.', '13': 'Vai a Sala effetti > Effetti video > Sfocatura volto.', '14': 'Seleziona un effetto e trascinalo sulla clip video nella timeline.', '15': "Al termine dell'analisi, seleziona il video nella timeline e quindi fai clic sul pulsante  sopra la                  timeline per modificare le impostazioni dell'effetto, se necessario.", '16': 'Per sfocare un oggetto in un video in PowerDirector 365, fai così:', '17': "Aggiungi alla timeline il video in cui vuoi sfocare l'oggetto.", '18': 'Aggiungi uno sticker Face Cover (ad esempio Face Cover 02, Face Cover 04, ecc.) dalla Overlays Room a una traccia inferiore (sotto il video) della timeline.', '19': "Seleziona l'adesivo Face Cover e quindi fai clic su Edit > scheda Tracking.", '20': "Abilita l'opzione Apply Motion Tracking", '21': "A quel punto, nella finestra di anteprima viene visualizzato un riquadro di tracciamento giallo. Trascinalo e ridimensionalo finché copre l'oggetto del video che vuoi tracciare.", '22': "Regola posizione e dimensioni dello sticker Face Cover nella finestra di anteprima per coprire l'oggetto tracciato.", '23': 'Fai clic sul pulsante Track per avviare il processo di tracciamento del movimento.', '24': "Dopo il tracciamento, controlla la finestra di anteprima per verificare che il Face Cover sticker segua l'elemento video come previsto."}
 
-
-    # Add await to properly call the async function
-    return await restruct_process(is_excel_translation, groups_in, groups_out, groups_map)
+    # # Add await to properly call the async function
+    return await restruct_process(is_excel_translation, groups_out, ori_html)
 
 async def translation_pipeline(
         soup: BeautifulSoup,
@@ -424,16 +419,20 @@ async def translation_pipeline(
              "C" for Compromise, which means cannot perfectly restruct the paragraph;
              "F" for Fail, or any other exceptions
     """
+
     groups_map = get_text_group_inline(soup)
     groups_map_segments = segment_groups_map(
         groups_map,
         int(conf.N_INPUT_TOKEN),
         OpenaiAPIChat(conf.TRANSLATE_MODEL).n_tokens
     )
-    tasks = [translate_groups(seg, source_lang, target_lang, mapping_table, region_table, refer_text_table, software_type, source_type, image_path, database_path, review_report_path) for seg in groups_map_segments]
+    tasks = [translate_groups(seg, source_lang, target_lang, mapping_table, region_table, refer_text_table, software_type, source_type, image_path, database_path, review_report_path, str(soup)) for seg in groups_map_segments]
     results = await asyncio.gather(*tasks)
-    results = [j for i in results for j in i]
-    return results
+    # results = [j for i in results for j in i]
+    # print('=========Result==========')
+    # print(f"Translation results: {results[0]}")
+    # print('===================')
+    return results[0]
 
 
 def detect_file_type(content, file_path=""):
@@ -817,21 +816,22 @@ def process_single_file(p_in, p_out, source_lang, target_lang, specific_names_xl
         # For XLSX files, we run special translation procedure
         result = asyncio.run(translate_xlsx(p_in, p_out, source_lang, target_languages, mapping_table, region_table, refer_text_table, software_type, source_type, image_path, database_path, review_report_path))
         
-        # Check the result
-        if result["success"]:
-            print(f"XLSX translation completed successfully. Output saved to {p_out}")
-        else:
-            print(f"XLSX translation encountered errors.")
+        # # Check the result
+        # if result["success"]:
+        #     print(f"XLSX translation completed successfully. Output saved to {p_out}")
+        # else:
+        #     print(f"XLSX translation encountered errors.")
         return
 
     if file_type == 'html':
         bs = BeautifulSoup(file_content, 'html.parser')
         ret = asyncio.run(translation_pipeline(bs, source_lang, target_lang, mapping_table, region_table, refer_text_table, software_type, source_type, image_path, database_path, review_report_path))
-        
+
         # Use the same encoding for writing
         with open(p_out, 'w', encoding=used_encoding) as fout:
-            fout.write(str(bs))
-
+            # print(f"bs is", str(bs))
+            # fout.write(str(bs))
+            fout.write(str(ret))
     else:
         print('Start to translate XML...')
         bs = BeautifulSoup(file_content, file_type)
@@ -842,8 +842,9 @@ def process_single_file(p_in, p_out, source_lang, target_lang, specific_names_xl
             # For POMO XML files, we'll use a regex-based approach to preserve the exact case of tags
             if is_pomo_xml:
                 # Get the translated content
-                translated_content = str(bs)
-                
+                # translated_content = str(bs)
+                translated_content = str(ret)
+
                 # Create a mapping of original tag formats
                 tag_patterns = {}
                 # Find all opening tags with their attributes in the original content
@@ -870,7 +871,7 @@ def process_single_file(p_in, p_out, source_lang, target_lang, specific_names_xl
                 output_content = translated_content
             else:
                 # Normal output for HTML or regular XML
-                output_content = str(bs)
+                output_content = str(ret)
             
             output_content = re.sub(
                 r'<\?xml\s+version="[^"]*"\s+encoding="[^"]*"\s*\?>\s*',

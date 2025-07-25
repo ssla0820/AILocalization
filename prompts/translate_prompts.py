@@ -51,7 +51,6 @@ def translate_sys_prompt(src_lang, tgt_lang, software_type, source_type):
             "Check the glossary or list of terms to use the correct technical words and product names.",
             "Ask native speakers or actual users to read the translation and check if it is easy to understand and use."
         ]
-
         
     system_prompt_json = {
         "role": "translator",
@@ -73,13 +72,6 @@ def translate_sys_prompt(src_lang, tgt_lang, software_type, source_type):
             
         },
         "specific_type_instructions": specific_type_instruction if 'specific_type_instruction' in locals() else [],
-        "image_processing_guidelines": [
-            "Examine UI elements and their context within the software",
-            "Understand visual workflow and interface components referenced in the text",
-            "Identify specific features or tools shown in the screenshots",
-            "Note text visible in screenshots for consistent reference",
-            "Observe spatial relationships and organization of elements"
-        ],
         "language_specific_guidance": language_guidance
     }
 
@@ -122,7 +114,7 @@ def translate_prompt(src_lang, tgt_lang, json_str, refer_data_list,
     )
     # Create the JSON prompt structure
     translation_prompt = {
-        "task": "translation",
+        # "task": "translation",
         "instruction": {
             "source_language": src_lang,
             "target_language": tgt_lang,
@@ -131,9 +123,9 @@ def translate_prompt(src_lang, tgt_lang, json_str, refer_data_list,
         },
         "guidelines": {
             "preserve_technical_terms": True,
-            "maintain_formatting": True,
+            # "maintain_formatting": True,
             "preserve_camelcase_pascalcase_snakecase": True,
-            "If ONLY a single word is provided, translate it as a verb.": True,
+            # "If ONLY a single word is provided, translate it as a verb.": True,
         },
         "specific_term_translations": {
             "terms": specific_names_list,
@@ -153,13 +145,6 @@ def translate_prompt(src_lang, tgt_lang, json_str, refer_data_list,
                 "Match the case (uppercase/lowercase) and number (singular/plural) of the original text when translating."
             ]
         },
-        "image_processing_instructions": [
-            "Examine screenshots to understand UI context",
-            "Use image context for accurate UI element translation",
-            "Ensure translation consistency with visible UI labels",
-            "Maintain terminology consistency between text and visuals",
-            "Reference images when translating visual element descriptions"
-        ],
         "translation_references": {
             "rules": [
                 "Always use a translation from `specific_term_translations` if the source term appears there.",
@@ -170,6 +155,7 @@ def translate_prompt(src_lang, tgt_lang, json_str, refer_data_list,
             ],
             "terms": translate_refer
         },
+
         "source_text": json_str,
         "output_format": "json (key: 'translation' with translated text as value)"
     }
@@ -196,6 +182,8 @@ def translate_prompt(src_lang, tgt_lang, json_str, refer_data_list,
             "last translation": pre_translated_text if pre_translated_text else None,
             "Error Words": suggestions,
         }
+
+
 
     # Convert to JSON string
     import json
