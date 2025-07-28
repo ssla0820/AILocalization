@@ -24,7 +24,7 @@ import pandas as pd
 from translate.translate import main as translate_main
 from interface.run_interface import run_translation_interface
 # from verify import main as verify_main
-from groundtruth_check.GroundTruth_Check import main as groundtruth_main
+# from groundtruth_check.GroundTruth_Check import main as groundtruth_main
 from config import translate_config
 # import logging
 from datetime import datetime
