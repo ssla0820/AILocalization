@@ -108,7 +108,7 @@ async def compare_sentence(source_lang='English', target_lang='German',source_se
 
         response, stop_reason = '', ''
         try:
-            async for chunk, stop_reason in chat.get_stream_aresponse(prompt, temperature=0.01):
+            async for chunk, stop_reason in chat.get_stream_aresponse(prompt):
                 response += chunk
             
             if stop_reason == 'length':
@@ -174,7 +174,7 @@ async def combine_guidedline(guided_line=None, new_guidelines=None):
 
         response, stop_reason = '', ''
         try:
-            async for chunk, stop_reason in chat.get_stream_aresponse(prompt, temperature=0.01):
+            async for chunk, stop_reason in chat.get_stream_aresponse(prompt):
                 response += chunk
             
             if stop_reason == 'length':

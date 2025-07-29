@@ -196,18 +196,19 @@ def check_if_need_review(source_text: str, relevant_pair_database: list) -> bool
     #             return need_native_review, direct_use_database
 
 
-    if len(source_text) > 50:
-        print(f"Source text length is greater than 50 characters: {len(source_text)}. Marking for native review.")
-        need_native_review = True
-        return need_native_review, direct_use_database
+    # if len(source_text) > 50:
+    #     print(f"Source text length is greater than 50 characters: {len(source_text)}. Marking for native review.")
+    #     need_native_review = True
+    #     return need_native_review, direct_use_database
 
 
-    if not relevant_pair_database:
-        print("No relevant pairs found in the database. Marking for native review.")
-        need_native_review = True
-        return need_native_review, direct_use_database
+    # if not relevant_pair_database:
+    #     print("No relevant pairs found in the database. Marking for native review.")
+    #     need_native_review = True
+    #     return need_native_review, direct_use_database
 
-    return need_native_review, direct_use_database
+    # return need_native_review, direct_use_database
+    return False, False
 
 def get_translated_text_from_db(relevant_pair_database: list) -> str:
     """
@@ -225,7 +226,7 @@ def get_translated_text_from_db(relevant_pair_database: list) -> str:
 
 async def translate_groups(
         groups_map: OrderedDict[str, InlineGroup],
-        source_lang, target_lang, mapping_table, region_table, refer_text_table, software_type, source_type, image_path=None, database_path=None, review_report_path=None,ori_html=None
+        source_lang, target_lang, mapping_table, region_table, refer_text_table, software_type, source_type, image_path=None, database_path=None, review_report_path=None,ori_html=None, need_review=True
 ):
     """
     Performs translation and restruct task on one segment of all inline groups.
@@ -335,24 +336,24 @@ async def translate_groups(
             print("Translation response is empty, breaking the loop.")
             continue        
         translated_text = list(as_json_obj(response).values())[-1]
-        groups_out[source_text_index] = translated_text
-        # # Add await to properly call the async function
-        translated_text = await review_n_improve_process(source_lang,
-                                            target_lang,
-                                            software_type,
-                                            source_type,
-                                            source_text, 
-                                            translated_text, 
-                                            relevant_specific_names,
-                                            relevant_region_table,
-                                            relevant_refer_text_table,
-                                            relevant_pair_database,
-                                            image_path,
-                                            model_list=conf.COMPARISON_MODEL, 
-                                            temperature=conf.TEMPERATURE, 
-                                            seed=conf.SEED,
-                                            review_path=review_report_path,
-                                            need_native_review=need_native_review)
+        if need_review:
+            # Add await to properly call the async function
+            translated_text = await review_n_improve_process(source_lang,
+                                                target_lang,
+                                                software_type,
+                                                source_type,
+                                                source_text, 
+                                                translated_text, 
+                                                relevant_specific_names,
+                                                relevant_region_table,
+                                                relevant_refer_text_table,
+                                                relevant_pair_database,
+                                                image_path,
+                                                model_list=conf.COMPARISON_MODEL, 
+                                                temperature=conf.TEMPERATURE, 
+                                                seed=conf.SEED,
+                                                review_path=review_report_path,
+                                                need_native_review=need_native_review)
 
         groups_out[source_text_index] = translated_text
         print(f"Final translated text for {source_text_index}: {translated_text}")
@@ -391,7 +392,7 @@ async def translate_groups(
 
 async def translation_pipeline(
         soup: BeautifulSoup,
-        source_lang, target_lang, mapping_table, region_table, refer_text_table, software_type, source_type, image_path=None, database_path=None, review_report_path=None
+        source_lang, target_lang, mapping_table, region_table, refer_text_table, software_type, source_type, image_path=None, database_path=None, review_report_path=None, need_review=True
 ) -> list[str]:
     """
     Main entry point to translates the HTML in the soup object in place.
@@ -426,7 +427,7 @@ async def translation_pipeline(
         int(conf.N_INPUT_TOKEN),
         OpenaiAPIChat(conf.TRANSLATE_MODEL).n_tokens
     )
-    tasks = [translate_groups(seg, source_lang, target_lang, mapping_table, region_table, refer_text_table, software_type, source_type, image_path, database_path, review_report_path, str(soup)) for seg in groups_map_segments]
+    tasks = [translate_groups(seg, source_lang, target_lang, mapping_table, region_table, refer_text_table, software_type, source_type, image_path, database_path, review_report_path, str(soup), need_review) for seg in groups_map_segments]
     results = await asyncio.gather(*tasks)
     # results = [j for i in results for j in i]
     # print('=========Result==========')
@@ -510,7 +511,8 @@ async def translate_xlsx(
         source_type, 
         image_path=None, 
         database_path=None,
-        review_report_path=None):
+        review_report_path=None,
+        need_review=True):
     """
     Translate an Excel file where the first column contains text to be translated.
     Sends all text to API at once as JSON for more efficient translation.
@@ -598,7 +600,9 @@ async def translate_xlsx(
                     source_type,
                     image_path,
                     database_path,
-                    review_report_path
+                    review_report_path,
+                    ori_html=None,
+                    need_review=need_review,
                 )
                 
                 print(f'Received responses for segment: {responses}')
@@ -680,7 +684,8 @@ def main(p_in="default",
          image_path="default",
          source_type="default",
          database_path="default",
-         review_report_path="default"):
+         review_report_path="default",
+         need_review="default"):
     # Run in translation mode
     print("Running in translation mode...")
     if p_in=="default":
@@ -722,6 +727,9 @@ def main(p_in="default",
     if review_report_path == "default":
         review_report_path = conf.REVIEW_REPORT_PATH
 
+    if need_review == "default":
+        need_review = conf.NEED_REVIEW
+
     print(f'Image path: {image_path}')
 
     # Check if this is a multi-language request
@@ -741,16 +749,16 @@ def main(p_in="default",
             print(f"Output path: {current_output_path}")
             
             # Call process_single_file to handle this language
-            process_single_file(p_in, current_output_path, source_lang, current_target, specific_names_xlsx, region_table_path, refer_text_table_path, software_type, source_type, image_path, database_path, review_report_path)
-        
+            process_single_file(p_in, current_output_path, source_lang, current_target, specific_names_xlsx, region_table_path, refer_text_table_path, software_type, source_type, image_path, database_path, review_report_path, need_review)
+
         return
     
     # Single language processing
-    process_single_file(p_in, p_out, source_lang, target_lang, specific_names_xlsx, region_table_path, refer_text_table_path, software_type, source_type, image_path, database_path, review_report_path)
+    process_single_file(p_in, p_out, source_lang, target_lang, specific_names_xlsx, region_table_path, refer_text_table_path, software_type, source_type, image_path, database_path, review_report_path, need_review)
 
 
-def process_single_file(p_in, p_out, source_lang, target_lang, specific_names_xlsx, region_table_path, refer_text_table_path, 
-                        software_type, source_type, image_path=None, database_path=None, review_report_path=None):
+def process_single_file(p_in, p_out, source_lang, target_lang, specific_names_xlsx, region_table_path, refer_text_table_path,
+                        software_type, source_type, image_path=None, database_path=None, review_report_path=None, need_review=True):
     """Process a single file translation"""
     print(f"Input file: {p_in}")
     print(f"Output file: {p_out}")
@@ -814,7 +822,7 @@ def process_single_file(p_in, p_out, source_lang, target_lang, specific_names_xl
             print(f"Single language translation to: {target_lang}")
             
         # For XLSX files, we run special translation procedure
-        result = asyncio.run(translate_xlsx(p_in, p_out, source_lang, target_languages, mapping_table, region_table, refer_text_table, software_type, source_type, image_path, database_path, review_report_path))
+        result = asyncio.run(translate_xlsx(p_in, p_out, source_lang, target_languages, mapping_table, region_table, refer_text_table, software_type, source_type, image_path, database_path, review_report_path, need_review))
         
         # # Check the result
         # if result["success"]:
@@ -825,7 +833,7 @@ def process_single_file(p_in, p_out, source_lang, target_lang, specific_names_xl
 
     if file_type == 'html':
         bs = BeautifulSoup(file_content, 'html.parser')
-        ret = asyncio.run(translation_pipeline(bs, source_lang, target_lang, mapping_table, region_table, refer_text_table, software_type, source_type, image_path, database_path, review_report_path))
+        ret = asyncio.run(translation_pipeline(bs, source_lang, target_lang, mapping_table, region_table, refer_text_table, software_type, source_type, image_path, database_path, review_report_path, need_review))
 
         # Use the same encoding for writing
         with open(p_out, 'w', encoding=used_encoding) as fout:
@@ -835,7 +843,7 @@ def process_single_file(p_in, p_out, source_lang, target_lang, specific_names_xl
     else:
         print('Start to translate XML...')
         bs = BeautifulSoup(file_content, file_type)
-        ret = asyncio.run(translation_pipeline(bs, source_lang, target_lang, mapping_table, region_table, refer_text_table, software_type, source_type, image_path, database_path, review_report_path))
+        ret = asyncio.run(translation_pipeline(bs, source_lang, target_lang, mapping_table, region_table, refer_text_table, software_type, source_type, image_path, database_path, review_report_path, need_review))
 
         # Use the same encoding for writing
         with open(p_out, 'w', encoding=used_encoding) as fout:

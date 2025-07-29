@@ -372,6 +372,7 @@ def process_batch_file(task):
     input_folder = task.get('input_folder')
     output_folder = task.get('output_folder')
     review_folder = task.get('review_folder')
+    need_review = task.get('need_review')
     
 
     # Check if this is a multi-language option
@@ -485,7 +486,8 @@ def process_batch_file(task):
                                     image_path=file_specific_image_path,
                                     source_type=source_type,
                                     database_path=database_path,
-                                    review_report_path=review_file)
+                                    review_report_path=review_file,
+                                    need_review=need_review)
                     
                     translation_success = os.path.exists(output_file)
                     result_data['translation_status'] = 'Success' if translation_success else 'Failed'
@@ -588,6 +590,7 @@ def main():
             print(f"  Source Language: {task.get('source_lang')}")
             print(f"  Target Language: {task.get('target_lang')}")
             print(f"  Input File Path: {task.get('input_file_path')}")
+            print(f"  Need Review: {task.get('need_review')}")
 
     for task in tasks:
         print(f"\nProcessing task: {task}")

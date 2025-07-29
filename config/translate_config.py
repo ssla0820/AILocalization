@@ -39,9 +39,8 @@ SOFTWARE_TYPE_MAP = {
 TRANSLATE_MODEL = 'o3-2025-04-16'
 # COMPARISON_MODEL = ['gpt-4o', 'gemini-pro-vision']  # Models used for translation and comparison
 
-COMPARISON_MODEL = ['o3-2025-04-16', 'gemini-2.0-flash']
+COMPARISON_MODEL = ['o3-2025-04-16']
 
-# COMPARISON_MODEL = ['gpt-4o']
 N_INPUT_TOKEN = 4096 * 0.4
 RESTRUCT_MODEL = 'o3-2025-04-16'
 
@@ -78,4 +77,5 @@ COMPARE_FILE_PATH = r"E:\Debby\9_Scripts\TranslateHTML\Translate_HTML_XML_v8\Rep
 IMAGE_PATH = r""
 DATABASE_PATH = r"E:\Debby\9_Scripts\TranslateHTML\Translate_HTML_XML_v10\database\PDR_enu_ita_database.json"  # Path to the database folder
 REVIEW_REPORT_PATH = r""
+NEED_REVIEW = True
 # ========= Information for [Run Program] (Single File)==========

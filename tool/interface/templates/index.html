@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Translation Tools Interface</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Translation Tools Interface</h1>
+        
+        <!-- Main Menu Buttons -->
+        <div id="main-menu" class="button-group">
+            <button class="main-btn" onclick="showSubMenu('translation_memory')">Translation Memory</button>
+            <button class="main-btn" onclick="showSubMenu('source_file')">Source File</button>
+            <button class="main-btn" onclick="showSubMenu('prompt')">Prompt</button>
+            <button class="main-btn" onclick="showSubMenu('common_usage')">Common Usage Table</button>
+        </div>
+
+        <!-- Sub Menus -->
+        <div id="translation_memory-menu" class="sub-menu">
+            <h2>Translation Memory Tools</h2>
+            <div class="button-group">
+                <button class="sub-btn" onclick="showSettings('translation_memory', 'tmx_to_xlsx')">TMX to XLSX</button>
+                <button class="sub-btn" onclick="showSettings('translation_memory', 'xlsx_to_json')">XLSX to JSON</button>
+                <button class="sub-btn" onclick="showSettings('translation_memory', 'combine_xlsx')">Combine XLSX</button>
+            </div>
+            <button class="back-btn" onclick="showMainMenu()">Back</button>
+        </div>
+
+        <div id="source_file-menu" class="sub-menu">
+            <h2>Source File Tools</h2>
+            <div class="button-group">
+                <button class="sub-btn" onclick="showSettings('source_file', 'copy_source')">Copy Source File</button>
+            </div>
+            <button class="back-btn" onclick="showMainMenu()">Back</button>
+        </div>
+
+        <div id="prompt-menu" class="sub-menu">
+            <h2>Prompt Tools</h2>
+            <div class="button-group">
+                <button class="sub-btn" onclick="showSettings('prompt', 'generate_general')">Generate General Prompt</button>
+            </div>
+            <button class="back-btn" onclick="showMainMenu()">Back</button>
+        </div>
+
+        <div id="common_usage-menu" class="sub-menu">
+            <h2>Common Usage Table Tools</h2>
+            <div class="button-group">
+                <button class="sub-btn" onclick="showSettings('common_usage', 'create_table')">Create Common Usage Table</button>
+            </div>
+            <button class="back-btn" onclick="showMainMenu()">Back</button>
+        </div>
+
+        <!-- Settings Forms -->
+        <!-- TMX to XLSX Settings -->
+        <div id="tmx_to_xlsx-settings" class="settings">
+            <h2>TMX to XLSX Settings</h2>
+            <form id="tmx_to_xlsx-form">
+                <div class="form-group">
+                    <label>Input TMX file path (TMX):</label>
+                    <input type="text" name="tmx_file_path" required>
+                </div>
+                <div class="form-group">
+                    <label>Output XLSX file path (XLSX):</label>
+                    <input type="text" name="output_xlsx_path" required>
+                </div>
+                <div class="form-group">
+                    <label>Source Language:</label>
+                    <select name="source_language" required>
+                        {% for lang in languages %}
+                        <option value="{{ lang }}" {% if lang == 'English' %}selected{% endif %}>{{ lang }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Target Language:</label>
+                    <select name="target_language" required>
+                        {% for lang in languages %}
+                        <option value="{{ lang }}">{{ lang }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit" class="go-btn">Go!</button>
+            </form>
+            <button class="back-btn" onclick="showSubMenu('translation_memory')">Back</button>
+        </div>
+
+        <!-- XLSX to JSON Settings -->
+        <div id="xlsx_to_json-settings" class="settings">
+            <h2>XLSX to JSON Settings</h2>
+            <form id="xlsx_to_json-form">
+                <div class="form-group">
+                    <label>XLSX file path (XLSX/ XLS):</label>
+                    <input type="text" name="xlsx_file_path" required>
+                </div>
+                <div class="form-group">
+                    <label>Output folder path (Folder):</label>
+                    <input type="text" name="output_folder_path" required>
+                </div>
+                <div class="form-group">
+                    <label>Target Languages:</label>
+                    <div id="target-languages-xlsx-json">
+                        <div class="language-selector">
+                            <select name="target_languages[]" required>
+                                {% for lang in languages %}
+                                <option value="{{ lang }}">{{ lang }}</option>
+                                {% endfor %}
+                            </select>
+                            <button type="button" class="add-btn" onclick="addLanguageSelector('target-languages-xlsx-json')">+</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Product:</label>
+                    <select name="product" required>
+                        <option value="PDR">PDR</option>
+                        <option value="PHD">PHD</option>
+                    </select>
+                </div>
+                <button type="submit" class="go-btn">Go!</button>
+            </form>
+            <button class="back-btn" onclick="showSubMenu('translation_memory')">Back</button>
+        </div>
+
+        <!-- Combine XLSX Settings -->
+        <div id="combine_xlsx-settings" class="settings">
+            <h2>Combine XLSX Settings</h2>
+            <form id="combine_xlsx-form">
+                <div class="form-group">
+                    <label>Source Folder Path:</label>
+                    <input type="text" name="source_folder_path" required>
+                </div>
+                <div class="form-group">
+                    <label>Output File Path (XLSX):</label>
+                    <input type="text" name="output_file_path" required>
+                </div>
+                <button type="submit" class="go-btn">Go!</button>
+            </form>
+            <button class="back-btn" onclick="showSubMenu('translation_memory')">Back</button>
+        </div>
+
+        <!-- Copy Source File Settings -->
+        <div id="copy_source-settings" class="settings">
+            <h2>Copy Source File Settings</h2>
+            <form id="copy_source-form">
+                <div class="form-group">
+                    <label>Source Folder Path:</label>
+                    <input type="text" name="source_folder_path" required>
+                </div>
+                <div class="form-group">
+                    <label>Target Languages:</label>
+                    <div id="target-languages-copy-source">
+                        <div class="language-selector">
+                            <select name="target_languages[]" required>
+                                {% for lang in languages %}
+                                <option value="{{ lang }}">{{ lang }}</option>
+                                {% endfor %}
+                            </select>
+                            <button type="button" class="add-btn" onclick="addLanguageSelector('target-languages-copy-source')">+</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Output Folder Path:</label>
+                    <input type="text" name="output_folder_path" required>
+                </div>
+                <button type="submit" class="go-btn">Go!</button>
+            </form>
+            <button class="back-btn" onclick="showSubMenu('source_file')">Back</button>
+        </div>
+
+        <!-- Generate General Prompt Settings -->
+        <div id="generate_general-settings" class="settings">
+            <h2>Generate General Prompt Settings</h2>
+            <form id="generate_general-form">
+                <div class="form-group">
+                    <label>Input Translation Memory ile path (JSON):</label>
+                    <input type="text" name="tm_file_path" required>
+                </div>
+                <div class="form-group">
+                    <label>Output XLSX file path (XLSX):</label>
+                    <input type="text" name="output_xlsx_path" required>
+                </div>
+                <div class="form-group">
+                    <label>Source Language:</label>
+                    <select name="source_language" required>
+                        {% for lang in languages %}
+                        <option value="{{ lang }}" {% if lang == 'English' %}selected{% endif %}>{{ lang }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Target Language:</label>
+                    <select name="target_language" required>
+                        {% for lang in languages %}
+                        <option value="{{ lang }}">{{ lang }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit" class="go-btn">Go!</button>
+            </form>
+            <button class="back-btn" onclick="showSubMenu('prompt')">Back</button>
+        </div>
+
+        <!-- Create Common Usage Table Settings -->
+        <div id="create_table-settings" class="settings">
+            <h2>Create Common Usage Table Settings</h2>
+            <form id="create_table-form">
+                <div class="form-group">
+                    <label>Input Translation Memory file path:</label>
+                    <input type="text" name="tm_file_path" required>
+                </div>
+                <button type="submit" class="go-btn">Go!</button>
+            </form>
+            <button class="back-btn" onclick="showSubMenu('common_usage')">Back</button>
+        </div>
+
+        <!-- Status and Completion Message -->
+        <div id="status-message" class="status-message" style="display: none;">
+            <h2>Process Status</h2>
+            <p id="status-text">Processing...</p>
+            <button id="close-btn" class="close-btn" onclick="closeWindow()" style="display: none;">Close Window</button>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
