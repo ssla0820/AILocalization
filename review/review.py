@@ -695,8 +695,7 @@ async def review_n_improve_process(source_lang,
     except Exception as e:
         error_message = str(e)
         print(f"Error saving review results: {error_message}")
-        return error_message
-
+        return translated_text
 
 
 # 修改後的 compare_result 函數，修復了事件循環問題

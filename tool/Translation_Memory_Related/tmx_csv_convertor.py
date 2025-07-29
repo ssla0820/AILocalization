@@ -464,13 +464,8 @@ def clean_text(text: str) -> str:
     return cleaned_text
 
 
-def main():
-    # Local parameters instead of command-line arguments
-    input_file = r"E:\Debby\9_Scripts\TranslateHTML\Translate_HTML_XML_v10\database\PDR FAQ_ITA.tmx" # Path to the TMX file in your workspace
-    output_file = r"e:\Debby\9_Scripts\TranslateHTML\Translate_HTML_XML_v10\database\PDR FAQ_ITA_result.xlsx"  # Output Excel file path
-    source_lang_name = "English"  # Source language name
-    target_lang_name = "Italian"  # Target language name (e.g., 'Traditional Chinese')
-    
+def main(input_file, output_file, source_lang_name, target_lang_name):
+
     # Check if input file exists
     if not os.path.isfile(input_file):
         print(f"Error: Input file '{input_file}' not found")
@@ -517,4 +512,10 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    # Local parameters instead of command-line arguments
+    input_file = r"E:\Debby\9_Scripts\TranslateHTML\Translate_HTML_XML_v10\database\PDR FAQ_ITA.tmx" # Path to the TMX file in your workspace
+    output_file = r"e:\Debby\9_Scripts\TranslateHTML\Translate_HTML_XML_v10\database\PDR FAQ_ITA_result.xlsx"  # Output Excel file path
+    source_lang_name = "English"  # Source language name
+    target_lang_name = "Italian"  # Target language name (e.g., 'Traditional Chinese')
+
+    main(input_file, output_file, source_lang_name, target_lang_name)

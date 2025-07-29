@@ -215,13 +215,7 @@ def combine_xlsx_files_advanced(file_paths, output_path, options=None):
         logger.error(f"Error in advanced combination: {str(e)}")
         return False
 
-file_path = r"E:\Debby\9_Scripts\TranslateHTML\Translate_HTML_XML_v11\database\raw_data\0721_TillJune2"
-xlsx_path_file_list = os.listdir(file_path)
-xlsx_path_list = [os.path.join(file_path, file) for file in xlsx_path_file_list if file.lower().endswith('.xlsx')]
-
-output_path = r"E:\Debby\9_Scripts\TranslateHTML\Translate_HTML_XML_v11\database\raw_data\0721_TillJune2\PDR23_June_DEU.xlsx"
-
-def main():
+def main(xlsx_path_list, output_path):
     """
     Main function to execute the file combination with the predefined paths.
     """
@@ -235,19 +229,11 @@ def main():
     else:
         logger.error("File combination failed!")
     
-    # Example of advanced combination with options
-    # advanced_options = {
-    #     'method': 'concat',
-    #     'add_filename_column': True,
-    #     'remove_duplicates': True,
-    #     'sort_by': 'column_name'  # Replace with actual column name
-    # }
-    # 
-    # success_advanced = combine_xlsx_files_advanced(
-    #     xlsx_path_list, 
-    #     output_path.replace('.xlsx', '_advanced.xlsx'),
-    #     advanced_options
-    # )
-
 if __name__ == "__main__":
-    main()
+    file_path = r"E:\Debby\9_Scripts\TranslateHTML\Translate_HTML_XML_v11\database\raw_data\0721_TillJune2"
+    xlsx_path_file_list = os.listdir(file_path)
+    xlsx_path_list = [os.path.join(file_path, file) for file in xlsx_path_file_list if file.lower().endswith('.xlsx')]
+
+    output_path = r"E:\Debby\9_Scripts\TranslateHTML\Translate_HTML_XML_v11\database\raw_data\0721_TillJune2\PDR23_June_DEU.xlsx"
+
+    main(xlsx_path_list, output_path)

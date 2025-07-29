@@ -369,3 +369,12 @@ async def restruct_process(is_excel_translation, groups_out, ori_html=None):
         response = ''
         async for chunk, stop_reason in restruct_chat.get_stream_aresponse(p):
             response += chunk
+
+        if response.endswith("```"):
+            if response.startswith("```html"):
+                response = response[7:-3].strip()
+            elif response.startswith("```xml"):
+                response = response[6:-3].strip()
+                
+        return response
+    

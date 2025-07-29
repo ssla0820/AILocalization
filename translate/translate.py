@@ -335,7 +335,8 @@ async def translate_groups(
             print("Translation response is empty, breaking the loop.")
             continue        
         translated_text = list(as_json_obj(response).values())[-1]
-        # Add await to properly call the async function
+        groups_out[source_text_index] = translated_text
+        # # Add await to properly call the async function
         translated_text = await review_n_improve_process(source_lang,
                                             target_lang,
                                             software_type,
@@ -351,11 +352,10 @@ async def translate_groups(
                                             temperature=conf.TEMPERATURE, 
                                             seed=conf.SEED,
                                             review_path=review_report_path,
-                                            need_native_review=need_native_review,)
+                                            need_native_review=need_native_review)
 
-        # translated_text = full_tag_source_text
         groups_out[source_text_index] = translated_text
-        # temp_full_tag[source_text_index] = str(full_tag_source_text[0])
+        print(f"Final translated text for {source_text_index}: {translated_text}")
 
         debug_process(source_text_index, source_text, relevant_specific_names,\
                     relevant_region_table, relevant_refer_text_table, relevant_pair_database, \
@@ -363,7 +363,7 @@ async def translate_groups(
         
 
     # print(f'Original Inputs: {groups_in}')
-    # print(f"Translation response--2: {groups_out}")
+    print(f"Translation response: {groups_out}")
 
     # Ensure groups_out has the exact same keys as groups_in to preserve structure
     if groups_out and set(groups_out.keys()) != set(groups_in.keys()):
@@ -881,7 +881,7 @@ def process_single_file(p_in, p_out, source_lang, target_lang, specific_names_xl
 
             fout.write(output_content)
             
-        print(f"Translation completed: {ret.count('S')} successful, {ret.count('C')} compromised, {ret.count('F')} failed out of {len(ret)} segments")
+        # print(f"Translation completed: {ret.count('S')} successful, {ret.count('C')} compromised, {ret.count('F')} failed out of {len(ret)} segments")
     
     print(f"Output file written using {used_encoding} encoding")
 

@@ -6,7 +6,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardi
 from bs4 import BeautifulSoup
 from collections import OrderedDict
 from chat.openai_api_chat import OpenaiAPIChat
-from database.search_similar_pair import main as search_similar_pair_main
+from translation_memory.search_similar_pair import main as search_similar_pair_main
 from pages.general_functions import get_relevant_specific_names, as_json_obj, InlineGroup, get_text_group_inline, load_specific_names, detect_file_encoding
 from prompts.translate_prompts import *
 from prompts.restruct_prompts import *

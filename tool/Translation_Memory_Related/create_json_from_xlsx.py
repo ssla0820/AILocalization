@@ -70,21 +70,16 @@ def create_json_from_xlsx(
         print(f"Error creating JSON file: {str(e)}")
         return False
 
-if __name__ == "__main__":
-    # Get the Excel file path from command line arguments if provided
-    import sys
-    
-    target_language_list = ['DEU', 'ESP', 'KOR', 'ITA', 'FRA']
+def main(excel_path, save_folder, target_language_list, product):
+    for target_language in target_language_list:
+        output_json_name = f"{product}_{target_language}_translation_memory.json"
+        output_json_path = os.path.join(save_folder, output_json_name)
+        create_json_from_xlsx(target_language, excel_path, output_json_path)
 
+if __name__ == "__main__":
+    target_language_list = ['DEU', 'ESP', 'KOR', 'ITA', 'FRA']
     excel_path = r"E:\Debby\9_Scripts\TranslateHTML\Translate_HTML_XML_v11\database\raw_data\0721_TillJune2\PHD 16.6 UI_20250714-2.xls"
     save_folder = r"E:\Debby\9_Scripts\TranslateHTML\Translate_HTML_XML_v11\database"
-    for target_language in target_language_list:
-        output_json_name = f"PHD_{target_language}_translation_memory.json"
-        output_json_path = os.path.join(save_folder, output_json_name)
-        
-        if len(sys.argv) > 1:
-            excel_path = sys.argv[1]
-        if len(sys.argv) > 2:
-            output_json_path = sys.argv[2]
-            
-        create_json_from_xlsx(target_language, excel_path, output_json_path)
+    product = 'PHD'  # Product name for the JSON file naming
+    
+    main(excel_path, save_folder, target_language_list, product)

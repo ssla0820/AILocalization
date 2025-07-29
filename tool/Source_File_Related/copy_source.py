@@ -1,19 +1,26 @@
 import os
 import shutil
 
-file_path = r"E:\Debby\9_Scripts\TranslateHTML\Translate_HTML_XML_v8\Report\0728_Source"
+def main(file_list, save_path, language_list):
+    for file in file_list:
+        for lang in language_list:
+            file_name = os.path.basename(file)
 
-pdr_file_nams = r'DEU_PDR_UIString_July.xlsx'
-phd_file_nams = r'DEU_PHD_UIString_July.xlsx'
+            base_name, extension = os.path.splitext(file_name)
+            new_file_name = f"{base_name}_{lang}{extension}"
 
-language = ['FRA', 'KOR', 'ITA', 'ESP']
+            new_file_path = os.path.join(save_path, new_file_name)
+            shutil.copy(file, new_file_path)
+            print(f"Copied {file} to {new_file_path}")
 
-for lang in language:
-    ori_pdr_file = os.path.join(file_path, pdr_file_nams)
-    ori_phd_file = os.path.join(file_path, phd_file_nams)
 
-    tar_pdr_file = os.path.join(file_path, pdr_file_nams.replace('DEU', lang))
-    tar_phd_file = os.path.join(file_path, phd_file_nams.replace('DEU', lang))
+if __name__ == "__main__":
+    file_path = r"E:\Debby\9_Scripts\TranslateHTML\Translate_HTML_XML_v8\Report\0728_Source"
+    save_path = r"E:\Debby\9_Scripts\TranslateHTML\Translate_HTML_XML_v8\Report\0728_Source"
 
-    shutil.copy(ori_pdr_file, tar_pdr_file)
-    shutil.copy(ori_phd_file, tar_phd_file)
+    file_list = [os.path.join(file_path, file) for file in os.listdir(file_path)]
+    language_list = ['FRA', 'KOR', 'ITA', 'ESP']
+
+    main(file_list, save_path, language_list)
+
+
