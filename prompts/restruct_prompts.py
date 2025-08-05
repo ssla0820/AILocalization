@@ -45,17 +45,18 @@ def restruct_sys_prompt():
         
         "TAG_BOUNDARY_RULES": [
             "Tags should encompass semantic equivalents only",
-            "Do not expand tag boundaries to include grammatically related words",
-            "If original '<strong>Effects</strong>' → translated 'Effetti', only 'Effetti' gets <strong>",
-            "If word order changes place 'Effetti' in different position, move <strong> to that position",
-            "Example: 'Effects Room' → 'Sala Effetti' means <strong> should be on 'Effetti' only, not 'Sala Effetti'"
+            "Do not expand tag boundaries to include grammatically related words or leading/trailing spaces",
+            "If original '<strong>Effects</strong>' → translated 'Effetti', only 'Effetti' gets <strong> and spaces remain fixed in the original position",
+            "If word order changes place 'Effetti' in different position, move <strong> to that position but preserve original leading and trailing spaces",
+            "Example: 'Effects Room' → 'Sala Effetti' means <strong> should be on 'Effetti' only, not 'Sala Effetti', and spaces should remain in the same position as in the original text"
         ],
         
         "LEADING_TRAILING_SPACE_PRESERVATION": [
-            "CRITICAL: Preserve leading and trailing spaces from original text content",
-            "If original text starts with space (' original text'), translated output must start with space (' translated text')",
-            "If original text ends with space ('original text '), translated output must end with space ('translated text ')",
-            "Example: '<strong> Effects </strong>' should become '<strong> Effetti </strong>' (preserve both leading and trailing spaces)",
+            "CRITICAL: Preserve leading and trailing spaces from original text content, keeping them in their original position",
+            "If original text starts with space (' original text'), translated output must start with space (' translated text ') only if the word order remains unchanged",
+            "If original text ends with space ('original text '), translated output must end with space ('translated text ') only if the word order remains unchanged",
+            "If word order changes, leading and trailing spaces must remain fixed in their original position, not shifting with translated text",
+            "Example: '<strong> Effects </strong>' should become '<strong> Effetti </strong>' (preserve both leading and trailing spaces in the original position)",
             "Apply this rule to all text nodes, whether inside tags or between tags",
             "This spacing preservation is separate from content translation - it's about maintaining HTML structure spacing"
         ],
@@ -74,7 +75,7 @@ def restruct_sys_prompt():
             "SEMANTIC FORMATTING: Apply formatting to semantically corresponding words only",
             "CONTENT ACCURACY: Translated content must match translated_text exactly",
             "NO TEXT LOSS: Every word from translated_text must appear in output",
-            "SPACE PRESERVATION: Maintain leading/trailing spaces from original text content",
+            "SPACE PRESERVATION: Maintain leading/trailing spaces in their original positions, not shifting them with translated text",
             "TAG CONSISTENCY: Keep same opening/closing tag patterns as ori_html",
             "CLEAN OUTPUT: No unexpected blank blocks or unnecessary whitespace",
             "NON-TEXT PRESERVATION: If elements are not related to text replacement, copy them exactly as they are - do not modify anything"
@@ -83,24 +84,26 @@ def restruct_sys_prompt():
         "CONDITIONAL_FORMATTING_RULES": {
             "scenario_1_same_order": {
                 "condition": "When translated_text maintains similar word order as original",
-                "action": "Preserve ori_html structure exactly, replace text content only"
+                "action": "Preserve ori_html structure exactly, replace text content only, maintain original leading/trailing spaces",
+                "note": "Spaces only follow translated text if word order is unchanged"
             },
             "scenario_2_changed_order": {
                 "condition": "When translated_text changes word order significantly",
-                "action": "Adapt HTML structure to ensure tags follow translated words correctly",
-                "rule": "Move formatting tags to match the position of semantically equivalent words in translated_text"
+                "action": "Adapt HTML structure to ensure tags follow translated words correctly, but preserve original leading/trailing spaces at their original positions",
+                "rule": "Move formatting tags to match the position of semantically equivalent words in translated_text, while keeping spaces in their original position"
             }
         },
         
         "MANDATORY_VALIDATION_PROCESS": [
             "WORD ORDER CHECK: Remove all HTML tags and verify text flows exactly like translated_text",
             "SEMANTIC FORMATTING CHECK: Verify each formatted word corresponds semantically to originally formatted word",
-            "TAG BOUNDARY CHECK: Verify tags encompass only semantic equivalents, not additional words",
+            "TAG BOUNDARY CHECK: Verify tags encompass only semantic equivalents, not additional words or leading/trailing spaces",
             "STRUCTURE VALIDITY CHECK: Ensure HTML is valid and maintains logical structure",
             "TAG CONSISTENCY CHECK: Verify opening/closing tag patterns match ori_html exactly",
-            "SPACE PRESERVATION CHECK: Verify leading/trailing spaces from original are maintained",
+            "SPACE PRESERVATION CHECK: Verify leading/trailing spaces from original are maintained in their original positions",
             "CLEANLINESS CHECK: Ensure no unexpected blank blocks or unnecessary whitespace"
         ],
+        
         "preservation_requirements": [
             "HTML tag types and attributes exactly",
             "Element nesting hierarchy when possible",
@@ -111,8 +114,9 @@ def restruct_sys_prompt():
             "Exact opening/closing tag patterns from ori_html",
             "Clean formatting without extra blank blocks",
             "ALL non-text elements copied exactly without any modifications"
-        ],
+        ]
     }
+
     
     # Convert to JSON string
     import json
