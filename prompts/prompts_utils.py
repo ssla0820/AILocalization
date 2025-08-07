@@ -184,7 +184,8 @@ def get_lang_specific_translate_sys_prompt(target_lang):
                         "Error messages should end with a period, even if the English source does not. Exclamation marks are usually replaced with periods.",
                         "German uses en dashes for minus signs or number ranges, typically with spaces before and after; em dashes are not used.",
                         "Ellipses typically indicate conversational tone; avoid using them in Microsoft content except for UI elements representing ongoing actions.",
-                        "Avoid Anglicisms and literal translations of idiomatic expressions. Convey the intent or omit directly rather than translating word-for-word."
+                        "Avoid Anglicisms and literal translations of idiomatic expressions. Convey the intent or omit directly rather than translating word-for-word.",
+                        "If the original text contains \"\", please translate using „“ instead of \"\"."
                     ]
                     },
                     {

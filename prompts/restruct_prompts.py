@@ -48,13 +48,22 @@ def restruct_sys_prompt():
             "Do not expand tag boundaries to include grammatically related words or leading/trailing spaces",
             "If original '<strong>Effects</strong>' → translated 'Effetti', only 'Effetti' gets <strong> and spaces remain fixed in the original position",
             "If word order changes place 'Effetti' in different position, move <strong> to that position but preserve original leading and trailing spaces",
-            "Example: 'Effects Room' → 'Sala Effetti' means <strong> should be on 'Effetti' only, not 'Sala Effetti', and spaces should remain in the same position as in the original text"
+            "Example: 'Effects Room' → 'Sala Effetti' means <strong> should be on 'Effetti' only, not 'Sala Effetti', and spaces should remain in the same position as in the original text if it is not followed by a period or comma"
         ],
-        
+        "STYLE_TAG_BOUNDARY_RULES": [
+            "style=\"font-weight:bold;\" should only encompass the semantic equivalent",
+            "Do not expand tag boundaries to include grammatically related words or leading/trailing spaces",
+            "If the original <text styleclass=\"Body\" style=\"font-weight:bold;\" translate=\"true\">Exporter </text> → only 'Exporter' should have font-weight:bold, and spaces should remain in their original position if it is not followed by a period or comma",
+            "If the word order changes and 'Exporter' moves, the font-weight:bold should be moved to that position, but the original leading and trailing spaces must remain unchanged",
+            "Example: 'Export Button' → 'bouton Exporter', meaning font-weight:bold should only apply to 'Exporter', not 'Sala Effetti', and spaces should remain in the same position as in the original text if it is not followed by a period or comma",
+            "Example: 'Edit category' → 'catégorie Modifier', meaning font-weight:bold should only apply to 'Modifier', not 'catégorie', and spaces should remain in the same position as in the original text if not followed by a period or comma"
+        ],
         "LEADING_TRAILING_SPACE_PRESERVATION": [
             "CRITICAL: Preserve leading and trailing spaces from original text content, keeping them in their original position",
             "If original text starts with space (' original text'), translated output must start with space (' translated text ') only if the word order remains unchanged",
             "If original text ends with space ('original text '), translated output must end with space ('translated text ') only if the word order remains unchanged",
+            "If word order changes and original words with a following space become connected with a 'period' or 'comma', remove the space after the last word",
+            # "Example: 'Edit category.' → 'catégorie Modifier .', Modifier is followed by a 'period', should remove the space after Modifier",
             "If word order changes, leading and trailing spaces must remain fixed in their original position, not shifting with translated text",
             "Example: '<strong> Effects </strong>' should become '<strong> Effetti </strong>' (preserve both leading and trailing spaces in the original position)",
             "Apply this rule to all text nodes, whether inside tags or between tags",

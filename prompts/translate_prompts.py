@@ -68,8 +68,9 @@ def translate_sys_prompt(src_lang, tgt_lang, software_type, source_type):
             "audience": "software users of all expertise levels",
             "technical_accuracy": "preserve technical meaning",
             "adaptation": f"adapt to target language conventions for software {specific_type_name}",
-            "terminology": "consistent with industry standards"
-            
+            "terminology": "consistent with industry standards",
+            "punctuation": "If the original text does not include punctuation, do not add it yourself.",
+            "hyphen_usage": "If the original text uses '-', keep it as is and do not replace it with a comma or 'or'."
         },
         "specific_type_instructions": specific_type_instruction if 'specific_type_instruction' in locals() else [],
         "language_specific_guidance": language_guidance
