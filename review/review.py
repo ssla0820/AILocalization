@@ -19,6 +19,7 @@ from config import translate_config as conf
 from pages.general_functions import *
 from translation_memory.search_similar_pair import main as search_similar_pair_main
 import json
+import logging
 
 def export_debug_info(
     source_text,
@@ -92,7 +93,7 @@ def export_debug_info(
             existing_df = pd.read_excel(output_file, engine='openpyxl')
             final_df = pd.concat([existing_df, df], ignore_index=True)
         except Exception as e:
-            print(f"Error reading existing file: {e}")
+            logging.warning(f"Error reading existing file: {e}")
             final_df = df
     else:
         final_df = df
@@ -120,10 +121,10 @@ def export_debug_info(
         
         # Save with formatting
         wb.save(output_file)
-        print(f"Successfully saved debug information to {output_file}")
+        logging.info(f"Successfully saved debug information to {output_file}")
     except Exception as e:
-        print(f"Warning: Could not apply Excel formatting: {e}")
-        print(f"Debug information saved to {output_file} without formatting")
+        logging.warning(f"Could not apply Excel formatting: {e}")
+        logging.info(f"Debug information saved to {output_file} without formatting")
 
 
 def save_prompt_process(source_text_index,
@@ -174,7 +175,7 @@ def save_prompt_process(source_text_index,
         wb.save(prompt_file)
         
     except Exception as e:
-        print(f"Warning: Could not save debug info to Excel: {e}")
+        logging.warning(f"Could not save debug info to Excel: {e}")
 
 def parse_json_column(value):
     """
@@ -236,7 +237,7 @@ def get_refer_data(translate_refer, source_text, database_path):
                 grammar_top_n=5, 
                 term_top_n=5
             )
-        print(f"Relevant specific names for translation: {relevant_pair_database}")
+        logging.debug(f"Relevant specific names for translation: {relevant_pair_database}")
         return relevant_pair_database
 
 def get_text_group(source_file_path, target_file_path):
@@ -247,7 +248,7 @@ def get_text_group(source_file_path, target_file_path):
         target_groups = extract_text_from_excel(target_file_path, is_source_file=False)
         # Find common keys (row indices) that exist in both files
         common_keys = set(source_groups.keys()) & set(target_groups.keys())
-        print(f"Found {len(common_keys)} common rows to compare")
+        logging.info(f"Found {len(common_keys)} common rows to compare")
 
     # Extract text data from HTML/ XML files
     else:
@@ -256,20 +257,20 @@ def get_text_group(source_file_path, target_file_path):
         is_xml_target = target_file_path.lower().endswith('.xml')
         source_parser = 'xml' if is_xml_source else 'html.parser'
         target_parser = 'xml' if is_xml_target else 'html.parser'
-        print(f"Source file type: {'XML' if is_xml_source else 'HTML'}, using {source_parser} parser")
-        print(f"Target file type: {'XML' if is_xml_target else 'HTML'}, using {target_parser} parser")
-    
+        logging.info(f"Source file type: {'XML' if is_xml_source else 'HTML'}, using {source_parser} parser")
+        logging.info(f"Target file type: {'XML' if is_xml_target else 'HTML'}, using {target_parser} parser")
+
         # Read files with encoding detection
         try:
             # Use the encoding detection function to open files
             source_encoding, source_html = detect_file_encoding(source_file_path)
             target_encoding, html1 = detect_file_encoding(target_file_path)
-            
-            print(f"Source file encoding: {source_encoding}")
-            print(f"Target file encoding: {target_encoding}")
-            
+
+            logging.info(f"Source file encoding: {source_encoding}")
+            logging.info(f"Target file encoding: {target_encoding}")
+
         except Exception as e:
-            print(f"Error reading HTML/XML files: {e}")
+            logging.warning(f"Error reading HTML/XML files: {e}")
             return
             
         # Parse HTML/XML with BeautifulSoup using appropriate parsers
@@ -282,7 +283,7 @@ def get_text_group(source_file_path, target_file_path):
     
         # Find groups that exist in both files
         common_keys = set(source_groups.keys()) & set(target_groups.keys())
-        print(f"Found {len(common_keys)} common text segments to compare")
+        logging.info(f"Found {len(common_keys)} common text segments to compare")
 
     return source_groups, target_groups, common_keys, is_xlsx_file
 
@@ -343,6 +344,60 @@ def compress_prompt_for_token_limit(prompt, level=1):
     
     return prompt  # Default case
 
+def save_review_results(file_path, review_result_dict, save_fail_only=False):
+        # Load existing results if the file exists, otherwise create a new DataFrame
+        if os.path.exists(file_path):
+            try:
+                # Ensure we use openpyxl engine which has better East Asian character support
+                existing_df = pd.read_excel(file_path, engine='openpyxl')
+                # Parse any JSON strings in the DataFrame
+                for col in existing_df.columns:
+                    if "_review_" in col:
+                        existing_df[col] = existing_df[col].apply(parse_json_column)
+            except Exception as e:
+                logging.warning(f"Error reading {file_path}: {e}")
+                existing_df = pd.DataFrame()
+        else:
+            existing_df = pd.DataFrame()
+
+        if save_fail_only and review_result_dict.get("review_pass_flag", True) is True:
+            return  # Skip saving if the review passed and we're only saving failures
+        
+        # Convert the review result into a DataFrame row
+        # Ensure proper handling of East Asian characters
+        for key, value in review_result_dict.items():
+            if isinstance(value, str):
+                # Ensure strings are properly encoded for Excel
+                review_result_dict[key] = value
+        
+        new_df = pd.DataFrame([review_result_dict])
+
+        # Append the new data
+        final_df = pd.concat([existing_df, new_df], ignore_index=True)
+
+        # Save the updated results back to the Excel file
+        final_df.to_excel(file_path, index=False, engine='openpyxl')
+        
+        # Reload with openpyxl to ensure proper encoding of East Asian characters
+        try:
+            import openpyxl
+            from openpyxl.styles import Font, Alignment
+            
+            # Load the workbook
+            wb = openpyxl.load_workbook(file_path)
+            ws = wb.active
+            
+            # Apply formatting to make the file more readable
+            for col_idx, column in enumerate(final_df.columns):
+                # Bold header
+                cell = ws.cell(row=1, column=col_idx+1)
+                cell.font = Font(bold=True)
+            
+            # Save with formatting
+            wb.save(file_path)
+            logging.info(f"Successfully saved and formatted review results to {file_path}")
+        except Exception as e:
+            logging.warning(f"Could not apply Excel formatting: {e}")
 
 async def review_n_improve_process(source_lang,
                                     target_lang,
@@ -363,9 +418,9 @@ async def review_n_improve_process(source_lang,
                                     review_path=None,
                                     max_retry_times=1,
                                     need_native_review=False):
-    
-    print(f'review path is {review_path}')
-    
+
+    logging.info(f'review path is {review_path}')
+
     if need_native_review:
         review_result_dict = {"source_text": source_text, "original_translated_text": translated_text}
         review_result_dict["review_pass_flag"] = False
@@ -384,9 +439,9 @@ async def review_n_improve_process(source_lang,
         #                 system_prompt=improve_sys_prompt(source_lang, target_lang, software_type, source_type),
         #                 image_path=image_path
         #             )
-        print(f'review_chat_obj_list: {review_chat_obj_list}')
-        # print(f'improve_chat_obj_list: {improve_chat}')
-        print(f'Get translated text: {translated_text}')
+        # print(f'review_chat_obj_list: {review_chat_obj_list}')
+        # # print(f'improve_chat_obj_list: {improve_chat}')
+        # print(f'Get translated text: {translated_text}')
 
         try:
             review_result_dict = {"source_text": source_text, "original_translated_text": translated_text}
@@ -401,18 +456,18 @@ async def review_n_improve_process(source_lang,
             process_pass_flag = False
 
             for retry_time in range(max_retry_times):
-                print(f'Current Doing {retry_time+1} times translation...')
+                # print(f'Current Doing {retry_time+1} times translation...')
                 
                 for _ in range(len(model_list)):
                     model_name = model_list[_]
-                    print(f'========================Used Model: {model_name}========================')
+                    logging.info(f'========================Used Model: {model_name}========================')
                     check_item_index_dict = {
                             0: 'all'
                         }
   
                     raw_review_response_dict ={}
                     for check_item_index in range(len(review_chat_obj_list[_])):
-                        print(f'===========Checking Point: {check_item_index_dict[check_item_index]}===========')
+                        # print(f'===========Checking Point: {check_item_index_dict[check_item_index]}===========')
 
                         review_chat = review_chat_obj_list[_][check_item_index]
                         
@@ -440,14 +495,14 @@ async def review_n_improve_process(source_lang,
                                 review_response += chunk
                                 
                             if review_stop_reason == 'length':
-                                print("Review response exceeded length limit but received partial content.")
+                                logging.warning("Review response exceeded length limit but received partial content.")
                                 raise RuntimeError("Review response too short after hitting length limit.")
                             
                         except RuntimeError as e:
-                            print(f"Review process failed: {str(e)}")
+                            logging.error(f"Review process failed: {str(e)}")
                             raise RuntimeError("Translation review failed due to length limit or other issues.")
-                        print(f"Review response:\n {review_response}")
-                        
+                        logging.debug(f"Review response:\n {review_response}")
+
                         # Parse the review response
                         review_response_json = as_json_obj(review_response)
                         raw_review_response_dict[check_item_index_dict[check_item_index]] = review_response_json
@@ -462,8 +517,8 @@ async def review_n_improve_process(source_lang,
                         #     review_response=review_response
                         # )
 
-                    print(f"Raw review response dictionary for {retry_time+1} times: {raw_review_response_dict}")
-                    
+                    logging.debug(f"Raw review response dictionary for {retry_time+1} times: {raw_review_response_dict}")
+
                     # Export debug information
                     debug_file = "debug_review.xlsx"
                     # debug_file = f"Prompt_Review_{target_lang}_{model_name}_PHD.xlsx"
@@ -481,15 +536,15 @@ async def review_n_improve_process(source_lang,
                             model_name=model_name,
                             output_file=debug_file
                         )
-                        print(f"Exported debug information to {debug_file}")
+                        logging.info(f"Exported debug information to {debug_file}")
                     except Exception as e:
-                        print(f"Failed to export debug information: {e}")
+                        logging.error(f"Failed to export debug information: {e}")
 
                     if retry_time+1 not in reviewed_dict.keys():
                         reviewed_dict[retry_time+1] = {model_name: None}
 
                     if all (value is None for value in raw_review_response_dict.values()):
-                        print("Review response is empty or invalid JSON, attempting to extract useful information.")
+                        logging.debug("Review response is empty or invalid JSON, attempting to extract useful information.")
                         # Try to salvage some information from non-JSON response
                         process_pass_flag = f'Error in review response with {model_name}'
                         reviewed_dict[retry_time+1][model_name] = review_response
@@ -508,20 +563,20 @@ async def review_n_improve_process(source_lang,
                                     review_response_dict[key] = value['Suggestions']
                             # Store the improvement suggestions
                             reviewed_dict[retry_time+1][model_name] = review_response_dict
-                            print(f'reviewed_dict for {retry_time+1} times: {reviewed_dict}')
+                            logging.debug(f'reviewed_dict for {retry_time+1} times: {reviewed_dict}')
                         except Exception as e:
                             reviewed_dict[retry_time+1][model_name] = raw_review_response_dict
-                            print(f"Error processing review response for {model_name}: {str(e)}")
+                            logging.error(f"Error processing review response for {model_name}: {str(e)}")
                             process_pass_flag = f'Error in review response with {model_name}'
 
-                print(f'Current reviewed_dict: {reviewed_dict}')
+                logging.info(f'Current reviewed_dict: {reviewed_dict}')
 
                 if type(process_pass_flag) == str and 'Error in review response' in process_pass_flag:
-                    print("Error in review response, skipping re-translation.")
+                    logging.warning("Error in review response, skipping re-translation.")
                     break
                 
                 if (retry_time+1) in reviewed_dict and all(value is None for val in reviewed_dict[retry_time+1].values() for value in val.values()):
-                    print(f"All models returned None for review in attempt {retry_time+1}, skipping re-translation.")
+                    logging.info(f"All models returned None for review in attempt {retry_time+1}, skipping re-translation.")
                     process_pass_flag = True
                     break
 
@@ -603,7 +658,7 @@ async def review_n_improve_process(source_lang,
                         import json
                         # Store as a formatted JSON string with indentation
                         # ensure_ascii=False preserves East Asian characters
-                        review_result_dict[f"{model_name}_review_{key}"] = json.dumps(suggestions, indent=4, ensure_ascii=False)
+                        # review_result_dict[f"{model_name}_review_{key}"] = json.dumps(suggestions, indent=4, ensure_ascii=False)
                         
                         # Add to the model's summary if it's not already there
                         if model_name not in summary_by_model:
@@ -612,9 +667,10 @@ async def review_n_improve_process(source_lang,
                         # Add only the suggestion content to the summary
                         for category, suggestion in suggestions.items():
                             if suggestion:  # Only add non-empty suggestions
-                                summary_by_model[model_name].append(f"{category}: {suggestion}")
-                    else:
-                        review_result_dict[f"{model_name}_review_{key}"] = suggestions
+                                # summary_by_model[model_name].append(f"{category}: {suggestion}")
+                                summary_by_model[model_name].append(f"{suggestion[0]}")
+                    # else:
+                    #     review_result_dict[f"{model_name}_review_{key}"] = suggestions
                 
                 # review_result_dict[f"improved_{key}"] = improved_dict[key]
             
@@ -628,73 +684,29 @@ async def review_n_improve_process(source_lang,
                     review_result_dict[f"summary_{model_name}"] = "No suggestions"
             
             review_result_dict["review_pass_flag"] = process_pass_flag
-            review_result_dict["final_translated_text"] = translated_text
+            # review_result_dict["final_translated_text"] = translated_text
 
         except Exception as e:
             error_message = str(e)
-            print(f"{error_message}")
+            logging.error(f"{error_message}")
             return error_message
         
     try:
-        print('='*40)
-        print(f'review result dict: {review_result_dict}')
-        print('='*40)
+        logging.info('='*40)
+        logging.info(f'review result dict: {review_result_dict}')
+        logging.info('='*40)
         # Append review_result_dict to the "review_results.xlsx" file
         if review_path:
-            # Load existing results if the file exists, otherwise create a new DataFrame
-            if os.path.exists(review_path):
-                try:
-                    # Ensure we use openpyxl engine which has better East Asian character support
-                    existing_df = pd.read_excel(review_path, engine='openpyxl')
-                    # Parse any JSON strings in the DataFrame
-                    for col in existing_df.columns:
-                        if "_review_" in col:
-                            existing_df[col] = existing_df[col].apply(parse_json_column)
-                except Exception as e:
-                    print(f"Error reading {review_path}: {e}")
-                    existing_df = pd.DataFrame()
-            else:
-                existing_df = pd.DataFrame()
-
-            # Convert the review result into a DataFrame row
-            # Ensure proper handling of East Asian characters
-            for key, value in review_result_dict.items():
-                if isinstance(value, str):
-                    # Ensure strings are properly encoded for Excel
-                    review_result_dict[key] = value
-            
-            new_df = pd.DataFrame([review_result_dict])
-
-            # Append the new data
-            final_df = pd.concat([existing_df, new_df], ignore_index=True)
-
-            # Save the updated results back to the Excel file
-            final_df.to_excel(review_path, index=False, engine='openpyxl')
-            
-            # Reload with openpyxl to ensure proper encoding of East Asian characters
-            try:
-                import openpyxl
-                from openpyxl.styles import Font, Alignment
-                
-                # Load the workbook
-                wb = openpyxl.load_workbook(review_path)
-                ws = wb.active
-                
-                # Apply formatting to make the file more readable
-                for col_idx, column in enumerate(final_df.columns):
-                    # Bold header
-                    cell = ws.cell(row=1, column=col_idx+1)
-                    cell.font = Font(bold=True)
-                
-                # Save with formatting
-                wb.save(review_path)
-                print(f"Successfully saved and formatted review results to {review_path}")
-            except Exception as e:
-                print(f"Warning: Could not apply Excel formatting: {e}")
+            # Get the base name and extension
+            review_base, review_ext = os.path.splitext(review_path)
+            # Create new path by appending "_Fail_only" before the extension
+            fail_review_path = f"{review_base}_Fail_only{review_ext}"
+            save_review_results(review_path, review_result_dict, save_fail_only=False)
+            save_review_results(fail_review_path, review_result_dict, save_fail_only=True)
         return translated_text
     except Exception as e:
         error_message = str(e)
-        print(f"Error saving review results: {error_message}")
+        logging.error(f"Error saving review results: {error_message}")
         return translated_text
 
 
@@ -724,7 +736,7 @@ async def process_segments(
     # review_chat_obj_list = make_model_object(model_list, software_type, source_type, source_lang, target_lang, image_path=None)
 
     for i, key in enumerate(sorted(common_keys, key=lambda x: int(x))):
-        print(f"Comparing segment {i+1}/{len(common_keys)}")
+        logging.info(f"Comparing segment {i+1}/{len(common_keys)}")
         
         # Get the corresponding group from each file
         if is_xlsx_file:
@@ -737,19 +749,19 @@ async def process_segments(
             # Get text content
             source_text = str(source_group) if source_group else "Source text not available"
             translated_text = str(group1)
-            
-        print(f'Current is doing source text {source_text}')
-        
+
+        logging.info(f'Current is doing source text {source_text}')
+
         # Identify specific named entities in the current segment
         relevant_specific_names = get_relevant_specific_names(specific_names, source_text)
 
         # Get the region table
         relevant_region_table = get_relevant_region_table(region_table, source_text)
-        print(f"Relevant region table for translation: {relevant_region_table}")
+        logging.debug(f"Relevant region table for translation: {relevant_region_table}")
 
         # Get the refer text table
         relevant_refer_text_table = get_relevant_refer_text_table(refer_text_table, source_text)
-        print(f"Relevant refer text table for translation: {relevant_refer_text_table}")
+        logging.debug(f"Relevant refer text table for translation: {relevant_refer_text_table}")
 
 
         # Create the prompt
@@ -816,23 +828,23 @@ def compare_result(
     :param database_path: Path to the database for translation references
     :return: None
     """
-    print(f"Starting review using source: {source_file_path}")
-    print(f"Comparing source file with target file: {source_file_path} and {target_file_path}")
-    print(f"Using source language: {source_lang}")
-    print(f"Using target language: {target_lang}")
-    print(f"Using software type: {software_type}")
-    print(f"Using source type: {source_type}")
+    logging.info(f"Starting review using source: {source_file_path}")
+    logging.info(f"Comparing source file with target file: {source_file_path} and {target_file_path}")
+    logging.info(f"Using source language: {source_lang}")
+    logging.info(f"Using target language: {target_lang}")
+    logging.info(f"Using software type: {software_type}")
+    logging.info(f"Using source type: {source_type}")
     
     source_groups, target_groups, common_keys, is_xlsx_file = get_text_group(source_file_path, target_file_path)
-    print(f'Source groups: {len(source_groups)} segments found')
-    
+    logging.info(f'Source groups: {len(source_groups)} segments found')
+
     # Initialize review results
     review_results = []
     for model in model_list:
         review_results.append([])
     
     # 正確設置和管理事件循環
-    print("Comparing segments...")
+    logging.info("Comparing segments...")
     try:
         # 使用一個新的事件循環
         loop = asyncio.new_event_loop()
@@ -868,10 +880,10 @@ def compare_result(
         review_results.extend(results)
         
     except Exception as e:
-        print(f"Error during review: {e}")
-    
+        logging.error(f"Error during review: {e}")
+
     # 可以在這裡處理和保存比較結果
-    print("review processing completed")
+    logging.info("review processing completed")
 
 
 def main(
@@ -890,6 +902,12 @@ def main(
          model_list="default",
          review_report_path="default"):
     
+    # 檢查是否已經設置了 logging（通常是被 batch_processor.py 調用時）
+    # 如果沒有設置，就自己設置一個
+    if not logging.getLogger().handlers:
+        setup_logging()
+        logging.info("Logging setup completed in review.py")
+
     """Command-line entry point for review functionality"""
     if input_file_path=="default":
         input_file_path = conf.INPUT_FILE_PATH
@@ -915,49 +933,49 @@ def main(
         database_path = conf.DATABASE_PATH
     if model_list=="default":
         model_list = conf.COMPARISON_MODEL
-    print("Running in review mode...")
-    print(f"Comparing Source file: {input_file_path}")
-    print(f"Comparing Translated file: {output_file_path}")
-    print(f"Output review base path: {compare_file_path}")
-    print(f"Using software type: {software_type}")
-    print(f"Using source language: {source_lang}")
-    print(f"Using target language: {target_lang}")
-    print(f"Using source type: {source_type}")
-    print(f"Using database path: {database_path}")
-    
+    logging.info("Running in review mode...")
+    logging.info(f"Comparing Source file: {input_file_path}")
+    logging.info(f"Comparing Translated file: {output_file_path}")
+    logging.info(f"Output review base path: {compare_file_path}")
+    logging.info(f"Using software type: {software_type}")
+    logging.info(f"Using source language: {source_lang}")
+    logging.info(f"Using target language: {target_lang}")
+    logging.info(f"Using source type: {source_type}")
+    logging.info(f"Using database path: {database_path}")
+
     # Load specific names if configured
     specific_names = {}
     if specific_names_xlsx_path:
         try:
             specific_names = load_specific_names(specific_names_xlsx_path, source_lang, target_lang)
-            print(f"Loaded {len(specific_names)} specific name translations for review")
+            logging.info(f"Loaded {len(specific_names)} specific name translations for review")
         except Exception as e:
-            print(f"Warning: Could not load specific names: {e}")
-    
+            logging.warning(f"Could not load specific names: {e}")
+
     region_table = {}
     if region_table_path:
         try:
             region_table = load_region_table(region_table_path, source_lang, target_lang)
-            print(f"Loaded {len(region_table)} region translations for review")
+            logging.info(f"Loaded {len(region_table)} region translations for review")
         except Exception as e:
-            print(f"Warning: Could not load region table: {e}")
-    
+            logging.warning(f"Could not load region table: {e}")
+
     refer_text_table = {}
     if refer_text_table_path:
         try:
             refer_text_table = load_refer_text_table(refer_text_table_path, source_lang, target_lang)
-            print(f"Loaded {len(refer_text_table)} reference translations for review")
+            logging.info(f"Loaded {len(refer_text_table)} reference translations for review")
         except Exception as e:
-            print(f"Warning: Could not load refer text table: {e}")
-    
+            logging.warning(f"Could not load refer text table: {e}")
+
     # Get temperature and seed from config if available
     temperature = getattr(conf, 'TEMPERATURE', 0.3)
     seed = getattr(conf, 'SEED', None)
     
     if temperature != 0.3:
-        print(f"Using temperature: {temperature}")
+        logging.info(f"Using temperature: {temperature}")
     if seed is not None:
-        print(f"Using seed: {seed}")
+        logging.info(f"Using seed: {seed}")
       # Check file extensions to determine file type
 
     # Create model-specific output file path by appending model name to the filename
@@ -965,9 +983,9 @@ def main(
     model_output_path_list = []
     for model_name in model_list:
         model_output_path_list.append(f"{file_base}_{model_name.replace('-', '_')}{file_ext}")
-    
-    print(f"Output will be saved to: {model_output_path_list}")
-    
+
+    logging.info(f"Output will be saved to: {model_output_path_list}")
+
     # Run the appropriate review based on file types
     compare_result(
         input_file_path,
@@ -988,7 +1006,7 @@ def main(
         review_report_path=review_report_path
     )
 
-    print(f"review completed")
+    logging.info("Review completed")
 
 
 if __name__ == '__main__':

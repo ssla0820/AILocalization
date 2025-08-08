@@ -3,13 +3,13 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)))
 from collections import OrderedDict
 from chat.openai_api_chat import OpenaiAPIChat
-from pages.general_functions import as_json_obj, InlineGroup
+from pages.general_functions import as_json_obj, InlineGroup, setup_logging
 from prompts.translate_prompts import *
 from prompts.restruct_prompts import *
 import json
-import asyncio
 import difflib
 from config import translate_config as conf
+import logging
 
 
 def validate_fit_in(
@@ -339,6 +339,12 @@ async def group_fit_in(
 
 async def restruct_process(is_excel_translation, groups_out, ori_html=None):
 
+    # 檢查是否已經設置了 logging（通常是被 batch_processor.py 調用時）
+    # 如果沒有設置，就自己設置一個
+    if not logging.getLogger().handlers:
+        setup_logging()
+        logging.info("Logging setup completed in translate.py")
+
     if is_excel_translation:
         # For Excel translation, just return the translated texts without DOM manipulation
         results = []
@@ -356,13 +362,13 @@ async def restruct_process(is_excel_translation, groups_out, ori_html=None):
             # structure_info=json.dumps(groups_map, ensure_ascii=False, indent=0) if groups_map else "{}",
         )
 
-        # print('===============System Prompt=====================')
-        # print(restruct_chat.sys_prompt)
-        # print('===============System Prompt=====================')
+        # logging.info('===============System Prompt=====================')
+        # logging.info(restruct_chat.sys_prompt)
+        # logging.info('===============System Prompt=====================')
 
-        # print('===============Used Restruct Prompt=====================')
-        # print(p)
-        # print('===============Used Restruct Prompt=====================')
+        # logging.info('===============Used Restruct Prompt=====================')
+        # logging.info(p)
+        # logging.info('===============Used Restruct Prompt=====================')
 
 
         restruct_chat.clear()

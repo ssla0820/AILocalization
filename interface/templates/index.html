@@ -246,8 +246,8 @@
                         <label for="input-folder-${blockId}">Input File Folder: <span class="required">*</span></label>
                         <input id="input-folder-${blockId}" type="text" class="input-folder" placeholder="Folder path containing source files to translate" required>
                     </div>                      <div class="form-group">
-                        <label for="refer-info-${blockId}">Refer Text/Image Info Folder:</label>
-                        <input id="refer-info-${blockId}" type="text" class="refer-info" placeholder="Folder path containing reference materials or images (optional)">
+                        <label for="refer-info-${blockId}">Refer Text/Image Info File:</label>
+                        <input id="refer-info-${blockId}" type="text" class="refer-info" placeholder="File path containing reference materials or images (optional)">
                     </div>
                       <div class="form-group">
                         <label for="output-folder-${blockId}">Output File Folder: <span class="required">*</span></label>
@@ -391,7 +391,7 @@
                         <strong>5. Input Folder:</strong> ${block.input_folder || 'Not specified'}
                     </div>
                     <div class="task-detail-item">
-                        <strong>6. Refer Text/Image Folder:</strong> ${block.refer_info || 'Not specified'}
+                        <strong>6. Refer Text/Image Path:</strong> ${block.refer_info || 'Not specified'}
                     </div>
                     <div class="task-detail-item">
                         <strong>7. Output Folder:</strong> ${block.output_folder || 'Not specified'}

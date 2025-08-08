@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 from collections import OrderedDict
 from chat.openai_api_chat import OpenaiAPIChat
 from translation_memory.search_similar_pair import main as search_similar_pair_main
-from pages.general_functions import get_relevant_specific_names, as_json_obj, InlineGroup, get_text_group_inline, load_specific_names, detect_file_encoding
+from pages.general_functions import get_relevant_specific_names, as_json_obj, InlineGroup, get_text_group_inline, load_specific_names, detect_file_encoding, setup_logging
 from prompts.translate_prompts import *
 from prompts.restruct_prompts import *
 from translate.restruct import *
@@ -17,6 +17,7 @@ import math
 import pandas as pd
 import openpyxl
 from openpyxl.styles import Alignment
+import logging
 from config import translate_config as conf
 
 def debug_process(
@@ -83,7 +84,7 @@ def debug_process(
         wb.save(debug_file)
         
     except Exception as e:
-        print(f"Warning: Could not save debug info to Excel: {e}")
+        logging.warning(f"Could not save debug info to Excel: {e}")
 
 def save_prompt_process(source_text_index,
         source_text,
@@ -127,7 +128,7 @@ def save_prompt_process(source_text_index,
         wb.save(prompt_file)
         
     except Exception as e:
-        print(f"Warning: Could not save debug info to Excel: {e}")
+        logging.warning(f"Could not save debug info to Excel: {e}")
 
 def segment_groups_map(
         groups_map: dict[str, InlineGroup],
@@ -155,7 +156,7 @@ def segment_groups_map(
         n = token_counter(str(group))
         if n > max_token:
             # raise ValueError(f'Length of single paragraph [{n}] exceed max length [{max_token}].')
-            print(f'Single paragraph exceed max length [{n} > {max_token}]. Skip this one!')
+            logging.warning(f'Single paragraph exceed max length [{n} > {max_token}]. Skip this one!')
             continue
         if (token_cnt > len_seg) and seg:
             ret.append(seg)
@@ -181,8 +182,8 @@ def check_if_need_review(source_text: str, relevant_pair_database: list) -> bool
     need_native_review = False
     direct_use_database = False
 
-    print(f"Checking if source text needs native review or can use database directly: {source_text}")
-    # print(f"Checking the Relevant pair database: {relevant_pair_database}")
+    logging.info(f"Checking if source text needs native review or can use database directly: {source_text}")
+    # logging.info(f"Checking the Relevant pair database: {relevant_pair_database}")
 
     # # [2025/06/18 Update] Change to always translate no matter is in translation memory or not
     # if relevant_pair_database:
@@ -218,9 +219,9 @@ def get_translated_text_from_db(relevant_pair_database: list) -> str:
     :return: Translated text if found, otherwise an empty string
     """
     for item in relevant_pair_database:
-        print(f"Checking database item: {item}")
+        logging.info(f"Checking database item: {item}")
         if item[-1] >= 1.00: 
-            print(f"Found matching item in database: {item}, return translated text: {item[2]}")
+            logging.info(f"Found matching item in database: {item}, return translated text: {item[2]}")
             return item[2]
 
 
@@ -247,7 +248,7 @@ async def translate_groups(
 
 
     if image_path:
-        print(f"Using images from {image_path} for translation enhancement")
+        logging.info(f"Using images from {image_path} for translation enhancement")
 
     groups_in = {
         k: str(v).replace('\n', '') for k, v in groups_map.items()
@@ -259,33 +260,33 @@ async def translate_groups(
     for source_text_index, source_text in groups_in.items():
         # Identify specific named entities in the text to translate
         relevant_specific_names = get_relevant_specific_names(mapping_table, source_text)
-        print(f"Relevant specific names for translation: {relevant_specific_names}")
+        logging.debug(f"Relevant specific names for translation: {relevant_specific_names}")
 
         relevant_region_table = get_relevant_region_table(region_table, source_text)
-        print(f"Relevant region table for translation: {relevant_region_table}")
+        logging.debug(f"Relevant region table for translation: {relevant_region_table}")
 
         relevant_refer_text_table = get_relevant_refer_text_table(refer_text_table, source_text)
-        print(f"Relevant refer text table for translation: {relevant_refer_text_table}")
+        logging.debug(f"Relevant refer text table for translation: {relevant_refer_text_table}")
 
         relevant_refer_text_from_image_table = get_relevant_refer_text_from_image_table(refer_text_table, source_text)
-        print(f"Relevant refer text from image table for translation: {relevant_refer_text_from_image_table}")
+        logging.debug(f"Relevant refer text from image table for translation: {relevant_refer_text_from_image_table}")
 
         # merge the relevant refer text from image table into the main refer text table
         relevant_refer_text_table.update(relevant_refer_text_from_image_table)
-        print(f"Updated relevant refer text table for translation: {relevant_refer_text_table}")
+        logging.info(f"Updated relevant refer text table for translation: {relevant_refer_text_table}")
 
         # Search for relevant translated pairs in the database
         relevant_pair_database = []
         if database_path:
             relevant_pair_database = search_similar_pair_main(translate_dict={source_text_index: source_text}, database_path=database_path, grammar_top_n=5, term_top_n=5)
-        print(f"Relevant similar pair for translation: {relevant_pair_database}")
+        logging.debug(f"Relevant similar pair for translation: {relevant_pair_database}")
 
         need_native_review, direct_use_database = check_if_need_review(source_text, relevant_pair_database)
-        print(f"Need native review: {need_native_review}, Direct use of database: {direct_use_database}")
+        logging.info(f"Need native review: {need_native_review}, Direct use of database: {direct_use_database}")
 
         if direct_use_database:
             translated_text = direct_use_database
-            print(f"Directly using database translation: {translated_text}")
+            logging.info(f"Directly using database translation: {translated_text}")
             groups_out[source_text_index] = translated_text
             debug_process(source_text_index, source_text, relevant_specific_names,\
                            relevant_region_table, relevant_refer_text_table, relevant_pair_database, \
@@ -296,12 +297,12 @@ async def translate_groups(
         chat = OpenaiAPIChat(
             model_name=conf.TRANSLATE_MODEL,
             system_prompt=translate_sys_prompt(source_lang, target_lang, software_type, source_type),
-            image_path=image_path
+            # image_path=image_path
         )
 
-        # print("===========================Used System Prompt=============================")
-        # print(f"{chat.sys_prompt}")
-        # print("===========================Used System Prompt=============================")
+        # logging.info("===========================Used System Prompt=============================")
+        # logging.info(f"{chat.sys_prompt}")
+        # logging.info("===========================Used System Prompt=============================")
 
         response, stop_reason = '', ''
         try:
@@ -326,14 +327,14 @@ async def translate_groups(
                 raise RuntimeError
         except RuntimeError:
             raise RuntimeError("Translation response exceeded length limit.")
-        
-        # print("===========================Used Prompt=============================")
-        # print(f"{p}")
-        # print("===========================Used Prompt=============================")
 
-        print(f"Translation response:\n {response}")
+        # logging.info("===========================Used Prompt=============================")
+        # logging.info(f"{p}")
+        # logging.info("===========================Used Prompt=============================")
+
+        logging.info(f"Translation response:\n {response}")
         if not as_json_obj(response):
-            print("Translation response is empty, breaking the loop.")
+            logging.warning("Translation response is empty, breaking the loop.")
             continue        
         translated_text = list(as_json_obj(response).values())[-1]
         if need_review:
@@ -356,19 +357,19 @@ async def translate_groups(
                                                 need_native_review=need_native_review)
 
         groups_out[source_text_index] = translated_text
-        print(f"Final translated text for {source_text_index}: {translated_text}")
+        logging.info(f"Final translated text for {source_text_index}: {translated_text}")
 
         debug_process(source_text_index, source_text, relevant_specific_names,\
                     relevant_region_table, relevant_refer_text_table, relevant_pair_database, \
                     chat.sys_prompt, p, response, list(as_json_obj(response).values())[-1])
         
 
-    # print(f'Original Inputs: {groups_in}')
-    print(f"Translation response: {groups_out}")
+    # logging.info(f'Original Inputs: {groups_in}')
+    logging.debug(f"Translation response: {groups_out}")
 
     # Ensure groups_out has the exact same keys as groups_in to preserve structure
     if groups_out and set(groups_out.keys()) != set(groups_in.keys()):
-        print("Warning: Translated structure doesn't match original structure. Attempting to fix...")
+        logging.warning("Translated structure doesn't match original structure. Attempting to fix...")
         fixed_groups_out = {}
         for key in groups_in.keys():
             if key in groups_out:
@@ -376,13 +377,13 @@ async def translate_groups(
             else:
                 # If a key is missing in the translation, keep the original (untranslated)
                 fixed_groups_out[key] = groups_in[key]
-                print(f"Warning: Missing translation for group {key}, keeping original")
-        
+                logging.warning(f"Missing translation for group {key}, keeping original")
+
         # Check for any extra keys in groups_out that shouldn't be there
         extra_keys = set(groups_out.keys()) - set(groups_in.keys())
         if extra_keys:
-            print(f"Warning: Found extra keys in translation response: {extra_keys}")
-        
+            logging.warning(f"Found extra keys in translation response: {extra_keys}")
+
         groups_out = fixed_groups_out
     # Check if the groups_map contains actual HTML elements or is from Excel (with None elements)
     is_excel_translation = all(group.elements[0] is None for group in groups_map.values())
@@ -529,28 +530,28 @@ async def translate_xlsx(
     :param database_path: Optional path to database for translation
     :return: Dictionary with success/error counts
     """
-    print(f"Starting XLSX translation from {input_file} to {output_file}")
-    print(f"Source language: {source_lang}, Target languages: {', '.join(target_langs)}")
-    
+    logging.info(f"Starting XLSX translation from {input_file} to {output_file}")
+    logging.info(f"Source language: {source_lang}, Target languages: {', '.join(target_langs)}")
+
     try:
         # Read the Excel file with pandas
         df = pd.read_excel(input_file)
         
         # Check if the file has data
         if df.empty:
-            print("Error: Input Excel file is empty")
+            logging.error("Input Excel file is empty")
             return {"success": 0, "error": 1}
         
         # Get the name of the first column, which should contain source language text
         source_column = df.columns[0]
-        print(f"Found input column: {source_column}")
+        logging.info(f"Found input column: {source_column}")
         
         # Create a single output dataframe that will contain all translations
         output_df = df.copy()
         
         # Process each target language and add as a new column
         for lang in target_langs:
-            print(f"Translating to {lang}...")
+            logging.info(f"Translating to {lang}...")
             
             # For multi-language options, use specific mapping table for each language if available
             current_mapping = mapping_table
@@ -581,13 +582,13 @@ async def translate_xlsx(
                 int(conf.N_INPUT_TOKEN),
                 OpenaiAPIChat(conf.TRANSLATE_MODEL).n_tokens
             )
-            
-            print(f"Split the text into {len(groups_map_segments)} segments for translation")
-            
+
+            logging.info(f"Split the text into {len(groups_map_segments)} segments for translation")
+
             # Process each segment and gather results
             all_translated_results = {}
             for segment in groups_map_segments:
-                print(f"Processing segment with {len(segment)} text entries...")                
+                logging.info(f"Processing segment with {len(segment)} text entries...")
                 # Use the existing translate_groups function
                 responses = await translate_groups(
                     segment, 
@@ -604,22 +605,22 @@ async def translate_xlsx(
                     ori_html=None,
                     need_review=need_review,
                 )
-                
-                print(f'Received responses for segment: {responses}')
+
+                logging.info(f'Received responses for segment: {responses}')
 
                 # Process the translated texts
                 for i, group_key in enumerate(segment.keys()):
                     try:
-                        print(f'i: {i}, group_key: {group_key}, response: {responses[i]}')
+                        logging.info(f'i: {i}, group_key: {group_key}, response: {responses[i]}')
                         # Get the translated text from the response
                         if isinstance(responses[i], str):
                             all_translated_results[group_key] = responses[i]
                         else:
                             # Handle case where response might be a success code
-                            print(f"Warning: Unexpected response type for item {group_key}")
+                            logging.warning(f"Unexpected response type for item {group_key}")
                             all_translated_results[group_key] = text_to_translate[group_key]
                     except Exception as e:
-                        print(f"Warning: Error processing translation for item {group_key}: {e}")
+                        logging.warning(f"Error processing translation for item {group_key}: {e}")
                         all_translated_results[group_key] = text_to_translate[group_key]
             
             # Add translated text back to the dataframe
@@ -631,12 +632,12 @@ async def translate_xlsx(
                     if idx < len(output_df):
                         output_df.loc[idx, lang_column_name] = translated_text
                 except (ValueError, KeyError) as e:
-                    print(f"Error adding translation at index {idx_str}: {e}")
-                    
-            print(f"Added translations for {lang} as column '{lang_column_name}'")
+                    logging.warning(f"Error adding translation at index {idx_str}: {e}")
+
+            logging.info(f"Added translations for {lang} as column '{lang_column_name}'")
                 # Save the output dataframe to Excel
-        print(f"Saving Excel file with {len(output_df)} rows and {len(output_df.columns)} columns")
-        
+        logging.info(f"Saving Excel file with {len(output_df)} rows and {len(output_df.columns)} columns")
+
         # Use openpyxl to save with nice formatting
         # First save with pandas
         output_df.to_excel(output_file, index=False)
@@ -662,12 +663,12 @@ async def translate_xlsx(
         
         # Save the formatted workbook
         wb.save(output_file)
-        
-        print(f"Excel translation completed. Output saved to {output_file} with {len(target_langs)} language columns.")
+
+        logging.info(f"Excel translation completed. Output saved to {output_file} with {len(target_langs)} language columns.")
         return {"success": 1, "error": 0}
     
     except Exception as e:
-        print(f"Error processing Excel file: {e}")
+        logging.error(f"Error processing Excel file: {e}")
         import traceback
         traceback.print_exc()
         return {"success": 0, "error": 1}
@@ -686,8 +687,15 @@ def main(p_in="default",
          database_path="default",
          review_report_path="default",
          need_review="default"):
+    
+    # 檢查是否已經設置了 logging（通常是被 batch_processor.py 調用時）
+    # 如果沒有設置，就自己設置一個
+    if not logging.getLogger().handlers:
+        setup_logging()
+        logging.info("Logging setup completed in translate.py")
+    
     # Run in translation mode
-    print("Running in translation mode...")
+    logging.info("Running in translation mode...")
     if p_in=="default":
         p_in = conf.INPUT_FILE_PATH
     if p_out=="default":
@@ -715,7 +723,7 @@ def main(p_in="default",
         image_path = conf.IMAGE_PATH
 
     if image_path == False: # This is a flag to disable image path for the request from batch_process.py
-        print("Image path is set to False, no images will be used for translation enhancement.")
+        logging.info("Image path is set to False, no images will be used for translation enhancement.")
         image_path = "default"
 
     if source_type=="default":
@@ -730,12 +738,12 @@ def main(p_in="default",
     if need_review == "default":
         need_review = conf.NEED_REVIEW
 
-    print(f'Image path: {image_path}')
+    logging.info(f'Image path: {image_path}')
 
     # Check if this is a multi-language request
     target_languages = []
     if target_lang in conf.MULTI_LANGUAGE_OPTIONS:
-        print(f"Multi-language option '{target_lang}' detected. Will translate to {len(conf.MULTI_LANGUAGE_OPTIONS[target_lang])} languages.")
+        logging.info(f"Multi-language option '{target_lang}' detected. Will translate to {len(conf.MULTI_LANGUAGE_OPTIONS[target_lang])} languages.")
         target_languages = conf.MULTI_LANGUAGE_OPTIONS[target_lang]
         
         # For multi-language, we need to process each language
@@ -745,12 +753,11 @@ def main(p_in="default",
             file_dir = os.path.dirname(p_out)
             file_name, file_ext = os.path.splitext(os.path.basename(p_out))
             current_output_path = os.path.join(file_dir, f"{file_name}_{current_target.replace(' ', '')}{file_ext}")
-            print(f"\n--- Processing language: {current_target} ---")
-            print(f"Output path: {current_output_path}")
-            
+            logging.info(f"\n--- Processing language: {current_target} ---")
+            logging.info(f"Output path: {current_output_path}")
+
             # Call process_single_file to handle this language
             process_single_file(p_in, current_output_path, source_lang, current_target, specific_names_xlsx, region_table_path, refer_text_table_path, software_type, source_type, image_path, database_path, review_report_path, need_review)
-
         return
     
     # Single language processing
@@ -760,18 +767,18 @@ def main(p_in="default",
 def process_single_file(p_in, p_out, source_lang, target_lang, specific_names_xlsx, region_table_path, refer_text_table_path,
                         software_type, source_type, image_path=None, database_path=None, review_report_path=None, need_review=True):
     """Process a single file translation"""
-    print(f"Input file: {p_in}")
-    print(f"Output file: {p_out}")
-    print(f"Source language: {source_lang}")
-    print(f"Target language: {target_lang}")
-    print(f"Specific names file: {specific_names_xlsx}")
-    print(f"Region table path: {region_table_path}" if region_table_path else "No region table path provided")
-    print(f"Refer text table path: {refer_text_table_path}" if refer_text_table_path else "No refer text table path provided")
-    print(f"Software type: {software_type}")
-    print(f"Source type: {source_type}")
-    print(f"Image path: {image_path}" if image_path else "No image path provided")
-    print(f"Database path: {database_path}" if database_path else "No database path provided")
-    print(f"Review report path: {review_report_path}" if review_report_path else "No review report path provided")
+    logging.info(f"Input file: {p_in}")
+    logging.info(f"Output file: {p_out}")
+    logging.info(f"Source language: {source_lang}")
+    logging.info(f"Target language: {target_lang}")
+    logging.info(f"Specific names file: {specific_names_xlsx}")
+    logging.info(f"Region table path: {region_table_path}" if region_table_path else "No region table path provided")
+    logging.info(f"Refer text table path: {refer_text_table_path}" if refer_text_table_path else "No refer text table path provided")
+    logging.info(f"Software type: {software_type}")
+    logging.info(f"Source type: {source_type}")
+    logging.info(f"Image path: {image_path}" if image_path else "No image path provided")
+    logging.info(f"Database path: {database_path}" if database_path else "No database path provided")
+    logging.info(f"Review report path: {review_report_path}" if review_report_path else "No review report path provided")
 
     # Load specific names dictionary
     mapping_table = {}
@@ -787,7 +794,7 @@ def process_single_file(p_in, p_out, source_lang, target_lang, specific_names_xl
     refer_text_table = {}
     if refer_text_table_path:
         refer_text_table = load_refer_text_table(refer_text_table_path, source_lang)
-        print(f"Loaded refer text table: {refer_text_table}")
+        # print(f"Loaded refer text table: {refer_text_table}")
 
     try:
         # Check if the file exists
@@ -796,31 +803,31 @@ def process_single_file(p_in, p_out, source_lang, target_lang, specific_names_xl
             
         # Try to get language code from config and read the file
         used_encoding, file_content = detect_file_encoding(p_in, source_lang)
-        print(f"Using {used_encoding} encoding for input file")
+        logging.info(f"Using {used_encoding} encoding for input file")
     except Exception as e:
-        print(f"ERROR: {e}")
+        logging.error(f"ERROR: {e}")
         return
     
     # Detect if the input is XML, HTML or XLSX
     file_type, is_pomo_xml, is_xlsx = detect_file_type(file_content, p_in)
-    print(f"Detected file type: {file_type}, Is POMO XML: {is_pomo_xml}, Is XLSX: {is_xlsx}")
+    logging.info(f"Detected file type: {file_type}, Is POMO XML: {is_pomo_xml}, Is XLSX: {is_xlsx}")
 
     # Store the original content for POMO XML files to preserve exact tag case
     original_content = file_content if is_pomo_xml else None
 
     # Handle XLSX input files
     if is_xlsx or file_type == 'xlsx':
-        print("Processing XLSX file...")
-        
+        logging.info("Processing XLSX file...")
+
         # Check if the target language is a multi-language option
         if target_lang in conf.MULTI_LANGUAGE_OPTIONS:
             target_languages = conf.MULTI_LANGUAGE_OPTIONS[target_lang]
-            print(f"Multi-language option '{target_lang}' selected. Translating to: {', '.join(target_languages)}")
+            logging.info(f"Multi-language option '{target_lang}' selected. Translating to: {', '.join(target_languages)}")
         else:
             # Single language case
             target_languages = [target_lang]
-            print(f"Single language translation to: {target_lang}")
-            
+            logging.info(f"Single language translation to: {target_lang}")
+
         # For XLSX files, we run special translation procedure
         result = asyncio.run(translate_xlsx(p_in, p_out, source_lang, target_languages, mapping_table, region_table, refer_text_table, software_type, source_type, image_path, database_path, review_report_path, need_review))
         
@@ -841,7 +848,7 @@ def process_single_file(p_in, p_out, source_lang, target_lang, specific_names_xl
             # fout.write(str(bs))
             fout.write(str(ret))
     else:
-        print('Start to translate XML...')
+        logging.info('Start to translate XML...')
         bs = BeautifulSoup(file_content, file_type)
         ret = asyncio.run(translation_pipeline(bs, source_lang, target_lang, mapping_table, region_table, refer_text_table, software_type, source_type, image_path, database_path, review_report_path, need_review))
 
@@ -889,9 +896,10 @@ def process_single_file(p_in, p_out, source_lang, target_lang, specific_names_xl
 
             fout.write(output_content)
             
-        # print(f"Translation completed: {ret.count('S')} successful, {ret.count('C')} compromised, {ret.count('F')} failed out of {len(ret)} segments")
-    
-    print(f"Output file written using {used_encoding} encoding")
+        # logging.info(f"Translation completed: {ret.count('S')} successful, {ret.count('C')} compromised, {ret.count('F')} failed out of {len(ret)} segments")
+
+    logging.info(f"Output file written using {used_encoding} encoding")
+
 
 if __name__ == '__main__':
     main()

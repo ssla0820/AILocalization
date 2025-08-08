@@ -10,7 +10,48 @@ import re
 import pandas as pd
 from config import translate_config as conf
 import logging
+from datetime import datetime
 from chat.openai_api_analysis_image_chat import OpenaiAPIAnalysisImageChat
+
+def setup_logging(log_directory=None, log_level=logging.INFO):
+    """
+    設置 logging 配置，同時輸出到檔案和控制台
+    
+    :param log_directory: 日誌檔案存放目錄，如果為 None 則使用專案根目錄下的 logs 資料夾
+    :param log_level: 日誌等級
+    :return: 日誌檔案路徑
+    """
+    # 如果沒有指定 log_directory，使用專案根目錄下的 logs 資料夾
+    if log_directory is None:
+        # 獲取當前文件的父目錄的父目錄（專案根目錄）
+        current_file_dir = os.path.dirname(__file__)
+        project_root = os.path.dirname(current_file_dir)
+        log_directory = os.path.join(project_root, "logs")
+    
+    # 創建 logs 目錄
+    if not os.path.exists(log_directory):
+        os.makedirs(log_directory)
+    
+    # 生成日誌檔案名稱
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    log_file = os.path.join(log_directory, f"batch_translation_{timestamp}.log")
+    
+    # 清除任何現有的 handlers
+    for handler in logging.root.handlers[:]:
+        logging.root.removeHandler(handler)
+    
+    # 配置 logging
+    logging.basicConfig(
+        level=log_level,
+        format='%(asctime)s - %(levelname)s - %(message)s',
+        handlers=[
+            logging.FileHandler(log_file, encoding='utf-8'),
+            logging.StreamHandler(sys.stdout)
+        ]
+    )
+    
+    logging.info(f"Log file created: {log_file}")
+    return log_file
 
 @dataclass
 class InlineGroup:
@@ -216,8 +257,8 @@ def get_relevant_specific_names(specific_names, source_text):
                     relevant_specific_names[source_term] = target_term
 
     if relevant_specific_names:
-        print(f"Source text '{source_text}'': Found {len(relevant_specific_names)} relevant specific names")
-        print(f'Relevant specific names: {relevant_specific_names}')
+        logging.info(f"Source text '{source_text}'': Found {len(relevant_specific_names)} relevant specific names")
+        logging.info(f'Relevant specific names: {relevant_specific_names}')
     return relevant_specific_names
 
 
@@ -261,8 +302,8 @@ def get_relevant_region_table(region_table, source_text):
                         relevant_mapping_table[source_term_special] = target_term
 
     if relevant_mapping_table:
-        print(f"Source text '{source_text}'': Found {len(relevant_mapping_table)} relevant region table")
-        print(f'Relevant region table: {relevant_mapping_table}')
+        logging.info(f"Source text '{source_text}'': Found {len(relevant_mapping_table)} relevant region table")
+        logging.info(f'Relevant region table: {relevant_mapping_table}')
 
     return relevant_mapping_table
     
@@ -274,18 +315,18 @@ def get_relevant_refer_text_table(refer_text_table, source_text):
     :param source_text: Source text content
     :return: Dictionary of relevant refer text entries
     """
-    print(f"the table is {refer_text_table}")
+    logging.info(f"the table is {refer_text_table}")
 
     relevant_refer_text_table = {}
     if refer_text_table:
         for source_term, target_term in refer_text_table.items():
-            print(f"Source term: {source_term}, Target term: {target_term}")
+            logging.info(f"Source term: {source_term}, Target term: {target_term}")
             if source_term.lower() == source_text.lower() and (target_term[0] or target_term[0] != 'nan'):
                 relevant_refer_text_table[source_term] = target_term[0]
 
     if relevant_refer_text_table:
-        print(f"Source text '{source_text}'': Found {len(relevant_refer_text_table)} relevant refer text table")
-        print(f'Relevant refer text table: {relevant_refer_text_table}')
+        logging.info(f"Source text '{source_text}'': Found {len(relevant_refer_text_table)} relevant refer text table")
+        logging.info(f'Relevant refer text table: {relevant_refer_text_table}')
     return relevant_refer_text_table
 
 
@@ -314,7 +355,7 @@ def get_relevant_refer_text_from_image_table(refer_text_table, source_text):
         for image in image_files:
             if not os.path.exists(image):
                 #  remove image from image_files if it does not exist
-                print(f"Warning: Image file '{image}' does not exist. It will be removed from the list.")
+                logging.warning(f"Image file '{image}' does not exist. It will be removed from the list.")
                 image_files.remove(image)
 
     # get reference text from image by calling ChatGPT
@@ -323,8 +364,8 @@ def get_relevant_refer_text_from_image_table(refer_text_table, source_text):
         relevant_refer_text_from_image_table[f"{source_term}_from_image"] = chat.get_describes_from_images(source_text, image_files)
 
     if relevant_refer_text_from_image_table:
-        print(f"Source text '{source_text}'': Generate {len(relevant_refer_text_from_image_table)} relevant refer text from uploaded image")
-        print(f'Relevant refer text from image table: {relevant_refer_text_from_image_table}')
+        logging.info(f"Source text '{source_text}'': Generate {len(relevant_refer_text_from_image_table)} relevant refer text from uploaded image")
+        logging.info(f'Relevant refer text from image table: {relevant_refer_text_from_image_table}')
     return relevant_refer_text_from_image_table
 
 
@@ -339,15 +380,15 @@ def load_specific_names(excel_path, source_lang, target_lang):
     """
     specific_names = {}
     if not os.path.exists(excel_path):
-        print(f"Warning: Excel file '{excel_path}' does not exist.")
+        logging.warning(f"Excel file '{excel_path}' does not exist.")
         return specific_names
     
     # Use language_map from config
     source_col_name = conf.LANGUAGE_MAP.get(source_lang, source_lang)
     target_col_name = conf.LANGUAGE_MAP.get(target_lang, target_lang)
-    
-    print(f"Looking for source column: '{source_col_name}', target column: '{target_col_name}'")
-    
+
+    logging.info(f"Looking for source column: '{source_col_name}', target column: '{target_col_name}'")
+
     try:
         # Read the Excel file
         df = pd.read_excel(excel_path)
@@ -363,8 +404,8 @@ def load_specific_names(excel_path, source_lang, target_lang):
                 target_col = col
         
         if source_col is None or target_col is None:
-            print(f"Warning: Could not find columns for {source_col_name} and/or {target_col_name} in Excel file.")
-            print(f"Available columns: {', '.join(df.columns)}")
+            logging.warning(f"Warning: Could not find columns for {source_col_name} and/or {target_col_name} in Excel file.")
+            logging.info(f"Available columns: {', '.join(df.columns)}")
             return specific_names
         
         # Create a dictionary from the dataframe using only the source and target columns
@@ -375,11 +416,11 @@ def load_specific_names(excel_path, source_lang, target_lang):
             # Skip empty or nan values
             if source_term and target_term and source_term.lower() != 'nan' and target_term.lower() != 'nan':
                 specific_names[source_term] = target_term
-                
-        print(f"Successfully loaded '{excel_path}' with {len(specific_names)} specific name translations for {source_col_name}->{target_col_name}.")
+
+        logging.info(f"Successfully loaded '{excel_path}' with {len(specific_names)} specific name translations for {source_col_name}->{target_col_name}.")
     except Exception as e:
-        print(f"Error loading Excel file '{excel_path}': {e}")
-    
+        logging.error(f"Error loading Excel file '{excel_path}': {e}")
+
     return specific_names
 
 def load_region_table(excel_path, source_lang):
@@ -388,18 +429,18 @@ def load_region_table(excel_path, source_lang):
     :return: Dictionary mapping source language terms to target language terms
     """
 
-    print(f"Loading region table from '{excel_path}' for source language '{source_lang}'")
+    logging.info(f"Loading region table from '{excel_path}' for source language '{source_lang}'")
     region_table = {}
     if not os.path.exists(excel_path):
-        print(f"Warning: Excel file '{excel_path}' does not exist.")
+        logging.warning(f"Excel file '{excel_path}' does not exist.")
         return region_table
     
     # Use language_map from config
     source_col_name = conf.LANGUAGE_MAP.get(source_lang, source_lang)
     use_col_name = conf.LANGUAGE_MAP.get('Use', 'Use')
     avoid_col_name = conf.LANGUAGE_MAP.get('Avoid', 'Avoid')
-    
-    print(f"Looking for source column: '{source_col_name}', use column: '{use_col_name}', avoid column: '{avoid_col_name}'")
+
+    logging.info(f"Looking for source column: '{source_col_name}', use column: '{use_col_name}', avoid column: '{avoid_col_name}'")
 
     try:
         # Read the Excel file
@@ -419,8 +460,8 @@ def load_region_table(excel_path, source_lang):
                 avoid_col = col
         
         if source_col is None or use_col is None or avoid_col is None:
-            print(f"Warning: Could not find columns for {source_col_name} and/or {use_col} and/or {avoid_col} in Excel file.")
-            print(f"Available columns: {', '.join(df.columns)}")
+            logging.warning(f"Could not find columns for {source_col_name} and/or {use_col} and/or {avoid_col} in Excel file.")
+            logging.info(f"Available columns: {', '.join(df.columns)}")
             return region_table
         
         # Create a dictionary from the dataframe using only the source and target columns
@@ -433,11 +474,11 @@ def load_region_table(excel_path, source_lang):
             if source_term and use_term  and avoid_term\
                 and source_term.lower() != 'nan' and use_term.lower() != 'nan' and avoid_term.lower() != 'nan':
                 region_table[source_term] = (use_term, avoid_term)
-                
-        print(f"Successfully loaded '{excel_path}' with {len(region_table)} specific name translations for {source_col_name}-> ({use_term}, {avoid_term}).")
+
+        logging.info(f"Successfully loaded '{excel_path}' with {len(region_table)} specific name translations for {source_col_name}-> ({use_term}, {avoid_term}).")
     except Exception as e:
-        print(f"Error loading Excel file '{excel_path}': {e}")
-    
+        logging.error(f"Error loading Excel file '{excel_path}': {e}")
+
     return region_table
 
 def load_refer_text_table(excel_path, source_lang):
@@ -447,16 +488,16 @@ def load_refer_text_table(excel_path, source_lang):
     """
     refer_text_table = {}
     if not os.path.exists(excel_path):
-        print(f"Warning: Excel file '{excel_path}' does not exist.")
+        logging.warning(f"Excel file '{excel_path}' does not exist.")
         return refer_text_table
     
     # Use language_map from config
     source_col_name = conf.LANGUAGE_MAP.get(source_lang, source_lang)
     refer_col_name = conf.LANGUAGE_MAP.get("Refer_Text", "Refer_Text")
-    refer_image_col_name = "Refer_Image"  # Optional column for refer image, if exists 
-    
-    print(f"Looking for source column: '{source_col_name}', refer column: '{refer_col_name}'")
-    
+    refer_image_col_name = "Refer_Image"  # Optional column for refer image, if exists
+
+    logging.info(f"Looking for source column: '{source_col_name}', refer column: '{refer_col_name}'")
+
     try:
         # Read the Excel file
         df = pd.read_excel(excel_path)
@@ -475,8 +516,8 @@ def load_refer_text_table(excel_path, source_lang):
                 refer_image_col = col
         
         if source_col is None or refer_col is None or refer_image_col is None:
-            print(f"Warning: Could not find columns for {source_col_name} and/or {refer_col_name} and/or {refer_image_col_name} in Excel file.")
-            print(f"Available columns: {', '.join(df.columns)}")
+            logging.warning(f"Could not find columns for {source_col_name} and/or {refer_col_name} and/or {refer_image_col_name} in Excel file.")
+            logging.info(f"Available columns: {', '.join(df.columns)}")
             return refer_text_table
         
         # Create a dictionary from the dataframe using only the source and refer columns
@@ -490,11 +531,11 @@ def load_refer_text_table(excel_path, source_lang):
                 refer_term = refer_term if refer_term and refer_term.lower() != 'nan' else ''
                 refer_image_term = refer_image_term if refer_image_term and refer_image_term.lower() != 'nan' else ''
                 refer_text_table[source_term] = [refer_term, refer_image_term]
-                
-        print(f"Successfully loaded '{excel_path}' with {len(refer_text_table)} specific name translations for {source_col_name}->{refer_col_name}.")
+
+        logging.info(f"Successfully loaded '{excel_path}' with {len(refer_text_table)} specific name translations for {source_col_name}->{refer_col_name}.")
     except Exception as e:
-        print(f"Error loading Excel file '{excel_path}': {e}")
-    
+        logging.error(f"Error loading Excel file '{excel_path}': {e}")
+
     return refer_text_table
 
 def get_language_preferred_encodings(language_code=None):
@@ -542,7 +583,7 @@ def detect_file_encoding(file_path, language_code=None):
         try:
             with open(file_path, 'r', encoding=encoding) as f:
                 content = f.read()
-                print(f"Successfully read file using {encoding} encoding")
+                logging.info(f"Successfully read file using {encoding} encoding")
                 return encoding, content
         except UnicodeDecodeError:
             continue
@@ -558,7 +599,7 @@ def extract_text_from_excel(file_path, is_source_file=True):
     :param is_source_file: If True, read all columns; if False, read only target language columns
     :return: Dictionary mapping row indices to cell values
     """
-    print(f"Extracting text from Excel file: {file_path}")
+    logging.info(f"Extracting text from Excel file: {file_path}")
     try:
         # Read Excel file
         df = pd.read_excel(file_path)
@@ -580,10 +621,10 @@ def extract_text_from_excel(file_path, is_source_file=True):
                 if len(row) >= 2 and pd.notna(row[1]):
                     # Only take the second column (target language)
                     text_groups[str(i+1)] = str(row[1])
-        
-        print(f"Extracted {len(text_groups)} text segments from Excel file")
+
+        logging.info(f"Extracted {len(text_groups)} text segments from Excel file")
         return text_groups
     
     except Exception as e:
-        print(f"Error extracting text from Excel file: {e}")
+        logging.error(f"Error extracting text from Excel file: {e}")
         return {}

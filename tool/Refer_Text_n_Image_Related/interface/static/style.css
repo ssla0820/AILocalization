@@ -1,0 +1,113 @@
+/* Additional styling for the translation interface */
+
+.translation-interface {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.form-section {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.form-section:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.results-section {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.translation-result {
+    transition: all 0.3s ease;
+}
+
+.translation-result:hover {
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transform: translateY(-1px);
+}
+
+.result-content {
+    font-family: 'Courier New', monospace;
+    font-size: 0.95em;
+    line-height: 1.5;
+    min-height: 60px;
+}
+
+.difference-highlight {
+    animation: highlightPulse 2s ease-in-out;
+    border-left: 4px solid #ffc107;
+}
+
+@keyframes highlightPulse {
+    0% { background-color: #fff3cd; }
+    50% { background-color: #ffe69c; }
+    100% { background-color: #fff3cd; }
+}
+
+.comparison-section {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.btn-primary {
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,123,255,0.3);
+}
+
+.spinner-border-sm {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Responsive design improvements */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    .form-section, .results-section {
+        padding: 1rem;
+    }
+    
+    .translation-result {
+        margin-bottom: 1rem;
+    }
+    
+    h1 {
+        font-size: 1.5rem;
+    }
+    
+    h3 {
+        font-size: 1.25rem;
+    }
+}
+
+/* Focus styles for better accessibility */
+input:focus, textarea:focus, select:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,0.25);
+}
+
+/* Loading state improvements */
+.loading {
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}

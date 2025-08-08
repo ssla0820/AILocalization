@@ -128,7 +128,11 @@ def translate_prompt(src_lang, tgt_lang, json_str, refer_data_list,
             "preserve_camelcase_pascalcase_snakecase": True,
             # "If ONLY a single word is provided, translate it as a verb.": True,
         },
-        "specific_term_translations": {
+        "source_text": json_str,
+        "output_format": "json (key: 'translation' with translated text as value)"
+    }
+    if specific_names_list:
+        translation_prompt["specific_term_translations"] = {
             "terms": specific_names_list,
             "rule": [
                 "Use singular and lowercase for all specific terms.",
@@ -137,16 +141,18 @@ def translate_prompt(src_lang, tgt_lang, json_str, refer_data_list,
                 "If the specific term is not found, use the general translation instead.",
                 "Match the case (uppercase/lowercase) and number (singular/plural) of the original text when translating."
             ]
-        },
-        "region_table": {
+        }
+    if region_table_list:
+        translation_prompt["region_table"] = {
             "terms": region_table_list,
             "rule": [
                 "When translating 'Original' terms, use the 'Use' translation. Don't use the 'Avoid' translation.",
                 "If the 'Original' term is not found, use the general translation instead.",
                 "Match the case (uppercase/lowercase) and number (singular/plural) of the original text when translating."
             ]
-        },
-        "translation_references": {
+        }
+    if translate_refer:
+        translation_prompt["translation_references"] = {
             "rules": [
                 "Always use a translation from `specific_term_translations` if the source term appears there.",
                 "If it’s not in `specific_term_translations` but the entire source text exactly matches an entry in `translation_references.terms`, use that translation.",
@@ -156,10 +162,7 @@ def translate_prompt(src_lang, tgt_lang, json_str, refer_data_list,
             ],
             "terms": translate_refer
         },
-
-        "source_text": json_str,
-        "output_format": "json (key: 'translation' with translated text as value)"
-    }
+    
     if refer_text_condition:
         translation_prompt["use condition"] = {
             "condition": refer_text_condition,

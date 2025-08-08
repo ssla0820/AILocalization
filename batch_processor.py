@@ -26,11 +26,12 @@ from interface.run_interface import run_translation_interface
 # from verify import main as verify_main
 # from groundtruth_check.GroundTruth_Check import main as groundtruth_main
 from config import translate_config
-# import logging
+import logging
 from datetime import datetime
 import openpyxl
 from openpyxl.styles import Font, Alignment, PatternFill
 from config import translate_config as conf
+from pages.general_functions import setup_logging
 
 
 
@@ -176,7 +177,7 @@ def create_results_excel(results_file_path):
         
         # Save the file
         wb.save(results_file_path)
-        print(f"Created new results file: {results_file_path}")
+        logging.info(f"Created new results file: {results_file_path}")
 
 def add_result_to_excel(results_file_path, result_data):
     """
@@ -243,7 +244,7 @@ def extract_failed_sentences(compare_file_path):
                 continue
         
         if content is None:
-            print(f"Could not read comparison file with available encodings: {compare_file_path}")
+            logging.warning(f"Could not read comparison file with available encodings: {compare_file_path}")
             return ""
         
         # Parse HTML
@@ -265,7 +266,7 @@ def extract_failed_sentences(compare_file_path):
         return "; ".join(failed_sentences)
     
     except Exception as e:
-        print(f"Error extracting failed sentences from {compare_file_path}: {str(e)}")
+        logging.error(f"Error extracting failed sentences from {compare_file_path}: {str(e)}")
         return ""
 
 def merge_xlsx_translations(original_file, translated_files, output_file):
@@ -278,7 +279,7 @@ def merge_xlsx_translations(original_file, translated_files, output_file):
     :return: True if successful, False otherwise
     """
     try:
-        print(f"Merging {len(translated_files)} translated XLSX files into: {output_file}")
+        logging.info(f"Merging {len(translated_files)} translated XLSX files into: {output_file}")
         
         # Read the original file to get the base structure
         original_df = pd.read_excel(original_file)
@@ -295,7 +296,7 @@ def merge_xlsx_translations(original_file, translated_files, output_file):
                 
                 # The language should be in the second-to-last part (before the counter)
                 if len(name_parts) < 3:
-                    print(f"Warning: Could not determine language from filename: {filename}")
+                    logging.warning(f"Could not determine language from filename: {filename}")
                     lang_name = f"Translation_{len(merged_df.columns) + 1}"
                 else:
                     lang_name = name_parts[-2]
@@ -305,7 +306,7 @@ def merge_xlsx_translations(original_file, translated_files, output_file):
                 
                 # Check if the dataframe has at least 2 columns (source + translation)
                 if len(trans_df.columns) < 2:
-                    print(f"Warning: Translated file has insufficient columns: {trans_file}")
+                    logging.warning(f"Translated file has insufficient columns: {trans_file}")
                     continue
                 
                 # Get the second column (translation column)
@@ -314,10 +315,10 @@ def merge_xlsx_translations(original_file, translated_files, output_file):
                 # Add this column to the merged dataframe
                 merged_df[lang_name] = trans_df[trans_column]
                 
-                print(f"Added {lang_name} translations from {trans_file}")
+                logging.info(f"Added {lang_name} translations from {trans_file}")
                 
             except Exception as e:
-                print(f"Error processing translated file {trans_file}: {str(e)}")
+                logging.error(f"Error processing translated file {trans_file}: {str(e)}")
         
         # Save the merged dataframe
         merged_df.to_excel(output_file, index=False)
@@ -342,11 +343,11 @@ def merge_xlsx_translations(original_file, translated_files, output_file):
             ws.column_dimensions[openpyxl.utils.get_column_letter(col)].width = adjusted_width
         
         wb.save(output_file)
-        print(f"Successfully created merged Excel file: {output_file}")
+        logging.info(f"Successfully created merged Excel file: {output_file}")
         return True
         
     except Exception as e:
-        print(f"Error merging Excel files: {str(e)}")
+        logging.error(f"Error merging Excel files: {str(e)}")
         return False
 
 def process_batch_file(task):
@@ -379,7 +380,7 @@ def process_batch_file(task):
     target_languages = [target_language]
     is_multi_language = False
     if target_language in conf.MULTI_LANGUAGE_OPTIONS:
-        print(f"Multi-language option '{target_language}' detected. Will translate to {len(conf.MULTI_LANGUAGE_OPTIONS[target_language])} languages.")
+        logging.info(f"Multi-language option '{target_language}' detected. Will translate to {len(conf.MULTI_LANGUAGE_OPTIONS[target_language])} languages.")
         target_languages = conf.MULTI_LANGUAGE_OPTIONS[target_language]
         is_multi_language = True
     
@@ -399,12 +400,11 @@ def process_batch_file(task):
         region_table_path_list = [task.get('common_term').get('files')]
 
     
-    
-    print(f"Configuration: {source_language} -> {', '.join(target_languages)}, Software: {software_type}")
-    print(f"Source type: {source_type}")
-    print(f"Input folder: {input_folder}")
-    print(f"Output folder: {output_folder}")
-    print(f"Review folder: {review_folder}")
+    logging.info(f"Configuration: {source_language} -> {', '.join(target_languages)}, Software: {software_type}")
+    logging.info(f"Source type: {source_type}")
+    logging.info(f"Input folder: {input_folder}")
+    logging.info(f"Output folder: {output_folder}")
+    logging.info(f"Review folder: {review_folder}")
 
     # Create output directories if they don't exist
     ensure_dir(output_folder)
@@ -427,22 +427,22 @@ def process_batch_file(task):
         if region_table_path_list is None: region_table_path = None
         else: region_table_path = os.path.join(task.get('common_term')['folder'], region_table_path_list[0][current_target_language])
 
-        print(f"\n--- Processing language: {current_target_language} ---")
+        logging.info(f"\n--- Processing language: {current_target_language} ---")
         # Get all files to process from input folder
         files_to_process = get_files_to_process(input_folder)
-        print(f"Found {len(files_to_process)} files to process")
-        print('file to process:', files_to_process)
+        logging.info(f"Found {len(files_to_process)} files to process")
+        logging.info(f"Files to process: {files_to_process}")
         
         if not files_to_process:
-            print(f"No files found in input folder: {input_folder}")
+            logging.warning(f"No files found in input folder: {input_folder}")
             continue
         
         # Process each file
         for i, input_file in enumerate(files_to_process, 1):
             try:
-                print('='*100)
-                print(f"Processing file {i} of {len(files_to_process)}: {input_file}")
-                print('='*100)
+                logging.info('='*100)
+                logging.info(f"Processing file {i} of {len(files_to_process)}: {input_file}")
+                logging.info('='*100)
 
                 # Check if this is an Excel file
                 is_excel = input_file.lower().endswith(('.xlsx', '.xls'))
@@ -453,7 +453,7 @@ def process_batch_file(task):
                 refer_text_table_path = None
                 if refer_text_table_folder:
                     refer_text_table_path = get_refer_text_n_image_path(input_file, refer_text_table_folder)
-                print(f"Output file: {output_file}")
+                logging.info(f"Output file: {output_file}")
 
                 
                 # Get the file-specific image path folder if available
@@ -472,7 +472,7 @@ def process_batch_file(task):
                 }
                 
                 # Run translation
-                print(f"Starting translation...")
+                logging.info(f"Starting translation...")
                 translation_success = False
                 try:
                     translate_main(input_file, 
@@ -491,7 +491,7 @@ def process_batch_file(task):
                     
                     translation_success = os.path.exists(output_file)
                     result_data['translation_status'] = 'Success' if translation_success else 'Failed'
-                    print(f"Translation completed: {output_file}")
+                    logging.info(f"Translation completed: {output_file}")
                     
                     # If this is an Excel file and it's part of a multi-language translation,
                     # add it to the list of files to merge later
@@ -499,10 +499,10 @@ def process_batch_file(task):
                         if input_file not in xlsx_files_to_merge:
                             xlsx_files_to_merge[input_file] = []
                         xlsx_files_to_merge[input_file].append(output_file)
-                        print(f"Added {output_file} to Excel files to be merged later")
+                        logging.info(f"Added {output_file} to Excel files to be merged later")
                     
                 except Exception as e:
-                    print(f"Error in translation: {str(e)}")
+                    logging.error(f"Error in translation: {str(e)}")
                     result_data['translation_status'] = 'Failed'
 
                 # Add result to Excel file
@@ -516,7 +516,7 @@ def process_batch_file(task):
                 else:
                     error_count += 1
             except Exception as e:
-                print(f"Error processing file {input_file}: {str(e)}")
+                logging.error(f"Error processing file {input_file}: {str(e)}")
                 
                 # Add failed result to Excel
                 result_data = {
@@ -533,7 +533,7 @@ def process_batch_file(task):
         
         # After processing all languages, merge the Excel files if needed
         if xlsx_files_to_merge:
-            print(f"\n--- Merging Excel files for multi-language translations ---")
+            logging.info(f"\n--- Merging Excel files for multi-language translations ---")
             
             for input_file, translated_files in xlsx_files_to_merge.items():
                 # Only merge if we have multiple files
@@ -541,7 +541,7 @@ def process_batch_file(task):
                     # Generate output filename for merged file with the original multi-language code
                     merged_output = get_multi_language_xlsx_output(input_file, output_folder, target_languages, target_language)
                     
-                    print(f"Merging translations for {os.path.basename(input_file)} into {os.path.basename(merged_output)}")
+                    logging.info(f"Merging translations for {os.path.basename(input_file)} into {os.path.basename(merged_output)}")
                     
                     # Merge the files
                     merge_result = merge_xlsx_translations(input_file, translated_files, merged_output)
@@ -557,15 +557,15 @@ def process_batch_file(task):
                     add_result_to_excel(results_file, merge_result_data)
                     
                     if merge_result:
-                        print(f"Successfully merged Excel translations into: {merged_output}")
+                        logging.info(f"Successfully merged Excel translations into: {merged_output}")
                     else:
-                        print(f"Failed to merge Excel translations")
+                        logging.error(f"Failed to merge Excel translations")
         
     
-    print(f"Batch processing completed. Success: {success_count}, Errors: {error_count}")
-    print(f"Results saved to:")
+    logging.info(f"Batch processing completed. Success: {success_count}, Errors: {error_count}")
+    logging.info(f"Results saved to:")
     for results_file in results_files:
-        print(f"  - {results_file}")
+        logging.info(f"  - {results_file}")
         
     return {"success": success_count, "error": error_count, "results_files": results_files}
         
@@ -579,31 +579,37 @@ def main():
     
     :param batch_excel_path: Path to the batch Excel file
     """
+    # 設置 logging
+    log_file = setup_logging()
+    logging.info("Starting batch translation process")
+    
     tasks = run_translation_interface()
 
     if tasks:
-        print(f"Received {len(tasks)} translation tasks from the interface:")
+        logging.info(f"Received {len(tasks)} translation tasks from the interface:")
         for i, task in enumerate(tasks):
-            print(f"\nTask {i+1}:")
-            print(f"  Source Type: {task.get('source_type')}")
-            print(f"  Product Name: {task.get('product_name')}")
-            print(f"  Source Language: {task.get('source_lang')}")
-            print(f"  Target Language: {task.get('target_lang')}")
-            print(f"  Input File Path: {task.get('input_file_path')}")
-            print(f"  Need Review: {task.get('need_review')}")
+            logging.info(f"\nTask {i+1}:")
+            logging.info(f"  Source Type: {task.get('source_type')}")
+            logging.info(f"  Product Name: {task.get('product_name')}")
+            logging.info(f"  Source Language: {task.get('source_lang')}")
+            logging.info(f"  Target Language: {task.get('target_lang')}")
+            logging.info(f"  Input File Path: {task.get('input_file_path')}")
+            logging.info(f"  Need Review: {task.get('need_review')}")
 
     for task in tasks:
-        print(f"\nProcessing task: {task}")
+        logging.info(f"\nProcessing task: {task}")
         results = process_batch_file(task)
     
-    print(f"Batch processing summary:")
-    print(f"  Success: {results['success']} files")
-    print(f"  Errors: {results['error']} files")
+    logging.info(f"Batch processing summary:")
+    logging.info(f"  Success: {results['success']} files")
+    logging.info(f"  Errors: {results['error']} files")
     
     if 'results_files' in results:
-        print(f"  Results saved to:")
+        logging.info(f"  Results saved to:")
         for results_file in results['results_files']:
-            print(f"    - {results_file}")
+            logging.info(f"    - {results_file}")
+    
+    logging.info(f"Complete log saved to: {log_file}")
     
     return results
 
