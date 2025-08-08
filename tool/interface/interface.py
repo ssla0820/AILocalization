@@ -136,6 +136,13 @@ def execute_tool(tool_type, tool_subtype, params):
             module.main(
                 params["tm_file_path"]
             )
+        elif tool_subtype == "segment_for_refer":
+            module = load_tool_module("get_segment", 
+                Path(__file__).parent.parent / "Refer_Text_n_Image_Related" / "get_segment.py")
+            module.main(
+                params["source_folder"],
+                params["output_folder"]
+            )
         
         process_status["message"] = "Process completed successfully!"
             
