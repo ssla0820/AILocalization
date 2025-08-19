@@ -339,22 +339,22 @@ async def translate_groups(
         translated_text = list(as_json_obj(response).values())[-1]
         if need_review:
             # Add await to properly call the async function
-            translated_text = await review_n_improve_process(source_lang,
-                                                target_lang,
-                                                software_type,
-                                                source_type,
-                                                source_text, 
-                                                translated_text, 
-                                                relevant_specific_names,
-                                                relevant_region_table,
-                                                relevant_refer_text_table,
-                                                relevant_pair_database,
-                                                image_path,
-                                                model_list=conf.COMPARISON_MODEL, 
-                                                temperature=conf.TEMPERATURE, 
-                                                seed=conf.SEED,
-                                                review_path=review_report_path,
-                                                need_native_review=need_native_review)
+            await review_n_improve_process(source_lang,
+                                            target_lang,
+                                            software_type,
+                                            source_type,
+                                            source_text, 
+                                            translated_text, 
+                                            relevant_specific_names,
+                                            relevant_region_table,
+                                            relevant_refer_text_table,
+                                            relevant_pair_database,
+                                            image_path,
+                                            model_list=conf.COMPARISON_MODEL, 
+                                            temperature=conf.TEMPERATURE, 
+                                            seed=conf.SEED,
+                                            review_path=review_report_path,
+                                            need_native_review=need_native_review)
 
         groups_out[source_text_index] = translated_text
         logging.info(f"Final translated text for {source_text_index}: {translated_text}")

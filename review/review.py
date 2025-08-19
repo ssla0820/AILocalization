@@ -360,7 +360,7 @@ def save_review_results(file_path, review_result_dict, save_fail_only=False):
         else:
             existing_df = pd.DataFrame()
 
-        if save_fail_only and review_result_dict.get("review_pass_flag", True) is True:
+        if save_fail_only and review_result_dict.get("review_pass_flag", '') == 'Pass':
             return  # Skip saving if the review passed and we're only saving failures
         
         # Convert the review result into a DataFrame row
@@ -560,10 +560,14 @@ async def review_n_improve_process(source_lang,
                                 if value is None or not isinstance(value, dict):
                                     review_response_dict[key] = None
                                 else:
-                                    review_response_dict[key] = value['Suggestions']
+                                    review_response_dict[key] = {
+                                        'Score': value['Score'],
+                                        'Suggestions': value['Suggestions']
+                                    }
+
                             # Store the improvement suggestions
                             reviewed_dict[retry_time+1][model_name] = review_response_dict
-                            logging.debug(f'reviewed_dict for {retry_time+1} times: {reviewed_dict}')
+                            logging.info(f'reviewed_dict for {retry_time+1} times: {reviewed_dict}')
                         except Exception as e:
                             reviewed_dict[retry_time+1][model_name] = raw_review_response_dict
                             logging.error(f"Error processing review response for {model_name}: {str(e)}")
@@ -580,99 +584,28 @@ async def review_n_improve_process(source_lang,
                     process_pass_flag = True
                     break
 
-            #     # Second - do the re-translation
-            #     improve_response = ''
-            #     improve_stop_reason = ''
-                
-
-            #     # Combine the review suggestions into a single string
-            #     suggestions = []
-            #     for model_name, suggestions_list in reviewed_dict[retry_time+1].items():
-            #         if isinstance(suggestions_list, str):
-            #             suggestions.append(suggestions_list)
-            #         elif isinstance(suggestions_list, list):
-            #             suggestions.extend(suggestions_list)
-            #         elif isinstance(suggestions_list, dict):
-            #             suggestions.extend(list(suggestions_list.values()))
-            #     # suggestions = [s.strip() for s in suggestions if s.strip()]
-            #     print(f"Suggestions for re-translation: {suggestions}")
-
-            #     # Combine translated text (improved_dict) to a list
-            #     translated_text_list_str = str(list(improved_dict.values()))
-            #     print(f"Translated text list for re-translation: {translated_text_list_str}")
-
-            #     improve_text = improve_prompt(source_lang, target_lang, source_text, translated_text, relevant_specific_names, relevant_pair_database, suggestions=suggestions, translated_text=translated_text_list_str)
-                
-            #     # print(f'='*40)
-            #     # print(f'Current improve_text:\n{improve_text}')
-            #     # print(f'='*40)
-            #     try:
-            #         async for chunk, improve_stop_reason in improve_chat.get_stream_aresponse(improve_text, temperature=0.01):
-            #             improve_response += chunk
-                    
-            #         if improve_stop_reason == 'length':
-            #             raise RuntimeError("Improve response too short after hitting length limit.")
-                    
-            #     except RuntimeError as e:
-            #         print(f"Improve process failed: {str(e)}")
-                
-            #     print(f"Improve raw response:\n {improve_response}")
-                
-            #     # Parse the re-translation response                
-            #     improve_json = as_json_obj(improve_response)
-            #     if not improve_json:
-            #         print("Improve response is not in expected JSON format, trying to extract translation.")
-            #         translated_text = improve_response
-            #         improved_dict[retry_time+1] = translated_text
-            #         process_pass_flag = 'Error in improve response'
-            #         break
-
-            #     else:
-            #         translated_text = list(improve_json.values())[-1]
-            #         improved_dict[retry_time+1] = translated_text
-
-            #     if retry_time == 2:
-            #         process_pass_flag = False
-
-            # if 2 not in reviewed_dict.keys(): reviewed_dict[2] = {}
-            # if 3 not in reviewed_dict.keys(): reviewed_dict[3] = {}
-
-            # for model_name in model_list:
-            #     if model_name not in reviewed_dict[2].keys():
-            #         reviewed_dict[2][model_name] = 'N/A'
-            #     if model_name not in reviewed_dict[3].keys():
-            #         reviewed_dict[3][model_name] = 'N/A'
-
-            # if 1 not in improved_dict.keys(): improved_dict[1] = 'N/A'
-            # if 2 not in improved_dict.keys(): improved_dict[2] = 'N/A'
-            # if 3 not in improved_dict.keys(): improved_dict[3] = 'N/A'
-
-            # print(f'Current review result: {reviewed_dict}')
-            # print(f'Current improved result: {improved_dict}')            # Create a summary dictionary to collect all suggestions for each model
             summary_by_model = {}
-            
-            for key, value in reviewed_dict.items():
-                for model_name, suggestions in value.items():
+            score_by_model = []
+
+            for run_times, response_data in reviewed_dict.items():
+                for model_name, data_dict in response_data.items():
                     # Format suggestions dictionary with proper indentation if it's a dictionary
-                    if isinstance(suggestions, dict):
-                        import json
-                        # Store as a formatted JSON string with indentation
-                        # ensure_ascii=False preserves East Asian characters
-                        # review_result_dict[f"{model_name}_review_{key}"] = json.dumps(suggestions, indent=4, ensure_ascii=False)
-                        
+                    if isinstance(data_dict, dict):
                         # Add to the model's summary if it's not already there
                         if model_name not in summary_by_model:
                             summary_by_model[model_name] = []
                         
                         # Add only the suggestion content to the summary
-                        for category, suggestion in suggestions.items():
+                        for category, data in data_dict.items():
+                            suggestion = data.get('Suggestions', None)
                             if suggestion:  # Only add non-empty suggestions
                                 # summary_by_model[model_name].append(f"{category}: {suggestion}")
                                 summary_by_model[model_name].append(f"{suggestion[0]}")
+                            score_by_model.append(data.get('Score', None))
                     # else:
                     #     review_result_dict[f"{model_name}_review_{key}"] = suggestions
-                
-                # review_result_dict[f"improved_{key}"] = improved_dict[key]
+                    
+                    # review_result_dict[f"improved_{key}"] = improved_dict[key]
             
             # Add the summary columns to the review result dictionary
             for model_name, summary_items in summary_by_model.items():
@@ -683,6 +616,37 @@ async def review_n_improve_process(source_lang,
                 else:
                     review_result_dict[f"summary_{model_name}"] = "No suggestions"
             
+    
+            # Filter out non-float values from score_by_model
+            filtered_score_by_model = []
+            for score in score_by_model:
+                if score is not None:
+                    try:
+                        # Try to convert to float
+                        float_score = float(score)
+                        filtered_score_by_model.append(float_score)
+                    except (ValueError, TypeError):
+                        # Skip if not convertible to float
+                        continue
+
+            # Calculate average score if we have valid scores
+            if filtered_score_by_model:
+                average_score = sum(filtered_score_by_model) / len(filtered_score_by_model)
+                review_result_dict["average_score"] = round(average_score, 2)
+            else:
+                review_result_dict["average_score"] = None
+
+            if process_pass_flag is False and review_result_dict.get("average_score", 0) >= 10.0:
+                process_pass_flag = 'Pass'
+            elif process_pass_flag is False and review_result_dict.get("average_score", 0) >= conf.REVIEW_PASS_SCORE:
+                process_pass_flag = 'S2'
+            elif process_pass_flag is False:
+                process_pass_flag = 'S1'
+            elif process_pass_flag is True:
+                process_pass_flag = 'Pass'
+
+
+
             review_result_dict["review_pass_flag"] = process_pass_flag
             # review_result_dict["final_translated_text"] = translated_text
 

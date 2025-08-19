@@ -19,19 +19,26 @@ You can optionally specify a custom GROUND_TRUTH_PATH for each row.
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__))))
-# import asyncio
-import pandas as pd
-from translate.translate import main as translate_main
+
+# Fast imports for interface startup - heavy imports moved to after interface is ready
 from interface.run_interface import run_translation_interface
-# from verify import main as verify_main
-# from groundtruth_check.GroundTruth_Check import main as groundtruth_main
-from config import translate_config
-import logging
-from datetime import datetime
-import openpyxl
-from openpyxl.styles import Font, Alignment, PatternFill
-from config import translate_config as conf
-from pages.general_functions import setup_logging
+
+def load_heavy_imports():
+    """
+    Load all heavy imports after the interface is ready to optimize startup time.
+    """
+    global pd, translate_main, translate_config, logging, datetime, openpyxl, Font, Alignment, PatternFill, conf, setup_logging
+    
+    # Import all heavy modules
+    import pandas as pd
+    from translate.translate import main as translate_main  
+    from config import translate_config
+    import logging
+    from datetime import datetime
+    import openpyxl
+    from openpyxl.styles import Font, Alignment, PatternFill
+    from config import translate_config as conf
+    from pages.general_functions import setup_logging
 
 
 
@@ -579,12 +586,22 @@ def main():
     
     :param batch_excel_path: Path to the batch Excel file
     """
-    # 設置 logging
+    # Start the interface first to minimize startup time
+    print("Starting translation interface...")
+    tasks = run_translation_interface()
+
+    if not tasks:
+        print("No translation tasks were configured or the interface was closed without submitting.")
+        return {"success": 0, "error": 0, "results_files": []}
+
+    # Load heavy imports only after the interface has provided tasks
+    print("Loading translation modules...")
+    load_heavy_imports()
+    
+    # 設置 logging (after heavy imports are loaded)
     log_file = setup_logging()
     logging.info("Starting batch translation process")
     
-    tasks = run_translation_interface()
-
     if tasks:
         logging.info(f"Received {len(tasks)} translation tasks from the interface:")
         for i, task in enumerate(tasks):

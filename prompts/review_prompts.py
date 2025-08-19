@@ -28,8 +28,6 @@ class ReviewPrompts:
         self.region_table = region_table
         self.refer_text_table = refer_text_table
         self.translate_refer = translate_refer
-
-
         
     def get_language_review_guidance(self):
         '''
@@ -152,7 +150,7 @@ class ReviewPrompts:
             "strict_json_response": [
                 "YOUR RESPONSE MUST BE VALID JSON ONLY. Do not include any text before or after the JSON.",
                 "The response must begin with a single opening curly brace '{' and end with a single closing curly brace '}'.",
-                "Use double quotes for all keys and string values, not single quotes.",
+                "Use double quotes for keys and string values, not single quotes.",
                 "All numeric values must be numbers without quotes.",
                 "All lists must be enclosed in square brackets [], even if there's only one item.",
                 "If a score value is less than 10.0, the corresponding suggestion list MUST be a valid array with at least one item.",
@@ -248,9 +246,16 @@ class ReviewPrompts:
                     "Check each gendered word carefully, one by one."
                 ]
         
+        system_prompt["scoring_instructions"] = [
+            "IMPORTANT: Evaluate the translation using ALL the above criteria (accuracy, native, word, grammar, consistency, gender).",
+            "Consider each criterion carefully, but provide only ONE overall score that reflects the combined assessment.",
+            "The final score should represent the overall quality considering all aspects together.",
+            "If any criterion has significant issues, it should lower the overall score accordingly.",
+            "Do NOT provide separate scores for each criterion - only one comprehensive Score value."
+        ]
+        
         system_prompt["json_response_example"] = {
                 "Score": 8.0, 
-                # "Type": ["Accuracy", "Native Usage", "Word Correctness", "Grammar", "Consistency", "Gender"],
                 "Suggestions": ["incorrect term 1 with reason and suggestion", "incorrect term 2 with reason and suggestion"],
             }
 
@@ -263,21 +268,26 @@ class ReviewPrompts:
         review_prompt = self.default_review_prompt()
         review_prompt["required_output_format"]["example_response"] = {
                 "Score": 8.0, 
-                # "Type": ["Accuracy", "Native Usage", "Word Correctness", "Grammar", "Consistency", "Gender"],
                 "Suggestions": ["incorrect term 1 with reason and suggestion", "incorrect term 2 with reason and suggestion"],
             }
 
         review_prompt["required_output_format"]["format"] = {
-                "Score": "Float (Score from 0 to 10, where 0 means no accuracy and 10 means perfect accuracy)",
+                "Score": "Float (Overall comprehensive score from 0 to 10 considering accuracy, naturalness, word choice, grammar, consistency, and gender appropriateness)",
                 "Suggestions":[
-                    "a list of ERROR WORDS or PHRASES ONLY if 'Score' less than 10.0 else return []",
-                    "a list of ERROR TYPE in 'Type' only if 'Score' less than 10.0 else return []",
-                    # "Must be a list of strings (e.g., [\"word1\", \"word2\"]), not a single string.",
-                    "If score is less than 10.0, the list MUST NOT be empty or None.",
-                    "Response the incorrect phrases or words that cause the accuracy score to be less than 10.0.",
-                    "Response the incorrect pharases and words, reasons, and suggestions to improve the translation accuracy.",
+                    "a list of ERROR WORDS or PHRASES ONLY if 'Score' less than 10.0 else return null",
+                    "If score is less than 10.0, the list MUST NOT be empty or null.",
+                    "Response the incorrect phrases or words that cause the overall score to be less than 10.0.",
+                    "Include reasons and suggestions to improve the translation quality in any of the evaluated aspects.",
                 ]
             }
+        
+        # 新增單一評分格式要求
+        review_prompt["output_format_critical"] = [
+            "CRITICAL: Provide only ONE Score value that represents the overall quality assessment.",
+            "Do NOT provide separate scores for accuracy, native, word, grammar, consistency, or gender.",
+            "The single Score should reflect your comprehensive evaluation of all these aspects combined.",
+            "Your response must be in the exact format: {'Score': X.X, 'Suggestions': [...]} or {'Score': X.X, 'Suggestions': null}"
+        ]
         
         # Convert to JSON string
         import json

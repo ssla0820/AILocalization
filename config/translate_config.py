@@ -48,6 +48,9 @@ RESTRUCT_MODEL = 'o3-2025-04-16'
 TEMPERATURE = 0.0
 SEED = 42
 
+
+REVIEW_PASS_SCORE = 8.5
+
 CHECK_VERIFICATION = True  # Set to True to run verification after translation
 CHECK_GROUND_TRUTH = True  # Set to True to check the ground truth
 GROUND_TRUTH_EXCEL_PATH = r"E:\Debby\9_Scripts\TranslateHTML\Translate_HTML_XML_v6\ground_truth.xlsx"  # Path to the ground truth Excel file
