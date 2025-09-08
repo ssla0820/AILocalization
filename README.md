@@ -68,6 +68,8 @@ batch_processor.py (Main Entry Point)
 - **`openai_api_conf.py`** - OpenAI API configuration
 - **`gemini_api_conf.py`** - Gemini API configuration
 
+> **Note**: For OpenAI API pricing and model information, visit: https://platform.openai.com/docs/pricing
+
 #### Communication Layer (`chat/`)
 - **`openai_api_chat.py`** - AI conversation handling and API communication
 
@@ -231,3 +233,120 @@ Each workflow step utilizes specific modules:
 | 6. Review | `review/review.py` | `prompts/review_prompts.py`, `chat/openai_api_chat.py` |
 | 7. Restructure | `translate/restruct.py` | `prompts/restruct_prompts.py` |
 | 8. Output | `batch_processor.py` | `pages/general_functions.py` |
+
+## How to Extend the System
+
+The system is designed to be easily extensible for new products and languages. Follow these procedures to add support for new products or languages:
+
+## Extending Product Support
+
+### Step 1: Add Product Name Option in Interface
+1. **Edit `interface/interface.py`**:
+   - Locate the product selection dropdown in the HTML template
+   - Add your new product option to the product list
+   - Example: Add "PhotoDirector Mobile" to existing options
+
+2. **Update Interface Templates**:
+   - Modify `interface/templates/index.html`
+   - Add the new product option in the product selection dropdown:
+   ```html
+   <option value="PDM">PhotoDirector Mobile</option>
+   ```
+
+### Step 2: Add Product-Software Type Mapping
+1. **Edit `config/translate_config.py`**:
+   - Locate the `SOFTWARE_TYPE_MAP` dictionary
+   - Add mapping between your product code and software type
+   ```python
+   SOFTWARE_TYPE_MAP = {
+       'PDR': 'Video Editing Software',
+       'PHD': 'Image Editing Software',
+       'PDM': 'Photo Editing Software on Mobile',  # New mapping
+   }
+   ```
+
+### Step 3: Modify Translation Prompts (Optional)
+If the translation style differs from PC products (e.g., mobile vs desktop terminology):
+
+1. **Edit `prompts/translate_prompts.py`**:
+   - Add conditional logic for mobile-specific terminology
+   - Create mobile-specific prompt templates if needed
+   ```python
+   def get_translation_prompt(software_type, source_lang, target_lang):
+       if "Mobile" in software_type:
+           # Use mobile-specific prompts
+           return mobile_translation_prompt(source_lang, target_lang)
+       else:
+           # Use standard desktop prompts
+           return standard_translation_prompt(source_lang, target_lang)
+   ```
+
+2. **Create Mobile-Specific Terminology**:
+   - Update glossary files to include mobile-specific terms
+   - Consider UI differences (tap vs click, swipe vs drag, etc.)
+
+## Extending Language Support
+
+### Step 1: Download Microsoft Translation Guide
+1. **Obtain Official Translation Guidelines**:
+   - Download Microsoft's official translation guide for the target language
+   - Focus on UI translation principles and terminology standards
+   - Note any culture-specific considerations
+
+### Step 2: Generate Translation Principles Using Notebook LLM
+1. **Create Language-Specific Principles**:
+   - Use a Jupyter notebook with LLM integration
+   - Process the Microsoft translation guide
+   - Generate specific translation principles for the target language
+   
+
+### Step 3: Use Generate General Prompt Tool (Optional)
+For fine-tuning translation prompts based on actual translation data:
+
+1. **Prepare Translation Memory**:
+   - Ensure you have at least 50 high-quality translation pairs
+   - Store them in the translation memory database
+
+2. **Run the Prompt Generation Tool**:
+   - Navigate to: **Tool > Prompt > Generate General Prompt**
+   - Located in: `tool/Prompt/generate_general_prompts.py`
+   - The tool analyzes the first 50 translation pairs to generate optimized prompts
+
+3. **Process Raw Response**:
+   - The tool generates raw prompt suggestions
+   - Manual review and refinement is needed
+
+4. **Integration Steps**:
+   - Review and refine the generated prompts manually
+   - Test with sample translations
+   - Integrate approved prompts into `prompts/translate_prompts.py`
+   - Update language configuration in `config/translate_config.py`
+
+### Step 4: Update Configuration Files
+1. **Add Language to Configuration**:
+   - Edit `config/translate_config.py`
+   - Add language to `LANGUAGE_MAP`:
+   ```python
+   LANGUAGE_MAP = {
+       # Existing languages...
+       'New Language Name': 'NLG',  # Add your language
+   }
+   ```
+
+2. **Update Multi-language Options** (if applicable):
+   ```python
+   MULTI_LANGUAGE_OPTIONS = {
+       # Existing options...
+       '16L': [existing_languages + ['New Language Name']],
+   }
+   ```
+
+### Step 5: Testing and Validation
+1. **Test Translation Quality**:
+   - Run sample translations with the new configuration
+   - Validate terminology consistency
+   - Check cultural appropriateness
+
+2. **Update Documentation**:
+   - Document any language-specific considerations
+   - Update user guides with new language support
